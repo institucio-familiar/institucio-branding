@@ -4,6 +4,7 @@ import type { APIRoute } from 'astro'
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    console.log('Revalidate request:', request)
     const secret = request.headers.get('x-revalidate-secret')
 
     if (secret !== import.meta.env.REVALIDATE_SECRET) {
