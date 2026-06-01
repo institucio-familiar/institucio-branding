@@ -1,0 +1,32 @@
+---
+const navLinks = [
+  { href: '/', label: 'Index' },
+  { href: '/test', label: 'Test' }
+]
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-ink text-white">
+  <div
+    class="flex flex-col gap-10 px-6 py-8 sm:px-8 sm:flex-row sm:items-end sm:justify-between"
+  >
+    <div class="flex flex-col gap-3">
+      <p class="text-subhead font-medium leading-none">Institució Branding</p>
+      <p class="text-small text-mist">&copy; {year} All rights reserved.</p>
+    </div>
+
+    <nav class="flex flex-wrap gap-x-8 gap-y-3 text-body">
+      {
+        navLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class="text-mist transition-colors duration-200 hover:text-white"
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>

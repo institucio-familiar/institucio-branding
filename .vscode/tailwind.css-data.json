@@ -1,0 +1,25 @@
+{
+  "version": 1.2,
+  "atDirectives": [
+    {
+      "name": "@theme",
+      "description": "Tailwind CSS v4: define design tokens (colors, fonts, etc.)."
+    },
+    {
+      "name": "@utility",
+      "description": "Tailwind CSS v4: add custom utilities."
+    },
+    {
+      "name": "@variant",
+      "description": "Tailwind CSS v4: add custom variants."
+    },
+    {
+      "name": "@plugin",
+      "description": "Tailwind CSS v4: load a plugin."
+    },
+    {
+      "name": "@source",
+      "description": "Tailwind CSS v4: specify content sources for class detection."
+    }
+  ]
+}
