@@ -4,7 +4,7 @@ import type { APIRoute } from 'astro'
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    console.log('Revalidate request:', request)
+    // console.log('Revalidate request:', request)
     const secret = request.headers.get('x-revalidate-secret')
 
     if (secret !== import.meta.env.SANITY_REVALIDATE_SECRET) {
@@ -13,9 +13,17 @@ export const POST: APIRoute = async ({ request }) => {
 
     const body = await request.json()
 
-    console.log('Revalidate request:', body)
+    // console.log('Revalidate request:', body)
 
     const bypassToken = secret ?? '' // TESTINGAL (Typescript fix)
+
+    // TESTINGAL > Decide how to revalidate. Could map types and slugs to paths.
+    // Now the sanity webhook returns {_type, _id, slug }
+    // {
+    //   _id: '7ddf8774-2f0b-4bbf-94ca-d32dd9d1f2d5',
+    //   _type: 'test',
+    //   slug: { _type: 'slug', current: 'first-one-change-1' }
+    // }
     const url = buildUrl()
 
     const response = await fetch(url, {
@@ -35,7 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
       ...(body && typeof body === 'object' ? { webhook: body } : {})
     }
 
-    console.log('Revalidate response:', payload)
+    // console.log('Revalidate response:', payload)
 
     // TESTINGAL > Vercel revalidate by tags
     // const { slug } = await request.json()
@@ -53,5 +61,6 @@ export const POST: APIRoute = async ({ request }) => {
 }
 
 function buildUrl() {
+  // Include other urls in this function
   return new URL('/', 'https://institucio-branding.vercel.app')
 }
