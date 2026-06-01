@@ -8,16 +8,23 @@ import sanity from '@sanity/astro'
 import react from '@astrojs/react'
 import vercel from '@astrojs/vercel'
 
-const { PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET } = loadEnv(
-  process.env.NODE_ENV,
-  process.cwd(),
-  ''
-)
+const {
+  PUBLIC_SANITY_PROJECT_ID,
+  PUBLIC_SANITY_DATASET,
+  SANITY_REVALIDATE_SECRET
+} = loadEnv(process.env.NODE_ENV, process.cwd(), '')
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://institucio-branding.vercel.app',
-  output: 'static',
+  // Output server to use ISR with Sanity
+  output: 'server',
+  adapter: vercel({
+    isr: {
+      bypassToken: SANITY_REVALIDATE_SECRET,
+      exclude: ['/api/revalidate', /^\/studio/]
+    }
+  }),
   vite: {
     plugins: [tailwindcss()]
   },
@@ -31,12 +38,11 @@ export default defineConfig({
       // Optional: log server-side Sanity client requests.
       // Modes: 'dev' | 'build' | 'always'
       logClientRequests: 'dev',
-      // Access the Studio on your.url/admin
-      studioBasePath: '/admin'
+      // Access the Studio on your.url/studio
+      studioBasePath: '/studio'
     }),
     react()
   ],
-  adapter: vercel(),
   fonts: [
     {
       provider: fontProviders.local(),
