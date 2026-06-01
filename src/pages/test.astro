@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro'
+import testSvg from '../assets/svgs/test.svg'
+---
+
+<Layout>
+  <main class="flex min-h-screen flex-col items-end justify-center bg-ink">
+    <div class="relative h-screen">
+      <img
+        src={testSvg.src}
+        alt="Test SVG"
+        width={testSvg.width}
+        height={testSvg.height}
+        class="absolute top-[50%] -translate-y-1/2 left-[-30px]"
+      />
+      <div class="bg-blue h-full w-[350px]"></div>
+    </div>
+  </main>
+</Layout>

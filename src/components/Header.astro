@@ -1,0 +1,30 @@
+---
+const navLinks = [
+  { href: '/', label: 'Index' },
+  { href: '/test', label: 'Test' }
+]
+---
+
+<header class="w-full bg-ink text-white">
+  <div class="flex w-full items-center justify-between px-6 py-8 sm:px-8">
+    <a
+      href="/"
+      class="text-body font-medium leading-none transition-colors duration-200 hover:text-mist"
+    >
+      Institució Branding
+    </a>
+
+    <nav class="flex flex-wrap gap-x-8 gap-y-3 text-body">
+      {
+        navLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class="text-mist transition-colors duration-200 hover:text-white"
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

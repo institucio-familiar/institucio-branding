@@ -17,6 +17,9 @@ importers:
       '@astrojs/vercel':
         specifier: ^10.0.8
         version: 10.0.8(astro@6.4.2(@vercel/functions@3.6.1)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.4)(tsx@4.22.4)(yaml@2.9.0))(react@19.2.6)(rollup@4.60.4)
+      '@locomotivemtl/grid-helper':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@sanity/astro':
         specifier: ^3.4.0
         version: 3.4.0(@emotion/is-prop-valid@1.4.0)(@sanity/client@7.22.1)(@sanity/types@5.28.0(@types/react@19.2.15))(astro@6.4.2(@vercel/functions@3.6.1)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.4)(tsx@4.22.4)(yaml@2.9.0))(react-dom@19.2.6(react@19.2.6))(react-is@19.2.6)(react@19.2.6)(sanity@5.28.0(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.11.4)(@sanity/cli-core@1.3.2(@noble/hashes@2.2.0)(lightningcss@1.32.0)(yaml@2.9.0))(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(jiti@2.7.0)(lightningcss@1.32.0)(prismjs@1.30.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3))(styled-components@6.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)
@@ -26,6 +29,15 @@ importers:
       '@sanity/image-url':
         specifier: ^2.1.1
         version: 2.1.1
+      '@swup/head-plugin':
+        specifier: ^2.3.1
+        version: 2.3.1(swup@4.9.0)
+      '@swup/preload-plugin':
+        specifier: ^3.2.11
+        version: 3.2.11(swup@4.9.0)
+      '@swup/scripts-plugin':
+        specifier: ^2.1.0
+        version: 2.1.0(swup@4.9.0)
       '@tailwindcss/vite':
         specifier: ^4.3.0
         version: 4.3.0(vite@8.0.14(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
@@ -35,15 +47,30 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.15)
+      '@vercel/analytics':
+        specifier: ^2.0.1
+        version: 2.0.1(react@19.2.6)
       astro:
         specifier: ^6.4.2
         version: 6.4.2(@vercel/functions@3.6.1)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.4)(tsx@4.22.4)(yaml@2.9.0)
       astro-portabletext:
         specifier: ^0.13.0
         version: 0.13.0(astro@6.4.2(@vercel/functions@3.6.1)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.4)(tsx@4.22.4)(yaml@2.9.0))
+      locomotive-scroll:
+        specifier: ^5.0.1
+        version: 5.0.1(react@19.2.6)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.18.1
+      nanostores:
+        specifier: ^1.3.0
+        version: 1.3.0
       react:
         specifier: ^19.2.6
         version: 19.2.6
+      react-compiler-runtime:
+        specifier: ^1.0.0
+        version: 1.0.0(react@19.2.6)
       react-dom:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
@@ -56,9 +83,15 @@ importers:
       styled-components:
         specifier: ^6.4.2
         version: 6.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      swup:
+        specifier: ^4.9.0
+        version: 4.9.0
       tailwindcss:
         specifier: ^4.3.0
         version: 4.3.0
+      ts-debounce:
+        specifier: ^5.0.1
+        version: 5.0.1
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1720,6 +1753,10 @@ packages:
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
+  '@locomotivemtl/grid-helper@1.1.0':
+    resolution: {integrity: sha512-5g8OGLwOi2q1ap/cslN8EwAW/lA87DKrX5U775GLkzoOy2N31SoSRrpv/xqsBJr2nNSY5nQfxJ3TUcSfMc+8Tg==}
+    engines: {node: '>=20'}
+
   '@mapbox/node-pre-gyp@2.0.3':
     resolution: {integrity: sha512-uwPAhccfFJlsfCxMYTwOdVfOz3xqyj8xYL3zJj8f0pb30tLohnnFPhLuqp4/qoEz8sNxe4SESZedcBojRefIzg==}
     engines: {node: '>=18'}
@@ -2565,6 +2602,24 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
+  '@swup/head-plugin@2.3.1':
+    resolution: {integrity: sha512-kdv60fO9c0/3+K40f7Fj/uV34nSuuPeCsld83J5uVVFizOmoovA737C5M1Iqac5Spf2GLU7q+mhN6AbohSIBjA==}
+    peerDependencies:
+      swup: ^4.6.0
+
+  '@swup/plugin@4.0.0':
+    resolution: {integrity: sha512-3Kq31BJxnzoPg643YxGoWQggoU6VPKZpdE5CqqmP7wwkpCYTzkRmrfcQ29mGhsSS7xfS7D33iZoBiwY+wPoo2A==}
+
+  '@swup/preload-plugin@3.2.11':
+    resolution: {integrity: sha512-dq50u+d8L+63/pU6dUDnypuBoF49ubjRzRJqitGem2K7wRn7xccxRSvdyeGKdA2vNvzGDAmLfwVTZdSotvvDrw==}
+    peerDependencies:
+      swup: ^4.0.0
+
+  '@swup/scripts-plugin@2.1.0':
+    resolution: {integrity: sha512-JSMFsFCN9gn4q3m1Ccv0gq3gwRoZl6UGALOQO3OeQ8wOIq9vPC5dcUD3CMBuaPanksjR4GC8ZoukIjHrlT52fg==}
+    peerDependencies:
+      swup: ^4.2.0
+
   '@tailwindcss/node@4.3.0':
     resolution: {integrity: sha512-aFb4gUhFOgdh9AXo4IzBEOzBkkAxm9VigwDJnMIYv3lcfXCJVesNfbEaBl4BNgVRyid92AmdviqwBUBRKSeY3g==}
 
@@ -2775,6 +2830,35 @@ packages:
       '@sveltejs/kit':
         optional: true
       next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
+
+  '@vercel/analytics@2.0.1':
+    resolution: {integrity: sha512-MTQG6V9qQrt1tsDeF+2Uoo5aPjqbVPys1xvnIftXSJYG2SrwXRHnqEvVoYID7BTruDz4lCd2Z7rM1BdkUehk2g==}
+    peerDependencies:
+      '@remix-run/react': ^2
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      nuxt: '>= 3'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      nuxt:
         optional: true
       react:
         optional: true
@@ -3387,6 +3471,9 @@ packages:
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
+
+  delegate-it@6.4.0:
+    resolution: {integrity: sha512-NbMljKgnyvQQFLRx3hjPs2x++R3GzIZgvtINq/Q7PzxiC58CSG+N2RT8x4qF7JhkFZI4h9zZ1BszoJYdYREkbA==}
 
   dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
@@ -4175,6 +4262,20 @@ packages:
     resolution: {integrity: sha512-6BoLX9xuvr+B/f05MOhJnzRdF8Za5YYh82n45ndun9EU3uhJv9kIwnYrOrvuA7MoGwZgCMI7RUhBRzfw/l63SQ==}
     engines: {node: '>=14'}
 
+  lenis@1.3.17:
+    resolution: {integrity: sha512-k9T9rgcxne49ggJOvXCraWn5dt7u2mO+BNkhyu6yxuEnm9c092kAW5Bus5SO211zUvx7aCCEtzy9UWr0RB+oJw==}
+    peerDependencies:
+      '@nuxt/kit': '>=3.0.0'
+      react: '>=17.0.0'
+      vue: '>=3.0.0'
+    peerDependenciesMeta:
+      '@nuxt/kit':
+        optional: true
+      react:
+        optional: true
+      vue:
+        optional: true
+
   leven@3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
@@ -4263,6 +4364,10 @@ packages:
   locate-path@3.0.0:
     resolution: {integrity: sha512-7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A==}
     engines: {node: '>=6'}
+
+  locomotive-scroll@5.0.1:
+    resolution: {integrity: sha512-dCgGixh7Xu3AVrG/N8HCXImN5MrqkuI1mnjejbsMWDB7CIYy7ekd5JtglI9mfdCVReCgHdsyQ1a7We31HfNyrg==}
+    engines: {node: '>=20'}
 
   lodash-es@4.18.1:
     resolution: {integrity: sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==}
@@ -4571,6 +4676,10 @@ packages:
     resolution: {integrity: sha512-v+KEsUv2ps74PaSKv0gHTxTCgMXOIfBEbaqa6w6ISIGC7ZsvHN4N9oJ8d4cmf0n5oTzQz2SLmThbQWhjd/8eKg==}
     engines: {node: ^18 || >=20}
     hasBin: true
+
+  nanostores@1.3.0:
+    resolution: {integrity: sha512-XPUa/jz+P1oJvN9VBxw4L9MtdFfaH3DAryqPssqhb2kXjmb9npz0dly6rCsgFWOPr4Yg9mTfM3MDZgZZ+7A3lA==}
+    engines: {node: ^20.0.0 || >=22.0.0}
 
   neotraverse@0.6.18:
     resolution: {integrity: sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==}
@@ -5346,6 +5455,9 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  swup@4.9.0:
+    resolution: {integrity: sha512-XRM9gfvIAXMh/FxeQLJXMAqmKv3jmr4jCm0Efpv1qz5RRII714EqvpPACS2jZFp58RMGbAS/+5R5HxPVy9g0hw==}
+
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
@@ -5443,6 +5555,9 @@ packages:
   ts-brand@0.2.0:
     resolution: {integrity: sha512-H5uo7OqMvd91D2EefFmltBP9oeNInNzWLAZUSt6coGDn8b814Eis6SnEtzyXORr9ccEb38PfzyiRVDacdkycSQ==}
 
+  ts-debounce@5.0.1:
+    resolution: {integrity: sha512-HzwqxastMnaSKu96T8S+fRUorxSptTawIc9004Fs6R9MduRo5IqOE6jS2RfJCl4DVwJvxdcYEXg8g5zQCQR0Ow==}
+
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
@@ -5483,6 +5598,9 @@ packages:
   type-fest@5.6.0:
     resolution: {integrity: sha512-8ZiHFm91orbSAe2PSAiSVBVko18pbhbiB3U9GglSzF/zCGkR+rxpHx6sEMCUm4kxY4LjDIUGgCfUMtwfZfjfUA==}
     engines: {node: '>=20'}
+
+  typed-query-selector@2.12.2:
+    resolution: {integrity: sha512-EOPFbyIub4ngnEdqi2yOcNeDLaX/0jcE1JoAXQDDMIthap7FoN795lc/SHfIq2d416VufXpM8z/lD+WRm2gfOQ==}
 
   typeid-js@0.3.0:
     resolution: {integrity: sha512-A1EmvIWG6xwYRfHuYUjPltHqteZ1EiDG+HOmbIYXeHUVztmnGrPIfU9KIK1QC30x59ko0r4JsMlwzsALCyiB3Q==}
@@ -7786,6 +7904,8 @@ snapshots:
 
   '@juggle/resize-observer@3.4.0': {}
 
+  '@locomotivemtl/grid-helper@1.1.0': {}
+
   '@mapbox/node-pre-gyp@2.0.3':
     dependencies:
       consola: 3.4.2
@@ -8880,6 +9000,25 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
+  '@swup/head-plugin@2.3.1(swup@4.9.0)':
+    dependencies:
+      '@swup/plugin': 4.0.0
+      swup: 4.9.0
+
+  '@swup/plugin@4.0.0':
+    dependencies:
+      swup: 4.9.0
+
+  '@swup/preload-plugin@3.2.11(swup@4.9.0)':
+    dependencies:
+      '@swup/plugin': 4.0.0
+      swup: 4.9.0
+
+  '@swup/scripts-plugin@2.1.0(swup@4.9.0)':
+    dependencies:
+      '@swup/plugin': 4.0.0
+      swup: 4.9.0
+
   '@tailwindcss/node@4.3.0':
     dependencies:
       '@jridgewell/remapping': 2.3.5
@@ -9049,6 +9188,10 @@ snapshots:
   '@ungap/structured-clone@1.3.1': {}
 
   '@vercel/analytics@1.6.1(react@19.2.6)':
+    optionalDependencies:
+      react: 19.2.6
+
+  '@vercel/analytics@2.0.1(react@19.2.6)':
     optionalDependencies:
       react: 19.2.6
 
@@ -9735,6 +9878,10 @@ snapshots:
   defu@6.1.7: {}
 
   delayed-stream@1.0.0: {}
+
+  delegate-it@6.4.0:
+    dependencies:
+      typed-query-selector: 2.12.2
 
   dequal@2.0.3: {}
 
@@ -10610,6 +10757,10 @@ snapshots:
 
   lambda-runtimes@2.0.5: {}
 
+  lenis@1.3.17(react@19.2.6):
+    optionalDependencies:
+      react: 19.2.6
+
   leven@3.1.0: {}
 
   lightningcss-android-arm64@1.32.0:
@@ -10671,6 +10822,14 @@ snapshots:
     dependencies:
       p-locate: 3.0.0
       path-exists: 3.0.0
+
+  locomotive-scroll@5.0.1(react@19.2.6):
+    dependencies:
+      lenis: 1.3.17(react@19.2.6)
+    transitivePeerDependencies:
+      - '@nuxt/kit'
+      - react
+      - vue
 
   lodash-es@4.18.1: {}
 
@@ -11134,6 +11293,8 @@ snapshots:
   nanoid@3.3.12: {}
 
   nanoid@5.1.11: {}
+
+  nanostores@1.3.0: {}
 
   neotraverse@0.6.18: {}
 
@@ -12124,6 +12285,11 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.6.0
 
+  swup@4.9.0:
+    dependencies:
+      delegate-it: 6.4.0
+      path-to-regexp: 6.3.0
+
   symbol-tree@3.2.4: {}
 
   tagged-tag@1.0.0: {}
@@ -12236,6 +12402,8 @@ snapshots:
 
   ts-brand@0.2.0: {}
 
+  ts-debounce@5.0.1: {}
+
   tsconfck@3.1.6(typescript@6.0.3):
     optionalDependencies:
       typescript: 6.0.3
@@ -12267,6 +12435,8 @@ snapshots:
   type-fest@5.6.0:
     dependencies:
       tagged-tag: 1.0.0
+
+  typed-query-selector@2.12.2: {}
 
   typeid-js@0.3.0:
     dependencies:
