@@ -7,7 +7,7 @@ export const POST: APIRoute = async ({ request }) => {
     console.log('Revalidate request:', request)
     const secret = request.headers.get('x-revalidate-secret')
 
-    if (secret !== import.meta.env.REVALIDATE_SECRET) {
+    if (secret !== import.meta.env.SANITY_REVALIDATE_SECRET) {
       return new Response('Unauthorized', { status: 401 })
     }
 
