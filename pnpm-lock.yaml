@@ -32,6 +32,9 @@ importers:
       '@swup/head-plugin':
         specifier: ^2.3.1
         version: 2.3.1(swup@4.9.0)
+      '@swup/overlay-theme':
+        specifier: ^2.0.2
+        version: 2.0.2(swup@4.9.0)
       '@swup/preload-plugin':
         specifier: ^3.2.11
         version: 3.2.11(swup@4.9.0)
@@ -2607,6 +2610,11 @@ packages:
     peerDependencies:
       swup: ^4.6.0
 
+  '@swup/overlay-theme@2.0.2':
+    resolution: {integrity: sha512-nfk5jrEru0lbFzlOzkT/f77sUwVHM/iUzlPMAT/KkWecn4/YuT4Y+lgIY3Se9VtD8TbSFrXYoHJea4GMZPJRAg==}
+    peerDependencies:
+      swup: ^4.0.0
+
   '@swup/plugin@4.0.0':
     resolution: {integrity: sha512-3Kq31BJxnzoPg643YxGoWQggoU6VPKZpdE5CqqmP7wwkpCYTzkRmrfcQ29mGhsSS7xfS7D33iZoBiwY+wPoo2A==}
 
@@ -2619,6 +2627,11 @@ packages:
     resolution: {integrity: sha512-JSMFsFCN9gn4q3m1Ccv0gq3gwRoZl6UGALOQO3OeQ8wOIq9vPC5dcUD3CMBuaPanksjR4GC8ZoukIjHrlT52fg==}
     peerDependencies:
       swup: ^4.2.0
+
+  '@swup/theme@2.1.0':
+    resolution: {integrity: sha512-nwAzx+GYySIYs6uSCFYGNdpLWv2z/mEryRD1gvmIqsaSP2N7sVd4mKAboraJAzIzbasRhTsTQzyN1LfLeti3AA==}
+    peerDependencies:
+      swup: ^4.0.0
 
   '@tailwindcss/node@4.3.0':
     resolution: {integrity: sha512-aFb4gUhFOgdh9AXo4IzBEOzBkkAxm9VigwDJnMIYv3lcfXCJVesNfbEaBl4BNgVRyid92AmdviqwBUBRKSeY3g==}
@@ -9005,6 +9018,11 @@ snapshots:
       '@swup/plugin': 4.0.0
       swup: 4.9.0
 
+  '@swup/overlay-theme@2.0.2(swup@4.9.0)':
+    dependencies:
+      '@swup/theme': 2.1.0(swup@4.9.0)
+      swup: 4.9.0
+
   '@swup/plugin@4.0.0':
     dependencies:
       swup: 4.9.0
@@ -9015,6 +9033,11 @@ snapshots:
       swup: 4.9.0
 
   '@swup/scripts-plugin@2.1.0(swup@4.9.0)':
+    dependencies:
+      '@swup/plugin': 4.0.0
+      swup: 4.9.0
+
+  '@swup/theme@2.1.0(swup@4.9.0)':
     dependencies:
       '@swup/plugin': 4.0.0
       swup: 4.9.0

@@ -5,11 +5,11 @@ const navLinks = [
 ]
 ---
 
-<header class="w-full bg-ink text-white">
+<header class="w-full text-ink fixed top-0 left-0 right-0 z-50">
   <div class="flex w-full items-center justify-between px-6 py-8 sm:px-8">
     <a
       href="/"
-      class="text-body font-medium leading-none transition-colors duration-200 hover:text-mist"
+      class="text-body font-medium leading-none transition-colors duration-200 hover:text-blue"
     >
       Institució Branding
     </a>
@@ -19,7 +19,7 @@ const navLinks = [
         navLinks.map(({ href, label }) => (
           <a
             href={href}
-            class="text-mist transition-colors duration-200 hover:text-white"
+            class="text-ink transition-colors duration-200 hover:text-blue"
           >
             {label}
           </a>

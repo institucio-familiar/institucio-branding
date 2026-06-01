@@ -17,6 +17,7 @@ const { PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET } = loadEnv(
 // https://astro.build/config
 export default defineConfig({
   site: 'https://institucio-branding.vercel.app',
+  output: 'static',
   vite: {
     plugins: [tailwindcss()]
   },

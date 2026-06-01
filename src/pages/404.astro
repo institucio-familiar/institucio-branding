@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+// TESTINGAL > Implement this page
+---
+
+<Layout title="Page not found — Astro + Sanity">
+  <main class="min-h-screen flex items-center justify-center px-6 py-10 bg-frost">
+    <section
+      class="w-full max-w-2xl rounded-2xl border border-mist bg-white p-8 md:p-10 text-center shadow-sm"
+    >
+      <p class="m-0 font-mono text-small tracking-[0.2em] text-blue font-semibold">
+        404
+      </p>
+      <h1 class="mt-4 mb-0 font-sans text-5xl md:text-6xl leading-tight text-ink">
+        Page not found
+      </h1>
+      <p class="mt-4 mb-0 font-sans text-body leading-7 text-slate">
+        The page you're looking for doesn't exist or may have been moved.
+      </p>
+      <a
+        class="inline-block mt-8 rounded-full bg-blue px-6 py-3 font-sans text-body font-medium text-white no-underline transition-colors hover:bg-sky"
+        href="/"
+      >
+        Back to home
+      </a>
+    </section>
+  </main>
+</Layout>
