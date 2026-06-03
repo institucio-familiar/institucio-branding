@@ -9,6 +9,7 @@ import { muxInput } from 'sanity-plugin-mux-input'
 
 import { structure } from '@/sanity/structure'
 import { schema } from '@/sanity/schemaTypes'
+import { apiVersion, dataset, projectId } from '@/sanity/env'
 import { StudioIcon } from '@/components/icons/studio-icon'
 
 // TESTINGAL > Expand config
@@ -16,8 +17,8 @@ export default defineConfig({
   icon: StudioIcon,
   name: 'institucio-branding',
   title: 'Institució Branding',
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
-  dataset: import.meta.env.PUBLIC_SANITY_DATASET,
+  projectId,
+  dataset,
   schema,
   plugins: [
     structureTool({ name: 'content', title: 'Content', structure }),
@@ -25,6 +26,6 @@ export default defineConfig({
     muxInput({ mp4_support: 'standard' }),
     // Vision is a tool that lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
-    visionTool({ defaultApiVersion: '2026-05-31' })
+    visionTool({ defaultApiVersion: apiVersion })
   ]
 })
