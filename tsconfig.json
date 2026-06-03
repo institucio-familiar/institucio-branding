@@ -6,17 +6,30 @@
     "baseUrl": ".",
     "moduleResolution": "Bundler",
     "paths": {
-      "@root/*": ["./*"],
-      "@src/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@layouts/*": ["./src/layouts/*"],
+      "@/root/*": ["./*"],
+      "@/src/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/layouts/*": ["./src/layouts/*"],
+      "@/scripts/*": ["./src/scripts/*"],
+      "@/sanity/*": ["./src/sanity/*"],
+      "@/pages/*": ["./src/pages/*"]
       // "@images/*": ["./src/assets/images/*"],
-      // "@pages/*": ["./src/pages/*"],
-      "@scripts/*": ["./src/scripts/*"]
       // "@styles/*": ["./src/styles/*"],
       // "@templates/*": ["./src/templates/*"],
       // "@types/*": ["types/*"],
       // "@data/*": ["./src/data/*"]
+      // "@/components/*": ["./src/components/*"],
+      // "@/context/*": ["./src/context/*"],
+      // "@/hooks/*": ["./src/hooks/*"],
+      // "@/sanity/*": ["./src/sanity/*"],
+      // "@/i18n/*": ["./src/i18n/*"],
+      // "@/styles/*": ["./src/styles/*"],
+      // "@/constants": ["./src/constants"],
+      // "@/utils": ["./src/utils"],
+      // "@/lib/*": ["./src/lib/*"],
+      // "@/actions/*": ["./src/app/actions/*"],
+      // "@/fonts/*": ["./src/app/fonts/*"],
+      // "@/stores/*": ["./src/stores/*"]
     }
   }
 }

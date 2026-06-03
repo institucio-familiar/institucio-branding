@@ -11,6 +11,7 @@ import vercel from '@astrojs/vercel'
 const {
   PUBLIC_SANITY_PROJECT_ID,
   PUBLIC_SANITY_DATASET,
+  PUBLIC_SANITY_API_VERSION,
   SANITY_REVALIDATE_SECRET
 } = loadEnv(process.env.NODE_ENV, process.cwd(), '')
 
@@ -34,7 +35,7 @@ export default defineConfig({
       dataset: PUBLIC_SANITY_DATASET,
       // Set useCdn to false if you're building statically.
       useCdn: false,
-      apiVersion: '2026-05-31',
+      apiVersion: PUBLIC_SANITY_API_VERSION,
       // Optional: log server-side Sanity client requests.
       // Modes: 'dev' | 'build' | 'always'
       logClientRequests: 'dev',

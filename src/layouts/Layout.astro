@@ -1,8 +1,8 @@
 ---
 import '../styles/global.css'
 import Analytics from '@vercel/analytics/astro'
-import Header from '@components/Header.astro'
-import Footer from '@components/Footer.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
 
 import { Font, type CssVariable } from 'astro:assets'
 
@@ -48,8 +48,8 @@ const FONTS: CssVariable[] = ['--custom-font-sans']
     <Footer />
 
     <script>
-      import { setViewportSize } from '@scripts/utils/setViewportSize'
-      import { $screenDebounce } from '@scripts/stores/screen'
+      import { setViewportSize } from '@/scripts/utils/setViewportSize'
+      import { $screenDebounce } from '@/scripts/stores/screen'
 
       // Set viewport size
       $screenDebounce.subscribe(() => {

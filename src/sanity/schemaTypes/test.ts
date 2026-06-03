@@ -21,6 +21,11 @@ export const test = defineType({
       name: 'description',
       title: 'Description',
       type: 'text'
+    }),
+    defineField({
+      name: 'video',
+      title: 'Mux Video',
+      type: 'mux.video'
     })
   ]
 })
