@@ -10,9 +10,8 @@ import { muxInput } from 'sanity-plugin-mux-input'
 import { structure } from '@/sanity/structure'
 import { schema } from '@/sanity/schemaTypes'
 import { apiVersion, dataset, projectId } from '@/sanity/env'
-import { StudioIcon } from '@/components/icons/studio-icon'
+import { StudioIcon } from '@/sanity/ui/studio-icon'
 
-// TESTINGAL > Expand config
 export default defineConfig({
   icon: StudioIcon,
   name: 'institucio-branding',
