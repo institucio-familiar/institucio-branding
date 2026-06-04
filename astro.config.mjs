@@ -46,23 +46,54 @@ export default defineConfig({
   ],
   fonts: [
     {
-      provider: fontProviders.local(),
-      name: 'Source Sans Pro',
+      provider: fontProviders.google(),
+      name: 'Inter',
       cssVariable: '--custom-font-sans',
-      fallbacks: ['sans-serif'],
+      weights: [400, 500, 600, 700],
+      fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif']
+    },
+    {
+      provider: fontProviders.local(),
+      name: 'Alverata',
+      cssVariable: '--custom-font-serif',
+      fallbacks: ['serif'],
       options: {
         variants: [
+          {
+            weight: 300,
+            style: 'normal',
+            display: 'swap',
+            src: ['./src/assets/fonts/AlverataLt.woff2']
+          },
           {
             weight: 400,
             style: 'normal',
             display: 'swap',
-            src: ['./src/assets/fonts/SourceSans3-Regular.woff2']
+            src: ['./src/assets/fonts/Alverata.woff2']
+          },
+          {
+            weight: 500,
+            style: 'normal',
+            display: 'swap',
+            src: ['./src/assets/fonts/AlverataMd.woff2']
+          },
+          {
+            weight: 600,
+            style: 'normal',
+            display: 'swap',
+            src: ['./src/assets/fonts/AlverataSb.woff2']
           },
           {
             weight: 700,
             style: 'normal',
             display: 'swap',
-            src: ['./src/assets/fonts/SourceSans3-Bold.woff2']
+            src: ['./src/assets/fonts/Alverata-Bold.woff2']
+          },
+          {
+            weight: 900,
+            style: 'normal',
+            display: 'swap',
+            src: ['./src/assets/fonts/AlverataBl.woff2']
           }
         ]
       }

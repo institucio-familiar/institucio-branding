@@ -6,8 +6,8 @@
 }
 
 @theme {
-  /* --font-sans: var(--custom-font-sans); */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--custom-font-sans);
+  --font-serif: var(--custom-font-serif);
 
   --color-ink: #040d1a;
   --color-navy: #0b2449;
