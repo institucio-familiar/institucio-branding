@@ -1,0 +1,40 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getPageLocale, isValidLocale } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/ui'
+
+const { locale: localeParam } = Astro.params
+
+if (!isValidLocale(localeParam)) {
+  return Astro.redirect('/404')
+}
+
+const locale = getPageLocale(Astro.currentLocale, localeParam)
+const t = useTranslations(locale)
+---
+
+<Layout>
+  <section class="flex min-h-screen items-center justify-center bg-mist">
+    <h1 class="text-white text-headline-2">{t('test.title')}</h1>
+  </section>
+
+  <section class="flex min-h-screen items-center justify-center bg-navy">
+    <p class="text-white text-headline-3">{t('test.section2')}</p>
+  </section>
+
+  <section class="flex min-h-screen items-center justify-center bg-blue">
+    <p class="text-white text-headline-3">{t('test.section3')}</p>
+  </section>
+
+  <section class="flex min-h-screen items-center justify-center bg-sky">
+    <p class="text-white text-headline-3">{t('test.section4')}</p>
+  </section>
+
+  <section class="flex min-h-screen items-center justify-center bg-mist">
+    <p class="text-ink text-headline-3">{t('test.section5')}</p>
+  </section>
+
+  <section class="flex min-h-screen items-center justify-center bg-cream">
+    <p class="text-ink text-headline-3">{t('test.section6')}</p>
+  </section>
+</Layout>

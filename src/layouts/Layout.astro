@@ -3,15 +3,27 @@ import '../styles/global.css'
 import Analytics from '@vercel/analytics/astro'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
+import { htmlLang } from '@/i18n/config'
+import { useTranslations } from '@/i18n/ui'
+import { getPageLocale } from '@/i18n/utils'
 
 import { Font, type CssVariable } from 'astro:assets'
+
+interface Props {
+  title?: string
+}
+
+const { title } = Astro.props
+const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+const t = useTranslations(locale)
+const pageTitle = title ?? t('site.title')
 
 // Constants
 const FONTS: CssVariable[] = ['--custom-font-sans', '--custom-font-serif']
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={htmlLang[locale]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -22,7 +34,7 @@ const FONTS: CssVariable[] = ['--custom-font-sans', '--custom-font-serif']
 
     <!-- <SEO {...seoData} /> -->
 
-    <title>Institució Branding</title>
+    <title>{pageTitle}</title>
 
     {FONTS.map((font) => <Font cssVariable={font} preload />)}
 

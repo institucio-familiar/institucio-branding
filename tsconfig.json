@@ -12,7 +12,8 @@
       "@/layouts/*": ["./src/layouts/*"],
       "@/scripts/*": ["./src/scripts/*"],
       "@/sanity/*": ["./src/sanity/*"],
-      "@/pages/*": ["./src/pages/*"]
+      "@/pages/*": ["./src/pages/*"],
+      "@/i18n/*": ["./src/i18n/*"]
       // "@images/*": ["./src/assets/images/*"],
       // "@styles/*": ["./src/styles/*"],
       // "@templates/*": ["./src/templates/*"],

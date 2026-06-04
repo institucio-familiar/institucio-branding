@@ -20,6 +20,17 @@ export default defineConfig({
   site: 'https://institucio-branding.vercel.app',
   // Output server to use ISR with Sanity
   output: 'server',
+  i18n: {
+    locales: ['es', 'ca'],
+    defaultLocale: 'es',
+    fallback: {
+      ca: 'es'
+    },
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: true
+    }
+  },
   adapter: vercel({
     isr: {
       bypassToken: SANITY_REVALIDATE_SECRET,

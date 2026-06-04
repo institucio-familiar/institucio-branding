@@ -1,28 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { useTranslations } from '@/i18n/ui'
+import { getPageLocale } from '@/i18n/utils'
 
-// TESTINGAL > Implement this page
+const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+const t = useTranslations(locale)
 ---
 
-<Layout title="Page not found — Astro + Sanity">
+<Layout title={`404 — ${t('site.title')}`}>
   <main class="min-h-screen flex items-center justify-center px-6 py-10 bg-frost">
     <section
       class="w-full max-w-2xl rounded-2xl border border-mist bg-white p-8 md:p-10 text-center shadow-sm"
     >
-      <p class="m-0 text-cta text-blue uppercase">
-        404
-      </p>
+      <p class="m-0 text-cta text-blue uppercase">404</p>
       <h1 class="mt-4 mb-0 text-headline-2 text-ink">
-        Page not found
+        {t('404.title')}
       </h1>
       <p class="mt-4 mb-0 text-body text-slate">
-        The page you're looking for doesn't exist or may have been moved.
+        {t('404.description')}
       </p>
       <a
         class="inline-block mt-8 rounded-full bg-blue px-6 py-3 text-body-bold text-white no-underline transition-colors hover:bg-sky"
-        href="/"
+        href={getRelativeLocaleUrl(locale)}
       >
-        Back to home
+        {t('404.back')}
       </a>
     </section>
   </main>

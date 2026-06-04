@@ -1,0 +1,41 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { locales, localeLabels } from '@/i18n/config'
+import { getPathKey } from '@/i18n/routes'
+import { useTranslations } from '@/i18n/ui'
+import { getPageLocale } from '@/i18n/utils'
+
+const currentLocale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+const pathKey = getPathKey(Astro.url.pathname)
+const t = useTranslations(currentLocale)
+
+const localeUrls = locales.map((locale) => ({
+  locale,
+  label: localeLabels[locale],
+  href: getRelativeLocaleUrl(locale, pathKey)
+}))
+---
+
+<nav aria-label={t('lang.switch')} class="flex items-center gap-1 text-body">
+  {
+    localeUrls.map(({ locale, label, href }, index) => (
+      <>
+        {index > 0 && <span class="text-mist select-none" aria-hidden="true">/</span>}
+        <a
+          href={href}
+          hreflang={locale}
+          lang={locale}
+          aria-current={locale === currentLocale ? 'page' : undefined}
+          class:list={[
+            'px-1 transition-colors duration-200',
+            locale === currentLocale
+              ? 'text-blue font-medium'
+              : 'text-ink hover:text-blue'
+          ]}
+        >
+          {label}
+        </a>
+      </>
+    ))
+  }
+</nav>

@@ -1,30 +1,42 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
+import { useTranslations } from '@/i18n/ui'
+import { getPageLocale } from '@/i18n/utils'
+
+const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+const t = useTranslations(locale)
+
 const navLinks = [
-  { href: '/', label: 'Index' },
-  { href: '/test', label: 'Test' }
+  { path: '', key: 'nav.home' as const },
+  { path: 'test', key: 'nav.test' as const }
 ]
 ---
 
 <header class="w-full text-ink fixed top-0 left-0 right-0 z-50">
   <div class="flex w-full items-center justify-between px-6 py-8 sm:px-8">
     <a
-      href="/"
+      href={getRelativeLocaleUrl(locale)}
       class="text-body transition-colors duration-200 hover:text-blue"
     >
-      Institució Branding
+      {t('site.title')}
     </a>
 
-    <nav class="flex flex-wrap gap-x-8 gap-y-3 text-body">
-      {
-        navLinks.map(({ href, label }) => (
-          <a
-            href={href}
-            class="text-ink transition-colors duration-200 hover:text-blue"
-          >
-            {label}
-          </a>
-        ))
-      }
-    </nav>
+    <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
+      <nav class="flex flex-wrap gap-x-8 gap-y-3 text-body">
+        {
+          navLinks.map(({ path, key }) => (
+            <a
+              href={getRelativeLocaleUrl(locale, path)}
+              class="text-ink transition-colors duration-200 hover:text-blue"
+            >
+              {t(key)}
+            </a>
+          ))
+        }
+      </nav>
+
+      <LanguageSwitcher />
+    </div>
   </div>
 </header>

@@ -1,0 +1,54 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Puncha from '@/components/icons/Puncha.astro'
+import { getPageLocale, isValidLocale } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/ui'
+
+const { locale: localeParam } = Astro.params
+
+if (!isValidLocale(localeParam)) {
+  return Astro.redirect('/404')
+}
+
+const locale = getPageLocale(Astro.currentLocale, localeParam)
+const t = useTranslations(locale)
+---
+
+<Layout>
+  <section class="flex min-h-screen items-center justify-center bg-mist">
+    <h1 class="text-white text-headline-1 uppercase text-center">
+      {t('home.hero')}
+    </h1>
+  </section>
+
+  <section
+    class="relative flex min-h-screen items-center justify-center bg-navy p-20"
+  >
+    <Puncha
+      color="navy"
+      class="absolute top-px left-1/2 -translate-x-1/2 -translate-y-full"
+    />
+    <p class="text-blue text-headline-1 uppercase text-center">
+      {t('home.tagline')}
+    </p>
+  </section>
+
+  <div>
+    <!-- <Puncha color="blue" class="mt-[-20.895%] -mb-px block w-full" /> -->
+    <section class="flex min-h-screen items-center justify-center bg-blue p-20">
+      <p class="text-white text-headline-3">{t('home.section3')}</p>
+    </section>
+  </div>
+
+  <section class="flex min-h-screen items-center justify-center bg-sky">
+    <p class="text-white text-headline-3">{t('home.section4')}</p>
+  </section>
+
+  <section class="flex min-h-screen items-center justify-center bg-mist">
+    <p class="text-ink text-headline-3">{t('home.section5')}</p>
+  </section>
+
+  <section class="flex min-h-screen items-center justify-center bg-cream">
+    <p class="text-ink text-headline-3">{t('home.section6')}</p>
+  </section>
+</Layout>
