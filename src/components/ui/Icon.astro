@@ -1,0 +1,148 @@
+---
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js'
+
+import Arrow from '@/components/ui/icon-glyphs/Arrow.astro'
+import Check from '@/components/ui/icon-glyphs/Check.astro'
+import ControlsMinus from '@/components/ui/icon-glyphs/ControlsMinus.astro'
+import ControlsPause from '@/components/ui/icon-glyphs/ControlsPause.astro'
+import ControlsPlay from '@/components/ui/icon-glyphs/ControlsPlay.astro'
+import ControlsPlus from '@/components/ui/icon-glyphs/ControlsPlus.astro'
+import Cross from '@/components/ui/icon-glyphs/Cross.astro'
+import HamburgerLines from '@/components/ui/icon-glyphs/HamburgerLines.astro'
+import Search from '@/components/ui/icon-glyphs/Search.astro'
+
+type Variant =
+  | 'primary-dark'
+  | 'primary-blue'
+  | 'secondary-white'
+  | 'outline-dark'
+  | 'outline-blue'
+
+type IconName =
+  | 'arrow'
+  | 'check'
+  | 'controls-minus'
+  | 'controls-pause'
+  | 'controls-play'
+  | 'controls-plus'
+  | 'cross'
+  | 'hamburger'
+  | 'number'
+  | 'search'
+
+type GlyphIconName = Exclude<IconName, 'number'>
+
+type Direction = 'top' | 'left' | 'right' | 'bottom'
+
+interface Props {
+  name: IconName
+  variant?: Variant
+  direction?: Direction
+  number?: number | string
+  href?: string
+  type?: 'button' | 'submit' | 'reset'
+  class?: string
+  id?: string
+  'aria-label'?: string
+}
+
+const {
+  name,
+  variant = 'primary-dark',
+  direction = 'top',
+  number,
+  href,
+  type = 'button',
+  class: className,
+  id,
+  'aria-label': ariaLabel
+} = Astro.props
+
+const base =
+  'inline-flex items-center justify-center rounded-sm border size-7 transition-colors duration-200 cursor-pointer'
+
+const variants: Record<Variant, string> = {
+  'primary-dark':
+    'border-transparent bg-navy text-frost hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-navy-light active:text-frost',
+  'primary-blue':
+    'border-transparent bg-blue text-frost hover:border-blue hover:bg-transparent hover:text-blue active:border-transparent active:bg-sky active:text-frost',
+  'secondary-white':
+    'border-transparent bg-frost text-navy hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-frost active:text-navy',
+  'outline-dark':
+    'border-navy bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-frost active:border-navy-light active:bg-navy-light active:text-frost',
+  'outline-blue':
+    'border-blue bg-transparent text-blue hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost'
+}
+
+const glyphs: Record<GlyphIconName, AstroComponentFactory> = {
+  arrow: Arrow,
+  check: Check,
+  'controls-minus': ControlsMinus,
+  'controls-pause': ControlsPause,
+  'controls-play': ControlsPlay,
+  'controls-plus': ControlsPlus,
+  cross: Cross,
+  hamburger: HamburgerLines,
+  search: Search
+}
+
+const arrowLabels: Record<Direction, string> = {
+  top: 'Arrow up',
+  left: 'Arrow left',
+  right: 'Arrow right',
+  bottom: 'Arrow down'
+}
+
+const defaultLabels: Record<IconName, string> = {
+  arrow: arrowLabels[direction],
+  check: 'Check',
+  'controls-minus': 'Minus',
+  'controls-pause': 'Pause',
+  'controls-play': 'Play',
+  'controls-plus': 'Plus',
+  cross: 'Close',
+  hamburger: 'Menu',
+  number: String(number),
+  search: 'Search'
+}
+
+const fivePixelIcons = ['hamburger', 'controls-pause', 'search']
+
+const classes = [
+  base,
+  fivePixelIcons.includes(name) ? 'p-[5px]' : 'p-1',
+  variants[variant],
+  className
+]
+  .filter(Boolean)
+  .join(' ')
+const label = ariaLabel ?? defaultLabels[name]
+const Glyph = name !== 'number' ? glyphs[name] : null
+
+const numberClasses =
+  'text-body font-serif font-medium leading-none translate-y-px'
+---
+
+{
+  href ? (
+    <a href={href} class={classes} aria-label={label}>
+      {name === 'number' ? (
+        <span class={numberClasses}>{number}</span>
+      ) : name === 'arrow' ? (
+        <Arrow direction={direction} />
+      ) : (
+        Glyph && <Glyph />
+      )}
+    </a>
+  ) : (
+    <button type={type} class={classes} id={id} aria-label={label}>
+      {name === 'number' ? (
+        <span class={numberClasses}>{number}</span>
+      ) : name === 'arrow' ? (
+        <Arrow direction={direction} />
+      ) : (
+        Glyph && <Glyph />
+      )}
+    </button>
+  )
+}

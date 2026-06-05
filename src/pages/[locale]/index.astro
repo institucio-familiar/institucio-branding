@@ -1,15 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Puncha from '@/components/icons/Puncha.astro'
-import { getPageLocale, isValidLocale } from '@/i18n/utils'
+import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 
 const { locale: localeParam } = Astro.params
-
-if (!isValidLocale(localeParam)) {
-  return Astro.redirect('/404')
-}
-
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 ---
@@ -48,7 +43,7 @@ const t = useTranslations(locale)
     <p class="text-ink text-headline-3">{t('home.section5')}</p>
   </section>
 
-  <section class="flex min-h-screen items-center justify-center bg-cream">
+  <section class="flex min-h-screen items-center justify-center bg-white">
     <p class="text-ink text-headline-3">{t('home.section6')}</p>
   </section>
 </Layout>

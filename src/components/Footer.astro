@@ -1,42 +1,37 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n'
+import ColegioNombre from '@/components/icons/ColegioNombre.astro'
+import Icon from '@/components/ui/Icon.astro'
 import { useTranslations } from '@/i18n/ui'
 import { getPageLocale } from '@/i18n/utils'
 
 const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
-
-const navLinks = [
-  { path: '', key: 'nav.home' as const },
-  { path: 'test', key: 'nav.test' as const }
-]
-
-const year = new Date().getFullYear()
 ---
 
-<footer class="bg-ink text-white">
-  <div
-    class="flex flex-col gap-10 px-6 py-8 sm:px-8 sm:flex-row sm:items-end sm:justify-between"
-  >
-    <div class="flex flex-col gap-3">
-      <p class="text-headline-3">{t('site.title')}</p>
-      <p class="text-cta text-mist">
-        &copy; {year}
-        {t('footer.rights')}
-      </p>
+<footer class="bg-blue p-indent">
+  <div class="flex flex-col items-center gap-8">
+    <div class="flex items-center self-end gap-2">
+      <button
+        id="scroll-to-top"
+        class="cursor-pointer"
+        aria-label={t('footer.scrollToTop')}
+      >
+        {t('footer.scrollToTop')}
+      </button>
+      <Icon id="scroll-to-top-icon" name="arrow" variant="outline-dark" />
     </div>
 
-    <nav class="flex flex-wrap gap-x-8 gap-y-3 text-body">
-      {
-        navLinks.map(({ path, key }) => (
-          <a
-            href={getRelativeLocaleUrl(locale, path)}
-            class="text-mist transition-colors duration-200 hover:text-white"
-          >
-            {t(key)}
-          </a>
-        ))
-      }
-    </nav>
+    <ColegioNombre color="navy" />
   </div>
 </footer>
+
+<script>
+  import { Scroll } from '@/scripts/classes/Scroll'
+
+  document
+    .getElementById('scroll-to-top')
+    ?.addEventListener('click', () => Scroll.scrollTo(0)) ||
+    document
+      .getElementById('scroll-to-top-icon')
+      ?.addEventListener('click', () => Scroll.scrollTo(0))
+</script>

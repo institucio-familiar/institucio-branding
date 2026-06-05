@@ -1,29 +1,106 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { getPageLocale, isValidLocale } from '@/i18n/utils'
+import Button from '@/components/ui/Button.astro'
+import Icon from '@/components/ui/Icon.astro'
+import Puncha from '@/components/icons/Puncha.astro'
+import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 
 const { locale: localeParam } = Astro.params
-
-if (!isValidLocale(localeParam)) {
-  return Astro.redirect('/404')
-}
-
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
+
+const iconVariants = [
+  'primary-dark',
+  'primary-blue',
+  'secondary-white',
+  'outline-dark',
+  'outline-blue'
+] as const
+
+const arrowDirections = ['top', 'left', 'right', 'bottom'] as const
+
+const iconNames = [
+  'arrow',
+  'check',
+  'controls-minus',
+  'controls-pause',
+  'controls-play',
+  'controls-plus',
+  'cross',
+  'hamburger',
+  'search'
+] as const
 ---
 
 <Layout>
-  <section class="flex min-h-screen items-center justify-center bg-mist">
-    <h1 class="text-white text-headline-2">{t('test.title')}</h1>
+  <section class="flex min-h-screen items-center justify-center bg-mist p-20">
+    <div class="flex flex-col items-center gap-12">
+      <h1 class="text-white text-headline-2">{t('test.title')}</h1>
+    </div>
   </section>
 
-  <section class="flex min-h-screen items-center justify-center bg-navy">
-    <p class="text-white text-headline-3">{t('test.section2')}</p>
+  <section
+    class="relative flex min-h-screen items-center justify-center flex-col gap-12 bg-white p-20"
+  >
+    <Puncha
+      color="white"
+      class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full w-[25vw] min-w-[260px]"
+    />
+    <!-- <p class="text-navy text-headline-1 uppercase text-center">
+      {t('test.section2')}
+    </p> -->
+    <h2 class="text-navy text-headline-2 text-center">CTAs</h2>
+    <div class="flex flex-wrap items-center justify-center gap-6">
+      <Button variant="primary-dark">Seguir leyendo</Button>
+      <Button variant="primary-blue">Seguir leyendo</Button>
+      <Button variant="secondary-white">Seguir leyendo</Button>
+      <Button variant="outline-dark">Seguir leyendo</Button>
+      <Button variant="outline-blue">Seguir leyendo</Button>
+    </div>
   </section>
 
-  <section class="flex min-h-screen items-center justify-center bg-blue">
-    <p class="text-white text-headline-3">{t('test.section3')}</p>
+  <section
+    class="flex min-h-screen items-center justify-center flex-col gap-12 bg-white p-20 border-t border-navy"
+  >
+    <h2 class="text-navy text-headline-2 text-center">Icons</h2>
+    <div class="flex w-full max-w-4xl flex-col items-center gap-4">
+      <p class="text-navy text-small uppercase">number</p>
+      <div class="flex flex-wrap items-center justify-center gap-6">
+        {
+          iconVariants.map((variant) => (
+            <Icon name="number" number="01" variant={variant} />
+          ))
+        }
+      </div>
+    </div>
+    {
+      iconNames.map((iconName) =>
+        iconName === 'arrow' ? (
+          arrowDirections.map((direction) => (
+            <div class="flex w-full max-w-4xl flex-col items-center gap-4">
+              <p class="text-navy text-small uppercase">
+                {iconName} — {direction}
+              </p>
+              <div class="flex flex-wrap items-center justify-center gap-6">
+                {iconVariants.map((variant) => (
+                  <Icon name="arrow" variant={variant} direction={direction} />
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div class="flex w-full max-w-4xl flex-col items-center gap-4">
+            <p class="text-navy text-small uppercase">{iconName}</p>
+            <div class="flex flex-wrap items-center justify-center gap-6">
+              {iconVariants.map((variant) => (
+                <Icon name={iconName} variant={variant} />
+              ))}
+            </div>
+          </div>
+        )
+      )
+    }
   </section>
 
   <section class="flex min-h-screen items-center justify-center bg-sky">

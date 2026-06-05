@@ -1,0 +1,56 @@
+---
+type Variant =
+  | 'primary-dark'
+  | 'primary-blue'
+  | 'secondary-white'
+  | 'outline-dark'
+  | 'outline-blue'
+
+interface Props {
+  variant?: Variant
+  href?: string
+  type?: 'button' | 'submit' | 'reset'
+  class?: string
+  id?: string
+  'aria-label'?: string
+}
+
+const {
+  variant = 'primary-dark',
+  href,
+  type = 'button',
+  class: className,
+  id,
+  'aria-label': ariaLabel
+} = Astro.props
+
+const base =
+  'inline-flex items-center justify-center rounded-sm border px-4 py-2 text-cta transition-colors duration-200 cursor-pointer'
+
+const variants: Record<Variant, string> = {
+  'primary-dark':
+    'border-transparent bg-navy text-frost hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-navy-light active:text-frost',
+  'primary-blue':
+    'border-transparent bg-blue text-frost hover:border-blue hover:bg-transparent hover:text-blue active:border-transparent active:bg-sky active:text-frost',
+  'secondary-white':
+    'border-transparent bg-frost text-navy hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-frost active:text-navy',
+  'outline-dark':
+    'border-navy bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-frost active:border-navy-light active:bg-navy-light active:text-frost',
+  'outline-blue':
+    'border-blue bg-transparent text-blue hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost'
+}
+
+const classes = [base, variants[variant], className].filter(Boolean).join(' ')
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} id={id} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

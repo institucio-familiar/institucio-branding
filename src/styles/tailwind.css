@@ -11,13 +11,12 @@
 
   --color-ink: #040d1a;
   --color-navy: #0b2449;
-  --color-slate: #485c76;
+  --color-navy-light: #1c4176;
   --color-blue: #1469ff;
   --color-sky: #4f8eff;
   --color-soft: #89b4ff;
   --color-mist: #bcd0f5;
   --color-frost: #eef3fd;
-  --color-cream: #f0eae2;
   --color-gray: #eeeeee;
   --color-white: #f7f7f7;
 
@@ -29,4 +28,10 @@
   --text-body: 16px;
   --text-small: 14px;
   --text-tiny: 10px;
+
+  --radius-lg: 7px;
+  --radius-md: 6px;
+  --radius-sm: 5px;
+
+  --spacing-indent: max(calc(100vw / 36), 16px);
 }
