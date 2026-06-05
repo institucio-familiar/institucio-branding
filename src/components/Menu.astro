@@ -1,0 +1,224 @@
+---
+import Cross from '@/components/ui/icon-glyphs/Cross.astro'
+import Hamburger from '@/components/ui/icon-glyphs/Hamburger.astro'
+
+const MENU_ITEMS = [
+  {
+    label: 'Nuestra Marca',
+    href: '/nuestra-marca'
+  },
+  {
+    label: 'Así hablamos',
+    href: '/asi-hablamos'
+  },
+  {
+    label: 'Así nos vemos',
+    href: '/asi-nos-vemos'
+  },
+  {
+    label: 'Recursos',
+    href: '/recursos'
+  }
+]
+
+const SUBMENU_ITEMS = [
+  {
+    label: 'Overview',
+    href: '/overview'
+  },
+  {
+    label: 'Trademarks',
+    href: '/trademarks'
+  },
+  {
+    label: 'Brand colors',
+    href: '/brand-colors'
+  },
+  {
+    label: 'Patrones',
+    href: '/patrones'
+  },
+  {
+    label: 'Iconografía',
+    href: '/iconografia'
+  },
+  {
+    label: 'Ilustración',
+    href: '/ilustracion'
+  },
+  {
+    label: 'Tiopografía',
+    href: '/tipografia'
+  },
+  {
+    label: 'Layout',
+    href: '/layout'
+  },
+  {
+    label: 'Fotografía',
+    href: '/fotografia'
+  },
+  {
+    label: 'Motion',
+    href: '/motion'
+  }
+]
+---
+
+<div>
+  <div class="relative">
+    <div
+      id="menu-overlay"
+      class="absolute top-1/2 left-1/2 h-150vh w-150vw bg-navy -z-1 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square"
+    >
+    </div>
+    <button
+      id="menu-button"
+      type="button"
+      class="relative inline-flex items-center justify-center rounded-sm border size-7 cursor-pointer border-transparent bg-blue text-frost transition-colors duration-200 hover:border-blue hover:bg-transparent hover:text-blue active:border-transparent active:bg-sky active:text-frost"
+      aria-label="Menu"
+    >
+      <span
+        id="menu-icon-hamburger"
+        class="absolute inset-0 flex items-center justify-center p-[5px]"
+      >
+        <Hamburger />
+      </span>
+      <span
+        id="menu-icon-cross"
+        class="absolute inset-0 flex items-center justify-center p-1 opacity-0"
+      >
+        <Cross />
+      </span>
+    </button>
+  </div>
+  <div
+    id="menu-content"
+    class="absolute top-0 left-0 h-screen w-screen -z-1 flex items-center justify-between"
+  >
+    <div id="menu-items" class="p-indent">
+      <ul class="flex flex-col gap-2">
+        {
+          MENU_ITEMS.map((item) => (
+            <li>
+              <a href={item.href} data-menu-link>
+                <span class="text-white text-headline-2 uppercase hover:text-blue transition-colors duration-200">
+                  {item.label}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div id="submenu-items" class="bg-blue p-indent h-full">
+      <ul class="flex flex-col gap-6 h-full justify-center">
+        {
+          SUBMENU_ITEMS.map((item) => (
+            <li>
+              <a href={item.href} data-menu-link>
+                <span class="text-navy text-headline-3 hover:text-frost transition-colors duration-200">
+                  {item.label}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { animate, stagger } from 'motion'
+  import { Scroll } from '@/scripts/classes/Scroll'
+  import { $isMenuOpen } from '@/store'
+
+  const menuButton = document.getElementById('menu-button')
+
+  menuButton?.addEventListener('click', () => {
+    $isMenuOpen.set(!$isMenuOpen.get())
+  })
+
+  document
+    .getElementById('menu-content')
+    ?.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('[data-menu-link]')) {
+        $isMenuOpen.set(false)
+      }
+    })
+
+  document
+    .getElementById('submenu-content')
+    ?.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('[data-menu-link]')) {
+        $isMenuOpen.set(false)
+      }
+    })
+
+  const iconTransition = { duration: 0.35, ease: 'easeInOut' as const }
+
+  $isMenuOpen.subscribe((value: boolean) => {
+    menuButton?.setAttribute('aria-label', value ? 'Close' : 'Menu')
+
+    if (value) {
+      animate(
+        '#menu-icon-hamburger',
+        { opacity: 0, scale: 0.8, rotate: -45 },
+        iconTransition
+      )
+      animate(
+        '#menu-icon-cross',
+        { opacity: 1, scale: 1, rotate: 0 },
+        iconTransition
+      )
+    } else {
+      animate(
+        '#menu-icon-hamburger',
+        { opacity: 1, scale: 1, rotate: 0 },
+        iconTransition
+      )
+      animate(
+        '#menu-icon-cross',
+        { opacity: 0, scale: 0.8, rotate: 45 },
+        iconTransition
+      )
+    }
+
+    if (!value) {
+      Scroll.start()
+      animate(
+        '#menu-overlay',
+        { opacity: 0, width: '10px' },
+        { duration: 0.6, ease: 'easeInOut' }
+      )
+      animate(
+        '#menu-content',
+        { opacity: 0, pointerEvents: 'none' },
+        { duration: 0.45, ease: 'easeInOut' }
+      )
+      animate('#menu-items li li', { opacity: 0 })
+    } else {
+      Scroll.stop()
+      animate(
+        '#menu-overlay',
+        { opacity: 1, width: '400vh' },
+        { duration: 0.6, ease: 'easeInOut' }
+      )
+      animate(
+        '#menu-content',
+        {
+          opacity: 1,
+          pointerEvents: 'auto'
+        },
+        { duration: 0.45, ease: 'easeInOut' }
+      )
+      animate(
+        '#menu-items li li',
+        { opacity: 1, y: [100, 0] },
+        { type: 'spring', delay: stagger(0.08), ease: 'easeInOut' }
+      )
+      animate('#submenu-items li li', { opacity: 1 }, { delay: 2 })
+    }
+  })
+</script>

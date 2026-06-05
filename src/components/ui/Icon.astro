@@ -8,7 +8,7 @@ import ControlsPause from '@/components/ui/icon-glyphs/ControlsPause.astro'
 import ControlsPlay from '@/components/ui/icon-glyphs/ControlsPlay.astro'
 import ControlsPlus from '@/components/ui/icon-glyphs/ControlsPlus.astro'
 import Cross from '@/components/ui/icon-glyphs/Cross.astro'
-import HamburgerLines from '@/components/ui/icon-glyphs/HamburgerLines.astro'
+import Hamburger from '@/components/ui/icon-glyphs/Hamburger.astro'
 import Search from '@/components/ui/icon-glyphs/Search.astro'
 
 type Variant =
@@ -39,11 +39,13 @@ interface Props {
   variant?: Variant
   direction?: Direction
   number?: number | string
+  interactive?: boolean
   href?: string
   type?: 'button' | 'submit' | 'reset'
   class?: string
   id?: string
   'aria-label'?: string
+  onclick?: () => void
 }
 
 const {
@@ -51,6 +53,7 @@ const {
   variant = 'primary-dark',
   direction = 'top',
   number,
+  interactive = true,
   href,
   type = 'button',
   class: className,
@@ -59,19 +62,29 @@ const {
 } = Astro.props
 
 const base =
-  'inline-flex items-center justify-center rounded-sm border size-7 transition-colors duration-200 cursor-pointer'
+  'inline-flex items-center justify-center rounded-sm border size-7 transition-colors duration-200'
 
-const variants: Record<Variant, string> = {
+const cursor = interactive ? 'cursor-pointer' : 'cursor-default'
+
+const variantBase: Record<Variant, string> = {
+  'primary-dark': 'border-transparent bg-navy text-frost',
+  'primary-blue': 'border-transparent bg-blue text-frost',
+  'secondary-white': 'border-transparent bg-frost text-navy',
+  'outline-dark': 'border-navy bg-transparent text-navy',
+  'outline-blue': 'border-blue bg-transparent text-blue'
+}
+
+const variantInteractive: Record<Variant, string> = {
   'primary-dark':
-    'border-transparent bg-navy text-frost hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-navy-light active:text-frost',
+    'hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-navy-light active:text-frost',
   'primary-blue':
-    'border-transparent bg-blue text-frost hover:border-blue hover:bg-transparent hover:text-blue active:border-transparent active:bg-sky active:text-frost',
+    'hover:border-blue hover:bg-transparent hover:text-blue active:border-transparent active:bg-sky active:text-frost',
   'secondary-white':
-    'border-transparent bg-frost text-navy hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-frost active:text-navy',
+    'hover:border-navy hover:bg-transparent hover:text-navy active:border-transparent active:bg-frost active:text-navy',
   'outline-dark':
-    'border-navy bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-frost active:border-navy-light active:bg-navy-light active:text-frost',
+    'hover:border-navy hover:bg-navy hover:text-frost active:border-navy-light active:bg-navy-light active:text-frost',
   'outline-blue':
-    'border-blue bg-transparent text-blue hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost'
+    'hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost'
 }
 
 const glyphs: Record<GlyphIconName, AstroComponentFactory> = {
@@ -82,7 +95,7 @@ const glyphs: Record<GlyphIconName, AstroComponentFactory> = {
   'controls-play': ControlsPlay,
   'controls-plus': ControlsPlus,
   cross: Cross,
-  hamburger: HamburgerLines,
+  hamburger: Hamburger,
   search: Search
 }
 
@@ -110,8 +123,10 @@ const fivePixelIcons = ['hamburger', 'controls-pause', 'search']
 
 const classes = [
   base,
+  cursor,
   fivePixelIcons.includes(name) ? 'p-[5px]' : 'p-1',
-  variants[variant],
+  variantBase[variant],
+  interactive ? variantInteractive[variant] : null,
   className
 ]
   .filter(Boolean)

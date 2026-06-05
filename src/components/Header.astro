@@ -3,40 +3,40 @@ import { getRelativeLocaleUrl } from 'astro:i18n'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import { useTranslations } from '@/i18n/ui'
 import { getPageLocale } from '@/i18n/utils'
+import Button from '@/components/ui/Button.astro'
+import { HELP_EMAIL } from '@/constants'
+import ColegioNombre from '@/components/icons/ColegioNombre.astro'
+import ColegioEscudo from '@/components/icons/ColegioEscudo.astro'
+import Menu from '@/components/Menu.astro'
 
 const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
-
-const navLinks = [
-  { path: 'test', key: 'nav.test' as const },
-  { path: 'nuestra-marca', key: 'nuestra-marca.title' as const }
-]
 ---
 
-<header class="w-full text-ink fixed top-0 left-0 right-0 z-50">
-  <div class="flex w-full items-center justify-between px-6 py-8 sm:px-8">
-    <a
-      href={getRelativeLocaleUrl(locale)}
-      class="text-body transition-colors duration-200 hover:text-blue"
-    >
-      {t('site.title')}
+<header class="w-full fixed top-0 left-0 right-0 z-50">
+  <div class="flex items-center gap-2 p-indent z-10">
+    <a href={getRelativeLocaleUrl(locale)} class="flex items-center gap-2">
+      <ColegioEscudo color="gray" class="h-9 w-auto" />
+      <ColegioNombre color="gray" class="h-7 w-auto" />
     </a>
-
-    <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
-      <nav class="flex flex-wrap gap-x-8 gap-y-3 text-body">
-        {
-          navLinks.map(({ path, key }) => (
-            <a
-              href={getRelativeLocaleUrl(locale, path)}
-              class="text-ink transition-colors duration-200 hover:text-blue"
-            >
-              {t(key)}
-            </a>
-          ))
-        }
-      </nav>
-
-      <LanguageSwitcher />
-    </div>
+    <Menu />
   </div>
 </header>
+
+<Button
+  variant="secondary-white"
+  href={`mailto:${HELP_EMAIL}`}
+  class="fixed top-indent right-indent"
+>
+  {t('header.needHelp')}
+</Button>
+
+<script>
+  import { $isMenuOpen } from '@/store'
+
+  document.querySelectorAll('header a').forEach((link) => {
+    link.addEventListener('click', () => {
+      $isMenuOpen.set(false)
+    })
+  })
+</script>

@@ -1,0 +1,30 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getPageLocale } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/ui'
+import Puncha from '@/components/icons/Puncha.astro'
+
+const { locale: localeParam } = Astro.params
+const locale = getPageLocale(Astro.currentLocale, localeParam)
+const t = useTranslations(locale)
+---
+
+<Layout>
+  <section class="flex min-h-screen items-center justify-center bg-mist">
+    <h1 class="text-white text-headline-1 uppercase text-center">
+      {t('asi-nos-vemos.title')}
+    </h1>
+  </section>
+
+  <section
+    class="relative flex min-h-screen items-center justify-center bg-white p-20"
+  >
+    <Puncha
+      color="white"
+      class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full w-[25vw] min-w-[260px]"
+    />
+    <p class="text-navy text-headline-1 uppercase text-center">
+      {t('asi-nos-vemos.description')}
+    </p>
+  </section>
+</Layout>

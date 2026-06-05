@@ -46,11 +46,15 @@ const classes = [base, variants[variant], className].filter(Boolean).join(' ')
 {
   href ? (
     <a href={href} class={classes}>
-      <slot />
+      <span class="translate-y-px">
+        <slot />
+      </span>
     </a>
   ) : (
     <button type={type} class={classes} id={id} aria-label={ariaLabel}>
-      <slot />
+      <span class="translate-y-px">
+        <slot />
+      </span>
     </button>
   )
 }
