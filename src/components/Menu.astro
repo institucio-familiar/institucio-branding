@@ -2,6 +2,12 @@
 import Cross from '@/components/ui/icon-glyphs/Cross.astro'
 import Hamburger from '@/components/ui/icon-glyphs/Hamburger.astro'
 import PunchaVertical from '@/components/icons/PunchaVertical.astro'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { useTranslations } from '@/i18n/ui'
+import { getPageLocale } from '@/i18n/utils'
+
+const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+const t = useTranslations(locale)
 
 const MENU_ITEMS = [
   {
@@ -102,7 +108,7 @@ const SUBMENU_ITEMS = [
         {
           MENU_ITEMS.map((item) => (
             <li>
-              <a href={item.href} data-menu-link>
+              <a href={getRelativeLocaleUrl(locale, item.href)} data-menu-link>
                 <span class="text-white text-headline-2 uppercase hover:text-blue transition-colors duration-200">
                   {item.label}
                 </span>
@@ -123,7 +129,7 @@ const SUBMENU_ITEMS = [
         {
           SUBMENU_ITEMS.map((item) => (
             <li>
-              <a href={item.href} data-menu-link>
+              <a href={getRelativeLocaleUrl(locale, item.href)} data-menu-link>
                 <span class="text-navy text-headline-3 hover:text-frost transition-colors duration-200">
                   {item.label}
                 </span>
