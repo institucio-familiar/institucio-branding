@@ -196,13 +196,13 @@ const SUBMENU_ITEMS = [
         { opacity: 0, pointerEvents: 'none' },
         { duration: 0.45, ease: 'easeInOut' }
       )
-      animate('#menu-items li li', { opacity: 0 })
+      animate('#menu-items li', { opacity: 0 })
       animate(
         '#submenu-items',
         { x: '100%' },
         { duration: 0.45, ease: 'easeInOut' }
       )
-      animate('#submenu-items li li', { opacity: 0 })
+      animate('#submenu-items li', { opacity: 0 })
     } else {
       Scroll.stop()
       animate(
@@ -219,7 +219,7 @@ const SUBMENU_ITEMS = [
         { duration: 0.45, ease: 'easeInOut' }
       )
       animate(
-        '#menu-items li li',
+        '#menu-items li',
         { opacity: 1, y: [100, 0] },
         { type: 'spring', delay: stagger(0.08), ease: 'easeInOut' }
       )
@@ -228,7 +228,7 @@ const SUBMENU_ITEMS = [
         { x: '0%' },
         { duration: 0.45, ease: 'easeInOut' }
       )
-      animate('#submenu-items li li', { opacity: 1 }, { delay: 2 })
+      animate('#submenu-items li', { opacity: 1 }, { delay: 0.5 })
     }
   })
 </script>
