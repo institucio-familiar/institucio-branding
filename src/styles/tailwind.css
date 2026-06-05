@@ -34,4 +34,5 @@
   --radius-sm: 5px;
 
   --spacing-indent: max(calc(100vw / 36), 16px);
+  --spacing-indent-2: max(calc(100vw / 18), 16px);
 }

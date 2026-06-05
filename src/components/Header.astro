@@ -13,7 +13,7 @@ const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
 ---
 
-<header class="w-full fixed top-0 left-0 right-0 z-50">
+<header class="fixed top-0 left-0 z-50">
   <div class="flex items-center gap-2 p-indent z-10">
     <a href={getRelativeLocaleUrl(locale)} class="flex items-center gap-2">
       <ColegioEscudo color="gray" class="h-9 w-auto" />

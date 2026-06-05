@@ -1,6 +1,7 @@
 ---
 import Cross from '@/components/ui/icon-glyphs/Cross.astro'
 import Hamburger from '@/components/ui/icon-glyphs/Hamburger.astro'
+import PunchaVertical from '@/components/icons/PunchaVertical.astro'
 
 const MENU_ITEMS = [
   {
@@ -69,7 +70,7 @@ const SUBMENU_ITEMS = [
   <div class="relative">
     <div
       id="menu-overlay"
-      class="absolute top-1/2 left-1/2 h-150vh w-150vw bg-navy -z-1 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square"
+      class="absolute top-1/2 left-1/2 bg-navy -z-1 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square"
     >
     </div>
     <button
@@ -94,7 +95,7 @@ const SUBMENU_ITEMS = [
   </div>
   <div
     id="menu-content"
-    class="absolute top-0 left-0 h-screen w-screen -z-1 flex items-center justify-between"
+    class="absolute top-0 left-0 h-screen w-screen -z-1 flex items-center justify-between opacity-0"
   >
     <div id="menu-items" class="p-indent">
       <ul class="flex flex-col gap-2">
@@ -111,8 +112,14 @@ const SUBMENU_ITEMS = [
         }
       </ul>
     </div>
-    <div id="submenu-items" class="bg-blue p-indent h-full">
-      <ul class="flex flex-col gap-6 h-full justify-center">
+    <div id="submenu-items" class="relative flex flex-row items-center h-full">
+      <PunchaVertical
+        color="blue"
+        class="h-[25vw] max-h-[260px] translate-x-[0.5px]"
+      />
+      <ul
+        class="flex flex-col gap-6 justify-center h-full bg-blue p-indent pl-indent pr-indent-2"
+      >
         {
           SUBMENU_ITEMS.map((item) => (
             <li>
@@ -142,14 +149,6 @@ const SUBMENU_ITEMS = [
 
   document
     .getElementById('menu-content')
-    ?.addEventListener('click', (event) => {
-      if ((event.target as Element).closest('[data-menu-link]')) {
-        $isMenuOpen.set(false)
-      }
-    })
-
-  document
-    .getElementById('submenu-content')
     ?.addEventListener('click', (event) => {
       if ((event.target as Element).closest('[data-menu-link]')) {
         $isMenuOpen.set(false)
@@ -198,6 +197,12 @@ const SUBMENU_ITEMS = [
         { duration: 0.45, ease: 'easeInOut' }
       )
       animate('#menu-items li li', { opacity: 0 })
+      animate(
+        '#submenu-items',
+        { x: '100%' },
+        { duration: 0.45, ease: 'easeInOut' }
+      )
+      animate('#submenu-items li li', { opacity: 0 })
     } else {
       Scroll.stop()
       animate(
@@ -217,6 +222,11 @@ const SUBMENU_ITEMS = [
         '#menu-items li li',
         { opacity: 1, y: [100, 0] },
         { type: 'spring', delay: stagger(0.08), ease: 'easeInOut' }
+      )
+      animate(
+        '#submenu-items',
+        { x: '0%' },
+        { duration: 0.45, ease: 'easeInOut' }
       )
       animate('#submenu-items li li', { opacity: 1 }, { delay: 2 })
     }
