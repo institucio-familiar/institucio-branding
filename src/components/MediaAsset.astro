@@ -24,13 +24,11 @@ const defaultStyles = 'h-full w-full object-cover'
 
 {
   mediaType === 'image' && image && (
-    <figure class:list={[className]}>
-      <img
-        src={urlForImage(image).width(1200).url()}
-        alt={title}
-        class:list={[defaultStyles, className]}
-      />
-    </figure>
+    <img
+      src={urlForImage(image).width(1200).url()}
+      alt={title}
+      class:list={[defaultStyles, className]}
+    />
   )
 }
 

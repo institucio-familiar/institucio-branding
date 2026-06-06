@@ -1,19 +1,75 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Puncha from '@/components/icons/Puncha.astro'
+import MediaAsset from '@/components/MediaAsset.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
+import { urlForImage } from '@/sanity/lib/image'
+import { sanityClient } from 'sanity:client'
+import Icon from '@/components/ui/Icon.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
+
+// TESTINGAL > Cache this, at least in dev
+const testDocument = await sanityClient.fetch<{
+  title?: string
+  heroMedia?: {
+    mediaType?: 'image' | 'video'
+    image?: Parameters<typeof urlForImage>[0]
+    video?: {
+      asset?: {
+        playbackId?: string
+      }
+    }
+  }
+}>(`*[_type == "test-1" && _id == "test-1"][0]{
+  title,
+  heroMedia {
+    mediaType,
+    image,
+    video {
+      asset->{
+        playbackId
+      }
+    }
+  }
+}`)
+
+const heroMedia = testDocument?.heroMedia
 ---
 
 <Layout>
-  <section class="flex min-h-screen items-center justify-center bg-mist">
-    <h1 class="text-white text-headline-1 uppercase text-center">
-      {t('home.hero')}
-    </h1>
+  <section
+    class="flex min-h-screen items-end justify-left bg-mist px-indent py-15 relative"
+  >
+    <div class="flex flex-col z-2">
+      <h1 class="text-white text-headline-2 uppercase">
+        {t('home.hero')}
+      </h1>
+      <div class="flex items-center gap-2">
+        <p class="text-white text-body">{t('hero.scroll-down')}</p>
+        <Icon
+          id="scroll-to-bottom-icon"
+          name="arrow"
+          direction="bottom"
+          variant="outline-white"
+        />
+      </div>
+    </div>
+
+    {
+      heroMedia && (
+        <MediaAsset
+          mediaType={heroMedia.mediaType}
+          title={testDocument?.title ?? 'Hero media'}
+          image={heroMedia.image}
+          playbackId={heroMedia.video?.asset?.playbackId}
+          class="absolute inset-0"
+        />
+      )
+    }
   </section>
 
   <section
@@ -47,3 +103,14 @@ const t = useTranslations(locale)
     <p class="text-ink text-headline-3">{t('home.section6')}</p>
   </section>
 </Layout>
+
+<script>
+  // import { Scroll } from '@/scripts/classes/Scroll'
+
+  // document
+  //   .getElementById('scroll-to-bottom')
+  //   ?.addEventListener('click', () => Scroll.scrollTo(0)) ||
+  //   document
+  //     .getElementById('scroll-to-bottom-icon')
+  //     ?.addEventListener('click', () => Scroll.scrollTo(0))
+</script>

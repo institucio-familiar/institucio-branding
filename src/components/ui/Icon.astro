@@ -17,6 +17,7 @@ type Variant =
   | 'secondary-white'
   | 'outline-dark'
   | 'outline-blue'
+  | 'outline-white'
 
 type IconName =
   | 'arrow'
@@ -71,7 +72,8 @@ const variantBase: Record<Variant, string> = {
   'primary-blue': 'border-transparent bg-blue text-frost',
   'secondary-white': 'border-transparent bg-frost text-navy',
   'outline-dark': 'border-navy bg-transparent text-navy',
-  'outline-blue': 'border-blue bg-transparent text-blue'
+  'outline-blue': 'border-blue bg-transparent text-blue',
+  'outline-white': 'border-white bg-transparent text-white'
 }
 
 const variantInteractive: Record<Variant, string> = {
@@ -84,7 +86,9 @@ const variantInteractive: Record<Variant, string> = {
   'outline-dark':
     'hover:border-navy hover:bg-navy hover:text-frost active:border-navy-light active:bg-navy-light active:text-frost',
   'outline-blue':
-    'hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost'
+    'hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost',
+  'outline-white':
+    'hover:border-white hover:bg-white hover:text-ink active:border-white-light active:bg-white-light active:text-ink'
 }
 
 const glyphs: Record<GlyphIconName, AstroComponentFactory> = {

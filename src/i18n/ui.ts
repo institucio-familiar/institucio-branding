@@ -17,9 +17,15 @@
 
 import { defaultLocale, type Locale } from './config'
 
+const school = import.meta.env.PUBLIC_SCHOOL_NAME
+
+const sharedTranslations = {
+  'site.title': `${school} Branding`,
+  'home.hero': 'Brand guidelines'
+}
+
 export const ui = {
   es: {
-    'site.title': 'Institució Branding',
     'nav.home': 'Inicio',
     'nav.test': 'Test',
     'nav.nuestraMarca': 'Nuestra Marca',
@@ -36,7 +42,6 @@ export const ui = {
     'nav.layout': 'Layout',
     'nav.fotografia': 'Fotografía',
     'nav.motion': 'Motion',
-    'home.hero': 'Institució Branding',
     'home.tagline': 'Educamos a personas únicas, preparándolas para el futuro.',
     'home.section3': 'Sección 3 — Azul',
     'home.section4': 'Sección 4 — Cielo',
@@ -85,10 +90,11 @@ export const ui = {
     'fotografia.title': 'Fotografía',
     'fotografia.description': 'Dirección de arte fotográfico.',
     'motion.title': 'Motion',
-    'motion.description': 'Animaciones y movimiento de marca.'
+    'motion.description': 'Animaciones y movimiento de marca.',
+    'hero.scroll-down': 'Desliza para descubrir',
+    ...sharedTranslations
   },
   ca: {
-    'site.title': 'Institució Branding',
     'nav.home': 'Inici',
     'nav.test': 'Test',
     'nav.nuestraMarca': 'La nostra marca',
@@ -105,7 +111,6 @@ export const ui = {
     'nav.layout': 'Layout',
     'nav.fotografia': 'Fotografia',
     'nav.motion': 'Motion',
-    'home.hero': 'Institució Branding',
     'home.tagline': 'Eduquem persones úniques, preparant-les per al futur.',
     'home.section3': 'Secció 3 — Blau',
     'home.section4': 'Secció 4 — Cel',
@@ -154,7 +159,9 @@ export const ui = {
     'fotografia.title': 'Fotografia',
     'fotografia.description': "Direcció d'art fotogràfic.",
     'motion.title': 'Motion',
-    'motion.description': 'Animacions i moviment de marca.'
+    'motion.description': 'Animacions i moviment de marca.',
+    'hero.scroll-down': 'Desplaça per descobrir',
+    ...sharedTranslations
   }
 } satisfies Record<Locale, Record<string, string>>
 
