@@ -12,32 +12,35 @@ const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
+// TESTINGAL > Add sanity typgen for sanity queries
 // TESTINGAL > Cache this, at least in dev
-const testDocument = await sanityClient.fetch<{
-  title?: string
-  heroMedia?: {
-    mediaType?: 'image' | 'video'
-    image?: Parameters<typeof urlForImage>[0]
-    video?: {
-      asset?: {
-        playbackId?: string
+const homePageData = await sanityClient.fetch<{
+  hero?: {
+    media: {
+      mediaType?: 'image' | 'video'
+      image?: Parameters<typeof urlForImage>[0]
+      video?: {
+        asset?: {
+          playbackId?: string
+        }
       }
     }
   }
-}>(`*[_type == "test-1" && _id == "test-1"][0]{
-  title,
-  heroMedia {
+}>(`*[_type == "home_page" && _id == "home_page"][0]{
+  hero {
+  media {
     mediaType,
-    image,
-    video {
-      asset->{
-        playbackId
+      image,
+      video {
+        asset->{
+          playbackId
+        }
       }
     }
   }
 }`)
 
-const heroMedia = testDocument?.heroMedia
+const heroMedia = homePageData?.hero?.media
 ---
 
 <Layout>
@@ -63,7 +66,7 @@ const heroMedia = testDocument?.heroMedia
       heroMedia && (
         <MediaAsset
           mediaType={heroMedia.mediaType}
-          title={testDocument?.title ?? 'Hero media'}
+          title={t('home.hero')}
           image={heroMedia.image}
           playbackId={heroMedia.video?.asset?.playbackId}
           class="absolute inset-0"
