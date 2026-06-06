@@ -20,7 +20,7 @@ export default defineConfig({
   dataset,
   schema,
   plugins: [
-    structureTool({ name: 'content', title: 'Content', structure }),
+    structureTool({ name: 'content', title: 'Contenido', structure }),
     media(),
     muxInput({ mp4_support: 'standard' }),
     // Vision is a tool that lets you query your content with GROQ in the studio
