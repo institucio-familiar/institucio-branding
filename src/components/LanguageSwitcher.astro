@@ -9,33 +9,33 @@ const currentLocale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const pathKey = getPathKey(Astro.url.pathname)
 const t = useTranslations(currentLocale)
 
-const localeUrls = locales.map((locale) => ({
-  locale,
-  label: localeLabels[locale],
-  href: getRelativeLocaleUrl(locale, pathKey)
-}))
+const alternateLocale = locales.find((locale) => locale !== currentLocale)
+
+const alternateLocaleUrl = alternateLocale
+  ? {
+      locale: alternateLocale,
+      label: localeLabels[alternateLocale],
+      href: getRelativeLocaleUrl(alternateLocale, pathKey)
+    }
+  : null
 ---
 
-<nav aria-label={t('lang.switch')} class="flex items-center gap-1 text-body">
+<nav
+  aria-label={t('lang.switch')}
+  class="flex items-center text-body"
+  data-language-switcher
+>
   {
-    localeUrls.map(({ locale, label, href }, index) => (
-      <>
-        {index > 0 && <span class="text-mist select-none" aria-hidden="true">/</span>}
-        <a
-          href={href}
-          hreflang={locale}
-          lang={locale}
-          aria-current={locale === currentLocale ? 'page' : undefined}
-          class:list={[
-            'px-1 transition-colors duration-200',
-            locale === currentLocale
-              ? 'text-blue font-medium'
-              : 'text-ink hover:text-blue'
-          ]}
-        >
-          {label}
-        </a>
-      </>
-    ))
+    alternateLocaleUrl && (
+      <a
+        href={alternateLocaleUrl.href}
+        hreflang={alternateLocaleUrl.locale}
+        lang={alternateLocaleUrl.locale}
+        data-no-swup
+        class="px-1 text-ink transition-colors duration-200 hover:text-blue"
+      >
+        {alternateLocaleUrl.label}
+      </a>
+    )
   }
 </nav>

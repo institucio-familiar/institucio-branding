@@ -23,13 +23,15 @@ const t = useTranslations(locale)
   </div>
 </header>
 
-<Button
-  variant="secondary-white"
-  href={`mailto:${HELP_EMAIL}`}
-  class="fixed top-indent right-indent"
+<div
+  class="fixed top-indent right-indent flex items-center gap-2 z-40"
+  data-header-actions
 >
-  {t('header.needHelp')}
-</Button>
+  <LanguageSwitcher />
+  <Button variant="secondary-white" href={`mailto:${HELP_EMAIL}`}>
+    {t('header.needHelp')}
+  </Button>
+</div>
 
 <script>
   import { $isMenuOpen } from '@/store'

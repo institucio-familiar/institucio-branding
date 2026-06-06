@@ -70,13 +70,17 @@ const SUBMENU_ITEMS = [
     href: '/motion'
   }
 ]
+
+// const menuOverlayClass =
+//   'absolute top-1/2 left-1/2 bg-navy -z-1 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square'
 ---
 
 <div>
-  <div class="relative">
+  <div>
     <div
       id="menu-overlay"
-      class="absolute top-1/2 left-1/2 bg-navy -z-1 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square"
+      class="bg-navy -z-1 absolute inset-0 h-screen w-screen"
+      style="transform: translateY(-100%)"
     >
     </div>
     <button
@@ -194,7 +198,8 @@ const SUBMENU_ITEMS = [
       Scroll.start()
       animate(
         '#menu-overlay',
-        { opacity: 0, width: '10px' },
+        // { opacity: 0, width: '10px' },
+        { y: '-100%' },
         { duration: 0.6, ease: 'easeInOut' }
       )
       animate(
@@ -213,7 +218,8 @@ const SUBMENU_ITEMS = [
       Scroll.stop()
       animate(
         '#menu-overlay',
-        { opacity: 1, width: '400vh' },
+        // { opacity: 1, width: '400vh' },
+        { y: '0%' },
         { duration: 0.6, ease: 'easeInOut' }
       )
       animate(

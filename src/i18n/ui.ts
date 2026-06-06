@@ -1,3 +1,20 @@
+// TESTINGAL > Implementation with JSON files
+// src/i18n/utils.ts
+// import en from './en.json'
+// import fr from './fr.json'
+// import de from './de.json'
+
+// const translations = { en, fr, de } as const
+
+// type Locale = keyof typeof translations
+// type TranslationKey = keyof typeof en
+
+// export function useTranslations(locale: Locale) {
+//   return function t(key: TranslationKey): string {
+//     return translations[locale][key] ?? translations['en'][key] ?? key
+//   }
+// }
+
 import { defaultLocale, type Locale } from './config'
 
 export const ui = {
@@ -32,8 +49,7 @@ export const ui = {
     'asi-hablamos.description':
       'Descubre cómo nos comunicamos y expresamos nuestra marca.',
     'asi-nos-vemos.title': 'Así nos vemos',
-    'asi-nos-vemos.description':
-      'Descubre cómo nos presentamos visualmente.',
+    'asi-nos-vemos.description': 'Descubre cómo nos presentamos visualmente.',
     'recursos.title': 'Recursos',
     'recursos.description': 'Accede a los recursos de nuestra marca.',
     'overview.title': 'Overview',
@@ -92,13 +108,13 @@ export const ui = {
     'recursos.title': 'Recursos',
     'recursos.description': 'Accedeix als recursos de la nostra marca.',
     'overview.title': 'Overview',
-    'overview.description': "Visió general de la nostra identitat de marca.",
+    'overview.description': 'Visió general de la nostra identitat de marca.',
     'trademarks.title': 'Trademarks',
     'trademarks.description': "Guia d'ús de les nostres marques registrades.",
     'brand-colors.title': 'Brand colors',
     'brand-colors.description': 'Paleta de colors oficials de la marca.',
     'patrones.title': 'Patrons',
-    'patrones.description': "Patrons gràfics de la identitat visual.",
+    'patrones.description': 'Patrons gràfics de la identitat visual.',
     'iconografia.title': 'Iconografia',
     'iconografia.description': "Sistema d'icones de la marca.",
     'ilustracion.title': 'Il·lustració',

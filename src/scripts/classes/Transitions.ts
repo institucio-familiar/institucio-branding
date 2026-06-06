@@ -135,6 +135,26 @@ export class Transitions {
   onContentReplace(visit: VisitType) {
     Scroll?.init()
     this.updateDocumentAttributes(visit)
+    this.updatePersistentHeader(visit)
+  }
+  /**
+   * Header chrome lives outside #swup, so sync locale-dependent UI after navigation.
+   */
+  updatePersistentHeader(visit: VisitType) {
+    if (visit.fragmentVisit) return
+    const parser = new DOMParser()
+    const nextDOM = parser.parseFromString(visit.to.html, 'text/html')
+    const nextLang = nextDOM.documentElement.lang
+    if (nextLang) {
+      document.documentElement.lang = nextLang
+    }
+    const nextHeaderActions = nextDOM.querySelector('[data-header-actions]')
+    const currentHeaderActions = document.querySelector('[data-header-actions]')
+    if (nextHeaderActions && currentHeaderActions) {
+      currentHeaderActions.replaceWith(
+        document.importNode(nextHeaderActions, true)
+      )
+    }
   }
 
   /**
