@@ -4,10 +4,10 @@ import { urlForImage } from '@/sanity/lib/image'
 import type { SanityImageSource } from '@sanity/image-url'
 
 interface Props {
-  mediaType?: 'image' | 'video'
+  mediaType?: 'image' | 'video' | null
   title?: string
-  image?: SanityImageSource
-  playbackId?: string
+  image?: SanityImageSource | null
+  playbackId?: string | null
   class?: string
 }
 

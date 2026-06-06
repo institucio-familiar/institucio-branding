@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "typegen": "sanity schema extract && sanity typegen generate",
+    "typegen:watch": "sanity typegen generate --watch"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
@@ -36,6 +38,7 @@
     "animejs": "^4.4.1",
     "astro": "^6.4.2",
     "astro-portabletext": "^0.13.0",
+    "groq": "^5.30.0",
     "institucio-branding": "link:",
     "locomotive-scroll": "^5.0.1",
     "lodash": "^4.17.21",

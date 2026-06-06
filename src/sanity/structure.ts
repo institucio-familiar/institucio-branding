@@ -1,4 +1,4 @@
-import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
+// import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 import type { StructureResolver } from 'sanity/structure'
 
 import {
@@ -6,25 +6,8 @@ import {
   pageDocumentListItem,
   submenuPages
 } from '@/sanity/pages-structure'
-import {
-  BasketIcon,
-  CogIcon,
-  CopyIcon,
-  HomeIcon,
-  TiersIcon,
-  DocumentTextIcon,
-  InfoOutlineIcon
-} from '@sanity/icons'
-import {
-  BsFillCameraReelsFill,
-  BsLightbulb,
-  BsLightningChargeFill
-} from 'react-icons/bs'
-import { RiCameraLensFill } from 'react-icons/ri'
-import { FaTape } from 'react-icons/fa'
-import { GiIBeam } from 'react-icons/gi'
-import { AiFillTool } from 'react-icons/ai'
-import { LiaWarehouseSolid } from 'react-icons/lia'
+import { CopyIcon } from '@sanity/icons'
+import { BsLightbulb } from 'react-icons/bs'
 
 export const structure: StructureResolver = (S, context) =>
   S.list()

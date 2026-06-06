@@ -1,19 +1,52 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import MediaAsset from '@/components/MediaAsset.astro'
+import Icon from '@/components/ui/Icon.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
+import { ILUSTRACION_PAGE_QUERY } from '@/sanity/queries/pages'
+import { sanityClient } from 'sanity:client'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
+
+const pageData = await sanityClient.fetch(ILUSTRACION_PAGE_QUERY)
+const heroMedia = pageData?.hero?.media
+const pageTitle = t('ilustracion.title')
 ---
 
 <Layout>
-  <section class="flex min-h-screen items-center justify-center bg-mist">
-    <h1 class="text-white text-headline-1 uppercase text-center">
-      {t('ilustracion.title')}
-    </h1>
+  <section
+    class="flex min-h-screen items-end justify-left bg-mist px-indent py-15 relative"
+  >
+    <div class="flex flex-col z-2">
+      <h1 class="text-white text-headline-2 uppercase">
+        {pageTitle}
+      </h1>
+      <div class="flex items-center gap-2">
+        <p class="text-white text-body">{t('hero.scroll-down')}</p>
+        <Icon
+          id="scroll-to-bottom-icon"
+          name="arrow"
+          direction="bottom"
+          variant="outline-white"
+        />
+      </div>
+    </div>
+
+    {
+      heroMedia && (
+        <MediaAsset
+          mediaType={heroMedia.mediaType}
+          title={pageTitle}
+          image={heroMedia.image}
+          playbackId={heroMedia.video?.asset?.playbackId}
+          class="absolute inset-0"
+        />
+      )
+    }
   </section>
 
   <section

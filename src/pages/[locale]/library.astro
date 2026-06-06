@@ -6,36 +6,14 @@ import Puncha from '@/components/icons/Puncha.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
-import { urlForImage } from '@/sanity/lib/image'
+import { TEST_1_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
-const testDocument = await sanityClient.fetch<{
-  title?: string
-  heroMedia?: {
-    mediaType?: 'image' | 'video'
-    image?: Parameters<typeof urlForImage>[0]
-    video?: {
-      asset?: {
-        playbackId?: string
-      }
-    }
-  }
-}>(`*[_type == "test-1" && _id == "test-1"][0]{
-  title,
-  heroMedia {
-    mediaType,
-    image,
-    video {
-      asset->{
-        playbackId
-      }
-    }
-  }
-}`)
+const testDocument = await sanityClient.fetch(TEST_1_QUERY)
 
 const heroMedia = testDocument?.heroMedia
 

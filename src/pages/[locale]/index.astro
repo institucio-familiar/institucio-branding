@@ -4,7 +4,7 @@ import Puncha from '@/components/icons/Puncha.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
-import { urlForImage } from '@/sanity/lib/image'
+import { HOME_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import Icon from '@/components/ui/Icon.astro'
 
@@ -12,33 +12,7 @@ const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
-// TESTINGAL > Add sanity typgen for sanity queries
-// TESTINGAL > Cache this, at least in dev
-const homePageData = await sanityClient.fetch<{
-  hero?: {
-    media: {
-      mediaType?: 'image' | 'video'
-      image?: Parameters<typeof urlForImage>[0]
-      video?: {
-        asset?: {
-          playbackId?: string
-        }
-      }
-    }
-  }
-}>(`*[_type == "home_page" && _id == "home_page"][0]{
-  hero {
-  media {
-    mediaType,
-      image,
-      video {
-        asset->{
-          playbackId
-        }
-      }
-    }
-  }
-}`)
+const homePageData = await sanityClient.fetch(HOME_PAGE_QUERY)
 
 const heroMedia = homePageData?.hero?.media
 ---
