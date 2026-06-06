@@ -1,3 +1,5 @@
+import { block1 } from './blocks/block-1'
+import { block2 } from './blocks/block-2'
 import { mediaAsset } from './mediaAsset'
 import { asiHablamosPage } from './pages/asi-hablamos-page'
 import { asiNosVemosPage } from './pages/asi-nos-vemos-page'
@@ -18,6 +20,8 @@ import { test1 } from './test-1'
 export const schema = {
   types: [
     mediaAsset,
+    block1,
+    block2,
     homePage,
     nuestraMarcaPage,
     asiHablamosPage,

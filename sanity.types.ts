@@ -25,6 +25,14 @@ export type Test1 = {
   slug?: Slug;
   description?: string;
   heroMedia?: MediaAsset;
+  blocks?: Array<
+    | ({
+        _key: string;
+      } & Block_1)
+    | ({
+        _key: string;
+      } & Block_2)
+  >;
 };
 
 export type SanityImageAssetReference = {
@@ -205,6 +213,17 @@ export type Home_page = {
   hero?: {
     media?: MediaAsset;
   };
+};
+
+export type Block_2 = {
+  _type: "block_2";
+  media1?: MediaAsset;
+  media2?: MediaAsset;
+};
+
+export type Block_1 = {
+  _type: "block_1";
+  media1?: MediaAsset;
 };
 
 export type MuxVideoAssetReference = {
@@ -451,6 +470,8 @@ export type AllSanitySchemaTypes =
   | Asi_hablamos_page
   | Nuestra_marca_page
   | Home_page
+  | Block_2
+  | Block_1
   | MuxVideoAssetReference
   | MuxVideo
   | SanityImageCrop
@@ -795,7 +816,7 @@ export type MOTION_PAGE_QUERY_RESULT = {
 
 // Source: src/sanity/queries/pages.ts
 // Variable: TEST_1_QUERY
-// Query: *[_type == "test-1" && _id == "test-1"][0]{    title,    heroMedia {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }
+// Query: *[_type == "test-1" && _id == "test-1"][0]{    title,    heroMedia {  mediaType,  image,  video {    asset->{      playbackId    }  }},    blocks []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}  }
 export type TEST_1_QUERY_RESULT = {
   title: string | null;
   heroMedia: {
@@ -813,6 +834,61 @@ export type TEST_1_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  blocks: Array<
+    | {
+        _key: string;
+        _type: "block_1";
+        media1: {
+          mediaType: "image" | "video" | null;
+          image: {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          } | null;
+          video: {
+            asset: {
+              playbackId: string | null;
+            } | null;
+          } | null;
+        } | null;
+      }
+    | {
+        _key: string;
+        _type: "block_2";
+        media1: {
+          mediaType: "image" | "video" | null;
+          image: {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          } | null;
+          video: {
+            asset: {
+              playbackId: string | null;
+            } | null;
+          } | null;
+        } | null;
+        media2: {
+          mediaType: "image" | "video" | null;
+          image: {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          } | null;
+          video: {
+            asset: {
+              playbackId: string | null;
+            } | null;
+          } | null;
+        } | null;
+      }
+  > | null;
 } | null;
 
 // Query TypeMap
@@ -833,6 +909,6 @@ declare module "@sanity/client" {
     '\n  *[_type == "layout_page" && _id == "layout_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': LAYOUT_PAGE_QUERY_RESULT;
     '\n  *[_type == "fotografia_page" && _id == "fotografia_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': FOTOGRAFIA_PAGE_QUERY_RESULT;
     '\n  *[_type == "motion_page" && _id == "motion_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': MOTION_PAGE_QUERY_RESULT;
-    '\n  *[_type == "test-1" && _id == "test-1"][0]{\n    title,\n    heroMedia {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n': TEST_1_QUERY_RESULT;
+    '\n  *[_type == "test-1" && _id == "test-1"][0]{\n    title,\n    heroMedia {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    blocks []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n  }\n': TEST_1_QUERY_RESULT;
   }
 }

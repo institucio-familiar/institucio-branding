@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, defineArrayMember } from 'sanity'
 
 export const test1 = defineType({
   name: 'test-1',
@@ -26,6 +26,15 @@ export const test1 = defineType({
       name: 'heroMedia',
       title: 'Hero media',
       type: 'mediaAsset'
+    }),
+    defineField({
+      name: 'blocks',
+      title: 'Blocks',
+      type: 'array',
+      of: [
+        defineArrayMember({ type: 'block_1' }),
+        defineArrayMember({ type: 'block_2' })
+      ]
     })
   ]
 })

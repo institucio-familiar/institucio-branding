@@ -4,16 +4,24 @@ import Button from '@/components/ui/Button.astro'
 import Icon from '@/components/ui/Icon.astro'
 import Puncha from '@/components/icons/Puncha.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
+import Block from '@/components/ui/blocks/Block.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import { TEST_1_QUERY } from '@/sanity/queries/pages'
+import { toBlock } from '@/sanity/lib/utils'
 import { sanityClient } from 'sanity:client'
+import type { BlockData } from '@/components/ui/blocks/block-types'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
 const testDocument = await sanityClient.fetch(TEST_1_QUERY)
+
+const blocks =
+  testDocument?.blocks
+    ?.map(toBlock)
+    .filter((block): block is BlockData => block !== null) ?? []
 
 const heroMedia = testDocument?.heroMedia
 
@@ -149,11 +157,16 @@ const typographyStyles = [
     }
   </section>
 
-  <section
-    class="flex items-center justify-center bg-sky border-t border-navy-light py-10 md:py-20"
-  >
-    <p class="text-white text-headline-3">{t('test.section4')}</p>
-  </section>
+  {
+    blocks.length ? (
+      <section class="flex flex-col gap-indent bg-white px-indent py-10 border-t border-navy-light">
+        <p class="text-ink text-headline-3">Blocks</p>
+        {blocks.map((block) => (
+          <Block block={block} />
+        ))}
+      </section>
+    ) : null
+  }
 
   <section
     class="flex items-center justify-center bg-mist border-t border-navy-light py-10 md:py-20"

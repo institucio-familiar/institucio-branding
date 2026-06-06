@@ -72,9 +72,22 @@ export const MOTION_PAGE_QUERY = defineQuery(/* groq */ `
   *[_type == "motion_page" && _id == "motion_page"][0]${heroProjection}
 `)
 
+const blockProjection = /* groq */ `[]{
+  _key,
+  _type,
+  _type == "block_1" => {
+    media1 ${mediaAssetProjection}
+  },
+  _type == "block_2" => {
+    media1 ${mediaAssetProjection},
+    media2 ${mediaAssetProjection}
+  }
+}`
+
 export const TEST_1_QUERY = defineQuery(/* groq */ `
   *[_type == "test-1" && _id == "test-1"][0]{
     title,
-    heroMedia ${mediaAssetProjection}
+    heroMedia ${mediaAssetProjection},
+    blocks ${blockProjection}
   }
 `)

@@ -1,0 +1,18 @@
+---
+import MediaAsset from '@/components/MediaAsset.astro'
+import type { BlockMedias } from '@/components/ui/blocks/block-types'
+
+interface Props extends BlockMedias {}
+
+const { media1 } = Astro.props
+---
+
+<section class="w-full">
+  <div class="aspect-video w-full overflow-hidden rounded-lg">
+    <MediaAsset
+      mediaType={media1.mediaType}
+      image={media1.image}
+      playbackId={media1.playbackId}
+    />
+  </div>
+</section>

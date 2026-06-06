@@ -1,0 +1,18 @@
+---
+import Block1 from '@/components/ui/blocks/Block-1.astro'
+import Block2 from '@/components/ui/blocks/Block-2.astro'
+import type { BlockData } from '@/components/ui/blocks/block-types'
+
+interface Props {
+  block: BlockData
+}
+
+const { block } = Astro.props
+---
+
+{block._type === 'block_1' && <Block1 media1={block.media1} />}
+{
+  block._type === 'block_2' && (
+    <Block2 media1={block.media1} media2={block.media2} />
+  )
+}

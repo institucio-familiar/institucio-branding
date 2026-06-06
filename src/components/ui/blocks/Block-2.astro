@@ -1,0 +1,29 @@
+---
+import MediaAsset from '@/components/MediaAsset.astro'
+import type { BlockMedias } from '@/components/ui/blocks/block-types'
+
+interface Props extends BlockMedias {}
+
+const { media1, media2 } = Astro.props
+---
+
+<section class="grid w-full gap-indent md:grid-cols-2">
+  <div class="aspect-square w-full overflow-hidden rounded-lg">
+    <MediaAsset
+      mediaType={media1.mediaType}
+      image={media1.image}
+      playbackId={media1.playbackId}
+    />
+  </div>
+  {
+    media2 && (
+      <div class="aspect-square w-full overflow-hidden rounded-lg">
+        <MediaAsset
+          mediaType={media2.mediaType}
+          image={media2.image}
+          playbackId={media2.playbackId}
+        />
+      </div>
+    )
+  }
+</section>
