@@ -20,6 +20,12 @@ importers:
       '@locomotivemtl/grid-helper':
         specifier: ^1.1.0
         version: 1.1.0
+      '@mux/mux-background-video':
+        specifier: ^0.2.3
+        version: 0.2.3
+      '@mux/mux-player':
+        specifier: ^3.13.0
+        version: 3.13.0(react@19.2.6)
       '@sanity/astro':
         specifier: ^3.4.0
         version: 3.4.0(@emotion/is-prop-valid@1.4.0)(@sanity/client@7.22.1)(@sanity/types@5.28.0(@types/react@19.2.15))(astro@6.4.2(@types/node@25.9.1)(@vercel/functions@3.6.1)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.4)(tsx@4.22.4)(yaml@2.9.0))(react-dom@19.2.6(react@19.2.6))(react-is@19.2.6)(react@19.2.6)(sanity@5.28.0(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.11.4)(@sanity/cli-core@1.3.2(@noble/hashes@2.2.0)(@types/node@25.9.1)(lightningcss@1.32.0)(yaml@2.9.0))(@types/node@25.9.1)(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(immer@11.1.8)(jiti@2.7.0)(lightningcss@1.32.0)(prismjs@1.30.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3))(styled-components@6.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)
@@ -1875,6 +1881,9 @@ packages:
     peerDependenciesMeta:
       markdown-it:
         optional: true
+
+  '@mux/mux-background-video@0.2.3':
+    resolution: {integrity: sha512-J5e8KxvdAvHTDVYBI3iuiyKn6P3JYmYiCgIaxTgN/E3L/DXSSUoaP8Tuifbt/q8bJQatBXQ6IBBsOtGKVJN/JA==}
 
   '@mux/mux-data-google-ima@0.3.17':
     resolution: {integrity: sha512-4wpH6dYybyZhqLn9qGn/+67Z8MZnQRAdqTFEEZw2bx61M9q01uPYYHxd8qwOnYtUGEeafsdTwVHVxKHGD3oc1A==}
@@ -8521,6 +8530,8 @@ snapshots:
       '@types/markdown-it': 14.1.2
     optionalDependencies:
       markdown-it: 14.2.0
+
+  '@mux/mux-background-video@0.2.3': {}
 
   '@mux/mux-data-google-ima@0.3.17':
     dependencies:

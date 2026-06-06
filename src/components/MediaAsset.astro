@@ -1,0 +1,45 @@
+---
+import MuxBackgroundVideo from '@/components/MuxBackgroundVideo.astro'
+import { urlForImage } from '@/sanity/lib/image'
+import type { SanityImageSource } from '@sanity/image-url'
+
+interface Props {
+  mediaType?: 'image' | 'video'
+  title?: string
+  image?: SanityImageSource
+  playbackId?: string
+  class?: string
+}
+
+const {
+  mediaType,
+  title = 'Media',
+  image,
+  playbackId,
+  class: className
+} = Astro.props
+
+const defaultStyles = 'h-full w-full object-cover'
+---
+
+{
+  mediaType === 'image' && image && (
+    <figure class:list={[className]}>
+      <img
+        src={urlForImage(image).width(1200).url()}
+        alt={title}
+        class:list={[defaultStyles, className]}
+      />
+    </figure>
+  )
+}
+
+{
+  mediaType === 'video' && playbackId && (
+    <MuxBackgroundVideo
+      playbackId={playbackId}
+      title={title}
+      class:list={[defaultStyles, className]}
+    />
+  )
+}

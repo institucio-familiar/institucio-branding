@@ -1,5 +1,6 @@
-import { test } from './test'
+import { mediaAsset } from './mediaAsset'
+import { test1 } from './test-1'
 
 export const schema = {
-  types: [test]
+  types: [mediaAsset, test1]
 }

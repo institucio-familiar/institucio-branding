@@ -184,7 +184,9 @@ export const structure: StructureResolver = (S, context) =>
       //       ])
       //   )
       S.listItem()
-        .title('Test')
+        .title('Test 1')
         .icon(BsLightbulb)
-        .child(S.document().title('Test').schemaType('test').documentId('test'))
+        .child(
+          S.document().title('Test 1').schemaType('test-1').documentId('test-1')
+        )
     ])

@@ -6,6 +6,10 @@
   font-style: normal;
   line-height: 1;
   letter-spacing: -0.02em;
+
+  @media (max-width: 768px) {
+    font-size: min(20vw, var(--text-display));
+  }
 }
 
 /* 128px */

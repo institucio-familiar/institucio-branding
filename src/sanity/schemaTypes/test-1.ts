@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity'
 
-export const test = defineType({
-  name: 'test',
-  title: 'Test',
+export const test1 = defineType({
+  name: 'test-1',
+  title: 'Test 1',
   type: 'document',
   fields: [
     defineField({
@@ -23,9 +23,9 @@ export const test = defineType({
       type: 'text'
     }),
     defineField({
-      name: 'video',
-      title: 'Mux Video',
-      type: 'mux.video'
+      name: 'heroMedia',
+      title: 'Hero media',
+      type: 'mediaAsset'
     })
   ]
 })
