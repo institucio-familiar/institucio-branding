@@ -3,72 +3,30 @@ import Cross from '@/components/ui/icon-glyphs/Cross.astro'
 import Hamburger from '@/components/ui/icon-glyphs/Hamburger.astro'
 import PunchaVertical from '@/components/icons/PunchaVertical.astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import { useTranslations } from '@/i18n/ui'
+import { useTranslations, type UiKey } from '@/i18n/ui'
 import { getPageLocale } from '@/i18n/utils'
 
 const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
 
-const MENU_ITEMS = [
-  {
-    label: 'Nuestra Marca',
-    href: '/nuestra-marca'
-  },
-  {
-    label: 'Así hablamos',
-    href: '/asi-hablamos'
-  },
-  {
-    label: 'Así nos vemos',
-    href: '/asi-nos-vemos'
-  },
-  {
-    label: 'Recursos',
-    href: '/recursos'
-  }
+const MENU_ITEMS: { key: UiKey; href: string }[] = [
+  { key: 'nav.nuestraMarca', href: '/nuestra-marca' },
+  { key: 'nav.asiHablamos', href: '/asi-hablamos' },
+  { key: 'nav.asiNosVemos', href: '/asi-nos-vemos' },
+  { key: 'nav.recursos', href: '/recursos' }
 ]
 
-const SUBMENU_ITEMS = [
-  {
-    label: 'Overview',
-    href: '/overview'
-  },
-  {
-    label: 'Trademarks',
-    href: '/trademarks'
-  },
-  {
-    label: 'Brand colors',
-    href: '/brand-colors'
-  },
-  {
-    label: 'Patrones',
-    href: '/patrones'
-  },
-  {
-    label: 'Iconografía',
-    href: '/iconografia'
-  },
-  {
-    label: 'Ilustración',
-    href: '/ilustracion'
-  },
-  {
-    label: 'Tiopografía',
-    href: '/tipografia'
-  },
-  {
-    label: 'Layout',
-    href: '/layout'
-  },
-  {
-    label: 'Fotografía',
-    href: '/fotografia'
-  },
-  {
-    label: 'Motion',
-    href: '/motion'
-  }
+const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
+  { key: 'nav.overview', href: '/overview' },
+  { key: 'nav.trademarks', href: '/trademarks' },
+  { key: 'nav.brandColors', href: '/brand-colors' },
+  { key: 'nav.patrones', href: '/patrones' },
+  { key: 'nav.iconografia', href: '/iconografia' },
+  { key: 'nav.ilustracion', href: '/ilustracion' },
+  { key: 'nav.tipografia', href: '/tipografia' },
+  { key: 'nav.layout', href: '/layout' },
+  { key: 'nav.fotografia', href: '/fotografia' },
+  { key: 'nav.motion', href: '/motion' }
 ]
 
 // const menuOverlayClass =
@@ -114,7 +72,7 @@ const SUBMENU_ITEMS = [
             <li>
               <a href={getRelativeLocaleUrl(locale, item.href)} data-menu-link>
                 <span class="text-white text-headline-2 uppercase hover:text-blue transition-colors duration-200">
-                  {item.label}
+                  {t(item.key)}
                 </span>
               </a>
             </li>
@@ -128,14 +86,14 @@ const SUBMENU_ITEMS = [
         class="h-[25vw] max-h-[260px] translate-x-[0.5px]"
       />
       <ul
-        class="flex flex-col gap-6 justify-center h-full bg-blue p-indent pl-indent pr-indent-2"
+        class="flex flex-col gap-6 justify-center h-full bg-blue p-indent pl-indent-1-5 pr-indent-3"
       >
         {
           SUBMENU_ITEMS.map((item) => (
             <li>
               <a href={getRelativeLocaleUrl(locale, item.href)} data-menu-link>
                 <span class="text-navy text-headline-3 hover:text-frost transition-colors duration-200">
-                  {item.label}
+                  {t(item.key)}
                 </span>
               </a>
             </li>

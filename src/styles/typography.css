@@ -10,7 +10,7 @@
 
 /* 128px */
 @utility text-headline-1 {
-  font-size: var(--text-title);
+  font-size: min(10vw, var(--text-title));
   font-family: var(--font-serif);
   font-weight: 600;
   font-style: normal;
@@ -20,7 +20,7 @@
 
 /* 80px */
 @utility text-headline-2 {
-  font-size: var(--text-heading);
+  font-size: min(6vw, var(--text-heading));
   font-family: var(--font-serif);
   font-weight: 600;
   font-style: normal;
@@ -30,7 +30,7 @@
 
 /* 40px */
 @utility text-headline-3 {
-  font-size: var(--text-subhead);
+  font-size: min(4vw, var(--text-subhead));
   font-family: var(--font-serif);
   font-weight: 400;
   font-style: normal;
