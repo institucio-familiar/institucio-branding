@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button.astro'
 import Icon from '@/components/ui/Icon.astro'
 import Puncha from '@/components/icons/Puncha.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
+import Mask from '@/components/ui/Mask.astro'
 import Block from '@/components/ui/blocks/Block.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
@@ -11,7 +12,6 @@ import { TEST_1_QUERY } from '@/sanity/queries/pages'
 import { toBlock } from '@/sanity/lib/utils'
 import { sanityClient } from 'sanity:client'
 import type { BlockData } from '@/components/ui/blocks/block-types'
-
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
@@ -168,15 +168,36 @@ const typographyStyles = [
     ) : null
   }
 
-  <section
-    class="flex items-center justify-center bg-mist border-t border-navy-light py-10 md:py-20"
-  >
-    <p class="text-ink text-headline-3">{t('test.section5')}</p>
-  </section>
+  {
+    heroMedia && (
+      <section class="flex flex-wrap items-center justify-center gap-12 bg-white border-t border-navy-light px-indent py-10 md:py-20">
+        <Mask type="4o">
+          <MediaAsset
+            mediaType={heroMedia.mediaType}
+            title={testDocument?.title ?? 'Hero media'}
+            image={heroMedia.image}
+            playbackId={heroMedia.video?.asset?.playbackId}
+          />
+        </Mask>
+        <Mask type="tibo">
+          <MediaAsset
+            mediaType={heroMedia.mediaType}
+            title={testDocument?.title ?? 'Hero media'}
+            image={heroMedia.image}
+            playbackId={heroMedia.video?.asset?.playbackId}
+          />
+        </Mask>
+      </section>
+    )
+  }
 
   <section
-    class="flex items-center justify-center bg-cream border-t border-navy-light py-10 md:py-20"
+    class="relative flex items-center justify-center bg-white border-t border-navy-light py-10 md:py-20 min-h-[60vh]"
   >
-    <p class="text-ink text-headline-3">{t('test.section6')}</p>
+    <p class="text-ink text-headline-3">{t('test.section5')}</p>
+    <Puncha
+      color="white"
+      class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
+    />
   </section>
 </Layout>

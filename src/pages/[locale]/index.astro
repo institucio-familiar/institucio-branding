@@ -8,6 +8,7 @@ import { useTranslations } from '@/i18n/ui'
 import { HOME_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import Icon from '@/components/ui/Icon.astro'
+import Mask from '@/components/ui/Mask.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -87,16 +88,31 @@ const heroMedia = homePageData?.hero?.media
     </div>
   </div>
 
-  <section class="flex min-h-screen items-center justify-center bg-white">
-    <p class="text-navy text-headline-3">{t('home.section4')}</p>
+  <section
+    class="flex flex-wrap items-center justify-center gap-12 bg-white px-indent py-10 md:py-20"
+  >
+    <!-- <Mask type="4o">
+      <MediaAsset
+        mediaType={heroMedia.mediaType}
+        title={testDocument?.title ?? 'Hero media'}
+        image={heroMedia.image}
+        playbackId={heroMedia.video?.asset?.playbackId}
+      />
+    </Mask> -->
   </section>
 
   <section class="flex min-h-screen items-center justify-center bg-mist">
     <p class="text-ink text-headline-3">{t('home.section5')}</p>
   </section>
 
-  <section class="flex min-h-screen items-center justify-center bg-white">
+  <section
+    class="relative flex min-h-screen items-center justify-center bg-white"
+  >
     <p class="text-ink text-headline-3">{t('home.section6')}</p>
+    <Puncha
+      color="white"
+      class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
+    />
   </section>
 </Layout>
 

@@ -1,0 +1,45 @@
+---
+import maskShape4o from '../assets/svgs/mask_shape_4o.svg'
+import maskShapeTibo from '../assets/svgs/mask_shape_tibo.svg'
+
+type MaskType = '4o' | 'tibo'
+
+interface Props {
+  type: MaskType
+  class?: string
+}
+
+const masks: Record<MaskType, { src: string; aspectClass: string }> = {
+  '4o': { src: maskShape4o.src, aspectClass: 'aspect-square' },
+  tibo: { src: maskShapeTibo.src, aspectClass: 'aspect-[103/111]' }
+}
+
+const { type, class: className } = Astro.props
+const mask = masks[type]
+---
+
+<div
+  class:list={[
+    'mask relative w-full max-w-[480px]',
+    mask.aspectClass,
+    className
+  ]}
+  style={`--mask-image: url(${mask.src})`}
+>
+  <div class="absolute inset-0">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .mask {
+    mask-image: var(--mask-image);
+    -webkit-mask-image: var(--mask-image);
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+  }
+</style>
