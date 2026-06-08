@@ -20,7 +20,7 @@ import { defaultLocale, type Locale } from './config'
 const school = import.meta.env.PUBLIC_SCHOOL_NAME
 
 const sharedTranslations = {
-  'site.title': `${school} Branding`,
+  'site.title': `${school} - Branding`,
   'home.hero': 'Brand guidelines'
 }
 
@@ -43,7 +43,7 @@ export const ui = {
     'nav.fotografia': 'Fotografía',
     'nav.motion': 'Motion',
     'home.tagline': 'Educamos a personas únicas, preparándolas para el futuro.',
-    'home.section3': 'Sección 3 — Azul',
+    'home.section3': 'Este camino lo hacemos contigo',
     'home.section4': 'Sección 4 — Cielo',
     'home.section5': 'Sección 5 — Niebla',
     'home.section6': 'Sección 6 — Blanco',
@@ -112,7 +112,7 @@ export const ui = {
     'nav.fotografia': 'Fotografia',
     'nav.motion': 'Motion',
     'home.tagline': 'Eduquem persones úniques, preparant-les per al futur.',
-    'home.section3': 'Secció 3 — Blau',
+    'home.section3': 'Aquest camí el fem junts',
     'home.section4': 'Secció 4 — Cel',
     'home.section5': 'Secció 5 — Boira',
     'home.section6': 'Secció 6 — Blanc',

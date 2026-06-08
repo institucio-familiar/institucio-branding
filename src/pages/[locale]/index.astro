@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Puncha from '@/components/icons/Puncha.astro'
+import PunchaVertical from '@/components/icons/PunchaVertical.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
@@ -19,7 +20,7 @@ const heroMedia = homePageData?.hero?.media
 
 <Layout>
   <section
-    class="flex min-h-screen items-end justify-left bg-mist px-indent py-15 relative"
+    class="relative flex min-h-screen items-end justify-left bg-mist px-indent py-15"
   >
     <div class="flex flex-col z-2">
       <h1 class="text-white text-headline-2 uppercase">
@@ -49,27 +50,45 @@ const heroMedia = homePageData?.hero?.media
     }
   </section>
 
-  <section
-    class="relative flex min-h-screen items-center justify-center bg-navy p-20"
-  >
-    <Puncha
-      color="navy"
-      class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full w-[25vw] min-w-[260px]"
-    />
-    <p class="text-blue text-headline-1 uppercase text-center">
-      {t('home.tagline')}
-    </p>
-  </section>
+  <div class="relative h-[200dvh]" data-home-sections>
+    <div class="sticky top-0 h-screen overflow-x-clip">
+      <section
+        class="relative flex h-full items-center justify-center bg-navy p-20"
+      >
+        <Puncha
+          color="navy"
+          class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
+        />
+        <p class="text-blue text-headline-1 uppercase text-center">
+          {t('home.tagline')}
+        </p>
+      </section>
 
-  <div>
-    <!-- <Puncha color="blue" class="mt-[-20.895%] -mb-px block w-full" /> -->
-    <section class="flex min-h-screen items-center justify-center bg-blue p-20">
-      <p class="text-white text-headline-3">{t('home.section3')}</p>
-    </section>
+      <section
+        class="absolute inset-0 z-1 h-full"
+        data-home-section-2
+        style="transform: translateX(100%)"
+      >
+        <PunchaVertical
+          color="blue"
+          class="absolute left-[0.5px] top-[50%] -translate-y-1/2 -translate-x-full"
+        />
+        <div class="flex items-center justify-center p-20 h-full bg-blue">
+          <p class="text-navy text-headline-1 uppercase text-center">
+            {t('home.section3')}
+          </p>
+        </div>
+      </section>
+
+      <Puncha
+        color="white"
+        class="absolute bottom-[-0.5px] left-1/2 -translate-x-1/2 z-2"
+      />
+    </div>
   </div>
 
-  <section class="flex min-h-screen items-center justify-center bg-sky">
-    <p class="text-white text-headline-3">{t('home.section4')}</p>
+  <section class="flex min-h-screen items-center justify-center bg-white">
+    <p class="text-navy text-headline-3">{t('home.section4')}</p>
   </section>
 
   <section class="flex min-h-screen items-center justify-center bg-mist">
@@ -82,12 +101,31 @@ const heroMedia = homePageData?.hero?.media
 </Layout>
 
 <script>
-  // import { Scroll } from '@/scripts/classes/Scroll'
+  import { animate, scroll } from 'motion'
 
-  // document
-  //   .getElementById('scroll-to-bottom')
-  //   ?.addEventListener('click', () => Scroll.scrollTo(0)) ||
-  //   document
-  //     .getElementById('scroll-to-bottom-icon')
-  //     ?.addEventListener('click', () => Scroll.scrollTo(0))
+  const sectionsBlock = document.querySelector('[data-home-sections]')
+  const section2 = document.querySelector('[data-home-section-2]')
+
+  let cancelScroll: (() => void) | undefined
+
+  if (sectionsBlock && section2) {
+    const animation = animate(
+      section2,
+      { transform: ['translateX(100%)', 'translateX(0%)'] },
+      { ease: 'linear' }
+    )
+
+    cancelScroll = scroll(animation, {
+      target: sectionsBlock,
+      offset: ['start start', 'end end']
+    })
+  }
+
+  document.addEventListener(
+    'swup:visit:start',
+    () => {
+      cancelScroll?.()
+    },
+    { once: true }
+  )
 </script>

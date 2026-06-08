@@ -17,12 +17,14 @@ interface Props {
 }
 
 const { color, class: className } = Astro.props
+
+const sizeClass = 'h-[25vw] min-h-[260px] max-h-[360px]'
 ---
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 56 268"
-  class={`${className}`}
+  class={`${sizeClass} ${className}`}
   aria-hidden="true"
 >
   <g transform="translate(0 268) rotate(-90)">

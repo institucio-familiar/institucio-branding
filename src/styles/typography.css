@@ -31,9 +31,9 @@
   line-height: 1.2;
   letter-spacing: -0.02em;
 
-  /* @media (max-width: 768px) {
-    font-size: min(20vw, var(--text-heading));
-  } */
+  @media (max-width: 768px) {
+    font-size: 56px;
+  }
 }
 @utility text-headline-menu {
   font-size: min(6vw, var(--text-heading));
