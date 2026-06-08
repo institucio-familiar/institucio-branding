@@ -1,12 +1,13 @@
 ---
-import maskShape4o from '../assets/svgs/mask_shape_4o.svg'
-import maskShapeTibo from '../assets/svgs/mask_shape_tibo.svg'
+import maskShape4o from '@/assets/svgs/mask_shape_4o.svg'
+import maskShapeTibo from '@/assets/svgs/mask_shape_tibo.svg'
 
 type MaskType = '4o' | 'tibo'
 
 interface Props {
   type: MaskType
   class?: string
+  border?: boolean
 }
 
 const masks: Record<MaskType, { src: string; aspectClass: string }> = {
@@ -14,20 +15,36 @@ const masks: Record<MaskType, { src: string; aspectClass: string }> = {
   tibo: { src: maskShapeTibo.src, aspectClass: 'aspect-[103/111]' }
 }
 
-const { type, class: className } = Astro.props
+const { type, class: className, border = false } = Astro.props
 const mask = masks[type]
+const maskStyle = `--mask-image: url(${mask.src})`
 ---
 
 <div
   class:list={[
-    'mask relative w-full max-w-[480px]',
+    'relative w-full max-w-[480px]',
     mask.aspectClass,
+    !border && 'mask',
     className
   ]}
-  style={`--mask-image: url(${mask.src})`}
+  style={!border ? maskStyle : undefined}
 >
-  <div class="absolute inset-0">
-    <slot />
+  {
+    border && (
+      <div
+        class="mask bg-ink absolute inset-0"
+        style={maskStyle}
+        aria-hidden="true"
+      />
+    )
+  }
+  <div
+    class:list={['absolute inset-0', border && ['mask', 'inset-px']]}
+    style={border ? maskStyle : undefined}
+  >
+    <div class="absolute inset-0">
+      <slot />
+    </div>
   </div>
 </div>
 
