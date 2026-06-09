@@ -58,6 +58,15 @@ const typographyStyles = [
   'text-cta',
   'text-micro'
 ] as const
+
+const maskTypes = [
+  { type: '4o', border: true },
+  { type: 'tibo' },
+  { type: 'tibo_horizontal' },
+  { type: 'tobo' },
+  { type: 'tobo_horizontal' },
+  { type: 'tobobo' }
+] as const
 ---
 
 <Layout>
@@ -171,22 +180,21 @@ const typographyStyles = [
   {
     heroMedia && (
       <section class="flex flex-wrap items-center justify-center gap-12 bg-white border-t border-navy-light px-indent py-10 md:py-20">
-        <Mask type="4o" border>
-          <MediaAsset
-            mediaType={heroMedia.mediaType}
-            title={testDocument?.title ?? 'Hero media'}
-            image={heroMedia.image}
-            playbackId={heroMedia.video?.asset?.playbackId}
-          />
-        </Mask>
-        <Mask type="tibo">
-          <MediaAsset
-            mediaType={heroMedia.mediaType}
-            title={testDocument?.title ?? 'Hero media'}
-            image={heroMedia.image}
-            playbackId={heroMedia.video?.asset?.playbackId}
-          />
-        </Mask>
+        {
+          maskTypes.map((mask) => (
+            <Mask
+              type={mask.type}
+              border={'border' in mask ? mask.border : undefined}
+            >
+              <MediaAsset
+                mediaType={heroMedia.mediaType}
+                title={testDocument?.title ?? 'Hero media'}
+                image={heroMedia.image}
+                playbackId={heroMedia.video?.asset?.playbackId}
+              />
+            </Mask>
+          ))
+        }
       </section>
     )
   }

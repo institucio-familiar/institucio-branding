@@ -38,7 +38,22 @@ export default defineConfig({
     }
   }),
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: [
+        'react/compiler-runtime',
+        'sanity/structure',
+        '@sanity/vision',
+        'sanity-plugin-media',
+        'sanity-plugin-mux-input',
+        '@mux/mux-player-react/lazy',
+        'lodash/isObject.js',
+        'lodash/groupBy.js',
+        'lodash/keyBy.js',
+        'lodash/partition.js',
+        'lodash/sortedIndex.js'
+      ]
+    }
   },
   integrations: [
     sanity({

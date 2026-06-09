@@ -25,9 +25,10 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
 
   /* SWUP styles */
-  --swup-overlay-theme-color: #040d1a;
+  --swup-overlay-theme-color: #0b2449;
   --swup-overlay-theme-duration: 2s;
   --swup-overlay-theme-delay: 0s;
   --swup-overlay-theme-scale: 1.2;
