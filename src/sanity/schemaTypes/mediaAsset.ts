@@ -42,11 +42,11 @@ export const mediaAsset = defineType({
   ],
   validation: (rule) =>
     rule.custom((value) => {
-      if (!value?.mediaType) return 'Choose image or video'
+      if (!value?.mediaType) return 'Selecciona una imagen o un video'
       if (value.mediaType === 'image' && !value.image)
-        return 'Image is required'
+        return 'La imagen es requerida'
       if (value.mediaType === 'video' && !value.video)
-        return 'Video is required'
+        return 'El video es requerido'
       return true
     })
 })

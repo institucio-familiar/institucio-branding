@@ -213,6 +213,36 @@ export type Home_page = {
   hero?: {
     media?: MediaAsset;
   };
+  textSlides?: {
+    textSlide1?: I18nText;
+    textSlide2?: I18nText;
+  };
+  imageZoom?: MediaAsset;
+  imagesGrid?: {
+    image1?: MediaAsset;
+    image2?: MediaAsset;
+    image3?: MediaAsset;
+    image4?: MediaAsset;
+  };
+  imageEye?: MediaAsset;
+  bookText?: I18nText;
+  words?: {
+    word1?: I18nString;
+    word2?: I18nString;
+    word3?: I18nString;
+  };
+};
+
+export type I18nString = {
+  _type: "i18n.string";
+  es?: string;
+  ca?: string;
+};
+
+export type I18nText = {
+  _type: "i18n.text";
+  es?: string;
+  ca?: string;
 };
 
 export type Block_2 = {
@@ -252,6 +282,12 @@ export type SanityImageHotspot = {
   y?: number;
   height?: number;
   width?: number;
+};
+
+export type I18nNumber = {
+  _type: "i18n.number";
+  es?: number;
+  ca?: number;
 };
 
 export type MuxVideoAsset = {
@@ -470,12 +506,15 @@ export type AllSanitySchemaTypes =
   | Asi_hablamos_page
   | Nuestra_marca_page
   | Home_page
+  | I18nString
+  | I18nText
   | Block_2
   | Block_1
   | MuxVideoAssetReference
   | MuxVideo
   | SanityImageCrop
   | SanityImageHotspot
+  | I18nNumber
   | MuxVideoAsset
   | MuxAssetData
   | MuxStaticRenditions
@@ -494,7 +533,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/queries/pages.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "home_page" && _id == "home_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "home_page" && _id == "home_page"][0]{    hero {      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    textSlides {      textSlide1,      textSlide2    },    imageZoom {  mediaType,  image,  video {    asset->{      playbackId    }  }},    imagesGrid {      image1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image2 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image3 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image4 {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    imageEye {  mediaType,  image,  video {    asset->{      playbackId    }  }},    bookText,    words {      word1,      word2,      word3    }  }
 export type HOME_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -512,6 +551,108 @@ export type HOME_PAGE_QUERY_RESULT = {
         } | null;
       } | null;
     } | null;
+  } | null;
+  textSlides: {
+    textSlide1: I18nText | null;
+    textSlide2: I18nText | null;
+  } | null;
+  imageZoom: {
+    mediaType: "image" | "video" | null;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    video: {
+      asset: {
+        playbackId: string | null;
+      } | null;
+    } | null;
+  } | null;
+  imagesGrid: {
+    image1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    image2: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    image3: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    image4: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  imageEye: {
+    mediaType: "image" | "video" | null;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    video: {
+      asset: {
+        playbackId: string | null;
+      } | null;
+    } | null;
+  } | null;
+  bookText: I18nText | null;
+  words: {
+    word1: I18nString | null;
+    word2: I18nString | null;
+    word3: I18nString | null;
   } | null;
 } | null;
 
@@ -895,7 +1036,7 @@ export type TEST_1_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "home_page" && _id == "home_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "home_page" && _id == "home_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    textSlides {\n      textSlide1,\n      textSlide2\n    },\n    imageZoom {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    imagesGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image3 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image4 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    imageEye {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    bookText,\n    words {\n      word1,\n      word2,\n      word3\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': NUESTRA_MARCA_PAGE_QUERY_RESULT;
     '\n  *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ASI_HABLAMOS_PAGE_QUERY_RESULT;
     '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;

@@ -17,6 +17,12 @@ const t = useTranslations(locale)
 const homePageData = await sanityClient.fetch(HOME_PAGE_QUERY)
 
 const heroMedia = homePageData?.hero?.media
+const textSlides = homePageData?.textSlides
+const imageZoomMedia = homePageData?.imageZoom
+const imagesGrid = homePageData?.imagesGrid
+const imageEyeMedia = homePageData?.imageEye
+const bookText = homePageData?.bookText
+const words = homePageData?.words
 ---
 
 <Layout>
@@ -28,7 +34,7 @@ const heroMedia = homePageData?.hero?.media
         {t('home.hero')}
       </h1>
       <div class="flex items-center gap-2">
-        <p class="text-white text-body">{t('hero.scroll-down')}</p>
+        <p class="text-white text-cta">{t('hero.scroll-down')}</p>
         <Icon
           id="scroll-to-bottom-icon"
           name="arrow"
@@ -52,38 +58,40 @@ const heroMedia = homePageData?.hero?.media
   </section>
 
   <div class="relative h-[200dvh]" data-home-sections>
-    <div class="sticky top-0 h-screen overflow-x-clip">
-      <section
-        class="relative flex h-full items-center justify-center bg-navy p-20"
-      >
-        <Puncha
-          color="navy"
-          class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
-        />
-        <p class="text-blue text-headline-1 uppercase text-center">
-          {t('home.tagline')}
-        </p>
-      </section>
-
-      <section
-        class="absolute inset-0 z-1 h-full"
-        data-home-section-2
-        style="transform: translateX(100%)"
-      >
-        <PunchaVertical
-          color="blue"
-          class="absolute left-[0.5px] top-[50%] -translate-y-1/2 -translate-x-full"
-        />
-        <div class="flex items-center justify-center p-20 h-full bg-blue">
-          <p class="text-navy text-headline-1 uppercase text-center">
-            {t('home.section3')}
+    <div class="sticky top-0 h-screen">
+      <Puncha
+        color="navy"
+        class="absolute top-[0.5px] left-1/2 z-2 -translate-x-1/2 -translate-y-full"
+      />
+      <div class="relative h-full clip-x-at-right">
+        <section
+          class="relative flex h-full items-center justify-center bg-navy p-20"
+        >
+          <p class="text-blue text-headline-1 uppercase text-center">
+            {textSlides?.textSlide1?.[locale]}
           </p>
-        </div>
-      </section>
+        </section>
+
+        <section
+          class="absolute inset-0 z-1 h-full"
+          data-home-section-2
+          style="transform: translateX(100%)"
+        >
+          <PunchaVertical
+            color="blue"
+            class="absolute left-[0.5px] top-[50%] -translate-y-1/2 -translate-x-full"
+          />
+          <div class="flex items-center justify-center p-20 h-full bg-blue">
+            <p class="text-navy text-headline-1 uppercase text-center">
+              {textSlides?.textSlide2?.[locale]}
+            </p>
+          </div>
+        </section>
+      </div>
 
       <Puncha
         color="white"
-        class="absolute bottom-[-0.5px] left-1/2 -translate-x-1/2 z-2"
+        class="absolute bottom-[-0.5px] left-1/2 z-2 -translate-x-1/2"
       />
     </div>
   </div>
@@ -91,57 +99,255 @@ const heroMedia = homePageData?.hero?.media
   <section
     class="flex flex-wrap items-center justify-center gap-12 bg-white px-indent py-10 md:py-20"
   >
-    <!-- <Mask type="4o">
-      <MediaAsset
-        mediaType={heroMedia.mediaType}
-        title={testDocument?.title ?? 'Hero media'}
-        image={heroMedia.image}
-        playbackId={heroMedia.video?.asset?.playbackId}
-      />
-    </Mask> -->
+    <div
+      id="mask-zoom"
+      class="w-[50vw] min-w-[300px] max-w-[650px]"
+      style="transform: scale(0.25)"
+    >
+      {
+        imageZoomMedia && (
+          <Mask type="4o">
+            <MediaAsset
+              mediaType={imageZoomMedia.mediaType}
+              title={'TESTINGAL'}
+              image={imageZoomMedia.image}
+              playbackId={imageZoomMedia.video?.asset?.playbackId}
+            />
+          </Mask>
+        )
+      }
+    </div>
   </section>
 
-  <section class="flex min-h-screen items-center justify-center bg-mist">
-    <p class="text-ink text-headline-3">{t('home.section5')}</p>
+  <div data-text-slide-section class="relative h-screen md:h-[200dvh]">
+    <section
+      class="sticky top-0 flex h-screen items-center justify-center overflow-hidden bg-white p-indent"
+    >
+      <div id="text-slide-container" class="hidden md:flex flex-col">
+        <p
+          id="text-slide-1"
+          class="text-navy text-headline-1 uppercase"
+          style="transform: translateX(-100vw)"
+        >
+          Per un camí []
+        </p>
+        <p
+          id="text-slide-2"
+          class="text-navy text-headline-1 uppercase"
+          style="transform: translateX(100vw)"
+        >
+          que [] ens porta
+        </p>
+        <p
+          id="text-slide-3"
+          class="text-navy text-headline-1 uppercase"
+          style="transform: translateX(-100vw)"
+        >
+          ben lluny [] la
+        </p>
+        <p
+          id="text-slide-4"
+          class="text-navy text-headline-1 uppercase"
+          style="transform: translateX(100vw)"
+        >
+          nostra guía [] és
+        </p>
+        <p
+          id="text-slide-5"
+          class="text-navy text-headline-1 uppercase"
+          style="transform: translateX(-100vw)"
+        >
+          la llum []
+        </p>
+      </div>
+      <!-- <div class="flex flex-col md:hidden">
+      <p class="text-navy text-headline-1 uppercase">Per un camí []</p>
+      <p class="text-navy text-headline-1 uppercase">que [] ens porta</p>
+      <p class="text-navy text-headline-1 uppercase">ben lluny [] la</p>
+      <p class="text-navy text-headline-1 uppercase">nostra guía [] és</p>
+      <p class="text-navy text-headline-1 uppercase">la llum []</p>
+    </div> -->
+    </section>
+  </div>
+
+  <section
+    class="relative flex items-center justify-center bg-white h-screen w-screen px-indent"
+  >
+    <div class="grid grid-cols-4 w-full">
+      {
+        imagesGrid?.image1 && (
+          <Mask type="tobo" class="w-full h-full col-span-2 row-span-2">
+            <MediaAsset
+              mediaType={imagesGrid.image1.mediaType}
+              title={t('home.imagesGrid')}
+              image={imagesGrid.image1.image}
+              playbackId={imagesGrid.image1.video?.asset?.playbackId}
+            />
+          </Mask>
+        )
+      }
+      {
+        imagesGrid?.image2 && (
+          <Mask type="tobobo" class="w-full h-full col-span-2">
+            <MediaAsset
+              mediaType={imagesGrid.image2.mediaType}
+              title={t('home.imagesGrid')}
+              image={imagesGrid.image2.image}
+              playbackId={imagesGrid.image2.video?.asset?.playbackId}
+            />
+          </Mask>
+        )
+      }
+      {
+        imagesGrid?.image3 && (
+          <Mask type="tibo" class="w-full h-full">
+            <MediaAsset
+              mediaType={imagesGrid.image3.mediaType}
+              title={t('home.imagesGrid')}
+              image={imagesGrid.image3.image}
+              playbackId={imagesGrid.image3.video?.asset?.playbackId}
+            />
+          </Mask>
+        )
+      }
+      {
+        imagesGrid?.image4 && (
+          <Mask type="tibo" class="w-full h-full">
+            <MediaAsset
+              mediaType={imagesGrid.image4.mediaType}
+              title={t('home.imagesGrid')}
+              image={imagesGrid.image4.image}
+              playbackId={imagesGrid.image4.video?.asset?.playbackId}
+            />
+          </Mask>
+        )
+      }
+    </div>
   </section>
 
   <section
-    class="relative flex min-h-screen items-center justify-center bg-white"
+    class="relative flex items-center justify-center bg-white h-screen w-screen"
   >
-    <p class="text-ink text-headline-3">{t('home.section6')}</p>
+    <div class="w-full h-full">
+      {
+        imageEyeMedia && (
+          <Mask type="tobo_horizontal">
+            <MediaAsset
+              mediaType={imageEyeMedia.mediaType}
+              title={'TESTINGAL'}
+              image={imageEyeMedia.image}
+              playbackId={imageEyeMedia.video?.asset?.playbackId}
+            />
+          </Mask>
+        )
+      }
+    </div>
+  </section>
+
+  <section
+    class="relative flex items-center justify-center bg-white h-screen w-screen px-indent"
+  >
+    <div class="w-full h-full">
+      <p class="text-navy text-headline-1 uppercase">
+        {bookText?.[locale]}
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="relative flex items-center justify-center bg-white h-screen w-screen px-indent"
+  >
+    <div class="w-full h-full">
+      <p class="text-navy text-headline-1 uppercase">
+        {words?.word1?.[locale]}
+      </p>
+      <p class="text-navy text-headline-1 uppercase">
+        {words?.word2?.[locale]}
+      </p>
+      <p class="text-navy text-headline-1 uppercase">
+        {words?.word3?.[locale]}
+      </p>
+    </div>
     <Puncha
       color="white"
       class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
     />
   </section>
-</Layout>
 
-<script>
-  import { animate, scroll } from 'motion'
+  <script>
+    import { animate, scroll } from 'motion'
 
-  const sectionsBlock = document.querySelector('[data-home-sections]')
-  const section2 = document.querySelector('[data-home-section-2]')
+    const sectionsBlock = document.querySelector('[data-home-sections]')
+    const section2 = document.querySelector('[data-home-section-2]')
+    const maskZoom = document.getElementById('mask-zoom')
 
-  let cancelScroll: (() => void) | undefined
+    const cancelScrolls: Array<() => void> = []
 
-  if (sectionsBlock && section2) {
-    const animation = animate(
-      section2,
-      { transform: ['translateX(100%)', 'translateX(0%)'] },
-      { ease: 'linear' }
+    if (sectionsBlock && section2) {
+      const animation = animate(
+        section2,
+        { transform: ['translateX(100%)', 'translateX(0%)'] },
+        { ease: 'linear' }
+      )
+
+      cancelScrolls.push(
+        scroll(animation, {
+          target: sectionsBlock,
+          offset: ['start start', 'end end']
+        })
+      )
+    }
+
+    if (maskZoom) {
+      const animation = animate(
+        maskZoom,
+        { scale: [0.25, 1] },
+        { ease: 'linear' }
+      )
+
+      cancelScrolls.push(
+        scroll(animation, {
+          target: maskZoom,
+          offset: ['start end', 'center center']
+        })
+      )
+    }
+
+    const textSlideSection = document.querySelector('[data-text-slide-section]')
+    const textSlides = [
+      { id: 'text-slide-1', from: 'translateX(-100vw)' },
+      { id: 'text-slide-2', from: 'translateX(100vw)' },
+      { id: 'text-slide-3', from: 'translateX(-100vw)' },
+      { id: 'text-slide-4', from: 'translateX(100vw)' },
+      { id: 'text-slide-5', from: 'translateX(-100vw)' }
+    ]
+
+    if (textSlideSection) {
+      for (const { id, from } of textSlides) {
+        const line = document.getElementById(id)
+        if (!line) continue
+
+        const animation = animate(
+          line,
+          { transform: [from, 'translateX(0)'] },
+          { ease: 'linear' }
+        )
+
+        cancelScrolls.push(
+          scroll(animation, {
+            target: textSlideSection,
+            offset: ['start start', 'end end']
+          })
+        )
+      }
+    }
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        cancelScrolls.forEach((cancel) => cancel())
+      },
+      { once: true }
     )
-
-    cancelScroll = scroll(animation, {
-      target: sectionsBlock,
-      offset: ['start start', 'end end']
-    })
-  }
-
-  document.addEventListener(
-    'swup:visit:start',
-    () => {
-      cancelScroll?.()
-    },
-    { once: true }
-  )
-</script>
+  </script>
+</Layout>

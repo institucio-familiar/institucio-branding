@@ -17,7 +17,29 @@ const heroProjection = /* groq */ `{
 }`
 
 export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
-  *[_type == "home_page" && _id == "home_page"][0]${heroProjection}
+  *[_type == "home_page" && _id == "home_page"][0]{
+    hero {
+      media ${mediaAssetProjection}
+    },
+    textSlides {
+      textSlide1,
+      textSlide2
+    },
+    imageZoom ${mediaAssetProjection},
+    imagesGrid {
+      image1 ${mediaAssetProjection},
+      image2 ${mediaAssetProjection},
+      image3 ${mediaAssetProjection},
+      image4 ${mediaAssetProjection}
+    },
+    imageEye ${mediaAssetProjection},
+    bookText,
+    words {
+      word1,
+      word2,
+      word3
+    }
+  }
 `)
 
 export const NUESTRA_MARCA_PAGE_QUERY = defineQuery(/* groq */ `
