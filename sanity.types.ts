@@ -179,7 +179,29 @@ export type Asi_nos_vemos_page = {
   _rev: string;
   hero?: {
     media?: MediaAsset;
+    title?: I18nString;
+    description?: I18nText;
   };
+  generalBlocks?: Array<
+    | ({
+        _key: string;
+      } & Block_1)
+    | ({
+        _key: string;
+      } & Block_2)
+  >;
+};
+
+export type I18nText = {
+  _type: "i18n.text";
+  es?: string;
+  ca?: string;
+};
+
+export type I18nString = {
+  _type: "i18n.string";
+  es?: string;
+  ca?: string;
 };
 
 export type Asi_hablamos_page = {
@@ -231,18 +253,6 @@ export type Home_page = {
     word2?: I18nString;
     word3?: I18nString;
   };
-};
-
-export type I18nString = {
-  _type: "i18n.string";
-  es?: string;
-  ca?: string;
-};
-
-export type I18nText = {
-  _type: "i18n.text";
-  es?: string;
-  ca?: string;
 };
 
 export type Block_2 = {
@@ -503,11 +513,11 @@ export type AllSanitySchemaTypes =
   | Trademarks_page
   | Recursos_page
   | Asi_nos_vemos_page
+  | I18nText
+  | I18nString
   | Asi_hablamos_page
   | Nuestra_marca_page
   | Home_page
-  | I18nString
-  | I18nText
   | Block_2
   | Block_1
   | MuxVideoAssetReference
@@ -704,7 +714,7 @@ export type ASI_HABLAMOS_PAGE_QUERY_RESULT = {
 
 // Source: src/sanity/queries/pages.ts
 // Variable: ASI_NOS_VEMOS_PAGE_QUERY
-// Query: *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{    hero {      media {  mediaType,  image,  video {    asset->{      playbackId    }  }},      title,      description    },    generalBlocks []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}  }
 export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -722,7 +732,64 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
         } | null;
       } | null;
     } | null;
+    title: I18nString | null;
+    description: I18nText | null;
   } | null;
+  generalBlocks: Array<
+    | {
+        _key: string;
+        _type: "block_1";
+        media1: {
+          mediaType: "image" | "video" | null;
+          image: {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          } | null;
+          video: {
+            asset: {
+              playbackId: string | null;
+            } | null;
+          } | null;
+        } | null;
+      }
+    | {
+        _key: string;
+        _type: "block_2";
+        media1: {
+          mediaType: "image" | "video" | null;
+          image: {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          } | null;
+          video: {
+            asset: {
+              playbackId: string | null;
+            } | null;
+          } | null;
+        } | null;
+        media2: {
+          mediaType: "image" | "video" | null;
+          image: {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          } | null;
+          video: {
+            asset: {
+              playbackId: string | null;
+            } | null;
+          } | null;
+        } | null;
+      }
+  > | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
@@ -1039,7 +1106,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "home_page" && _id == "home_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    textSlides {\n      textSlide1,\n      textSlide2\n    },\n    imageZoom {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    imagesGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image3 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image4 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    imageEye {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    bookText,\n    words {\n      word1,\n      word2,\n      word3\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': NUESTRA_MARCA_PAGE_QUERY_RESULT;
     '\n  *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ASI_HABLAMOS_PAGE_QUERY_RESULT;
-    '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;
+    '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      title,\n      description\n    },\n    generalBlocks []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n  }\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;
     '\n  *[_type == "recursos_page" && _id == "recursos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': RECURSOS_PAGE_QUERY_RESULT;
     '\n  *[_type == "trademarks_page" && _id == "trademarks_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': TRADEMARKS_PAGE_QUERY_RESULT;
     '\n  *[_type == "brand_colors_page" && _id == "brand_colors_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': BRAND_COLORS_PAGE_QUERY_RESULT;

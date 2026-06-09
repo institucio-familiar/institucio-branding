@@ -20,7 +20,7 @@ export const block1 = defineType({
     },
     prepare({ mediaType }) {
       return {
-        title: 'Block 1',
+        title: 'Bloque 1 (imagen/video)',
         subtitle: mediaType === 'video' ? 'Video' : 'Imágen',
         media: BlockElementIcon
       }

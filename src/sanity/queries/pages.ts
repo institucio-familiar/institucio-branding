@@ -16,6 +16,18 @@ const heroProjection = /* groq */ `{
   }
 }`
 
+export const blockProjection = /* groq */ `[]{
+  _key,
+  _type,
+  _type == "block_1" => {
+    media1 ${mediaAssetProjection}
+  },
+  _type == "block_2" => {
+    media1 ${mediaAssetProjection},
+    media2 ${mediaAssetProjection}
+  }
+}`
+
 export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
   *[_type == "home_page" && _id == "home_page"][0]{
     hero {
@@ -51,7 +63,14 @@ export const ASI_HABLAMOS_PAGE_QUERY = defineQuery(/* groq */ `
 `)
 
 export const ASI_NOS_VEMOS_PAGE_QUERY = defineQuery(/* groq */ `
-  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]${heroProjection}
+  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{
+    hero {
+      media ${mediaAssetProjection},
+      title,
+      description
+    },
+    generalBlocks ${blockProjection}
+  }
 `)
 
 export const RECURSOS_PAGE_QUERY = defineQuery(/* groq */ `
@@ -93,18 +112,6 @@ export const FOTOGRAFIA_PAGE_QUERY = defineQuery(/* groq */ `
 export const MOTION_PAGE_QUERY = defineQuery(/* groq */ `
   *[_type == "motion_page" && _id == "motion_page"][0]${heroProjection}
 `)
-
-const blockProjection = /* groq */ `[]{
-  _key,
-  _type,
-  _type == "block_1" => {
-    media1 ${mediaAssetProjection}
-  },
-  _type == "block_2" => {
-    media1 ${mediaAssetProjection},
-    media2 ${mediaAssetProjection}
-  }
-}`
 
 export const TEST_1_QUERY = defineQuery(/* groq */ `
   *[_type == "test-1" && _id == "test-1"][0]{

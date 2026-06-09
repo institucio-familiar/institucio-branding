@@ -7,14 +7,24 @@ import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
 import { ASI_NOS_VEMOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
+import { toBlock } from '@/sanity/lib/utils'
+import type { BlockData } from '@/components/ui/blocks/block-types'
+import Block from '@/components/ui/blocks/Block.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
 const pageData = await sanityClient.fetch(ASI_NOS_VEMOS_PAGE_QUERY)
+console.log(pageData)
 const heroMedia = pageData?.hero?.media
-const pageTitle = t('asi-nos-vemos.title')
+const pageTitle = pageData?.hero?.title?.[locale]
+const pageDescription = pageData?.hero?.description?.[locale]
+
+// const generalBlocks =
+//   pageData?.generalBlocks
+//     ?.map(toBlock)
+//     .filter((block: BlockData): block is BlockData => block !== null) ?? []
 ---
 
 <Layout>
@@ -57,7 +67,13 @@ const pageTitle = t('asi-nos-vemos.title')
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
     <p class="text-navy text-headline-1 uppercase text-center">
-      {t('asi-nos-vemos.description')}
+      {pageDescription}
     </p>
   </section>
+
+  <!-- <section
+    class="relative flex min-h-screen items-center justify-center bg-white p-20"
+  >
+    {generalBlocks.map((block: BlockData) => <Block block={block} />)}
+  </section> -->
 </Layout>

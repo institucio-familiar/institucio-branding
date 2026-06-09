@@ -180,21 +180,19 @@ const maskTypes = [
   {
     heroMedia && (
       <section class="flex flex-wrap items-center justify-center gap-12 bg-white border-t border-navy-light px-indent py-10 md:py-20">
-        {
-          maskTypes.map((mask) => (
-            <Mask
-              type={mask.type}
-              border={'border' in mask ? mask.border : undefined}
-            >
-              <MediaAsset
-                mediaType={heroMedia.mediaType}
-                title={testDocument?.title ?? 'Hero media'}
-                image={heroMedia.image}
-                playbackId={heroMedia.video?.asset?.playbackId}
-              />
-            </Mask>
-          ))
-        }
+        {maskTypes.map((mask) => (
+          <Mask
+            type={mask.type}
+            border={'border' in mask ? mask.border : undefined}
+          >
+            <MediaAsset
+              mediaType={heroMedia.mediaType}
+              title={testDocument?.title ?? 'Hero media'}
+              image={heroMedia.image}
+              playbackId={heroMedia.video?.asset?.playbackId}
+            />
+          </Mask>
+        ))}
       </section>
     )
   }

@@ -21,12 +21,13 @@ export const block2 = defineType({
   ],
   preview: {
     select: {
-      mediaType: 'media1.mediaType'
+      mediaType1: 'media1.mediaType',
+      mediaType2: 'media2.mediaType'
     },
-    prepare({ mediaType }) {
+    prepare({ mediaType1, mediaType2 }) {
       return {
-        title: 'Block 2',
-        subtitle: mediaType === 'video' ? 'Video' : 'Imágen',
+        title: 'Bloque 2 (2 imágenes/vídeos)',
+        subtitle: `${mediaType1 === 'video' ? 'Video' : 'Imágen'} | ${mediaType2 === 'video' ? 'Video' : 'Imágen'}`,
         media: BlockElementIcon
       }
     }
