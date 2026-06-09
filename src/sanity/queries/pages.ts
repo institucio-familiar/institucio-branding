@@ -69,7 +69,17 @@ export const ASI_NOS_VEMOS_PAGE_QUERY = defineQuery(/* groq */ `
       title,
       description
     },
-    generalBlocks ${blockProjection}
+    sections {
+      asiNosVemos ${blockProjection},
+      color ${blockProjection},
+      tipografia ${blockProjection},
+      sistemaGrafico ${blockProjection},
+      layout ${blockProjection},
+      ilustracion ${blockProjection},
+      iconografia ${blockProjection},
+      fotografia ${blockProjection},
+      motion ${blockProjection}
+    }
   }
 `)
 

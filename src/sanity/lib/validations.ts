@@ -21,7 +21,7 @@ export function _mandatoryField(
 }
 
 export function _mandatoryi18nField(Rule: ObjectRule): ObjectRule {
-  const languages: string[] = ['ca', 'es', 'en']
+  const languages: string[] = ['ca', 'es']
 
   return Rule.custom((values: unknown) => {
     if (!values || typeof values !== 'object') {

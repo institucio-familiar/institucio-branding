@@ -182,14 +182,80 @@ export type Asi_nos_vemos_page = {
     title?: I18nString;
     description?: I18nText;
   };
-  generalBlocks?: Array<
-    | ({
-        _key: string;
-      } & Block_1)
-    | ({
-        _key: string;
-      } & Block_2)
-  >;
+  sections?: {
+    asiNosVemos?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    color?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    tipografia?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    sistemaGrafico?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    layout?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    ilustracion?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    iconografia?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    fotografia?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+    motion?: Array<
+      | ({
+          _key: string;
+        } & Block_1)
+      | ({
+          _key: string;
+        } & Block_2)
+    >;
+  };
 };
 
 export type I18nText = {
@@ -714,7 +780,7 @@ export type ASI_HABLAMOS_PAGE_QUERY_RESULT = {
 
 // Source: src/sanity/queries/pages.ts
 // Variable: ASI_NOS_VEMOS_PAGE_QUERY
-// Query: *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{    hero {      media {  mediaType,  image,  video {    asset->{      playbackId    }  }},      title,      description    },    generalBlocks []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}  }
+// Query: *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{    hero {      media {  mediaType,  image,  video {    asset->{      playbackId    }  }},      title,      description    },    sections {      asiNosVemos []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      color []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      tipografia []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      sistemaGrafico []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      layout []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      ilustracion []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      iconografia []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      fotografia []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      motion []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}    }  }
 export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -735,61 +801,503 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     title: I18nString | null;
     description: I18nText | null;
   } | null;
-  generalBlocks: Array<
-    | {
-        _key: string;
-        _type: "block_1";
-        media1: {
-          mediaType: "image" | "video" | null;
-          image: {
-            asset?: SanityImageAssetReference;
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            _type: "image";
-          } | null;
-          video: {
-            asset: {
-              playbackId: string | null;
+  sections: {
+    asiNosVemos: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
             } | null;
           } | null;
-        } | null;
-      }
-    | {
-        _key: string;
-        _type: "block_2";
-        media1: {
-          mediaType: "image" | "video" | null;
-          image: {
-            asset?: SanityImageAssetReference;
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            _type: "image";
-          } | null;
-          video: {
-            asset: {
-              playbackId: string | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
             } | null;
           } | null;
-        } | null;
-        media2: {
-          mediaType: "image" | "video" | null;
-          image: {
-            asset?: SanityImageAssetReference;
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            _type: "image";
-          } | null;
-          video: {
-            asset: {
-              playbackId: string | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
             } | null;
           } | null;
-        } | null;
-      }
-  > | null;
+        }
+    > | null;
+    color: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+    tipografia: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+    sistemaGrafico: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+    layout: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+    ilustracion: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+    iconografia: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+    fotografia: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+    motion: Array<
+      | {
+          _key: string;
+          _type: "block_1";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _key: string;
+          _type: "block_2";
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+          media2: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+    > | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
@@ -1106,7 +1614,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "home_page" && _id == "home_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    textSlides {\n      textSlide1,\n      textSlide2\n    },\n    imageZoom {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    imagesGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image3 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image4 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    imageEye {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    bookText,\n    words {\n      word1,\n      word2,\n      word3\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': NUESTRA_MARCA_PAGE_QUERY_RESULT;
     '\n  *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ASI_HABLAMOS_PAGE_QUERY_RESULT;
-    '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      title,\n      description\n    },\n    generalBlocks []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n  }\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;
+    '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      title,\n      description\n    },\n    sections {\n      asiNosVemos []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      color []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      tipografia []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      sistemaGrafico []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      layout []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      ilustracion []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      iconografia []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      fotografia []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      motion []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n    }\n  }\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;
     '\n  *[_type == "recursos_page" && _id == "recursos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': RECURSOS_PAGE_QUERY_RESULT;
     '\n  *[_type == "trademarks_page" && _id == "trademarks_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': TRADEMARKS_PAGE_QUERY_RESULT;
     '\n  *[_type == "brand_colors_page" && _id == "brand_colors_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': BRAND_COLORS_PAGE_QUERY_RESULT;

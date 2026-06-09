@@ -1,6 +1,7 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons'
 import { _mandatoryField, _mandatoryi18nField } from '@/sanity/lib/validations'
+import { ASI_NOS_VEMOS_SECTIONS } from '@/root/src/constants'
 
 export const asiNosVemosPage = defineType({
   name: 'asi_nos_vemos_page',
@@ -41,12 +42,21 @@ export const asiNosVemosPage = defineType({
       ]
     }),
     defineField({
-      name: 'generalBlocks',
-      title: 'Bloques generales',
-      type: 'array',
-      of: [
-        defineArrayMember({ type: 'block_1' }),
-        defineArrayMember({ type: 'block_2' })
+      name: 'sections',
+      title: 'Secciones',
+      type: 'object',
+      fields: [
+        ...Object.values(ASI_NOS_VEMOS_SECTIONS).map((section) =>
+          defineField({
+            name: section.key,
+            title: section.title,
+            type: 'array',
+            of: [
+              defineArrayMember({ type: 'block_1' }),
+              defineArrayMember({ type: 'block_2' })
+            ]
+          })
+        )
       ]
     })
   ]

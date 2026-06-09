@@ -186,12 +186,26 @@ export const asiHablamos: BilingualTranslations = {
 
 export const asiNosVemos: BilingualTranslations = {
   es: {
-    'asi-nos-vemos.title': 'Así nos vemos',
-    'asi-nos-vemos.description': 'Descubre cómo nos presentamos visualmente.'
+    'asi-nos-vemos.asi-nos-vemos': 'Así nos vemos',
+    'asi-nos-vemos.color': 'Color',
+    'asi-nos-vemos.tipografia': 'Tipografía',
+    'asi-nos-vemos.sistema-grafico': 'Sistema gráfico',
+    'asi-nos-vemos.layout': 'Layout',
+    'asi-nos-vemos.ilustracion': 'Ilustración',
+    'asi-nos-vemos.iconografia': 'Iconografía',
+    'asi-nos-vemos.fotografia': 'Fotografía',
+    'asi-nos-vemos.motion': 'Motion'
   },
   ca: {
-    'asi-nos-vemos.title': 'Així ens veiem',
-    'asi-nos-vemos.description': 'Descobreix com ens presentem visualment.'
+    'asi-nos-vemos.asi-nos-vemos': 'Així ens veiem',
+    'asi-nos-vemos.color': 'Color',
+    'asi-nos-vemos.tipografia': 'Tipografia',
+    'asi-nos-vemos.sistema-grafico': 'Sistema gràfic',
+    'asi-nos-vemos.layout': 'Layout',
+    'asi-nos-vemos.ilustracion': 'Il·lustració',
+    'asi-nos-vemos.iconografia': 'Iconografia',
+    'asi-nos-vemos.fotografia': 'Fotografia',
+    'asi-nos-vemos.motion': 'Motion'
   }
 }
 

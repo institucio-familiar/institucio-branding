@@ -16,7 +16,8 @@ export const block2 = defineType({
     defineField({
       name: 'media2',
       title: 'Media 2',
-      type: 'mediaAsset'
+      type: 'mediaAsset',
+      validation: (rule) => rule.required()
     })
   ],
   preview: {

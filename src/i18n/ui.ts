@@ -1,4 +1,4 @@
-// TESTINGAL > Implementation with JSON files
+// Implementation with JSON files
 // src/i18n/utils.ts
 // import en from './en.json'
 // import fr from './fr.json'
