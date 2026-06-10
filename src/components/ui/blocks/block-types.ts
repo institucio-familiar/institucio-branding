@@ -1,21 +1,26 @@
 import type { SanityImageSource } from '@sanity/image-url'
 
-export type Media = {
-  mediaType?: 'image' | 'video' | null
-  image?: SanityImageSource | null
-  playbackId?: string | null
+export type ImageMedia = {
+  mediaType: 'image'
+  image: SanityImageSource
 }
 
-export type BlockMedias = {
-  media1: Media
-  media2?: Media | null
-  media3?: Media | null
+export type VideoMedia = {
+  mediaType: 'video'
+  playbackId: string
 }
 
-export type BlockData = {
-  _key: string
-  _type: 'block_1' | 'block_2' | 'block_3'
+export type Media = ImageMedia | VideoMedia
+
+export type Block1 = {
   media1: Media
-  media2?: Media | null
-  media3?: Media | null
 }
+
+export type Block2 = {
+  media1: Media
+  media2: Media
+}
+
+export type BlockData =
+  | { type: 'block_1'; block: Block1 }
+  | { type: 'block_2'; block: Block2 }

@@ -1,7 +1,13 @@
 import type { SanityImageSource } from '@sanity/image-url'
 
-import type { BlockData, Media } from '@/components/ui/blocks/block-types'
+import type {
+  Block1,
+  Block2,
+  BlockData,
+  Media
+} from '@/components/ui/blocks/block-types'
 
+/** Shape of a `mediaAsset` as returned by the GROQ media projection. */
 export type SanityMediaAsset = {
   mediaType?: 'image' | 'video' | null
   image?: SanityImageSource | null
@@ -12,55 +18,63 @@ export type SanityMediaAsset = {
   } | null
 } | null
 
+/** Shape of a block item as returned by the GROQ block projection. */
 export type SanityBlockData = {
-  _key: string
   _type: string
   media1?: SanityMediaAsset
   media2?: SanityMediaAsset
-  media3?: SanityMediaAsset
 }
 
-export function toMedia(media: SanityMediaAsset | undefined): Media | null {
-  if (!media) return null
+export function toMedia(
+  sanityMedia: SanityMediaAsset | undefined
+): Media | null {
+  if (!sanityMedia) return null
 
-  const asset = media.video?.asset
-
-  return {
-    mediaType: media.mediaType,
-    image: media.image,
-    playbackId:
-      asset && 'playbackId' in asset ? (asset.playbackId ?? null) : null
+  if (sanityMedia.mediaType === 'image' && sanityMedia.image) {
+    return {
+      mediaType: 'image',
+      image: sanityMedia.image
+    }
   }
+
+  if (
+    sanityMedia.mediaType === 'video' &&
+    sanityMedia.video?.asset?.playbackId
+  ) {
+    return {
+      mediaType: 'video',
+      playbackId: sanityMedia.video.asset.playbackId
+    }
+  }
+
+  return null
 }
 
-export function toBlock(block: SanityBlockData): BlockData | null {
-  if (!['block_1', 'block_2', 'block_3'].includes(block._type)) return null
-
+function toBlock1(block: SanityBlockData): Block1 | null {
   const media1 = toMedia(block.media1)
   if (!media1) return null
 
+  return { media1 }
+}
+
+function toBlock2(block: SanityBlockData): Block2 | null {
+  const media1 = toMedia(block.media1)
+  const media2 = toMedia(block.media2)
+  if (!media1 || !media2) return null
+
+  return { media1, media2 }
+}
+
+export function toBlock(block: SanityBlockData): BlockData | null {
   if (block._type === 'block_1') {
-    return {
-      _key: block._key,
-      _type: 'block_1',
-      media1
-    }
+    const parsed = toBlock1(block)
+    return parsed && { type: 'block_1', block: parsed }
   }
 
   if (block._type === 'block_2') {
-    return {
-      _key: block._key,
-      _type: 'block_2',
-      media1,
-      media2: toMedia(block.media2)
-    }
+    const parsed = toBlock2(block)
+    return parsed && { type: 'block_2', block: parsed }
   }
 
-  return {
-    _key: block._key,
-    _type: 'block_3',
-    media1,
-    media2: toMedia(block.media2),
-    media3: toMedia(block.media3)
-  }
+  return null
 }

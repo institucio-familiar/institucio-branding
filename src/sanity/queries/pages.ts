@@ -17,7 +17,6 @@ const heroProjection = /* groq */ `{
 }`
 
 export const blockProjection = /* groq */ `[]{
-  _key,
   _type,
   _type == "block_1" => {
     media1 ${mediaAssetProjection}

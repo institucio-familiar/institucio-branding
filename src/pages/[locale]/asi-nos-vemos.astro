@@ -8,7 +8,7 @@ import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
 import { ASI_NOS_VEMOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
-import { toBlock } from '@/sanity/lib/utils'
+import { toBlock, toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import type { BlockData } from '@/components/ui/blocks/block-types'
 import Block from '@/components/ui/blocks/Block.astro'
 import { ASI_NOS_VEMOS_SECTIONS } from '@/constants'
@@ -17,18 +17,29 @@ const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
-const pageData = await sanityClient.fetch(ASI_NOS_VEMOS_PAGE_QUERY)
-const heroMedia = pageData?.hero?.media
-const pageTitle = pageData?.hero?.title?.[locale]
-const pageDescription = pageData?.hero?.description?.[locale]
+async function getPageData() {
+  const pageData = await sanityClient.fetch(ASI_NOS_VEMOS_PAGE_QUERY)
 
-const sections = Object.values(ASI_NOS_VEMOS_SECTIONS).map((section) => ({
-  id: section.id,
-  blocks:
-    pageData?.sections?.[section.key]
-      ?.map(toBlock)
-      .filter((block): block is BlockData => block !== null) ?? []
-}))
+  // Parse data
+  return {
+    heroMedia: toMedia(pageData?.hero?.media),
+    pageTitle: pageData?.hero?.title?.[locale],
+    pageDescription: pageData?.hero?.description?.[locale],
+    sections: Object.values(ASI_NOS_VEMOS_SECTIONS).map((section) => {
+      const sanityBlocks: SanityBlockData[] =
+        pageData?.sections?.[section.key] ?? []
+
+      return {
+        id: section.id,
+        blocks: sanityBlocks
+          .map(toBlock)
+          .filter((block): block is BlockData => block !== null)
+      }
+    })
+  }
+}
+
+const { heroMedia, pageTitle, pageDescription, sections } = await getPageData()
 ---
 
 <Layout>
@@ -50,10 +61,8 @@ const sections = Object.values(ASI_NOS_VEMOS_SECTIONS).map((section) => ({
     {
       heroMedia && (
         <MediaAsset
-          mediaType={heroMedia.mediaType}
+          media={heroMedia}
           title={pageTitle}
-          image={heroMedia.image}
-          playbackId={heroMedia.video?.asset?.playbackId}
           class="absolute inset-0"
         />
       )
@@ -107,9 +116,7 @@ const sections = Object.values(ASI_NOS_VEMOS_SECTIONS).map((section) => ({
                 </a>
               ) : null}
             </div>
-            {section.blocks?.map((block: BlockData) => (
-              <Block block={block} />
-            ))}
+            {section.blocks?.map((block) => <Block {...block} />)}
           </section>
         ))
       }
