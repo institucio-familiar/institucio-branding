@@ -7,13 +7,23 @@ import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
 import { ILUSTRACION_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
+import { toMedia } from '@/sanity/lib/utils'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
-const pageData = await sanityClient.fetch(ILUSTRACION_PAGE_QUERY)
-const heroMedia = pageData?.hero?.media
+async function getPageData() {
+  const sanityPageData = await sanityClient.fetch(ILUSTRACION_PAGE_QUERY)
+
+  // Parse data
+  return {
+    heroMedia: toMedia(sanityPageData?.hero?.media)
+  }
+}
+
+const { heroMedia } = await getPageData()
+
 const pageTitle = t('ilustracion.title')
 ---
 
@@ -39,10 +49,8 @@ const pageTitle = t('ilustracion.title')
     {
       heroMedia && (
         <MediaAsset
-          mediaType={heroMedia.mediaType}
+          media={heroMedia}
           title={pageTitle}
-          image={heroMedia.image}
-          playbackId={heroMedia.video?.asset?.playbackId}
           class="absolute inset-0"
         />
       )

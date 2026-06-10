@@ -25,10 +25,11 @@ export type SanityBlockData = {
   media2?: SanityMediaAsset
 }
 
+// PARSERS
 export function toMedia(
   sanityMedia: SanityMediaAsset | undefined
 ): Media | null {
-  if (!sanityMedia) return null
+  if (!sanityMedia || !sanityMedia.mediaType) return null
 
   if (sanityMedia.mediaType === 'image' && sanityMedia.image) {
     return {

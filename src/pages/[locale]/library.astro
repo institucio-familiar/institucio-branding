@@ -9,21 +9,29 @@ import Block from '@/components/ui/blocks/Block.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import { TEST_1_QUERY } from '@/sanity/queries/pages'
-import { toBlock } from '@/sanity/lib/utils'
+import { toBlock, toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import { sanityClient } from 'sanity:client'
 import type { BlockData } from '@/components/ui/blocks/block-types'
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
-const testDocument = await sanityClient.fetch(TEST_1_QUERY)
+async function getPageData() {
+  const sanityPageData = await sanityClient.fetch(TEST_1_QUERY)
 
-const blocks =
-  testDocument?.blocks
-    ?.map(toBlock)
-    .filter((block): block is BlockData => block !== null) ?? []
+  // Parse data
+  const sanityBlocks: SanityBlockData[] = sanityPageData?.blocks ?? []
 
-const heroMedia = testDocument?.heroMedia
+  return {
+    title: sanityPageData?.title,
+    heroMedia: toMedia(sanityPageData?.heroMedia),
+    blocks: sanityBlocks
+      .map(toBlock)
+      .filter((block): block is BlockData => block !== null)
+  }
+}
+
+const { title, heroMedia, blocks } = await getPageData()
 
 const iconVariants = [
   'primary-dark',
@@ -79,10 +87,8 @@ const maskTypes = [
       {
         heroMedia && (
           <MediaAsset
-            mediaType={heroMedia.mediaType}
-            title={testDocument?.title ?? 'Hero media'}
-            image={heroMedia.image}
-            playbackId={heroMedia.video?.asset?.playbackId}
+            media={heroMedia}
+            title={title ?? 'Hero media'}
             class="absolute inset-0"
           />
         )
@@ -171,7 +177,7 @@ const maskTypes = [
       <section class="flex flex-col gap-indent bg-white px-indent py-10 border-t border-navy-light">
         <p class="text-ink text-headline-3">Blocks</p>
         {blocks.map((block) => (
-          <Block block={block} />
+          <Block {...block} />
         ))}
       </section>
     ) : null
@@ -185,12 +191,7 @@ const maskTypes = [
             type={mask.type}
             border={'border' in mask ? mask.border : undefined}
           >
-            <MediaAsset
-              mediaType={heroMedia.mediaType}
-              title={testDocument?.title ?? 'Hero media'}
-              image={heroMedia.image}
-              playbackId={heroMedia.video?.asset?.playbackId}
-            />
+            <MediaAsset media={heroMedia} title={title ?? 'Hero media'} />
           </Mask>
         ))}
       </section>

@@ -7,6 +7,7 @@ import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import { HOME_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
+import { toMedia } from '@/sanity/lib/utils'
 import Icon from '@/components/ui/Icon.astro'
 import Mask from '@/components/ui/Mask.astro'
 
@@ -14,15 +15,27 @@ const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
-const homePageData = await sanityClient.fetch(HOME_PAGE_QUERY)
+async function getPageData() {
+  const sanityPageData = await sanityClient.fetch(HOME_PAGE_QUERY)
 
-const heroMedia = homePageData?.hero?.media
-const textSlides = homePageData?.textSlides
-const imageZoomMedia = homePageData?.imageZoom
-const imagesGrid = homePageData?.imagesGrid
-const imageEyeMedia = homePageData?.imageEye
-const bookText = homePageData?.bookText
-const words = homePageData?.words
+  // Parse data
+  return {
+    heroMedia: toMedia(sanityPageData?.hero?.media),
+    textSlides: sanityPageData?.textSlides,
+    imageZoomMedia: toMedia(sanityPageData?.imageZoom),
+    imagesGrid: {
+      image1: toMedia(sanityPageData?.imagesGrid?.image1),
+      image2: toMedia(sanityPageData?.imagesGrid?.image2),
+      image3: toMedia(sanityPageData?.imagesGrid?.image3),
+      image4: toMedia(sanityPageData?.imagesGrid?.image4)
+    },
+    imageEyeMedia: toMedia(sanityPageData?.imageEye),
+    bookText: sanityPageData?.bookText,
+    words: sanityPageData?.words
+  }
+}
+
+const pageData = await getPageData()
 ---
 
 <Layout>
@@ -45,12 +58,10 @@ const words = homePageData?.words
     </div>
 
     {
-      heroMedia && (
+      pageData.heroMedia && (
         <MediaAsset
-          mediaType={heroMedia.mediaType}
+          media={pageData.heroMedia}
           title={t('home.hero')}
-          image={heroMedia.image}
-          playbackId={heroMedia.video?.asset?.playbackId}
           class="absolute inset-0"
         />
       )
@@ -68,7 +79,7 @@ const words = homePageData?.words
           class="relative flex h-full items-center justify-center bg-navy p-20"
         >
           <p class="text-blue text-headline-1 uppercase text-center">
-            {textSlides?.textSlide1?.[locale]}
+            {pageData.textSlides?.textSlide1?.[locale]}
           </p>
         </section>
 
@@ -83,7 +94,7 @@ const words = homePageData?.words
           />
           <div class="flex items-center justify-center p-20 h-full bg-blue">
             <p class="text-navy text-headline-1 uppercase text-center">
-              {textSlides?.textSlide2?.[locale]}
+              {pageData.textSlides?.textSlide2?.[locale]}
             </p>
           </div>
         </section>
@@ -105,14 +116,9 @@ const words = homePageData?.words
       style="transform: scale(0.25)"
     >
       {
-        imageZoomMedia && (
+        pageData.imageZoomMedia && (
           <Mask type="4o">
-            <MediaAsset
-              mediaType={imageZoomMedia.mediaType}
-              title={'TESTINGAL'}
-              image={imageZoomMedia.image}
-              playbackId={imageZoomMedia.video?.asset?.playbackId}
-            />
+            <MediaAsset media={pageData.imageZoomMedia} title={'TESTINGAL'} />
           </Mask>
         )
       }
@@ -175,50 +181,30 @@ const words = homePageData?.words
   >
     <div class="grid grid-cols-4 w-full">
       {
-        imagesGrid?.image1 && (
+        pageData.imagesGrid.image1 && (
           <Mask type="tobo" class="w-full h-full col-span-2 row-span-2">
-            <MediaAsset
-              mediaType={imagesGrid.image1.mediaType}
-              title={t('home.imagesGrid')}
-              image={imagesGrid.image1.image}
-              playbackId={imagesGrid.image1.video?.asset?.playbackId}
-            />
+            <MediaAsset media={pageData.imagesGrid.image1} title={t('home.imagesGrid')} />
           </Mask>
         )
       }
       {
-        imagesGrid?.image2 && (
+        pageData.imagesGrid.image2 && (
           <Mask type="tobobo" class="w-full h-full col-span-2">
-            <MediaAsset
-              mediaType={imagesGrid.image2.mediaType}
-              title={t('home.imagesGrid')}
-              image={imagesGrid.image2.image}
-              playbackId={imagesGrid.image2.video?.asset?.playbackId}
-            />
+            <MediaAsset media={pageData.imagesGrid.image2} title={t('home.imagesGrid')} />
           </Mask>
         )
       }
       {
-        imagesGrid?.image3 && (
+        pageData.imagesGrid.image3 && (
           <Mask type="tibo" class="w-full h-full">
-            <MediaAsset
-              mediaType={imagesGrid.image3.mediaType}
-              title={t('home.imagesGrid')}
-              image={imagesGrid.image3.image}
-              playbackId={imagesGrid.image3.video?.asset?.playbackId}
-            />
+            <MediaAsset media={pageData.imagesGrid.image3} title={t('home.imagesGrid')} />
           </Mask>
         )
       }
       {
-        imagesGrid?.image4 && (
+        pageData.imagesGrid.image4 && (
           <Mask type="tibo" class="w-full h-full">
-            <MediaAsset
-              mediaType={imagesGrid.image4.mediaType}
-              title={t('home.imagesGrid')}
-              image={imagesGrid.image4.image}
-              playbackId={imagesGrid.image4.video?.asset?.playbackId}
-            />
+            <MediaAsset media={pageData.imagesGrid.image4} title={t('home.imagesGrid')} />
           </Mask>
         )
       }
@@ -230,14 +216,9 @@ const words = homePageData?.words
   >
     <div class="w-full h-full">
       {
-        imageEyeMedia && (
+        pageData.imageEyeMedia && (
           <Mask type="tobo_horizontal">
-            <MediaAsset
-              mediaType={imageEyeMedia.mediaType}
-              title={'TESTINGAL'}
-              image={imageEyeMedia.image}
-              playbackId={imageEyeMedia.video?.asset?.playbackId}
-            />
+            <MediaAsset media={pageData.imageEyeMedia} title={'TESTINGAL'} />
           </Mask>
         )
       }
@@ -249,7 +230,7 @@ const words = homePageData?.words
   >
     <div class="w-full h-full">
       <p class="text-navy text-headline-1 uppercase">
-        {bookText?.[locale]}
+        {pageData.bookText?.[locale]}
       </p>
     </div>
   </section>
@@ -259,13 +240,13 @@ const words = homePageData?.words
   >
     <div class="w-full h-full">
       <p class="text-navy text-headline-1 uppercase">
-        {words?.word1?.[locale]}
+        {pageData.words?.word1?.[locale]}
       </p>
       <p class="text-navy text-headline-1 uppercase">
-        {words?.word2?.[locale]}
+        {pageData.words?.word2?.[locale]}
       </p>
       <p class="text-navy text-headline-1 uppercase">
-        {words?.word3?.[locale]}
+        {pageData.words?.word3?.[locale]}
       </p>
     </div>
     <Puncha

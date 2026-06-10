@@ -18,16 +18,16 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 
 async function getPageData() {
-  const pageData = await sanityClient.fetch(ASI_NOS_VEMOS_PAGE_QUERY)
+  const sanityPageData = await sanityClient.fetch(ASI_NOS_VEMOS_PAGE_QUERY)
 
   // Parse data
   return {
-    heroMedia: toMedia(pageData?.hero?.media),
-    pageTitle: pageData?.hero?.title?.[locale],
-    pageDescription: pageData?.hero?.description?.[locale],
+    heroMedia: toMedia(sanityPageData?.hero?.media),
+    pageTitle: sanityPageData?.hero?.title?.[locale],
+    pageDescription: sanityPageData?.hero?.description?.[locale],
     sections: Object.values(ASI_NOS_VEMOS_SECTIONS).map((section) => {
       const sanityBlocks: SanityBlockData[] =
-        pageData?.sections?.[section.key] ?? []
+        sanityPageData?.sections?.[section.key] ?? []
 
       return {
         id: section.id,
