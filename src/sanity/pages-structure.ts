@@ -70,6 +70,18 @@ export const submenuPages = [
     icon: BsPaletteFill
   },
   {
+    title: 'Tipografía',
+    schemaType: 'tipografia_page',
+    documentId: 'tipografia_page',
+    icon: BsType
+  },
+  {
+    title: 'Layout',
+    schemaType: 'layout_page',
+    documentId: 'layout_page',
+    icon: BsLayoutThreeColumns
+  },
+  {
     title: 'Patrones',
     schemaType: 'patrones_page',
     documentId: 'patrones_page',
@@ -86,18 +98,6 @@ export const submenuPages = [
     schemaType: 'ilustracion_page',
     documentId: 'ilustracion_page',
     icon: BsBrushFill
-  },
-  {
-    title: 'Tipografía',
-    schemaType: 'tipografia_page',
-    documentId: 'tipografia_page',
-    icon: BsType
-  },
-  {
-    title: 'Layout',
-    schemaType: 'layout_page',
-    documentId: 'layout_page',
-    icon: BsLayoutThreeColumns
   },
   {
     title: 'Fotografía',

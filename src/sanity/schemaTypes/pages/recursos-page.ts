@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, defineArrayMember } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons'
-import { _mandatoryi18nField } from '@/sanity/lib/validations'
+import { _mandatoryField, _mandatoryi18nField } from '@/sanity/lib/validations'
 
 export const recursosPage = defineType({
   name: 'recursos_page',
@@ -46,6 +46,44 @@ export const recursosPage = defineType({
           title: 'Descripción',
           type: 'i18n.text',
           validation: _mandatoryi18nField
+        })
+      ]
+    }),
+    defineField({
+      name: 'section1',
+      title: 'Sección 1 (Assets)',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Título',
+              type: 'i18n.string',
+              validation: _mandatoryi18nField
+            }),
+            defineField({
+              name: 'description',
+              title: 'Descripción',
+              type: 'i18n.text',
+              validation: _mandatoryi18nField
+            }),
+            defineField({
+              name: 'url',
+              title: 'URL (Link descarga)',
+              type: 'url',
+              validation: (rule) => rule.required()
+            })
+          ],
+          preview: {
+            select: {
+              title: 'title.es'
+            },
+            prepare({ title }) {
+              return { title }
+            }
+          }
         })
       ]
     })

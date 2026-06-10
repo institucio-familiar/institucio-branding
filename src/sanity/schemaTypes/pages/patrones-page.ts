@@ -46,6 +46,12 @@ export const patronesPage = defineType({
           title: 'Descripción',
           type: 'i18n.text',
           validation: _mandatoryi18nField
+        }),
+        defineField({
+          name: 'media',
+          title: 'Media',
+          type: 'mediaAsset',
+          validation: (rule) => rule.required()
         })
       ]
     })
