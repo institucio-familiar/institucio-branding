@@ -1,12 +1,13 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons'
-import { _mandatoryi18nField } from '../../lib/validations'
+import { _mandatoryi18nField } from '@/sanity/lib/validations'
 
 const principioCreativoFields = [
   defineField({
     name: 'media',
     title: 'Media',
-    type: 'mediaAsset'
+    type: 'mediaAsset',
+    validation: (rule) => rule.required()
   }),
   defineField({
     name: 'title',
@@ -54,11 +55,13 @@ export const nuestraMarcaPage = defineType({
       name: 'hero',
       title: 'Hero',
       type: 'object',
+      validation: (rule) => rule.required(),
       fields: [
         defineField({
           name: 'media',
           title: 'Media',
-          type: 'mediaAsset'
+          type: 'mediaAsset',
+          validation: (rule) => rule.required()
         })
       ]
     }),
@@ -66,6 +69,7 @@ export const nuestraMarcaPage = defineType({
       name: 'intro',
       title: 'Introducción',
       type: 'object',
+      validation: (rule) => rule.required(),
       fields: [
         defineField({
           name: 'title',
@@ -82,7 +86,8 @@ export const nuestraMarcaPage = defineType({
         defineField({
           name: 'media',
           title: 'Media',
-          type: 'mediaAsset'
+          type: 'mediaAsset',
+          validation: (rule) => rule.required()
         })
       ]
     }),
@@ -90,6 +95,7 @@ export const nuestraMarcaPage = defineType({
       name: 'section1',
       title: 'Sección 1',
       type: 'object',
+      validation: (rule) => rule.required(),
       fields: [
         defineField({
           name: 'title',
@@ -101,11 +107,20 @@ export const nuestraMarcaPage = defineType({
           name: 'questions',
           title: 'Preguntas',
           type: 'array',
+          validation: (rule) => rule.required(),
           of: [
             defineArrayMember({
               name: 'question',
               title: 'Pregunta',
               type: 'object',
+              preview: {
+                select: {
+                  question: 'question.es'
+                },
+                prepare({ question }) {
+                  return { title: question }
+                }
+              },
               fields: [
                 defineField({
                   name: 'question',
@@ -129,11 +144,18 @@ export const nuestraMarcaPage = defineType({
       name: 'section2',
       title: 'Sección 2',
       type: 'array',
+      validation: (rule) => rule.required(),
       of: [
         defineArrayMember({
-          name: 'block',
-          title: 'Bloque',
           type: 'object',
+          preview: {
+            select: {
+              title: 'title.es'
+            },
+            prepare({ title }) {
+              return { title }
+            }
+          },
           fields: [
             defineField({
               name: 'title',
@@ -150,7 +172,8 @@ export const nuestraMarcaPage = defineType({
             defineField({
               name: 'media',
               title: 'Media',
-              type: 'mediaAsset'
+              type: 'mediaAsset',
+              validation: (rule) => rule.required()
             })
           ]
         })
@@ -160,11 +183,13 @@ export const nuestraMarcaPage = defineType({
       name: 'section3',
       title: 'Sección 3 (Principios creativos)',
       type: 'object',
+      validation: (rule) => rule.required(),
       fields: PRINCIPIOS_CREATIVOS.map((principio) =>
         defineField({
           name: principio.name,
           title: principio.title,
           type: 'object',
+          validation: (rule) => rule.required(),
           fields: principioCreativoFields
         })
       )

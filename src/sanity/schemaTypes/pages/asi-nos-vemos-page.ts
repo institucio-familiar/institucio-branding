@@ -26,7 +26,15 @@ export const asiNosVemosPage = defineType({
           title: 'Media',
           type: 'mediaAsset',
           validation: (rule) => rule.required()
-        }),
+        })
+      ]
+    }),
+    defineField({
+      name: 'intro',
+      title: 'Introducción',
+      type: 'object',
+      validation: (rule) => rule.required(),
+      fields: [
         defineField({
           name: 'title',
           title: 'Título',
