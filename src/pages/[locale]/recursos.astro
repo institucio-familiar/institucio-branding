@@ -1,6 +1,7 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
+import Card from '@/components/ui/Card.astro'
 import Icon from '@/components/ui/Icon.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
@@ -8,6 +9,14 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { RECURSOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import type { Media } from '@/components/ui/blocks/block-types'
+
+type RecursosCard = {
+  title: string
+  description: string
+  buttonUrl: string
+  media: Media
+}
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -21,12 +30,13 @@ async function getPageData() {
     heroMedia: toMedia(sanityPageData?.hero?.media),
     pageTitle: sanityPageData?.intro?.title?.[locale],
     pageDescription: sanityPageData?.intro?.description?.[locale],
-    section1: sanityPageData?.section1.map((item: any) => ({
-      title: item.title[locale],
-      description: item.description[locale],
-      url: item.url,
-      media: toMedia(item.media)
-    }))
+    section1:
+      sanityPageData?.section1?.map((item: any) => ({
+        title: item.title[locale],
+        description: item.description[locale],
+        buttonUrl: item.url,
+        media: toMedia(item.media)
+      })) ?? []
   }
 }
 
@@ -69,4 +79,21 @@ const pageData = await getPageData()
       {pageData.pageTitle}
     </h1>
   </section>
+
+  {
+    pageData.section1.length > 0 && (
+      <section class="grid grid-cols-1 gap-indent bg-white px-indent pb-indent-2 md:grid-cols-2">
+        {pageData.section1.map((item: RecursosCard) => (
+          <Card
+            title={item.title}
+            media={item.media}
+            description={item.description}
+            buttonUrl={item.buttonUrl}
+          >
+            <span slot="button">{t('recursos.download')}</span>
+          </Card>
+        ))}
+      </section>
+    )
+  }
 </MainLayout>

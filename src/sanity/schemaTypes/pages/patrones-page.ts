@@ -1,6 +1,7 @@
 import { defineType, defineField } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons'
 import { _mandatoryi18nField } from '@/sanity/lib/validations'
+import { badUsesField } from '@/sanity/schemaTypes/abtracts/bad-uses'
 
 export const patronesPage = defineType({
   name: 'patrones_page',
@@ -55,5 +56,6 @@ export const patronesPage = defineType({
         })
       ]
     })
+    // badUsesField('section5', 'Sección 5 - Malos usos')
   ]
 })

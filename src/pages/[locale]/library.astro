@@ -32,6 +32,7 @@ async function getPageData() {
 }
 
 const pageData = await getPageData()
+const heroMedia = pageData.heroMedia
 
 const iconVariants = [
   'primary-dark',
@@ -50,6 +51,7 @@ const iconNames = [
   'controls-pause',
   'controls-play',
   'controls-plus',
+  'download',
   'cross',
   'hamburger',
   'search'
@@ -85,9 +87,9 @@ const maskTypes = [
       <h1 class="text-white text-headline-2 z-2">{t('test.title')}</h1>
 
       {
-        pageData.heroMedia && (
+        heroMedia && (
           <MediaAsset
-            media={pageData.heroMedia}
+            media={heroMedia}
             title={pageData.title ?? 'Hero media'}
             class="absolute inset-0"
           />
@@ -184,15 +186,15 @@ const maskTypes = [
   }
 
   {
-    pageData.heroMedia && (
-      <section class="flex flex-wrap items-center justify-center gap-12 bg-white border-t border-navy-light px-indent py-10 md:py-20">
+    heroMedia && (
+      <section class="grid w-full grid-cols-1 gap-indent bg-white border-t border-navy-light px-indent py-10 md:grid-cols-2 md:py-20">
         {maskTypes.map((mask) => (
           <Mask
             type={mask.type}
             border={'border' in mask ? mask.border : undefined}
           >
             <MediaAsset
-              media={pageData.heroMedia}
+              media={heroMedia}
               title={pageData.title ?? 'Hero media'}
             />
           </Mask>

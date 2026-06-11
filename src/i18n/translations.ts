@@ -125,6 +125,15 @@ export const notFound: BilingualTranslations = {
   }
 }
 
+export const recursos: BilingualTranslations = {
+  es: {
+    'recursos.download': 'Descarga'
+  },
+  ca: {
+    'recursos.download': 'Descarrega'
+  }
+}
+
 export const asiNosVemos: BilingualTranslations = {
   es: {
     'asi-nos-vemos.asi-nos-vemos': 'Así nos vemos',
@@ -159,5 +168,6 @@ export const allTranslations: BilingualTranslations[] = [
   hero,
   library,
   notFound,
+  recursos,
   asiNosVemos
 ]
