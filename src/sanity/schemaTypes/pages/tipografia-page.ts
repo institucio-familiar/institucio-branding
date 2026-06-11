@@ -160,7 +160,12 @@ export const tipografiaPage = defineType({
               type: 'atom_2',
               validation: (rule) => rule.required()
             })
-          ]
+          ],
+          preview: {
+            prepare() {
+              return { title: 'Configuración tipográfica' }
+            }
+          }
         }),
         defineField({
           name: 'usage',
@@ -168,7 +173,12 @@ export const tipografiaPage = defineType({
           type: 'atom_2',
           validation: (rule) => rule.required()
         })
-      ]
+      ],
+      preview: {
+        prepare() {
+          return { title: 'Sección 2 (Jerarquías y mezclas)' }
+        }
+      }
     }),
     defineField({
       name: 'section3',
@@ -195,7 +205,12 @@ export const tipografiaPage = defineType({
           of: [defineArrayMember({ type: 'atom_2' })],
           validation: (rule) => rule.required()
         })
-      ]
+      ],
+      preview: {
+        prepare() {
+          return { title: 'Sección 3 (Composición del texto)' }
+        }
+      }
     }),
     defineField({
       name: 'section4',
@@ -222,7 +237,12 @@ export const tipografiaPage = defineType({
           of: [defineArrayMember({ type: 'atom_2' })],
           validation: (rule) => rule.required()
         })
-      ]
+      ],
+      preview: {
+        prepare() {
+          return { title: 'Sección 4 (Color tipográfico)' }
+        }
+      }
     }),
     badUsesField('section5', 'Sección 5 - Malos usos')
   ]
