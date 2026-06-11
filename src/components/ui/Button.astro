@@ -1,4 +1,6 @@
 ---
+import Download from '@/components/ui/icon-glyphs/Download.astro'
+
 type Variant =
   | 'primary-dark'
   | 'primary-blue'
@@ -8,6 +10,7 @@ type Variant =
 
 interface Props {
   variant?: Variant
+  icon?: '' | 'download'
   href?: string
   type?: 'button' | 'submit' | 'reset'
   class?: string
@@ -17,6 +20,7 @@ interface Props {
 
 const {
   variant = 'primary-dark',
+  icon = '',
   href,
   type = 'button',
   class: className,
@@ -25,7 +29,9 @@ const {
 } = Astro.props
 
 const base =
-  'inline-flex items-center justify-center rounded-sm border px-4 py-2 text-cta transition-colors duration-200 cursor-pointer'
+  'inline-flex items-center justify-center rounded-sm border py-2 pr-4 text-cta transition-colors duration-200 cursor-pointer'
+
+const padding = icon ? 'pl-3' : 'pl-4'
 
 const variants: Record<Variant, string> = {
   'primary-dark':
@@ -40,19 +46,31 @@ const variants: Record<Variant, string> = {
     'border-blue bg-transparent text-blue hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost'
 }
 
-const classes = [base, variants[variant], className].filter(Boolean).join(' ')
+const classes = [base, padding, variants[variant], className]
+  .filter(Boolean)
+  .join(' ')
 ---
 
 {
   href ? (
-    <a href={href} class={classes}>
-      <span class="translate-y-px">
+    <a href={href} class={classes} rel="noopener noreferrer" target="_blank">
+      <span class="inline-flex translate-y-px items-center gap-2">
+        {icon === 'download' && (
+          <span class="size-4 shrink-0" aria-hidden="true">
+            <Download />
+          </span>
+        )}
         <slot />
       </span>
     </a>
   ) : (
     <button type={type} class={classes} id={id} aria-label={ariaLabel}>
-      <span class="translate-y-px">
+      <span class="inline-flex translate-y-px items-center gap-2">
+        {icon === 'download' && (
+          <span class="size-4 shrink-0" aria-hidden="true">
+            <Download />
+          </span>
+        )}
         <slot />
       </span>
     </button>

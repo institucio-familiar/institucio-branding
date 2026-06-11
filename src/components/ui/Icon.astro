@@ -8,6 +8,7 @@ import ControlsPause from '@/components/ui/icon-glyphs/ControlsPause.astro'
 import ControlsPlay from '@/components/ui/icon-glyphs/ControlsPlay.astro'
 import ControlsPlus from '@/components/ui/icon-glyphs/ControlsPlus.astro'
 import Cross from '@/components/ui/icon-glyphs/Cross.astro'
+import Download from '@/components/ui/icon-glyphs/Download.astro'
 import Hamburger from '@/components/ui/icon-glyphs/Hamburger.astro'
 import Search from '@/components/ui/icon-glyphs/Search.astro'
 
@@ -27,6 +28,7 @@ type IconName =
   | 'controls-play'
   | 'controls-plus'
   | 'cross'
+  | 'download'
   | 'hamburger'
   | 'number'
   | 'search'
@@ -99,6 +101,7 @@ const glyphs: Record<GlyphIconName, AstroComponentFactory> = {
   'controls-play': ControlsPlay,
   'controls-plus': ControlsPlus,
   cross: Cross,
+  download: Download,
   hamburger: Hamburger,
   search: Search
 }
@@ -118,6 +121,7 @@ const defaultLabels: Record<IconName, string> = {
   'controls-play': 'Play',
   'controls-plus': 'Plus',
   cross: 'Close',
+  download: 'Download',
   hamburger: 'Menu',
   number: String(number),
   search: 'Search'
