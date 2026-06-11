@@ -1,4 +1,5 @@
 import { atom1 } from './atoms/atom-1'
+import { atom2 } from './atoms/atom-2'
 import { block1 } from './blocks/block-1'
 import { block2 } from './blocks/block-2'
 import { mediaAsset } from './mediaAsset'
@@ -22,6 +23,7 @@ export const schema = {
   types: [
     mediaAsset,
     atom1,
+    atom2,
     block1,
     block2,
     homePage,

@@ -74,6 +74,12 @@ export const recursosPage = defineType({
               title: 'URL (Link descarga)',
               type: 'url',
               validation: (rule) => rule.required()
+            }),
+            defineField({
+              name: 'media',
+              title: 'Media',
+              type: 'mediaAsset',
+              validation: (rule) => rule.required()
             })
           ],
           preview: {

@@ -1,5 +1,5 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import MainLayout from '@/layouts/MainLayout.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
 import Icon from '@/components/ui/Icon.astro'
 import { getPageLocale } from '@/i18n/utils'
@@ -18,25 +18,22 @@ async function getPageData() {
 
   // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media)
+    heroMedia: toMedia(sanityPageData?.hero?.media),
+    pageTitle: sanityPageData?.intro?.title?.[locale],
+    pageDescription: sanityPageData?.intro?.description?.[locale]
   }
 }
 
-const { heroMedia } = await getPageData()
-
-const pageTitle = t('patrones.title')
+const pageData = await getPageData()
 ---
 
-<Layout>
+<MainLayout>
   <section
     class="flex min-h-screen items-end justify-left bg-mist px-indent py-15 relative"
   >
     <div class="flex flex-col z-2">
-      <h1 class="text-white text-headline-2 uppercase">
-        {pageTitle}
-      </h1>
       <div class="flex items-center gap-2">
-        <p class="text-white text-body">{t('hero.scroll-down')}</p>
+        <p class="text-white text-cta">{t('hero.scroll-down')}</p>
         <Icon
           id="scroll-to-bottom-icon"
           name="arrow"
@@ -47,25 +44,23 @@ const pageTitle = t('patrones.title')
     </div>
 
     {
-      heroMedia && (
+      pageData.heroMedia && (
         <MediaAsset
-          media={heroMedia}
-          title={pageTitle}
+          media={pageData.heroMedia}
+          title={pageData.pageTitle}
           class="absolute inset-0"
         />
       )
     }
   </section>
 
-  <section
-    class="relative flex min-h-screen items-center justify-center bg-white p-20"
-  >
+  <section class="relative bg-white px-indent">
     <Puncha
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <p class="text-navy text-headline-1 uppercase text-center">
-      {t('patrones.description')}
-    </p>
+    <h1 class="text-navy text-headline-1 uppercase py-indent-2">
+      {pageData.pageTitle}
+    </h1>
   </section>
-</Layout>
+</MainLayout>

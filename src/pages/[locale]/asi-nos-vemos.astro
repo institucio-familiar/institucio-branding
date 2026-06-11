@@ -1,5 +1,5 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import MainLayout from '@/layouts/MainLayout.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
 import Icon from '@/components/ui/Icon.astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
@@ -23,8 +23,8 @@ async function getPageData() {
   // Parse data
   return {
     heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.hero?.title?.[locale],
-    pageDescription: sanityPageData?.hero?.description?.[locale],
+    pageTitle: sanityPageData?.intro?.title?.[locale],
+    pageDescription: sanityPageData?.intro?.description?.[locale],
     sections: Object.values(ASI_NOS_VEMOS_SECTIONS).map((section) => {
       const sanityBlocks: SanityBlockData[] =
         sanityPageData?.sections?.[section.key] ?? []
@@ -39,10 +39,10 @@ async function getPageData() {
   }
 }
 
-const { heroMedia, pageTitle, pageDescription, sections } = await getPageData()
+const pageData = await getPageData()
 ---
 
-<Layout>
+<MainLayout>
   <section
     class="flex min-h-screen items-end justify-left bg-mist px-indent py-15 relative"
   >
@@ -59,10 +59,10 @@ const { heroMedia, pageTitle, pageDescription, sections } = await getPageData()
     </div>
 
     {
-      heroMedia && (
+      pageData.heroMedia && (
         <MediaAsset
-          media={heroMedia}
-          title={pageTitle}
+          media={pageData.heroMedia}
+          title={pageData.pageTitle}
           class="absolute inset-0"
         />
       )
@@ -75,7 +75,7 @@ const { heroMedia, pageTitle, pageDescription, sections } = await getPageData()
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
     <h1 class="text-navy text-headline-1 uppercase py-indent-2">
-      {pageTitle}
+      {pageData.pageTitle}
     </h1>
   </section>
 
@@ -83,7 +83,7 @@ const { heroMedia, pageTitle, pageDescription, sections } = await getPageData()
     <aside class="col-span-2">
       <div class="flex flex-col gap-3">
         {
-          sections.map((section) => (
+          pageData.sections.map((section) => (
             <a
               href={getRelativeLocaleUrl(locale, `#${section.id}TESTINGAL`)}
               class="text-navy text-body hover:text-body-bold"
@@ -97,11 +97,11 @@ const { heroMedia, pageTitle, pageDescription, sections } = await getPageData()
     <div class="col-span-10">
       <section class="pb-indent">
         <p class="text-navy text-headline-3">
-          {pageDescription}
+          {pageData.pageDescription}
         </p>
       </section>
       {
-        sections.map((section) => (
+        pageData.sections.map((section) => (
           <section id={section.id} class="pb-indent flex flex-col gap-indent">
             <div class="flex items-center justify-between">
               <p class="text-navy text-headline-2">
@@ -122,4 +122,4 @@ const { heroMedia, pageTitle, pageDescription, sections } = await getPageData()
       }
     </div>
   </div>
-</Layout>
+</MainLayout>

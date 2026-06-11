@@ -1,5 +1,5 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import MainLayout from '@/layouts/MainLayout.astro'
 import Puncha from '@/components/icons/Puncha.astro'
 import PunchaVertical from '@/components/icons/PunchaVertical.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
@@ -38,7 +38,7 @@ async function getPageData() {
 const pageData = await getPageData()
 ---
 
-<Layout>
+<MainLayout>
   <section
     class="relative flex min-h-screen items-end justify-left bg-mist px-indent py-15"
   >
@@ -331,4 +331,4 @@ const pageData = await getPageData()
       { once: true }
     )
   </script>
-</Layout>
+</MainLayout>

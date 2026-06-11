@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import MainLayout from '../layouts/MainLayout.astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useTranslations } from '@/i18n/ui'
 import { getPageLocale } from '@/i18n/utils'
@@ -8,7 +8,7 @@ const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
 ---
 
-<Layout title={`404 — ${t('site.title')}`}>
+<MainLayout title={`404 — ${t('site.title')}`}>
   <main
     class="min-h-screen flex items-center justify-center px-6 py-10 bg-frost"
   >
@@ -30,4 +30,4 @@ const t = useTranslations(locale)
       </a>
     </section>
   </main>
-</Layout>
+</MainLayout>

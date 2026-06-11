@@ -1,5 +1,5 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import MainLayout from '@/layouts/MainLayout.astro'
 import Button from '@/components/ui/Button.astro'
 import Icon from '@/components/ui/Icon.astro'
 import Puncha from '@/components/icons/Puncha.astro'
@@ -31,7 +31,7 @@ async function getPageData() {
   }
 }
 
-const { title, heroMedia, blocks } = await getPageData()
+const pageData = await getPageData()
 
 const iconVariants = [
   'primary-dark',
@@ -77,7 +77,7 @@ const maskTypes = [
 ] as const
 ---
 
-<Layout>
+<MainLayout>
   <section
     class="flex min-h-screen items-center justify-center bg-mist px-indent py-10 relative"
   >
@@ -85,10 +85,10 @@ const maskTypes = [
       <h1 class="text-white text-headline-2 z-2">{t('test.title')}</h1>
 
       {
-        heroMedia && (
+        pageData.heroMedia && (
           <MediaAsset
-            media={heroMedia}
-            title={title ?? 'Hero media'}
+            media={pageData.heroMedia}
+            title={pageData.title ?? 'Hero media'}
             class="absolute inset-0"
           />
         )
@@ -173,10 +173,10 @@ const maskTypes = [
   </section>
 
   {
-    blocks.length ? (
+    pageData.blocks.length ? (
       <section class="flex flex-col gap-indent bg-white px-indent py-10 border-t border-navy-light">
         <p class="text-ink text-headline-3">Blocks</p>
-        {blocks.map((block) => (
+        {pageData.blocks.map((block) => (
           <Block {...block} />
         ))}
       </section>
@@ -184,14 +184,17 @@ const maskTypes = [
   }
 
   {
-    heroMedia && (
+    pageData.heroMedia && (
       <section class="flex flex-wrap items-center justify-center gap-12 bg-white border-t border-navy-light px-indent py-10 md:py-20">
         {maskTypes.map((mask) => (
           <Mask
             type={mask.type}
             border={'border' in mask ? mask.border : undefined}
           >
-            <MediaAsset media={heroMedia} title={title ?? 'Hero media'} />
+            <MediaAsset
+              media={pageData.heroMedia}
+              title={pageData.title ?? 'Hero media'}
+            />
           </Mask>
         ))}
       </section>
@@ -201,10 +204,10 @@ const maskTypes = [
   <section
     class="relative flex items-center justify-center bg-white border-t border-navy-light py-10 md:py-20 min-h-[60vh]"
   >
-    <p class="text-ink text-headline-3">{t('test.section5')}</p>
+    <p class="text-ink text-headline-3">Final</p>
     <Puncha
       color="white"
       class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
     />
   </section>
-</Layout>
+</MainLayout>
