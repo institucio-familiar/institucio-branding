@@ -23,7 +23,8 @@ export const atom2 = defineType({
       name: 'medias',
       title: 'Carrusel de imágenes/vídeos',
       type: 'array',
-      of: [defineArrayMember({ type: 'mediaAsset' })]
+      of: [defineArrayMember({ type: 'mediaAsset' })],
+      validation: (rule) => rule.required()
     })
   ],
   preview: {
