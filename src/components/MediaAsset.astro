@@ -7,17 +7,26 @@ type Props = {
   media: Media
   title?: string
   class?: string
+  imageSize?: number
 }
 
-const { media, title = 'Media', class: className } = Astro.props
+const {
+  media,
+  title = 'Media',
+  class: className,
+  imageSize = 1200
+} = Astro.props
 
 const defaultStyles = 'h-full w-full object-cover'
+
+// TESTINGAL > We should be able to modify image sizes
+// Make image component and add properties like lazy loading, aspect ratio, etc. (Like in sanity image in napalm project)
 ---
 
 {
   media.mediaType === 'image' && media.image && (
     <img
-      src={urlForImage(media.image).width(1200).url()}
+      src={urlForImage(media.image).width(imageSize).url()}
       alt={title}
       class:list={[defaultStyles, className]}
     />

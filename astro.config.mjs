@@ -1,3 +1,4 @@
+// @ts-check
 import { loadEnv } from 'vite'
 
 import { defineConfig, fontProviders } from 'astro/config'
@@ -17,7 +18,7 @@ const {
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://institucio-branding.vercel.app',
+  site: 'https://institucio-branding.vercel.app', // TESTINGAL
   // Output server to use ISR with Sanity
   output: 'server',
   i18n: {

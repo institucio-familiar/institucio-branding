@@ -63,6 +63,7 @@ const pageData = await getPageData()
           media={pageData.heroMedia}
           title={t('home.hero')}
           class="absolute inset-0"
+          imageSize={1920}
         />
       )
     }
@@ -183,28 +184,40 @@ const pageData = await getPageData()
       {
         pageData.imagesGrid.image1 && (
           <Mask type="tobo" class="w-full h-full col-span-2 row-span-2">
-            <MediaAsset media={pageData.imagesGrid.image1} title={t('home.imagesGrid')} />
+            <MediaAsset
+              media={pageData.imagesGrid.image1}
+              title={t('home.imagesGrid')}
+            />
           </Mask>
         )
       }
       {
         pageData.imagesGrid.image2 && (
           <Mask type="tobobo" class="w-full h-full col-span-2">
-            <MediaAsset media={pageData.imagesGrid.image2} title={t('home.imagesGrid')} />
+            <MediaAsset
+              media={pageData.imagesGrid.image2}
+              title={t('home.imagesGrid')}
+            />
           </Mask>
         )
       }
       {
         pageData.imagesGrid.image3 && (
           <Mask type="tibo" class="w-full h-full">
-            <MediaAsset media={pageData.imagesGrid.image3} title={t('home.imagesGrid')} />
+            <MediaAsset
+              media={pageData.imagesGrid.image3}
+              title={t('home.imagesGrid')}
+            />
           </Mask>
         )
       }
       {
         pageData.imagesGrid.image4 && (
           <Mask type="tibo" class="w-full h-full">
-            <MediaAsset media={pageData.imagesGrid.image4} title={t('home.imagesGrid')} />
+            <MediaAsset
+              media={pageData.imagesGrid.image4}
+              title={t('home.imagesGrid')}
+            />
           </Mask>
         )
       }
