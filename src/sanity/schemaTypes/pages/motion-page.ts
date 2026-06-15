@@ -91,7 +91,15 @@ export const motionPage = defineType({
           of: [defineArrayMember({ type: 'atom_1' })],
           validation: (rule) => rule.required()
         })
-      ]
+      ],
+      preview: {
+        select: {
+          title: 'title.es'
+        },
+        prepare({ title }) {
+          return { title }
+        }
+      }
     }),
     ...SECTIONS.map((section) => sectionField(section.name, section.title)),
     badUsesField('section6', 'Sección 6 - Malos usos')
@@ -137,7 +145,15 @@ function sectionField(name: string, title: string) {
                 type: 'mediaAsset',
                 validation: (rule) => rule.required()
               })
-            ]
+            ],
+            preview: {
+              select: {
+                title: 'description.es'
+              },
+              prepare({ title }) {
+                return { title }
+              }
+            }
           })
         ],
         validation: (rule) => rule.required()

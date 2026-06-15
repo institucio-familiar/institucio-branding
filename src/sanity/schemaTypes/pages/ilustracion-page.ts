@@ -132,7 +132,15 @@ export const ilustracionPage = defineType({
                   type: 'mediaAsset',
                   validation: (rule) => rule.required()
                 })
-              ]
+              ],
+              preview: {
+                select: {
+                  title: 'description.es'
+                },
+                prepare({ title }) {
+                  return { title }
+                }
+              }
             })
           ],
           validation: (rule) => rule.required()
