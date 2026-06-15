@@ -80,7 +80,12 @@ export const layoutPage = defineType({
           type: 'atom_2',
           validation: (rule) => rule.required()
         })
-      ]
+      ],
+      preview: {
+        prepare() {
+          return { title: 'Sección 1 (Sistema compositivo)' }
+        }
+      }
     }),
     defineField({
       name: 'section2',
@@ -138,7 +143,15 @@ export const layoutPage = defineType({
                   type: 'mediaAsset',
                   validation: (rule) => rule.required()
                 })
-              ]
+              ],
+              preview: {
+                select: {
+                  title: 'title.es'
+                },
+                prepare({ title }) {
+                  return { title }
+                }
+              }
             })
           ],
           validation: (rule) => rule.required()

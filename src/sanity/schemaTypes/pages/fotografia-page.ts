@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, defineArrayMember } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons'
 import { _mandatoryi18nField } from '@/sanity/lib/validations'
 import { badUsesField } from '@/sanity/schemaTypes/abtracts/bad-uses'
@@ -55,7 +55,14 @@ export const fotografiaPage = defineType({
           validation: (rule) => rule.required()
         })
       ]
-    })
-    // badUsesField('section5', 'Sección 5 - Malos usos')
+    }),
+    defineField({
+      name: 'section1',
+      title: 'Sección 1 (Bloques)',
+      type: 'array',
+      of: [defineArrayMember({ type: 'atom_1' })],
+      validation: (rule) => rule.required()
+    }),
+    badUsesField('section2', 'Sección 2 - Malos usos')
   ]
 })
