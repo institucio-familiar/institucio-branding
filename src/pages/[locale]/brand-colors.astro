@@ -8,6 +8,9 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { BRAND_COLORS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import Block4 from '@/components/ui/blocks/Block-4.astro'
+import Block5 from '@/components/ui/blocks/Block-5.astro'
+import Block7 from '@/components/ui/blocks/Block-7.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -25,6 +28,102 @@ async function getPageData() {
 }
 
 const pageData = await getPageData()
+
+const COLORS = {
+  WHITE: {
+    name: 'white',
+    textColor: 'ink',
+    hex: '#F7F7F7',
+    rgb: '247 / 247 / 247',
+    cmyk: '0 / 0 / 0 / 3'
+    // pantone: '545 C' // TESTINGAL > Missing pantone in figma
+  },
+  INK: {
+    name: 'ink',
+    textColor: 'gray',
+    hex: '#040D1A',
+    rgb: '4 / 13 / 26',
+    cmyk: '85 / 50 / 0 / 90',
+    pantone: '296 C'
+  },
+  GRAY: {
+    name: 'gray',
+    textColor: 'blue',
+    hex: '#EEEEEE',
+    rgb: '238 / 238 / 238',
+    cmyk: '0 / 0 / 0 / 7',
+    pantone: 'Cool Gray 1 C'
+  },
+  BLUE: {
+    name: 'blue',
+    textColor: 'gray',
+    hex: '#1469FF',
+    rgb: '20 / 105 / 255',
+    cmyk: '92 / 59 / 0 / 0',
+    pantone: '2727 C'
+  },
+  NAVY: {
+    name: 'navy',
+    textColor: 'gray',
+    hex: '#0B2449',
+    rgb: '11 / 36 / 73',
+    cmyk: '85 / 51 / 0 / 71',
+    pantone: '2965 C'
+  },
+  MIST: {
+    name: 'mist',
+    textColor: 'navy',
+    hex: '#BCD0F5',
+    rgb: '188 / 208 / 245',
+    cmyk: '23 / 15 / 0 / 4',
+    pantone: '545 C'
+  },
+  SKY: {
+    name: 'sky',
+    textColor: 'gray',
+    hex: '#4F8EFF',
+    rgb: '79 / 142 / 255',
+    cmyk: '69 / 44 / 0 / 0'
+    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
+  },
+  NAVY_LIGHT: {
+    name: 'navy-light',
+    textColor: 'gray',
+    hex: '#1C4176',
+    rgb: '28 / 65 / 118',
+    cmyk: '76 / 45 / 0 / 54'
+    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
+  },
+  SKY_LIGHT: {
+    name: 'sky-light',
+    textColor: 'navy',
+    hex: '#89B4FF',
+    rgb: '137 / 180 / 255',
+    cmyk: '46 / 29 / 0 / 0'
+    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
+  },
+  FROST: {
+    name: 'frost',
+    textColor: 'blue',
+    hex: '#EEEF3FD',
+    rgb: '238 / 243 / 253',
+    cmyk: '6 / 4 / 0 / 1'
+    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
+  }
+}
+
+const MAIN_COLORS = [COLORS.GRAY, COLORS.BLUE, COLORS.NAVY, COLORS.MIST]
+const COLOR_COMBINATIONS = [
+  { background: COLORS.NAVY, text: COLORS.BLUE },
+  { background: COLORS.BLUE, text: COLORS.GRAY },
+  { background: COLORS.MIST, text: COLORS.NAVY },
+  { background: COLORS.GRAY, text: COLORS.BLUE },
+  { background: COLORS.WHITE, text: COLORS.INK },
+  { background: COLORS.SKY, text: COLORS.NAVY_LIGHT },
+  { background: COLORS.SKY_LIGHT, text: COLORS.NAVY },
+  { background: COLORS.FROST, text: COLORS.INK },
+  { background: COLORS.NAVY_LIGHT, text: COLORS.SKY_LIGHT }
+]
 ---
 
 <MainLayout>
@@ -64,4 +163,65 @@ const pageData = await getPageData()
       {pageData.pageTitle}
     </h1>
   </section>
+
+  <section class="grid grid-col-4">
+    {
+      MAIN_COLORS.map((color) => (
+        <div class={`bg-${color.name}`}>
+          <p>{color.hex}</p>
+          <p>RGB: {color.rgb}</p>
+          <p>CMYK: {color.cmyk}</p>
+          <p>PANTONE {color.cmyk}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <Block5 title={'Tittle'} description={'Description'} medias={[]} />
+  </section>
+
+  <section class="grid grid-col-4">
+    {
+      MAIN_COLORS.map((color) => (
+        <div class={`bg-${color.name}`}>
+          <p>{color.hex}</p>
+          <p>RGB: {color.rgb}</p>
+          <p>CMYK: {color.cmyk}</p>
+          <p>PANTONE {color.cmyk}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <Block5 title={'Tittle'} description={'Description'} medias={[]} />
+  </section>
+
+  <section>
+    <Block4 title={'Tittle'} description={'Description'} media={} />
+  </section>
+
+  <section>
+    <h3>Color combination</h3>
+    <div class="grid grid-cols-3 gap-6 row-gap-4">
+      {
+        COLOR_COMBINATIONS.map((combi) => (
+          <div
+            class={`flex items-center justify-center bg-${combi.background.name}`}
+          >
+            <span class={`text-headline-2 text-${combi.text.name}`}>Aa</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- <section>
+    <Block7
+      title={pageData.badCases.title}
+      description={pageData.description}
+      items={pageData.badCases.items}
+    />
+  </section> -->
 </MainLayout>

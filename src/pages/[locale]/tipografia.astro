@@ -8,6 +8,7 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { TIPOGRAFIA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import Block7 from '@/components/ui/blocks/Block-7.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -64,4 +65,12 @@ const pageData = await getPageData()
       {pageData.pageTitle}
     </h1>
   </section>
+
+  <!-- <section>
+    <Block7
+      title={pageData.badCases.title}
+      description={pageData.description}
+      items={pageData.badCases.items}
+    />
+  </section> -->
 </MainLayout>
