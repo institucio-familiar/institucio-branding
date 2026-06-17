@@ -1,0 +1,154 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro'
+import Puncha from '@/components/icons/Puncha.astro'
+import MediaAsset from '@/components/MediaAsset.astro'
+import Block1 from '@/components/ui/blocks/Block-1.astro'
+import Block2 from '@/components/ui/blocks/Block-2.astro'
+import Block3 from '@/components/ui/blocks/Block-3.astro'
+import Block4 from '@/components/ui/blocks/Block-4.astro'
+import Block5 from '@/components/ui/blocks/Block-5.astro'
+import Block6 from '@/components/ui/blocks/Block-6.astro'
+import Block7 from '@/components/ui/blocks/Block-7.astro'
+
+const fakeMedia = {
+  mediaType: 'offline',
+  imageSrc: '/dev.jpg'
+}
+
+const fakePageData = {
+  heroMedia: fakeMedia,
+  title: 'Cercanos',
+  description:
+    'Hablamos de tú a tú, con naturalidad, empatía y respeto. Queremos que alumnos y familias sientan que detrás de cada mensaje hay personas reales acompañándolas en su día a día. No buscamos sonar institucionales ni distantes. Buscamos conectar.',
+  blocks: [
+    { type: 'block_1', block: { media1: fakeMedia } },
+    { type: 'block_2', block: { media1: fakeMedia, media2: fakeMedia } }
+  ],
+  badCases: {
+    title: 'Malos usos',
+    description:
+      'Cuando la identidad de Turó convive con otras marcas, debe aplicarse de forma clara y consistente, respetando las jerarquías visuales y garantizando una correcta identificación de todas las entidades participantes.',
+    items: Array(6).fill({
+      media: fakeMedia,
+      description: 'No añadir contornos al logotipo'
+    })
+  }
+}
+
+async function getPageData() {
+  return fakePageData
+}
+
+const pageData = await getPageData()
+const heroMedia = pageData.heroMedia
+---
+
+<MainLayout>
+  <section
+    class="flex min-h-screen items-center justify-center bg-mist px-indent py-10 relative"
+  >
+    <div class="flex w-full max-w-4xl flex-col items-center gap-12">
+      <h1 class="text-white text-headline-2 z-2">Blocks</h1>
+
+      {
+        pageData.heroMedia && (
+          <MediaAsset
+            media={pageData.heroMedia}
+            title={pageData.title ?? 'Hero media'}
+            class="absolute inset-0"
+            imageSize={1920}
+          />
+        )
+      }
+    </div>
+  </section>
+
+  <div class="grid grid-cols-10 bg-white relative">
+    <Puncha
+      color="white"
+      class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
+    />
+    <aside class="col-span-2 p-indent">Aside menu</aside>
+    <section
+      class="col-span-8 flex flex-col gap-indent bg-white px-indent py-10"
+    >
+      <div>
+        <p class="text-headline-3 pb-3 text-navy-light">Block 1</p>
+        {heroMedia && <Block1 media1={heroMedia} />}
+      </div>
+      <div>
+        <p class="text-headline-3 pb-3 text-navy-light">Block 2</p>
+        {heroMedia && <Block2 media1={heroMedia} media2={heroMedia} />}
+      </div>
+      <div>
+        <p class="text-headline-3 pb-3 text-navy-light">Block 3</p>
+        {
+          heroMedia && (
+            <Block3
+              title={pageData.title}
+              description={pageData.description}
+              media={heroMedia}
+            />
+          )
+        }
+      </div>
+      <div>
+        <p class="text-headline-3 pb-3 text-navy-light">Block 4</p>
+        {
+          heroMedia && (
+            <Block4
+              title={pageData.title}
+              description={pageData.description}
+              media={heroMedia}
+            />
+          )
+        }
+      </div>
+      <div>
+        <p class="text-headline-3 pb-3 text-navy-light">Block 5</p>
+        {
+          heroMedia && (
+            <Block5
+              title={pageData.title}
+              description={pageData.description}
+              medias={[heroMedia, heroMedia]}
+            />
+          )
+        }
+      </div>
+      <div>
+        <p class="text-headline-3 pb-3 text-navy-light">Block 6</p>
+        {
+          heroMedia && (
+            <Block6
+              title={pageData.title}
+              description={pageData.description}
+              media={heroMedia}
+            />
+          )
+        }
+      </div>
+      <div>
+        <p class="text-headline-3 pb-3 text-navy-light">Block 7</p>
+        {
+          heroMedia && (
+            <Block7
+              title={pageData.badCases.title}
+              description={pageData.description}
+              items={pageData.badCases.items}
+            />
+          )
+        }
+      </div>
+    </section>
+  </div>
+  <section
+    class="relative flex items-center justify-center bg-white border-t border-navy-light py-10 md:py-20 min-h-[60vh]"
+  >
+    <p class="text-ink text-headline-3">Final</p>
+    <Puncha
+      color="white"
+      class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
+    />
+  </section>
+</MainLayout>

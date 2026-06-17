@@ -10,7 +10,13 @@ export type VideoMedia = {
   playbackId: string
 }
 
-export type Media = ImageMedia | VideoMedia
+// TESTINGAL > Remove this when done
+export type NoInternetMedia = {
+  mediaType: 'offline'
+  imageSrc: string
+}
+
+export type Media = NoInternetMedia | ImageMedia | VideoMedia
 
 export type Block1 = {
   media1: Media
@@ -19,6 +25,36 @@ export type Block1 = {
 export type Block2 = {
   media1: Media
   media2: Media
+}
+
+export type Block3 = {
+  title: string
+  description: string
+  media: Media
+}
+
+export type Block4 = {
+  title: string
+  description: string
+  media: Media
+}
+
+export type Block5 = {
+  title: string
+  description: string
+  medias: [Media]
+}
+
+export type Block6 = {
+  title: string
+  description: string
+  media: Media
+}
+
+export type Block7 = {
+  title: string
+  description: string
+  items: [{ media: Media; description: string }]
 }
 
 export type BlockData =
