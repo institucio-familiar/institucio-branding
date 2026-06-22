@@ -24,6 +24,16 @@ const defaultStyles = 'h-full w-full object-cover'
 ---
 
 {
+  media.mediaType === 'offline' && media.imageSrc && (
+    <img
+      src={media.imageSrc}
+      alt={title}
+      class:list={[defaultStyles, className]}
+    />
+  )
+}
+
+{
   media.mediaType === 'image' && media.image && (
     <img
       src={urlForImage(media.image).width(imageSize).url()}
