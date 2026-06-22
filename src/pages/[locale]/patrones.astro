@@ -6,6 +6,15 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { PATRONES_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1,
+  toAtom1Array,
+  toAtom2,
+  toBadUses,
+  toSectionWithAtom1Blocks,
+  toSectionWithAtom2Blocks
+} from '@/sanity/lib/page-parsers'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
@@ -15,11 +24,27 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(PATRONES_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    introMedia: toMedia(sanityPageData?.intro?.media),
+    section1: toSectionWithAtom1Blocks(sanityPageData?.section1, locale),
+    section2: toAtom2(sanityPageData?.section2, locale),
+    section3: toSectionWithAtom2Blocks(sanityPageData?.section3, locale),
+    section4: sanityPageData?.section4
+      ? {
+          title: sanityPageData.section4.title?.[locale],
+          description: sanityPageData.section4.description?.[locale],
+          media: toMedia(sanityPageData.section4.media),
+          blocks: toAtom1Array(sanityPageData.section4.blocks, locale)
+        }
+      : null,
+    section5: sanityPageData?.section5
+      ? {
+          title: sanityPageData.section5.title?.[locale],
+          description: sanityPageData.section5.description?.[locale]
+        }
+      : null,
+    section6: toBadUses(sanityPageData?.section6, locale)
   }
 }
 

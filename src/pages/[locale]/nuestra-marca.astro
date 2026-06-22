@@ -6,6 +6,10 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { NUESTRA_MARCA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1
+} from '@/sanity/lib/page-parsers'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
@@ -14,11 +18,48 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(NUESTRA_MARCA_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    introMedia: toMedia(sanityPageData?.intro?.media),
+    section1: sanityPageData?.section1
+      ? {
+          title: sanityPageData.section1.title?.[locale],
+          questions: (sanityPageData.section1.questions ?? []).map(
+            (question: {
+              question?: Record<string, string>
+              answer?: Record<string, string>
+            }) => ({
+              question: question.question?.[locale],
+              answer: question.answer?.[locale]
+            })
+          )
+        }
+      : null,
+    section2: (sanityPageData?.section2 ?? [])
+      .map(
+        (item: {
+          title?: Record<string, string>
+          description?: Record<string, string>
+          media?: Parameters<typeof toMedia>[0]
+        }) => {
+          const media = toMedia(item.media)
+          if (!media) return null
+
+          return {
+            title: item.title?.[locale],
+            description: item.description?.[locale],
+            media
+          }
+        }
+      )
+      .filter(Boolean),
+    section3: sanityPageData?.section3
+      ? {
+          typography: toAtom1(sanityPageData.section3.typography, locale),
+          color: toAtom1(sanityPageData.section3.color, locale),
+          voz: toAtom1(sanityPageData.section3.voz, locale)
+        }
+      : null
   }
 }
 

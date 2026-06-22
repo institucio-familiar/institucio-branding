@@ -6,6 +6,12 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { LAYOUT_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1,
+  toAtom2,
+  toBadUses
+} from '@/sanity/lib/page-parsers'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
@@ -15,11 +21,46 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(LAYOUT_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    introOverview: toAtom1(sanityPageData?.intro?.overview, locale),
+    section1: sanityPageData?.section1
+      ? {
+          title: sanityPageData.section1.title?.[locale],
+          description: sanityPageData.section1.description?.[locale],
+          configuration: toAtom2(sanityPageData.section1.configuration, locale)
+        }
+      : null,
+    section2: sanityPageData?.section2
+      ? {
+          title: sanityPageData.section2.title?.[locale],
+          description: sanityPageData.section2.description?.[locale],
+          mediaAsset: toMedia(sanityPageData.section2.mediaAsset),
+          formats: (sanityPageData.section2.formats ?? [])
+            .map(
+              (format: {
+                title?: Record<string, string>
+                description?: Record<string, string>
+                image1?: Parameters<typeof toMedia>[0]
+                image2?: Parameters<typeof toMedia>[0]
+              }) => {
+                const image1 = toMedia(format.image1)
+                const image2 = toMedia(format.image2)
+                if (!image1 || !image2) return null
+
+                return {
+                  title: format.title?.[locale],
+                  description: format.description?.[locale],
+                  image1,
+                  image2
+                }
+              }
+            )
+            .filter(Boolean)
+        }
+      : null,
+    section3: toAtom1(sanityPageData?.section3, locale),
+    section4: toBadUses(sanityPageData?.section4, locale)
   }
 }
 

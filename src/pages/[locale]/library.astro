@@ -10,9 +10,9 @@ import Block from '@/components/ui/blocks/Block.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import { TEST_1_QUERY } from '@/sanity/queries/pages'
-import { toBlock, toMedia, type SanityBlockData } from '@/sanity/lib/utils'
+import { toBlocks } from '@/sanity/lib/page-parsers'
+import { toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import { sanityClient } from 'sanity:client'
-import type { BlockData } from '@/components/ui/blocks/block-types'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
@@ -27,10 +27,10 @@ async function getPageData() {
 
   return {
     title: sanityPageData?.title,
+    slug: sanityPageData?.slug?.current,
+    description: sanityPageData?.description,
     heroMedia: toMedia(sanityPageData?.heroMedia),
-    blocks: sanityBlocks
-      .map(toBlock)
-      .filter((block): block is BlockData => block !== null)
+    blocks: toBlocks(sanityBlocks as SanityBlockData[])
   }
 }
 

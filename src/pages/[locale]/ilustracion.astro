@@ -6,6 +6,12 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { ILUSTRACION_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1,
+  toBadUses,
+  toMediaDescriptionBlocks
+} from '@/sanity/lib/page-parsers'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
@@ -15,11 +21,44 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(ILUSTRACION_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    introMedia: toMedia(sanityPageData?.intro?.media),
+    section1: sanityPageData?.section1
+      ? {
+          title: sanityPageData.section1.title?.[locale],
+          description: sanityPageData.section1.description?.[locale]
+        }
+      : null,
+    section2: toAtom1(sanityPageData?.section2, locale),
+    section3: toAtom1(sanityPageData?.section3, locale),
+    section4: toAtom1(sanityPageData?.section4, locale),
+    section5: sanityPageData?.section5
+      ? {
+          title: sanityPageData.section5.title?.[locale],
+          description: sanityPageData.section5.description?.[locale],
+          blocks: toMediaDescriptionBlocks(
+            sanityPageData.section5.blocks,
+            locale
+          )
+        }
+      : null,
+    section6: toAtom1(sanityPageData?.section6, locale),
+    section7: sanityPageData?.section7
+      ? {
+          title: sanityPageData.section7.title?.[locale],
+          description: sanityPageData.section7.description?.[locale],
+          instructions: sanityPageData.section7.instructions
+            ? {
+                title: sanityPageData.section7.instructions.title?.[locale],
+                description:
+                  sanityPageData.section7.instructions.description?.[locale],
+                prompt: sanityPageData.section7.instructions.prompt
+              }
+            : null
+        }
+      : null,
+    section8: toBadUses(sanityPageData?.section8, locale)
   }
 }
 

@@ -8,6 +8,7 @@ import Puncha from '@/components/icons/Puncha.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 import { RECURSOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
+import { parsePageHeader } from '@/sanity/lib/page-parsers'
 import { toMedia } from '@/sanity/lib/utils'
 import type { Media } from '@/components/ui/blocks/block-types'
 
@@ -25,18 +26,30 @@ const t = useTranslations(locale)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(RECURSOS_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale],
-    section1:
-      sanityPageData?.section1?.map((item: any) => ({
-        title: item.title[locale],
-        description: item.description[locale],
-        buttonUrl: item.url,
-        media: toMedia(item.media)
-      })) ?? []
+    ...parsePageHeader(sanityPageData, locale),
+    section1: (sanityPageData?.section1 ?? [])
+      .map(
+        (item: {
+          title?: Record<string, string>
+          description?: Record<string, string>
+          url?: string
+          media?: Parameters<typeof toMedia>[0]
+        }) => {
+          const media = toMedia(item.media)
+          if (!media || !item.url) return null
+
+          return {
+            title: item.title?.[locale],
+            description: item.description?.[locale],
+            buttonUrl: item.url,
+            media
+          }
+        }
+      )
+      .filter(
+        (item: RecursosCard | null): item is RecursosCard => item !== null
+      )
   }
 }
 

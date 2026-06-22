@@ -6,6 +6,12 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { ICONOGRAFIA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1,
+  toBadUses,
+  toSectionWithAtom1Blocks
+} from '@/sanity/lib/page-parsers'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
@@ -15,11 +21,12 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(ICONOGRAFIA_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    introMedia: toMedia(sanityPageData?.intro?.media),
+    section1: toAtom1(sanityPageData?.section1, locale),
+    section2: toSectionWithAtom1Blocks(sanityPageData?.section2, locale),
+    section3: toBadUses(sanityPageData?.section3, locale)
   }
 }
 

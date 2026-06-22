@@ -5,7 +5,13 @@ import { getPageLocale } from '@/i18n/utils'
 import Puncha from '@/components/icons/Puncha.astro'
 import { BRAND_COLORS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
-import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1,
+  toAtom2,
+  toBadUses,
+  toSectionWithAtom2Blocks
+} from '@/sanity/lib/page-parsers'
 import Block4 from '@/components/ui/blocks/Block-4.astro'
 import Block5 from '@/components/ui/blocks/Block-5.astro'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
@@ -17,11 +23,19 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(BRAND_COLORS_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    section1: toAtom2(sanityPageData?.section1, locale),
+    section2: toAtom2(sanityPageData?.section2, locale),
+    section3: sanityPageData?.section3
+      ? {
+          title: sanityPageData.section3.title?.[locale],
+          description: sanityPageData.section3.description?.[locale],
+          percentages: toAtom1(sanityPageData.section3.percentages, locale)
+        }
+      : null,
+    section4: toSectionWithAtom2Blocks(sanityPageData?.section4, locale),
+    section5: toBadUses(sanityPageData?.section5, locale)
   }
 }
 
@@ -165,7 +179,7 @@ const asideSections = [
     </section>
 
     <section id="section2" class="pb-indent">
-      <Block5 title={'Tittle'} description={'Description'} medias={[]} />
+      <!-- <Block5 title={'Tittle'} description={'Description'} medias={[]} /> -->
     </section>
 
     <section class="grid grid-col-4 pb-indent">
@@ -175,7 +189,7 @@ const asideSections = [
             <p>{color.hex}</p>
             <p>RGB: {color.rgb}</p>
             <p>CMYK: {color.cmyk}</p>
-            {color.pantone && <p>PANTONE {color.pantone}</p>}
+            {color.pantone && <p>PANTONE: {color.pantone}</p>}
           </div>
         ))
       }

@@ -5,7 +5,12 @@ import { getPageLocale } from '@/i18n/utils'
 import Puncha from '@/components/icons/Puncha.astro'
 import { TIPOGRAFIA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
-import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom2,
+  toBadUses,
+  toSectionWithAtom2Blocks
+} from '@/sanity/lib/page-parsers'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
@@ -15,11 +20,51 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(TIPOGRAFIA_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    section1: sanityPageData?.section1
+      ? {
+          title: sanityPageData.section1.title?.[locale],
+          alverata: sanityPageData.section1.alverata
+            ? {
+                testText: sanityPageData.section1.alverata.testText?.[locale],
+                downloadUrl: sanityPageData.section1.alverata.downloadUrl
+              }
+            : null,
+          inter: sanityPageData.section1.inter
+            ? {
+                testText: sanityPageData.section1.inter.testText?.[locale],
+                downloadUrl: sanityPageData.section1.inter.downloadUrl
+              }
+            : null
+        }
+      : null,
+    section2: sanityPageData?.section2
+      ? {
+          title: sanityPageData.section2.title?.[locale],
+          description: sanityPageData.section2.description?.[locale],
+          titulares: sanityPageData.section2.titulares
+            ? {
+                title: sanityPageData.section2.titulares.title?.[locale],
+                description:
+                  sanityPageData.section2.titulares.description?.[locale]
+              }
+            : null,
+          configuration: sanityPageData.section2.configuration
+            ? {
+                title: sanityPageData.section2.configuration.title?.[locale],
+                content: toAtom2(
+                  sanityPageData.section2.configuration.content,
+                  locale
+                )
+              }
+            : null,
+          usage: toAtom2(sanityPageData.section2.usage, locale)
+        }
+      : null,
+    section3: toSectionWithAtom2Blocks(sanityPageData?.section3, locale),
+    section4: toSectionWithAtom2Blocks(sanityPageData?.section4, locale),
+    section5: toBadUses(sanityPageData?.section5, locale)
   }
 }
 

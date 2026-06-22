@@ -5,7 +5,12 @@ import { getPageLocale } from '@/i18n/utils'
 import Puncha from '@/components/icons/Puncha.astro'
 import { TRADEMARKS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
-import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1Array,
+  toBadUses,
+  toTrademarkSection
+} from '@/sanity/lib/page-parsers'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
@@ -15,11 +20,15 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(TRADEMARKS_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    introBlocks: toAtom1Array(sanityPageData?.intro?.blocks, locale),
+    section1: toTrademarkSection(sanityPageData?.section1, locale),
+    section2: toTrademarkSection(sanityPageData?.section2, locale),
+    section3: toTrademarkSection(sanityPageData?.section3, locale),
+    section4: toTrademarkSection(sanityPageData?.section4, locale),
+    section5: toTrademarkSection(sanityPageData?.section5, locale),
+    section6: toBadUses(sanityPageData?.section6, locale)
   }
 }
 

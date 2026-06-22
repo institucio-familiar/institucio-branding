@@ -5,7 +5,12 @@ import { getPageLocale } from '@/i18n/utils'
 import Puncha from '@/components/icons/Puncha.astro'
 import { ASI_HABLAMOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
-import { toMedia } from '@/sanity/lib/utils'
+import {
+  parsePageHeader,
+  toAtom1Array,
+  toMedias,
+  toSectionWithAtom1Blocks
+} from '@/sanity/lib/page-parsers'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
@@ -14,11 +19,25 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(ASI_HABLAMOS_PAGE_QUERY)
 
-  // Parse data
   return {
-    heroMedia: toMedia(sanityPageData?.hero?.media),
-    pageTitle: sanityPageData?.intro?.title?.[locale],
-    pageDescription: sanityPageData?.intro?.description?.[locale]
+    ...parsePageHeader(sanityPageData, locale),
+    introMedias: toMedias(sanityPageData?.intro?.medias),
+    section1: toSectionWithAtom1Blocks(sanityPageData?.section1, locale),
+    section2: {
+      blocks: toAtom1Array(sanityPageData?.section2?.blocks, locale)
+    },
+    section3: (sanityPageData?.section3 ?? []).map(
+      (item: { correct?: Record<string, string>; incorrect?: Record<string, string> }) => ({
+        correct: item.correct?.[locale],
+        incorrect: item.incorrect?.[locale]
+      })
+    ),
+    section4: (sanityPageData?.section4 ?? []).map(
+      (item: { correct?: Record<string, string>; incorrect?: Record<string, string> }) => ({
+        correct: item.correct?.[locale],
+        incorrect: item.incorrect?.[locale]
+      })
+    )
   }
 }
 
