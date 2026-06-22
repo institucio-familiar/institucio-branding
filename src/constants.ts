@@ -8,10 +8,10 @@ export const ASI_NOS_VEMOS_SECTIONS = {
   },
   COLOR: { id: 'color', key: 'color', title: 'Color' },
   TIPOGRAFIA: { id: 'tipografia', key: 'tipografia', title: 'Tipografía' },
-  SISTEMA_GRAFICO: {
-    id: 'sistema-grafico',
-    key: 'sistemaGrafico',
-    title: 'Sistema gráfico'
+  PATRONES: {
+    id: 'patrones',
+    key: 'patrones',
+    title: 'Patrones'
   },
   LAYOUT: { id: 'layout', key: 'layout', title: 'Layout' },
   ILUSTRACION: { id: 'ilustracion', key: 'ilustracion', title: 'Ilustración' },

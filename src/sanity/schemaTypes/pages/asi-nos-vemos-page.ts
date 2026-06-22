@@ -65,7 +65,12 @@ export const asiNosVemosPage = defineType({
             ]
           })
         )
-      ]
+      ],
+      preview: {
+        prepare() {
+          return { title: 'Secciones' }
+        }
+      }
     })
   ]
 })
