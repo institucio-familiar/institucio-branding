@@ -1,7 +1,7 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons'
 import { _mandatoryField, _mandatoryi18nField } from '@/sanity/lib/validations'
-import { ASI_NOS_VEMOS_SECTIONS } from '@/root/src/constants'
+import { ASI_NOS_VEMOS_SECTIONS } from '@/constants'
 
 export const asiNosVemosPage = defineType({
   name: 'asi_nos_vemos_page',

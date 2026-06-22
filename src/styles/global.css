@@ -12,6 +12,9 @@
 :root {
   --color-primary: var(--color-ink);
   --color-secondary: var(--color-white);
+
+  --nav-height: 100px;
+  --indent-height: 60px;
 }
 
 html {

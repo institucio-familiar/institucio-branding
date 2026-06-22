@@ -33,6 +33,7 @@
   --radius-md: 6px;
   --radius-sm: 5px;
 
+  --spacing-nav-height: var(--nav-height);
   --spacing-indent: clamp(16px, calc(100vw / 36), 36px);
   --spacing-indent-1-5: clamp(16px, calc(100vw / 27), 54px);
   --spacing-indent-2: clamp(16px, calc(100vw / 18), 72px);

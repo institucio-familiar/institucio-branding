@@ -1,0 +1,40 @@
+---
+interface Props {
+  targetId: string
+  href: string
+  class?: string
+}
+
+const { targetId, href, class: className } = Astro.props
+---
+
+<a
+  href={href}
+  class={className}
+  data-scroll-to-button
+  data-target-id={targetId}
+>
+  <slot />
+</a>
+
+<script>
+  import { Scroll } from '@/scripts/classes/Scroll'
+
+  document
+    .querySelectorAll<HTMLAnchorElement>('[data-scroll-to-button]')
+    .forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault()
+
+        const targetId = button.dataset.targetId
+        if (!targetId) return
+
+        const href = button.getAttribute('href')
+        if (href) {
+          history.pushState(null, '', href)
+        }
+
+        Scroll.scrollTo(`#${targetId}`)
+      })
+    })
+</script>

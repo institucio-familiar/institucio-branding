@@ -4,7 +4,6 @@ import type { APIRoute } from 'astro'
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // console.log('Revalidate request:', request)
     const secret = request.headers.get('x-revalidate-secret')
 
     if (secret !== import.meta.env.SANITY_REVALIDATE_SECRET) {
@@ -12,8 +11,6 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const body = await request.json()
-
-    // console.log('Revalidate request:', body)
 
     const bypassToken = secret ?? '' // TESTINGAL (Typescript fix)
 
@@ -62,5 +59,5 @@ export const POST: APIRoute = async ({ request }) => {
 
 function buildUrl() {
   // Include other urls in this function
-  return new URL('/', 'https://institucio-branding.vercel.app')
+  return new URL('/', import.meta.env.PUBLIC_SITE_URL)
 }

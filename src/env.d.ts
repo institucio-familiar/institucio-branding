@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly PUBLIC_SANITY_DATASET: string
   readonly PUBLIC_SANITY_API_VERSION: string
   readonly SANITY_REVALIDATE_SECRET: string
+  readonly PUBLIC_SITE_URL: string
 }
 
 interface ImportMeta {

@@ -10,13 +10,7 @@ export type VideoMedia = {
   playbackId: string
 }
 
-// TESTINGAL > Remove this when done
-export type NoInternetMedia = {
-  mediaType: 'offline'
-  imageSrc: string
-}
-
-export type Media = NoInternetMedia | ImageMedia | VideoMedia
+export type Media = ImageMedia | VideoMedia
 
 export type Block1 = {
   media1: Media

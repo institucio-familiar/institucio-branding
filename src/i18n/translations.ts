@@ -144,7 +144,15 @@ export const asiNosVemos: BilingualTranslations = {
     'asi-nos-vemos.ilustracion': 'Ilustración',
     'asi-nos-vemos.iconografia': 'Iconografía',
     'asi-nos-vemos.fotografia': 'Fotografía',
-    'asi-nos-vemos.motion': 'Motion'
+    'asi-nos-vemos.motion': 'Motion',
+    'asi-nos-vemos.go-to.color': 'Ir a color',
+    'asi-nos-vemos.go-to.tipografia': 'Ir a tipografía',
+    'asi-nos-vemos.go-to.sistema-grafico': 'Ir a sistema gráfico',
+    'asi-nos-vemos.go-to.layout': 'Ir a layout',
+    'asi-nos-vemos.go-to.ilustracion': 'Ir a ilustración',
+    'asi-nos-vemos.go-to.iconografia': 'Ir a iconografía',
+    'asi-nos-vemos.go-to.fotografia': 'Ir a fotografía',
+    'asi-nos-vemos.go-to.motion': 'Ir a motion'
   },
   ca: {
     'asi-nos-vemos.asi-nos-vemos': 'Així ens veiem',
@@ -155,7 +163,15 @@ export const asiNosVemos: BilingualTranslations = {
     'asi-nos-vemos.ilustracion': 'Il·lustració',
     'asi-nos-vemos.iconografia': 'Iconografia',
     'asi-nos-vemos.fotografia': 'Fotografia',
-    'asi-nos-vemos.motion': 'Motion'
+    'asi-nos-vemos.motion': 'Motion',
+    'asi-nos-vemos.go-to.color': 'Anar a color',
+    'asi-nos-vemos.go-to.tipografia': 'Anar a tipografia',
+    'asi-nos-vemos.go-to.sistema-grafico': 'Anar a sistema gràfic',
+    'asi-nos-vemos.go-to.layout': 'Anar a layout',
+    'asi-nos-vemos.go-to.ilustracion': 'Anar a il·lustració',
+    'asi-nos-vemos.go-to.iconografia': 'Anar a iconografia',
+    'asi-nos-vemos.go-to.fotografia': 'Anar a fotografia',
+    'asi-nos-vemos.go-to.motion': 'Anar a motion'
   }
 }
 

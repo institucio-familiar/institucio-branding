@@ -12,6 +12,7 @@ import { TEST_1_QUERY } from '@/sanity/queries/pages'
 import { toBlock, toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import { sanityClient } from 'sanity:client'
 import type { BlockData } from '@/components/ui/blocks/block-types'
+
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)

@@ -11,7 +11,9 @@ import { sanityClient } from 'sanity:client'
 import { toBlock, toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import type { BlockData } from '@/components/ui/blocks/block-types'
 import Block from '@/components/ui/blocks/Block.astro'
+import ScrollToButton from '@/components/ScrollToButton.astro'
 import { ASI_NOS_VEMOS_SECTIONS } from '@/constants'
+import Button from '@/components/ui/Button.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -43,10 +45,27 @@ const pageData = await getPageData()
 ---
 
 <MainLayout>
+  {
+    pageData.heroMedia && (
+      <div
+        data-hero-media
+        class="pointer-events-none fixed inset-0 -z-1 h-screen w-full"
+      >
+        <MediaAsset
+          media={pageData.heroMedia}
+          title={pageData.pageTitle}
+          class="absolute inset-0"
+          imageSize={1920}
+        />
+      </div>
+    )
+  }
+
   <section
-    class="flex min-h-screen items-end justify-left bg-mist px-indent py-15 relative"
+    class="relative flex min-h-screen items-end justify-left px-indent py-15"
+    data-hero-section
   >
-    <div class="flex flex-col z-2">
+    <div class="flex flex-col">
       <div class="flex items-center gap-2">
         <p class="text-white text-cta">{t('hero.scroll-down')}</p>
         <Icon
@@ -57,17 +76,6 @@ const pageData = await getPageData()
         />
       </div>
     </div>
-
-    {
-      pageData.heroMedia && (
-        <MediaAsset
-          media={pageData.heroMedia}
-          title={pageData.pageTitle}
-          class="absolute inset-0"
-          imageSize={1920}
-        />
-      )
-    }
   </section>
 
   <section class="relative bg-white px-indent">
@@ -80,17 +88,21 @@ const pageData = await getPageData()
     </h1>
   </section>
 
-  <div class="grid grid-cols-12 gap-2 px-indent bg-white">
-    <aside class="col-span-2">
-      <div class="flex flex-col gap-3">
+  <div class="relative grid grid-cols-12 gap-2 bg-white px-indent">
+    <aside class="col-span-2 sticky top-nav-height self-start pb-8">
+      <div class="flex flex-col gap-2">
         {
           pageData.sections.map((section) => (
-            <a
-              href={getRelativeLocaleUrl(locale, `#${section.id}TESTINGAL`)}
+            <ScrollToButton
+              targetId={section.id}
+              href={getRelativeLocaleUrl(
+                locale,
+                `/asi-nos-vemos#${section.id}`
+              )}
               class="text-navy text-body hover:text-body-bold"
             >
               {t(`asi-nos-vemos.${section.id}`)}
-            </a>
+            </ScrollToButton>
           ))
         }
       </div>
@@ -109,18 +121,51 @@ const pageData = await getPageData()
                 {t(`asi-nos-vemos.${section.id}`)}
               </p>
               {section.id !== 'asi-nos-vemos' ? (
-                <a
+                <Button
                   href={getRelativeLocaleUrl(locale, `/${section.id}`)}
-                  class="text-navy text-body"
+                  variant="secondary-white"
                 >
-                  Ir a página (TESTINGAL)
-                </a>
+                  {t(`asi-nos-vemos.go-to.${section.id}`)}
+                </Button>
               ) : null}
             </div>
-            {section.blocks?.map((block) => <Block {...block} />)}
+            {section.blocks?.map((block) => (
+              <Block {...block} />
+            ))}
           </section>
         ))
       }
     </div>
   </div>
+
+  <script>
+    import { animate, scroll } from 'motion'
+
+    const heroSection = document.querySelector('[data-hero-section]')
+    const heroMedia = document.querySelector('[data-hero-media]')
+    const cancelScrolls: Array<() => void> = []
+
+    // if (heroSection && heroMedia) {
+    //   const animation = animate(
+    //     heroMedia,
+    //     { opacity: [1, 0.35] },
+    //     { ease: 'linear' }
+    //   )
+
+    //   cancelScrolls.push(
+    //     scroll(animation, {
+    //       target: heroSection,
+    //       offset: ['start start', 'end start']
+    //     })
+    //   )
+    // }
+
+    // document.addEventListener(
+    //   'swup:visit:start',
+    //   () => {
+    //     cancelScrolls.forEach((cancel) => cancel())
+    //   },
+    //   { once: true }
+    // )
+  </script>
 </MainLayout>
