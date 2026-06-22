@@ -15,7 +15,17 @@ const {
   PUBLIC_SANITY_API_VERSION,
   SANITY_REVALIDATE_SECRET,
   PUBLIC_SITE_URL
-} = loadEnv(process.env.NODE_ENV, process.cwd(), '')
+} = loadEnv(import.meta.env.NODE_ENV, process.cwd(), '')
+
+if (
+  !PUBLIC_SANITY_PROJECT_ID ||
+  !PUBLIC_SANITY_DATASET ||
+  !PUBLIC_SANITY_API_VERSION ||
+  !SANITY_REVALIDATE_SECRET ||
+  !PUBLIC_SITE_URL
+) {
+  throw new Error('Missing environment variables')
+}
 
 // https://astro.build/config
 export default defineConfig({

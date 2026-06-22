@@ -26,7 +26,7 @@ async function getPageData() {
   const sanityBlocks: SanityBlockData[] = sanityPageData?.blocks ?? []
 
   return {
-    title: sanityPageData?.title,
+    title: sanityPageData?.title ?? '',
     slug: sanityPageData?.slug?.current,
     description: sanityPageData?.description,
     heroMedia: toMedia(sanityPageData?.heroMedia),
@@ -122,94 +122,98 @@ const asideSections = [
       id="ctas"
       class="flex items-center justify-center flex-col gap-12 py-10 border-t border-navy-light"
     >
-    <h2 class="text-navy text-headline-2 text-center">CTAs</h2>
-    <div class="flex flex-wrap items-center justify-center gap-6">
-      <Button variant="primary-dark">Seguir leyendo</Button>
-      <Button variant="primary-blue">Seguir leyendo</Button>
-      <Button variant="secondary-white">Seguir leyendo</Button>
-      <Button variant="outline-dark">Seguir leyendo</Button>
-      <Button variant="outline-blue">Seguir leyendo</Button>
-    </div>
-  </section>
+      <h2 class="text-navy text-headline-2 text-center">CTAs</h2>
+      <div class="flex flex-wrap items-center justify-center gap-6">
+        <Button variant="primary-dark">Seguir leyendo</Button>
+        <Button variant="primary-blue">Seguir leyendo</Button>
+        <Button variant="secondary-white">Seguir leyendo</Button>
+        <Button variant="outline-dark">Seguir leyendo</Button>
+        <Button variant="outline-blue">Seguir leyendo</Button>
+      </div>
+    </section>
 
-  <section
+    <section
       id="icons"
       class="flex items-center justify-center flex-col gap-12 py-10 border-t border-navy-light"
     >
-    <h2 class="text-navy text-headline-2 text-center">Icons</h2>
-    <div class="flex w-full max-w-4xl flex-col items-center gap-4">
-      <p class="text-navy text-small uppercase">number</p>
-      <div class="flex flex-wrap items-center justify-center gap-6">
-        {
-          iconVariants.map((variant) => (
-            <Icon name="number" number="01" variant={variant} />
-          ))
-        }
+      <h2 class="text-navy text-headline-2 text-center">Icons</h2>
+      <div class="flex w-full max-w-4xl flex-col items-center gap-4">
+        <p class="text-navy text-small uppercase">number</p>
+        <div class="flex flex-wrap items-center justify-center gap-6">
+          {
+            iconVariants.map((variant) => (
+              <Icon name="number" number="01" variant={variant} />
+            ))
+          }
+        </div>
       </div>
-    </div>
-    {
-      iconNames.map((iconName) =>
-        iconName === 'arrow' ? (
-          arrowDirections.map((direction) => (
+      {
+        iconNames.map((iconName) =>
+          iconName === 'arrow' ? (
+            arrowDirections.map((direction) => (
+              <div class="flex w-full max-w-4xl flex-col items-center gap-4">
+                <p class="text-navy text-small uppercase">
+                  {iconName} — {direction}
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-6">
+                  {iconVariants.map((variant) => (
+                    <Icon
+                      name="arrow"
+                      variant={variant}
+                      direction={direction}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))
+          ) : (
             <div class="flex w-full max-w-4xl flex-col items-center gap-4">
-              <p class="text-navy text-small uppercase">
-                {iconName} — {direction}
-              </p>
+              <p class="text-navy text-small uppercase">{iconName}</p>
               <div class="flex flex-wrap items-center justify-center gap-6">
                 {iconVariants.map((variant) => (
-                  <Icon name="arrow" variant={variant} direction={direction} />
+                  <Icon name={iconName} variant={variant} />
                 ))}
               </div>
             </div>
-          ))
-        ) : (
-          <div class="flex w-full max-w-4xl flex-col items-center gap-4">
-            <p class="text-navy text-small uppercase">{iconName}</p>
-            <div class="flex flex-wrap items-center justify-center gap-6">
-              {iconVariants.map((variant) => (
-                <Icon name={iconName} variant={variant} />
-              ))}
-            </div>
-          </div>
+          )
         )
-      )
-    }
-  </section>
+      }
+    </section>
 
-  {
+    {
       pageData.blocks.length ? (
         <section
           id="blocks"
           class="flex flex-col gap-indent py-10 border-t border-navy-light"
         >
-        <p class="text-ink text-headline-3">Blocks</p>
-        {pageData.blocks.map((block) => (
-          <Block {...block} />
-        ))}
-      </section>
-    ) : null
-  }
+          <p class="text-ink text-headline-3">Blocks</p>
+          {pageData.blocks.map((block) => (
+            <Block {...block} />
+          ))}
+        </section>
+      ) : null
+    }
 
-  {
+    {
       heroMedia && (
         <section
           id="masks"
           class="grid w-full grid-cols-1 gap-indent border-t border-navy-light py-10 md:grid-cols-2 md:py-20"
         >
-        {maskTypes.map((mask) => (
-          <Mask
-            type={mask.type}
-            border={'border' in mask ? mask.border : undefined}
-          >
-            <MediaAsset
-              media={heroMedia}
-              title={pageData.title ?? 'Hero media'}
-            />
-          </Mask>
-        ))}
-      </section>
-    )
-  }
+          {maskTypes.map((mask) => (
+            <Mask
+              type={mask.type}
+              border={'border' in mask ? mask.border : undefined}
+            >
+              <MediaAsset
+                media={heroMedia}
+                title={pageData.title ?? 'Hero media'}
+              />
+            </Mask>
+          ))}
+        </section>
+      )
+    }
   </PageAsideLayout>
 
   <section

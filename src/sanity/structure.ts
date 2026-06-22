@@ -9,7 +9,7 @@ import {
 import { CopyIcon } from '@sanity/icons'
 import { BsLightbulb } from 'react-icons/bs'
 
-export const structure: StructureResolver = (S, context) =>
+export const structure: StructureResolver = (S) =>
   S.list()
     .title('Contenido')
     .items([

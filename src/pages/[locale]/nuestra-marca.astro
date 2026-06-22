@@ -25,10 +25,7 @@ async function getPageData() {
       ? {
           title: sanityPageData.section1.title?.[locale],
           questions: (sanityPageData.section1.questions ?? []).map(
-            (question: {
-              question?: Record<string, string>
-              answer?: Record<string, string>
-            }) => ({
+            (question) => ({
               question: question.question?.[locale],
               answer: question.answer?.[locale]
             })
@@ -36,22 +33,16 @@ async function getPageData() {
         }
       : null,
     section2: (sanityPageData?.section2 ?? [])
-      .map(
-        (item: {
-          title?: Record<string, string>
-          description?: Record<string, string>
-          media?: Parameters<typeof toMedia>[0]
-        }) => {
-          const media = toMedia(item.media)
-          if (!media) return null
+      .map((item) => {
+        const media = toMedia(item.media)
+        if (!media) return null
 
-          return {
-            title: item.title?.[locale],
-            description: item.description?.[locale],
-            media
-          }
+        return {
+          title: item.title?.[locale],
+          description: item.description?.[locale],
+          media
         }
-      )
+      })
       .filter(Boolean),
     section3: sanityPageData?.section3
       ? {

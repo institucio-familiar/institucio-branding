@@ -10,8 +10,9 @@ import Block4 from '@/components/ui/blocks/Block-4.astro'
 import Block5 from '@/components/ui/blocks/Block-5.astro'
 import Block6 from '@/components/ui/blocks/Block-6.astro'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
+import type { Media } from '@/components/ui/blocks/block-types'
 
-const fakeMedia = {
+const fakeMedia: Media = {
   mediaType: 'offline',
   imageSrc: '/dev.jpg'
 }
@@ -29,10 +30,10 @@ const fakePageData = {
     title: 'Malos usos',
     description:
       'Cuando la identidad de Turó convive con otras marcas, debe aplicarse de forma clara y consistente, respetando las jerarquías visuales y garantizando una correcta identificación de todas las entidades participantes.',
-    items: Array(6).fill({
+    items: Array.from({ length: 6 }, () => ({
       media: fakeMedia,
       description: 'No añadir contornos al logotipo'
-    })
+    }))
   }
 }
 

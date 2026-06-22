@@ -27,7 +27,7 @@ export type SanityAtom1 = {
 export type SanityAtom2 = {
   title?: I18nString
   description?: I18nText
-  medias?: SanityMediaAsset[]
+  medias?: SanityMediaAsset[] | null
 }
 
 export type SanityAtomData = (SanityAtom1 | SanityAtom2) & {
@@ -167,7 +167,7 @@ export function toBadUses(
         blocks?: Array<{
           media?: SanityMediaAsset
           description?: I18nText
-        }>
+        }> | null
       }
     | null
     | undefined,
@@ -203,7 +203,7 @@ export function toSectionWithAtom1Blocks(
     | {
         title?: I18nString
         description?: I18nText
-        blocks?: SanityAtom1[]
+        blocks?: SanityAtom1[] | null
       }
     | null
     | undefined,
@@ -231,7 +231,7 @@ export function toSectionWithAtom2Blocks(
     | {
         title?: I18nString
         description?: I18nText
-        blocks?: SanityAtom2[]
+        blocks?: SanityAtom2[] | null
       }
     | null
     | undefined,
@@ -261,7 +261,7 @@ export function toTrademarkSection(
         title?: I18nString
         description?: I18nText
         media?: SanityMediaAsset
-        blocks?: SanityAtomData[]
+        blocks?: SanityAtomData[] | null
       }
     | null
     | undefined,
@@ -291,7 +291,7 @@ export function toMotionSection(
     | {
         title?: I18nString
         description?: I18nText
-        blocks?: Array<{ description?: I18nText; media?: SanityMediaAsset }>
+        blocks?: Array<{ description?: I18nText; media?: SanityMediaAsset }> | null
       }
     | null
     | undefined,
@@ -310,14 +310,14 @@ export function toMotionSection(
 
 export function parsePageHeader(
   data: {
-    hero?: { media?: SanityMediaAsset }
-    intro?: { title?: I18nString; description?: I18nText }
-  },
+    hero?: { media?: SanityMediaAsset } | null
+    intro?: { title?: I18nString; description?: I18nText } | null
+  } | null | undefined,
   locale: Locale
 ) {
   return {
-    heroMedia: toMedia(data.hero?.media),
-    pageTitle: data.intro?.title?.[locale],
-    pageDescription: data.intro?.description?.[locale]
+    heroMedia: toMedia(data?.hero?.media),
+    pageTitle: data?.intro?.title?.[locale],
+    pageDescription: data?.intro?.description?.[locale]
   }
 }

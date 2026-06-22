@@ -10,7 +10,12 @@ export type VideoMedia = {
   playbackId: string
 }
 
-export type Media = ImageMedia | VideoMedia
+export type OfflineMedia = {
+  mediaType: 'offline'
+  imageSrc: string
+}
+
+export type Media = ImageMedia | VideoMedia | OfflineMedia
 
 export type Block1 = {
   media1: Media
@@ -36,7 +41,7 @@ export type Block4 = {
 export type Block5 = {
   title: string
   description: string
-  medias: [Media]
+  medias: Media[]
 }
 
 export type Block6 = {
@@ -48,7 +53,7 @@ export type Block6 = {
 export type Block7 = {
   title: string
   description: string
-  items: [{ media: Media; description: string }]
+  items: { media: Media; description: string }[]
 }
 
 export type BlockData =

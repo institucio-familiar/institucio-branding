@@ -12,7 +12,7 @@ import {
   toAtom2,
   toBadUses
 } from '@/sanity/lib/page-parsers'
-import Block7 from '@/components/ui/blocks/Block-7.astro'
+// import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
@@ -37,25 +37,18 @@ async function getPageData() {
           description: sanityPageData.section2.description?.[locale],
           mediaAsset: toMedia(sanityPageData.section2.mediaAsset),
           formats: (sanityPageData.section2.formats ?? [])
-            .map(
-              (format: {
-                title?: Record<string, string>
-                description?: Record<string, string>
-                image1?: Parameters<typeof toMedia>[0]
-                image2?: Parameters<typeof toMedia>[0]
-              }) => {
-                const image1 = toMedia(format.image1)
-                const image2 = toMedia(format.image2)
-                if (!image1 || !image2) return null
+            .map((format) => {
+              const image1 = toMedia(format.image1)
+              const image2 = toMedia(format.image2)
+              if (!image1 || !image2) return null
 
-                return {
-                  title: format.title?.[locale],
-                  description: format.description?.[locale],
-                  image1,
-                  image2
-                }
+              return {
+                title: format.title?.[locale],
+                description: format.description?.[locale],
+                image1,
+                image2
               }
-            )
+            })
             .filter(Boolean)
         }
       : null,

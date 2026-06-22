@@ -70,6 +70,76 @@ export type Motion_page = {
   hero?: {
     media?: MediaAsset;
   };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+  };
+  section1?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_1
+    >;
+  };
+  section2?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      description?: I18nText;
+      media?: MediaAsset;
+      _key: string;
+    }>;
+  };
+  section3?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      description?: I18nText;
+      media?: MediaAsset;
+      _key: string;
+    }>;
+  };
+  section4?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      description?: I18nText;
+      media?: MediaAsset;
+      _key: string;
+    }>;
+  };
+  section5?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      description?: I18nText;
+      media?: MediaAsset;
+      _key: string;
+    }>;
+  };
+  section6?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
+  };
+};
+
+export type I18nText = {
+  _type: "i18n.text";
+  es?: string;
+  ca?: string;
+};
+
+export type I18nString = {
+  _type: "i18n.string";
+  es?: string;
+  ca?: string;
 };
 
 export type Fotografia_page = {
@@ -80,6 +150,25 @@ export type Fotografia_page = {
   _rev: string;
   hero?: {
     media?: MediaAsset;
+  };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+  };
+  section1?: Array<
+    {
+      _key: string;
+    } & Atom_1
+  >;
+  section2?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
   };
 };
 
@@ -92,6 +181,56 @@ export type Layout_page = {
   hero?: {
     media?: MediaAsset;
   };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    overview?: Atom_1;
+  };
+  section1?: {
+    title?: I18nString;
+    description?: I18nText;
+    configuration?: Atom_2;
+  };
+  section2?: {
+    title?: I18nString;
+    description?: I18nText;
+    mediaAsset?: MediaAsset;
+    formats?: Array<{
+      title?: I18nString;
+      description?: I18nText;
+      image1?: MediaAsset;
+      image2?: MediaAsset;
+      _key: string;
+    }>;
+  };
+  section3?: Atom_1;
+  section4?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
+  };
+};
+
+export type Atom_1 = {
+  _type: "atom_1";
+  title?: I18nString;
+  description?: I18nText;
+  media1?: MediaAsset;
+};
+
+export type Atom_2 = {
+  _type: "atom_2";
+  title?: I18nString;
+  description?: I18nText;
+  medias?: Array<
+    {
+      _key: string;
+    } & MediaAsset
+  >;
 };
 
 export type Tipografia_page = {
@@ -102,6 +241,61 @@ export type Tipografia_page = {
   _rev: string;
   hero?: {
     media?: MediaAsset;
+  };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+  };
+  section1?: {
+    title?: I18nString;
+    alverata?: {
+      testText?: I18nText;
+      downloadUrl?: string;
+    };
+    inter?: {
+      testText?: I18nText;
+      downloadUrl?: string;
+    };
+  };
+  section2?: {
+    title?: I18nString;
+    description?: I18nText;
+    titulares?: {
+      title?: I18nString;
+      description?: I18nText;
+    };
+    configuration?: {
+      title?: I18nString;
+      content?: Atom_2;
+    };
+    usage?: Atom_2;
+  };
+  section3?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_2
+    >;
+  };
+  section4?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_2
+    >;
+  };
+  section5?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
   };
 };
 
@@ -114,6 +308,46 @@ export type Ilustracion_page = {
   hero?: {
     media?: MediaAsset;
   };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+  };
+  section1?: {
+    title?: I18nString;
+    description?: I18nText;
+  };
+  section2?: Atom_1;
+  section3?: Atom_1;
+  section4?: Atom_1;
+  section5?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      description?: I18nText;
+      media?: MediaAsset;
+      _key: string;
+    }>;
+  };
+  section6?: Atom_1;
+  section7?: {
+    title?: I18nString;
+    description?: I18nText;
+    instructions?: {
+      title?: I18nString;
+      description?: I18nText;
+      prompt?: string;
+    };
+  };
+  section8?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
+  };
 };
 
 export type Iconografia_page = {
@@ -124,6 +358,30 @@ export type Iconografia_page = {
   _rev: string;
   hero?: {
     media?: MediaAsset;
+  };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+  };
+  section1?: Atom_1;
+  section2?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_1
+    >;
+  };
+  section3?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
   };
 };
 
@@ -136,6 +394,53 @@ export type Patrones_page = {
   hero?: {
     media?: MediaAsset;
   };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+  };
+  section1?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_1
+    >;
+  };
+  section2?: Atom_2;
+  section3?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_2
+    >;
+  };
+  section4?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_1
+    >;
+  };
+  section5?: {
+    title?: I18nString;
+    description?: I18nText;
+  };
+  section6?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
+  };
 };
 
 export type Brand_colors_page = {
@@ -146,6 +451,35 @@ export type Brand_colors_page = {
   _rev: string;
   hero?: {
     media?: MediaAsset;
+  };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+  };
+  section1?: Atom_2;
+  section2?: Atom_2;
+  section3?: {
+    title?: I18nString;
+    description?: I18nText;
+    percentages?: Atom_1;
+  };
+  section4?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_2
+    >;
+  };
+  section5?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
   };
 };
 
@@ -158,6 +492,89 @@ export type Trademarks_page = {
   hero?: {
     media?: MediaAsset;
   };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_1
+    >;
+  };
+  section1?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+    blocks?: Array<
+      | ({
+          _key: string;
+        } & Atom_1)
+      | ({
+          _key: string;
+        } & Atom_2)
+    >;
+  };
+  section2?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+    blocks?: Array<
+      | ({
+          _key: string;
+        } & Atom_1)
+      | ({
+          _key: string;
+        } & Atom_2)
+    >;
+  };
+  section3?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+    blocks?: Array<
+      | ({
+          _key: string;
+        } & Atom_1)
+      | ({
+          _key: string;
+        } & Atom_2)
+    >;
+  };
+  section4?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+    blocks?: Array<
+      | ({
+          _key: string;
+        } & Atom_1)
+      | ({
+          _key: string;
+        } & Atom_2)
+    >;
+  };
+  section5?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+    blocks?: Array<
+      | ({
+          _key: string;
+        } & Atom_1)
+      | ({
+          _key: string;
+        } & Atom_2)
+    >;
+  };
+  section6?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<{
+      media?: MediaAsset;
+      description?: I18nText;
+      _key: string;
+    }>;
+  };
 };
 
 export type Recursos_page = {
@@ -169,6 +586,17 @@ export type Recursos_page = {
   hero?: {
     media?: MediaAsset;
   };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+  };
+  section1?: Array<{
+    title?: I18nString;
+    description?: I18nText;
+    url?: string;
+    media?: MediaAsset;
+    _key: string;
+  }>;
 };
 
 export type Asi_nos_vemos_page = {
@@ -179,6 +607,8 @@ export type Asi_nos_vemos_page = {
   _rev: string;
   hero?: {
     media?: MediaAsset;
+  };
+  intro?: {
     title?: I18nString;
     description?: I18nText;
   };
@@ -207,7 +637,7 @@ export type Asi_nos_vemos_page = {
           _key: string;
         } & Block_2)
     >;
-    sistemaGrafico?: Array<
+    patrones?: Array<
       | ({
           _key: string;
         } & Block_1)
@@ -258,18 +688,6 @@ export type Asi_nos_vemos_page = {
   };
 };
 
-export type I18nText = {
-  _type: "i18n.text";
-  es?: string;
-  ca?: string;
-};
-
-export type I18nString = {
-  _type: "i18n.string";
-  es?: string;
-  ca?: string;
-};
-
 export type Asi_hablamos_page = {
   _id: string;
   _type: "asi_hablamos_page";
@@ -279,6 +697,41 @@ export type Asi_hablamos_page = {
   hero?: {
     media?: MediaAsset;
   };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    medias?: Array<
+      {
+        _key: string;
+      } & MediaAsset
+    >;
+  };
+  section1?: {
+    title?: I18nString;
+    description?: I18nText;
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_1
+    >;
+  };
+  section2?: {
+    blocks?: Array<
+      {
+        _key: string;
+      } & Atom_1
+    >;
+  };
+  section3?: Array<{
+    correct?: I18nString;
+    incorrect?: I18nString;
+    _key: string;
+  }>;
+  section4?: Array<{
+    correct?: I18nString;
+    incorrect?: I18nString;
+    _key: string;
+  }>;
 };
 
 export type Nuestra_marca_page = {
@@ -289,6 +742,31 @@ export type Nuestra_marca_page = {
   _rev: string;
   hero?: {
     media?: MediaAsset;
+  };
+  intro?: {
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+  };
+  section1?: {
+    title?: I18nString;
+    questions?: Array<{
+      question?: I18nString;
+      answer?: I18nText;
+      _type: "question";
+      _key: string;
+    }>;
+  };
+  section2?: Array<{
+    title?: I18nString;
+    description?: I18nText;
+    media?: MediaAsset;
+    _key: string;
+  }>;
+  section3?: {
+    typography?: Atom_1;
+    color?: Atom_1;
+    voz?: Atom_1;
   };
 };
 
@@ -569,8 +1047,12 @@ export type AllSanitySchemaTypes =
   | MediaAsset
   | Slug
   | Motion_page
+  | I18nText
+  | I18nString
   | Fotografia_page
   | Layout_page
+  | Atom_1
+  | Atom_2
   | Tipografia_page
   | Ilustracion_page
   | Iconografia_page
@@ -579,8 +1061,6 @@ export type AllSanitySchemaTypes =
   | Trademarks_page
   | Recursos_page
   | Asi_nos_vemos_page
-  | I18nText
-  | I18nString
   | Asi_hablamos_page
   | Nuestra_marca_page
   | Home_page
@@ -609,7 +1089,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/queries/pages.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "home_page" && _id == "home_page"][0]{    hero {      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    textSlides {      textSlide1,      textSlide2    },    imageZoom {  mediaType,  image,  video {    asset->{      playbackId    }  }},    imagesGrid {      image1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image2 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image3 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image4 {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    imageEye {  mediaType,  image,  video {    asset->{      playbackId    }  }},    bookText,    words {      word1,      word2,      word3    }  }
+// Query: *[_type == "home_page" && _id == "home_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    textSlides {      textSlide1,      textSlide2    },    imageZoom {  mediaType,  image,  video {    asset->{      playbackId    }  }},    imagesGrid {      image1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image2 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image3 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image4 {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    imageEye {  mediaType,  image,  video {    asset->{      playbackId    }  }},    bookText,    words {      word1,      word2,      word3    }  }
 export type HOME_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -734,7 +1214,7 @@ export type HOME_PAGE_QUERY_RESULT = {
 
 // Source: src/sanity/queries/pages.ts
 // Variable: NUESTRA_MARCA_PAGE_QUERY
-// Query: *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    section1 {      title,      questions[]{        question,        answer      }    },    section2[]{      title,      description,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    section3 {      typography {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},      color {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},      voz {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    }  }
 export type NUESTRA_MARCA_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -753,11 +1233,115 @@ export type NUESTRA_MARCA_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    questions: Array<{
+      question: I18nString | null;
+      answer: I18nText | null;
+    }> | null;
+  } | null;
+  section2: Array<{
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  }> | null;
+  section3: {
+    typography: {
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+    color: {
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+    voz: {
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: ASI_HABLAMOS_PAGE_QUERY
-// Query: *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    section1 {  title,  description,  blocks []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section2 {      blocks []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section3[]{      correct,      incorrect    },    section4[]{      correct,      incorrect    }  }
 export type ASI_HABLAMOS_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -776,11 +1360,82 @@ export type ASI_HABLAMOS_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    medias: Array<{
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section2: {
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section3: Array<{
+    correct: I18nString | null;
+    incorrect: I18nString | null;
+  }> | null;
+  section4: Array<{
+    correct: I18nString | null;
+    incorrect: I18nString | null;
+  }> | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: ASI_NOS_VEMOS_PAGE_QUERY
-// Query: *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{    hero {      media {  mediaType,  image,  video {    asset->{      playbackId    }  }},      title,      description    },    sections {      asiNosVemos []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      color []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      tipografia []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      sistemaGrafico []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      layout []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      ilustracion []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      iconografia []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      fotografia []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      motion []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}    }  }
+// Query: *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description    },    sections {      asiNosVemos []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      color []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      tipografia []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      patrones []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      layout []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      ilustracion []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      iconografia []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      fotografia []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }},      motion []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}    }  }
 export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -798,13 +1453,14 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
         } | null;
       } | null;
     } | null;
+  } | null;
+  intro: {
     title: I18nString | null;
     description: I18nText | null;
   } | null;
   sections: {
     asiNosVemos: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -823,7 +1479,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -859,7 +1514,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     > | null;
     color: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -878,7 +1532,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -914,7 +1567,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     > | null;
     tipografia: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -933,7 +1585,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -967,9 +1618,8 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
     > | null;
-    sistemaGrafico: Array<
+    patrones: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -988,7 +1638,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1024,7 +1673,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     > | null;
     layout: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1043,7 +1691,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1079,7 +1726,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     > | null;
     ilustracion: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1098,7 +1744,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1134,7 +1779,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     > | null;
     iconografia: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1153,7 +1797,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1189,7 +1832,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     > | null;
     fotografia: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1208,7 +1850,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1244,7 +1885,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
     > | null;
     motion: Array<
       | {
-          _key: string;
           _type: "block_1";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1263,7 +1903,6 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
           } | null;
         }
       | {
-          _key: string;
           _type: "block_2";
           media1: {
             mediaType: "image" | "video" | null;
@@ -1302,7 +1941,7 @@ export type ASI_NOS_VEMOS_PAGE_QUERY_RESULT = {
 
 // Source: src/sanity/queries/pages.ts
 // Variable: RECURSOS_PAGE_QUERY
-// Query: *[_type == "recursos_page" && _id == "recursos_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "recursos_page" && _id == "recursos_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description    },    section1[]{      title,      description,      url,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    }  }
 export type RECURSOS_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1321,11 +1960,35 @@ export type RECURSOS_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+  } | null;
+  section1: Array<{
+    title: I18nString | null;
+    description: I18nText | null;
+    url: string | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  }> | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: TRADEMARKS_PAGE_QUERY
-// Query: *[_type == "trademarks_page" && _id == "trademarks_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "trademarks_page" && _id == "trademarks_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      blocks []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section1 {  title,  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }},  blocks []{  _type,  _type == "atom_1" => {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},  _type == "atom_2" => {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}}},    section2 {  title,  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }},  blocks []{  _type,  _type == "atom_1" => {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},  _type == "atom_2" => {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}}},    section3 {  title,  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }},  blocks []{  _type,  _type == "atom_1" => {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},  _type == "atom_2" => {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}}},    section4 {  title,  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }},  blocks []{  _type,  _type == "atom_1" => {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},  _type == "atom_2" => {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}}},    section5 {  title,  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }},  blocks []{  _type,  _type == "atom_1" => {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},  _type == "atom_2" => {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}}},    section6 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type TRADEMARKS_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1344,11 +2007,361 @@ export type TRADEMARKS_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    blocks: Array<
+      | {
+          _type: "atom_1";
+          title: I18nString | null;
+          description: I18nText | null;
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _type: "atom_2";
+          title: I18nString | null;
+          description: I18nText | null;
+          medias: Array<{
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          }> | null;
+        }
+    > | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    blocks: Array<
+      | {
+          _type: "atom_1";
+          title: I18nString | null;
+          description: I18nText | null;
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _type: "atom_2";
+          title: I18nString | null;
+          description: I18nText | null;
+          medias: Array<{
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          }> | null;
+        }
+    > | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    blocks: Array<
+      | {
+          _type: "atom_1";
+          title: I18nString | null;
+          description: I18nText | null;
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _type: "atom_2";
+          title: I18nString | null;
+          description: I18nText | null;
+          medias: Array<{
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          }> | null;
+        }
+    > | null;
+  } | null;
+  section4: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    blocks: Array<
+      | {
+          _type: "atom_1";
+          title: I18nString | null;
+          description: I18nText | null;
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _type: "atom_2";
+          title: I18nString | null;
+          description: I18nText | null;
+          medias: Array<{
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          }> | null;
+        }
+    > | null;
+  } | null;
+  section5: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    blocks: Array<
+      | {
+          _type: "atom_1";
+          title: I18nString | null;
+          description: I18nText | null;
+          media1: {
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          } | null;
+        }
+      | {
+          _type: "atom_2";
+          title: I18nString | null;
+          description: I18nText | null;
+          medias: Array<{
+            mediaType: "image" | "video" | null;
+            image: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+            } | null;
+            video: {
+              asset: {
+                playbackId: string | null;
+              } | null;
+            } | null;
+          }> | null;
+        }
+    > | null;
+  } | null;
+  section6: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: BRAND_COLORS_PAGE_QUERY
-// Query: *[_type == "brand_colors_page" && _id == "brand_colors_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "brand_colors_page" && _id == "brand_colors_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description    },    section1 {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section2 {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section3 {      title,      description,      percentages {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section4 {  title,  description,  blocks []{  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section5 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type BRAND_COLORS_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1367,11 +2380,121 @@ export type BRAND_COLORS_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+    medias: Array<{
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    medias: Array<{
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    percentages: {
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section4: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      medias: Array<{
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      }> | null;
+    }> | null;
+  } | null;
+  section5: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: PATRONES_PAGE_QUERY
-// Query: *[_type == "patrones_page" && _id == "patrones_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "patrones_page" && _id == "patrones_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    section1 {  title,  description,  blocks []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section2 {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section3 {  title,  description,  blocks []{  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section4 {      title,      description,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }},      blocks []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section5 {      title,      description    },    section6 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type PATRONES_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1390,11 +2513,159 @@ export type PATRONES_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    medias: Array<{
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      medias: Array<{
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      }> | null;
+    }> | null;
+  } | null;
+  section4: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section5: {
+    title: I18nString | null;
+    description: I18nText | null;
+  } | null;
+  section6: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: ICONOGRAFIA_PAGE_QUERY
-// Query: *[_type == "iconografia_page" && _id == "iconografia_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "iconografia_page" && _id == "iconografia_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    section1 {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section2 {  title,  description,  blocks []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section3 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type ICONOGRAFIA_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1413,11 +2684,94 @@ export type ICONOGRAFIA_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: ILUSTRACION_PAGE_QUERY
-// Query: *[_type == "ilustracion_page" && _id == "ilustracion_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "ilustracion_page" && _id == "ilustracion_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    section1 {      title,      description    },    section2 {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section3 {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section4 {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section5 {      title,      description,      blocks []{  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section6 {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section7 {      title,      description,      instructions {        title,        description,        prompt      }    },    section8 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type ILUSTRACION_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1436,11 +2790,163 @@ export type ILUSTRACION_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section4: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section5: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      description: I18nText | null;
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section6: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section7: {
+    title: I18nString | null;
+    description: I18nText | null;
+    instructions: {
+      title: I18nString | null;
+      description: I18nText | null;
+      prompt: string | null;
+    } | null;
+  } | null;
+  section8: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: TIPOGRAFIA_PAGE_QUERY
-// Query: *[_type == "tipografia_page" && _id == "tipografia_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "tipografia_page" && _id == "tipografia_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description    },    section1 {      title,      alverata {        testText,        downloadUrl      },      inter {        testText,        downloadUrl      }    },    section2 {      title,      description,      titulares {        title,        description      },      configuration {        title,        content {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}      },      usage {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section3 {  title,  description,  blocks []{  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section4 {  title,  description,  blocks []{  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section5 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type TIPOGRAFIA_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1459,11 +2965,143 @@ export type TIPOGRAFIA_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    alverata: {
+      testText: I18nText | null;
+      downloadUrl: string | null;
+    } | null;
+    inter: {
+      testText: I18nText | null;
+      downloadUrl: string | null;
+    } | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    titulares: {
+      title: I18nString | null;
+      description: I18nText | null;
+    } | null;
+    configuration: {
+      title: I18nString | null;
+      content: {
+        title: I18nString | null;
+        description: I18nText | null;
+        medias: Array<{
+          mediaType: "image" | "video" | null;
+          image: {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          } | null;
+          video: {
+            asset: {
+              playbackId: string | null;
+            } | null;
+          } | null;
+        }> | null;
+      } | null;
+    } | null;
+    usage: {
+      title: I18nString | null;
+      description: I18nText | null;
+      medias: Array<{
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      }> | null;
+    } | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      medias: Array<{
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      }> | null;
+    }> | null;
+  } | null;
+  section4: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      medias: Array<{
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      }> | null;
+    }> | null;
+  } | null;
+  section5: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: LAYOUT_PAGE_QUERY
-// Query: *[_type == "layout_page" && _id == "layout_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "layout_page" && _id == "layout_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      overview {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section1 {      title,      description,      configuration {  title,  description,  medias[] {  mediaType,  image,  video {    asset->{      playbackId    }  }}}    },    section2 {      title,      description,      mediaAsset {  mediaType,  image,  video {    asset->{      playbackId    }  }},      formats[]{        title,        description,        image1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},        image2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}      }    },    section3 {  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section4 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type LAYOUT_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1482,11 +3120,151 @@ export type LAYOUT_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    overview: {
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+    configuration: {
+      title: I18nString | null;
+      description: I18nText | null;
+      medias: Array<{
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      }> | null;
+    } | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    mediaAsset: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    formats: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      image1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      image2: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section4: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: FOTOGRAFIA_PAGE_QUERY
-// Query: *[_type == "fotografia_page" && _id == "fotografia_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "fotografia_page" && _id == "fotografia_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description,      media {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    section1 []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    section2 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type FOTOGRAFIA_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1505,11 +3283,71 @@ export type FOTOGRAFIA_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+    media: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  section1: Array<{
+    title: I18nString | null;
+    description: I18nText | null;
+    media1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  }> | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: MOTION_PAGE_QUERY
-// Query: *[_type == "motion_page" && _id == "motion_page"][0]{  hero {    media {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}
+// Query: *[_type == "motion_page" && _id == "motion_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    intro {      title,      description    },    section1 {  title,  description,  blocks []{  title,  description,  media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section2 {  title,  description,  blocks []{  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section3 {  title,  description,  blocks []{  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section4 {  title,  description,  blocks []{  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section5 {  title,  description,  blocks []{  description,  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}}},    section6 {  title,  description,  blocks[]{    media {  mediaType,  image,  video {    asset->{      playbackId    }  }},    description  }}  }
 export type MOTION_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1528,13 +3366,152 @@ export type MOTION_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
+  intro: {
+    title: I18nString | null;
+    description: I18nText | null;
+  } | null;
+  section1: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      title: I18nString | null;
+      description: I18nText | null;
+      media1: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section2: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      description: I18nText | null;
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section3: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      description: I18nText | null;
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section4: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      description: I18nText | null;
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section5: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      description: I18nText | null;
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  section6: {
+    title: I18nString | null;
+    description: I18nText | null;
+    blocks: Array<{
+      media: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      description: I18nText | null;
+    }> | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
 // Variable: TEST_1_QUERY
-// Query: *[_type == "test-1" && _id == "test-1"][0]{    title,    heroMedia {  mediaType,  image,  video {    asset->{      playbackId    }  }},    blocks []{  _key,  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}  }
+// Query: *[_type == "test-1" && _id == "test-1"][0]{    title,    slug,    description,    heroMedia {  mediaType,  image,  video {    asset->{      playbackId    }  }},    blocks []{  _type,  _type == "block_1" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  },  _type == "block_2" => {    media1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},    media2 {  mediaType,  image,  video {    asset->{      playbackId    }  }}  }}  }
 export type TEST_1_QUERY_RESULT = {
   title: string | null;
+  slug: Slug | null;
+  description: string | null;
   heroMedia: {
     mediaType: "image" | "video" | null;
     image: {
@@ -1552,7 +3529,6 @@ export type TEST_1_QUERY_RESULT = {
   } | null;
   blocks: Array<
     | {
-        _key: string;
         _type: "block_1";
         media1: {
           mediaType: "image" | "video" | null;
@@ -1571,7 +3547,6 @@ export type TEST_1_QUERY_RESULT = {
         } | null;
       }
     | {
-        _key: string;
         _type: "block_2";
         media1: {
           mediaType: "image" | "video" | null;
@@ -1611,20 +3586,20 @@ export type TEST_1_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "home_page" && _id == "home_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    textSlides {\n      textSlide1,\n      textSlide2\n    },\n    imageZoom {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    imagesGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image3 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image4 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    imageEye {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    bookText,\n    words {\n      word1,\n      word2,\n      word3\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
-    '\n  *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': NUESTRA_MARCA_PAGE_QUERY_RESULT;
-    '\n  *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ASI_HABLAMOS_PAGE_QUERY_RESULT;
-    '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n    hero {\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      title,\n      description\n    },\n    sections {\n      asiNosVemos []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      color []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      tipografia []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      sistemaGrafico []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      layout []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      ilustracion []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      iconografia []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      fotografia []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      motion []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n    }\n  }\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;
-    '\n  *[_type == "recursos_page" && _id == "recursos_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': RECURSOS_PAGE_QUERY_RESULT;
-    '\n  *[_type == "trademarks_page" && _id == "trademarks_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': TRADEMARKS_PAGE_QUERY_RESULT;
-    '\n  *[_type == "brand_colors_page" && _id == "brand_colors_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': BRAND_COLORS_PAGE_QUERY_RESULT;
-    '\n  *[_type == "patrones_page" && _id == "patrones_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': PATRONES_PAGE_QUERY_RESULT;
-    '\n  *[_type == "iconografia_page" && _id == "iconografia_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ICONOGRAFIA_PAGE_QUERY_RESULT;
-    '\n  *[_type == "ilustracion_page" && _id == "ilustracion_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': ILUSTRACION_PAGE_QUERY_RESULT;
-    '\n  *[_type == "tipografia_page" && _id == "tipografia_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': TIPOGRAFIA_PAGE_QUERY_RESULT;
-    '\n  *[_type == "layout_page" && _id == "layout_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': LAYOUT_PAGE_QUERY_RESULT;
-    '\n  *[_type == "fotografia_page" && _id == "fotografia_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': FOTOGRAFIA_PAGE_QUERY_RESULT;
-    '\n  *[_type == "motion_page" && _id == "motion_page"][0]{\n  hero {\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n': MOTION_PAGE_QUERY_RESULT;
-    '\n  *[_type == "test-1" && _id == "test-1"][0]{\n    title,\n    heroMedia {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    blocks []{\n  _key,\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n  }\n': TEST_1_QUERY_RESULT;
+    '\n  *[_type == "home_page" && _id == "home_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    textSlides {\n      textSlide1,\n      textSlide2\n    },\n    imageZoom {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    imagesGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image3 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image4 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    imageEye {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    bookText,\n    words {\n      word1,\n      word2,\n      word3\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 {\n      title,\n      questions[]{\n        question,\n        answer\n      }\n    },\n    section2[]{\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section3 {\n      typography {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n      color {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n      voz {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    }\n  }\n': NUESTRA_MARCA_PAGE_QUERY_RESULT;
+    '\n  *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section2 {\n      blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section3[]{\n      correct,\n      incorrect\n    },\n    section4[]{\n      correct,\n      incorrect\n    }\n  }\n': ASI_HABLAMOS_PAGE_QUERY_RESULT;
+    '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description\n    },\n    sections {\n      asiNosVemos []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      color []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      tipografia []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      patrones []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      layout []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      ilustracion []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      iconografia []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      fotografia []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      motion []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n    }\n  }\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;
+    '\n  *[_type == "recursos_page" && _id == "recursos_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description\n    },\n    section1[]{\n      title,\n      description,\n      url,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    }\n  }\n': RECURSOS_PAGE_QUERY_RESULT;
+    '\n  *[_type == "trademarks_page" && _id == "trademarks_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section1 {\n  title,\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n  blocks []{\n  _type,\n  _type == "atom_1" => {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n  _type == "atom_2" => {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n}\n},\n    section2 {\n  title,\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n  blocks []{\n  _type,\n  _type == "atom_1" => {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n  _type == "atom_2" => {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n}\n},\n    section3 {\n  title,\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n  blocks []{\n  _type,\n  _type == "atom_1" => {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n  _type == "atom_2" => {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n}\n},\n    section4 {\n  title,\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n  blocks []{\n  _type,\n  _type == "atom_1" => {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n  _type == "atom_2" => {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n}\n},\n    section5 {\n  title,\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n  blocks []{\n  _type,\n  _type == "atom_1" => {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n  _type == "atom_2" => {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n}\n},\n    section6 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': TRADEMARKS_PAGE_QUERY_RESULT;
+    '\n  *[_type == "brand_colors_page" && _id == "brand_colors_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description\n    },\n    section1 {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section2 {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section3 {\n      title,\n      description,\n      percentages {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section4 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section5 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': BRAND_COLORS_PAGE_QUERY_RESULT;
+    '\n  *[_type == "patrones_page" && _id == "patrones_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section2 {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section3 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section4 {\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section5 {\n      title,\n      description\n    },\n    section6 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': PATRONES_PAGE_QUERY_RESULT;
+    '\n  *[_type == "iconografia_page" && _id == "iconografia_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section2 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section3 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': ICONOGRAFIA_PAGE_QUERY_RESULT;
+    '\n  *[_type == "ilustracion_page" && _id == "ilustracion_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 {\n      title,\n      description\n    },\n    section2 {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section3 {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section4 {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section5 {\n      title,\n      description,\n      blocks []{\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section6 {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section7 {\n      title,\n      description,\n      instructions {\n        title,\n        description,\n        prompt\n      }\n    },\n    section8 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': ILUSTRACION_PAGE_QUERY_RESULT;
+    '\n  *[_type == "tipografia_page" && _id == "tipografia_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description\n    },\n    section1 {\n      title,\n      alverata {\n        testText,\n        downloadUrl\n      },\n      inter {\n        testText,\n        downloadUrl\n      }\n    },\n    section2 {\n      title,\n      description,\n      titulares {\n        title,\n        description\n      },\n      configuration {\n        title,\n        content {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n      },\n      usage {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section3 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section4 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section5 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': TIPOGRAFIA_PAGE_QUERY_RESULT;
+    '\n  *[_type == "layout_page" && _id == "layout_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      overview {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section1 {\n      title,\n      description,\n      configuration {\n  title,\n  description,\n  medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section2 {\n      title,\n      description,\n      mediaAsset {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      formats[]{\n        title,\n        description,\n        image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n        image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n      }\n    },\n    section3 {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section4 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': LAYOUT_PAGE_QUERY_RESULT;
+    '\n  *[_type == "fotografia_page" && _id == "fotografia_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    section2 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': FOTOGRAFIA_PAGE_QUERY_RESULT;
+    '\n  *[_type == "motion_page" && _id == "motion_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description\n    },\n    section1 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section2 {\n  title,\n  description,\n  blocks []{\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section3 {\n  title,\n  description,\n  blocks []{\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section4 {\n  title,\n  description,\n  blocks []{\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section5 {\n  title,\n  description,\n  blocks []{\n  description,\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section6 {\n  title,\n  description,\n  blocks[]{\n    media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    description\n  }\n}\n  }\n': MOTION_PAGE_QUERY_RESULT;
+    '\n  *[_type == "test-1" && _id == "test-1"][0]{\n    title,\n    slug,\n    description,\n    heroMedia {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    blocks []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n  }\n': TEST_1_QUERY_RESULT;
   }
 }

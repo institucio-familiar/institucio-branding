@@ -12,9 +12,9 @@ import {
   toBadUses,
   toSectionWithAtom2Blocks
 } from '@/sanity/lib/page-parsers'
-import Block4 from '@/components/ui/blocks/Block-4.astro'
-import Block5 from '@/components/ui/blocks/Block-5.astro'
-import Block7 from '@/components/ui/blocks/Block-7.astro'
+// import Block4 from '@/components/ui/blocks/Block-4.astro'
+// import Block5 from '@/components/ui/blocks/Block-5.astro'
+// import Block7 from '@/components/ui/blocks/Block-7.astro'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
@@ -41,14 +41,22 @@ async function getPageData() {
 
 const pageData = await getPageData()
 
-const COLORS = {
+type BrandColor = {
+  name: string
+  textColor: string
+  hex: string
+  rgb: string
+  cmyk: string
+  pantone?: string
+}
+
+const COLORS: Record<string, BrandColor> = {
   WHITE: {
     name: 'white',
     textColor: 'ink',
     hex: '#F7F7F7',
     rgb: '247 / 247 / 247',
     cmyk: '0 / 0 / 0 / 3'
-    // pantone: '545 C' // TESTINGAL > Missing pantone in figma
   },
   INK: {
     name: 'ink',
@@ -96,7 +104,6 @@ const COLORS = {
     hex: '#4F8EFF',
     rgb: '79 / 142 / 255',
     cmyk: '69 / 44 / 0 / 0'
-    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
   },
   NAVY_LIGHT: {
     name: 'navy-light',
@@ -104,7 +111,6 @@ const COLORS = {
     hex: '#1C4176',
     rgb: '28 / 65 / 118',
     cmyk: '76 / 45 / 0 / 54'
-    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
   },
   SKY_LIGHT: {
     name: 'sky-light',
@@ -112,7 +118,6 @@ const COLORS = {
     hex: '#89B4FF',
     rgb: '137 / 180 / 255',
     cmyk: '46 / 29 / 0 / 0'
-    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
   },
   FROST: {
     name: 'frost',
@@ -120,7 +125,6 @@ const COLORS = {
     hex: '#EEEF3FD',
     rgb: '238 / 243 / 253',
     cmyk: '6 / 4 / 0 / 1'
-    // pantone: '296 C' // TESTINGAL > Missing pantone in figma
   }
 }
 

@@ -29,26 +29,21 @@ async function getPageData() {
   return {
     ...parsePageHeader(sanityPageData, locale),
     section1: (sanityPageData?.section1 ?? [])
-      .map(
-        (item: {
-          title?: Record<string, string>
-          description?: Record<string, string>
-          url?: string
-          media?: Parameters<typeof toMedia>[0]
-        }) => {
-          const media = toMedia(item.media)
-          if (!media || !item.url) return null
+      .map((item) => {
+        const media = toMedia(item.media)
+        const title = item.title?.[locale]
+        const description = item.description?.[locale]
+        if (!media || !item.url || !title || !description) return null
 
-          return {
-            title: item.title?.[locale],
-            description: item.description?.[locale],
-            buttonUrl: item.url,
-            media
-          }
+        return {
+          title,
+          description,
+          buttonUrl: item.url,
+          media
         }
-      )
+      })
       .filter(
-        (item: RecursosCard | null): item is RecursosCard => item !== null
+        (item): item is RecursosCard => item !== null
       )
   }
 }
