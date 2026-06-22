@@ -1,5 +1,6 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro'
+import Hero from '@/components/Hero.astro'
 import Button from '@/components/ui/Button.astro'
 import Icon from '@/components/ui/Icon.astro'
 import Puncha from '@/components/icons/Puncha.astro'
@@ -81,24 +82,7 @@ const maskTypes = [
 ---
 
 <MainLayout>
-  <section
-    class="flex min-h-screen items-center justify-center bg-mist px-indent py-10 relative"
-  >
-    <div class="flex w-full max-w-4xl flex-col items-center gap-12">
-      <h1 class="text-white text-headline-2 z-2">{t('test.title')}</h1>
-
-      {
-        heroMedia && (
-          <MediaAsset
-            media={heroMedia}
-            title={pageData.title ?? 'Hero media'}
-            class="absolute inset-0"
-            imageSize={1920}
-          />
-        )
-      }
-    </div>
-  </section>
+  <Hero media={heroMedia} title={pageData.title} />
 
   <section
     class="relative flex flex-col items-center justify-center gap-12 bg-white px-indent py-10"
@@ -107,6 +91,9 @@ const maskTypes = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
+    <h1 class="text-navy text-headline-1 uppercase text-center">
+      {t('test.title')}
+    </h1>
     <h2 class="text-navy text-headline-2 text-center">Typography</h2>
     <div class="flex flex-col gap-10">
       {

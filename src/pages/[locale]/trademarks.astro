@@ -1,9 +1,7 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro'
-import MediaAsset from '@/components/MediaAsset.astro'
-import Icon from '@/components/ui/Icon.astro'
+import Hero from '@/components/Hero.astro'
 import { getPageLocale } from '@/i18n/utils'
-import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
 import { TRADEMARKS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
@@ -12,7 +10,6 @@ import Block7 from '@/components/ui/blocks/Block-7.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
-const t = useTranslations(locale)
 
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(TRADEMARKS_PAGE_QUERY)
@@ -29,32 +26,7 @@ const pageData = await getPageData()
 ---
 
 <MainLayout>
-  <section
-    class="flex min-h-screen items-end justify-left bg-mist px-indent py-15 relative"
-  >
-    <div class="flex flex-col z-2">
-      <div class="flex items-center gap-2">
-        <p class="text-white text-cta">{t('hero.scroll-down')}</p>
-        <Icon
-          id="scroll-to-bottom-icon"
-          name="arrow"
-          direction="bottom"
-          variant="outline-white"
-        />
-      </div>
-    </div>
-
-    {
-      pageData.heroMedia && (
-        <MediaAsset
-          media={pageData.heroMedia}
-          title={pageData.pageTitle}
-          class="absolute inset-0"
-          imageSize={1920}
-        />
-      )
-    }
-  </section>
+  <Hero media={pageData.heroMedia} title={pageData.pageTitle} />
 
   <section class="relative bg-white px-indent">
     <Puncha

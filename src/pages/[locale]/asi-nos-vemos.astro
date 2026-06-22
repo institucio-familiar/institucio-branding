@@ -1,7 +1,6 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro'
-import MediaAsset from '@/components/MediaAsset.astro'
-import Icon from '@/components/ui/Icon.astro'
+import Hero from '@/components/Hero.astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
@@ -45,38 +44,7 @@ const pageData = await getPageData()
 ---
 
 <MainLayout>
-  {
-    pageData.heroMedia && (
-      <div
-        data-hero-media
-        class="pointer-events-none fixed inset-0 -z-1 h-screen w-full"
-      >
-        <MediaAsset
-          media={pageData.heroMedia}
-          title={pageData.pageTitle}
-          class="absolute inset-0"
-          imageSize={1920}
-        />
-      </div>
-    )
-  }
-
-  <section
-    class="relative flex min-h-screen items-end justify-left px-indent py-15"
-    data-hero-section
-  >
-    <div class="flex flex-col">
-      <div class="flex items-center gap-2">
-        <p class="text-white text-cta">{t('hero.scroll-down')}</p>
-        <Icon
-          id="scroll-to-bottom-icon"
-          name="arrow"
-          direction="bottom"
-          variant="outline-white"
-        />
-      </div>
-    </div>
-  </section>
+  <Hero media={pageData.heroMedia} title={pageData.pageTitle} />
 
   <section class="relative bg-white px-indent">
     <Puncha
@@ -137,35 +105,4 @@ const pageData = await getPageData()
       }
     </div>
   </div>
-
-  <script>
-    import { animate, scroll } from 'motion'
-
-    const heroSection = document.querySelector('[data-hero-section]')
-    const heroMedia = document.querySelector('[data-hero-media]')
-    const cancelScrolls: Array<() => void> = []
-
-    // if (heroSection && heroMedia) {
-    //   const animation = animate(
-    //     heroMedia,
-    //     { opacity: [1, 0.35] },
-    //     { ease: 'linear' }
-    //   )
-
-    //   cancelScrolls.push(
-    //     scroll(animation, {
-    //       target: heroSection,
-    //       offset: ['start start', 'end start']
-    //     })
-    //   )
-    // }
-
-    // document.addEventListener(
-    //   'swup:visit:start',
-    //   () => {
-    //     cancelScrolls.forEach((cancel) => cancel())
-    //   },
-    //   { once: true }
-    // )
-  </script>
 </MainLayout>

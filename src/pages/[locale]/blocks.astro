@@ -1,7 +1,7 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro'
+import Hero from '@/components/Hero.astro'
 import Puncha from '@/components/icons/Puncha.astro'
-import MediaAsset from '@/components/MediaAsset.astro'
 import Block1 from '@/components/ui/blocks/Block-1.astro'
 import Block2 from '@/components/ui/blocks/Block-2.astro'
 import Block3 from '@/components/ui/blocks/Block-3.astro'
@@ -44,24 +44,7 @@ const heroMedia = pageData.heroMedia
 ---
 
 <MainLayout>
-  <section
-    class="flex min-h-screen items-center justify-center bg-mist px-indent py-10 relative"
-  >
-    <div class="flex w-full max-w-4xl flex-col items-center gap-12">
-      <h1 class="text-white text-headline-2 z-2">Blocks</h1>
-
-      {
-        pageData.heroMedia && (
-          <MediaAsset
-            media={pageData.heroMedia}
-            title={pageData.title ?? 'Hero media'}
-            class="absolute inset-0"
-            imageSize={1920}
-          />
-        )
-      }
-    </div>
-  </section>
+  <Hero media={pageData.heroMedia} title={pageData.title} />
 
   <div class="grid grid-cols-10 bg-white relative">
     <Puncha
@@ -72,6 +55,7 @@ const heroMedia = pageData.heroMedia
     <section
       class="col-span-8 flex flex-col gap-indent bg-white px-indent py-10"
     >
+      <h1 class="text-navy text-headline-1 uppercase">Blocks</h1>
       <div>
         <p class="text-headline-3 pb-3 text-navy-light">Block 1</p>
         {heroMedia && <Block1 media1={heroMedia} />}

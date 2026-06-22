@@ -13,12 +13,13 @@ const {
   PUBLIC_SANITY_PROJECT_ID,
   PUBLIC_SANITY_DATASET,
   PUBLIC_SANITY_API_VERSION,
-  SANITY_REVALIDATE_SECRET
+  SANITY_REVALIDATE_SECRET,
+  PUBLIC_SITE_URL
 } = loadEnv(process.env.NODE_ENV, process.cwd(), '')
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://institucio-branding.vercel.app', // TESTINGAL
+  site: PUBLIC_SITE_URL,
   // Output server to use ISR with Sanity
   output: 'server',
   i18n: {
