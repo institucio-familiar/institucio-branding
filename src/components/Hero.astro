@@ -1,0 +1,86 @@
+---
+import MediaAsset from '@/components/MediaAsset.astro'
+import Icon from '@/components/ui/Icon.astro'
+import { useTranslations } from '@/i18n/ui'
+import { getPageLocale } from '@/i18n/utils'
+import type { Media } from '@/components/ui/blocks/block-types'
+
+type Props = {
+  media: Media | null
+  title?: string
+  heading?: string
+  imageSize?: number
+}
+
+const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+const t = useTranslations(locale)
+
+const { media, title, heading, imageSize = 1920 } = Astro.props
+const mediaTitle = title ?? heading
+---
+
+{
+  media && (
+    <div
+      data-hero-media
+      class="pointer-events-none fixed inset-0 -z-1 h-screen w-full origin-center"
+      style="transform: scale(1.2)"
+    >
+      <MediaAsset
+        media={media}
+        title={mediaTitle}
+        class="absolute inset-0"
+        imageSize={imageSize}
+      />
+    </div>
+  )
+}
+
+<section
+  class="relative flex min-h-screen items-end justify-left px-indent py-15"
+  data-hero-section
+>
+  <div class="z-2 flex flex-col">
+    {heading && <h1 class="text-white text-headline-2 uppercase">{heading}</h1>}
+    <div class="flex items-center gap-2">
+      <p class="text-white text-cta">{t('hero.scroll-down')}</p>
+      <Icon
+        id="scroll-to-bottom-icon"
+        name="arrow"
+        direction="bottom"
+        variant="outline-white"
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  import { animate, scroll } from 'motion'
+
+  const heroSection = document.querySelector('[data-hero-section]')
+  const heroMedia = document.querySelector('[data-hero-media]')
+  const cancelScrolls: Array<() => void> = []
+
+  if (heroSection && heroMedia) {
+    const animation = animate(
+      heroMedia,
+      { scale: [1.2, 1] },
+      { ease: 'linear' }
+    )
+
+    cancelScrolls.push(
+      scroll(animation, {
+        target: heroSection,
+        offset: ['start start', 'end start']
+      })
+    )
+  }
+
+  document.addEventListener(
+    'swup:visit:start',
+    () => {
+      cancelScrolls.forEach((cancel) => cancel())
+    },
+    { once: true }
+  )
+</script>
