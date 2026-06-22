@@ -9,6 +9,7 @@ import { toMedia } from '@/sanity/lib/utils'
 import Block4 from '@/components/ui/blocks/Block-4.astro'
 import Block5 from '@/components/ui/blocks/Block-5.astro'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
+import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -121,6 +122,14 @@ const COLOR_COMBINATIONS = [
   { background: COLORS.FROST, text: COLORS.INK },
   { background: COLORS.NAVY_LIGHT, text: COLORS.SKY_LIGHT }
 ]
+
+const asideSections = [
+  { id: 'section1', label: 'Paleta principal' },
+  { id: 'section2', label: 'Paleta completa' },
+  { id: 'section3', label: 'Combinación de color' },
+  { id: 'section4', label: 'Color en contexto' },
+  { id: 'section5', label: 'Malos usos' }
+]
 ---
 
 <MainLayout>
@@ -136,64 +145,71 @@ const COLOR_COMBINATIONS = [
     </h1>
   </section>
 
-  <section class="grid grid-col-4">
-    {
-      MAIN_COLORS.map((color) => (
-        <div class={`bg-${color.name}`}>
-          <p>{color.hex}</p>
-          <p>RGB: {color.rgb}</p>
-          <p>CMYK: {color.cmyk}</p>
-          <p>PANTONE {color.cmyk}</p>
-        </div>
-      ))
-    }
-  </section>
-
-  <section>
-    <Block5 title={'Tittle'} description={'Description'} medias={[]} />
-  </section>
-
-  <section class="grid grid-col-4">
-    {
-      MAIN_COLORS.map((color) => (
-        <div class={`bg-${color.name}`}>
-          <p>{color.hex}</p>
-          <p>RGB: {color.rgb}</p>
-          <p>CMYK: {color.cmyk}</p>
-          <p>PANTONE {color.cmyk}</p>
-        </div>
-      ))
-    }
-  </section>
-
-  <section>
-    <Block5 title={'Tittle'} description={'Description'} medias={[]} />
-  </section>
-
-  <section>
-    <Block4 title={'Tittle'} description={'Description'} media={} />
-  </section>
-
-  <section>
-    <h3>Color combination</h3>
-    <div class="grid grid-cols-3 gap-6 row-gap-4">
+  <PageAsideLayout sections={asideSections} basePath="/brand-colors">
+    <section class="pb-indent">
+      <p class="text-navy text-headline-3">
+        {pageData.pageDescription}
+      </p>
+    </section>
+    <section id="section1" class="grid grid-col-4 pb-indent">
       {
-        COLOR_COMBINATIONS.map((combi) => (
-          <div
-            class={`flex items-center justify-center bg-${combi.background.name}`}
-          >
-            <span class={`text-headline-2 text-${combi.text.name}`}>Aa</span>
+        MAIN_COLORS.map((color) => (
+          <div class={`bg-${color.name}`}>
+            <p>{color.hex}</p>
+            <p>RGB: {color.rgb}</p>
+            <p>CMYK: {color.cmyk}</p>
+            <p>PANTONE {color.cmyk}</p>
           </div>
         ))
       }
-    </div>
-  </section>
+    </section>
 
-  <!-- <section>
-    <Block7
-      title={pageData.badCases.title}
-      description={pageData.description}
-      items={pageData.badCases.items}
-    />
-  </section> -->
+    <section id="section2" class="pb-indent">
+      <Block5 title={'Tittle'} description={'Description'} medias={[]} />
+    </section>
+
+    <section class="grid grid-col-4 pb-indent">
+      {
+        Object.values(COLORS).map((color) => (
+          <div class={`bg-${color.name}`}>
+            <p>{color.hex}</p>
+            <p>RGB: {color.rgb}</p>
+            <p>CMYK: {color.cmyk}</p>
+            {color.pantone && <p>PANTONE {color.pantone}</p>}
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- <section class="pb-indent">
+      <Block5 title={'Tittle'} description={'Description'} medias={[]} />
+    </section> -->
+
+    <!-- <section id="section4" class="pb-indent">
+      <Block4 title={'Tittle'} description={'Description'} media={} />
+    </section> -->
+
+    <section id="section3" class="pb-indent">
+      <h3>Color combination</h3>
+      <div class="grid grid-cols-3 gap-6 row-gap-4">
+        {
+          COLOR_COMBINATIONS.map((combi) => (
+            <div
+              class={`flex items-center justify-center bg-${combi.background.name}`}
+            >
+              <span class={`text-headline-2 text-${combi.text.name}`}>Aa</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- <section id="section5">
+      <Block7
+        title={pageData.badCases.title}
+        description={pageData.description}
+        items={pageData.badCases.items}
+      />
+    </section> -->
+  </PageAsideLayout>
 </MainLayout>

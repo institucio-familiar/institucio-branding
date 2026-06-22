@@ -7,6 +7,7 @@ import { ILUSTRACION_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
+import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -74,6 +75,17 @@ const colorRows = colorRowSizes.map((size) => {
   colorOffset += size
   return row
 })
+
+const asideSections = [
+  { id: 'section1', label: 'Paleta de color' },
+  { id: 'section2', label: 'Convivencia' },
+  { id: 'section3', label: 'Con tipografía' },
+  { id: 'section4', label: 'Escala y proporción' },
+  { id: 'section5', label: 'Composición' },
+  { id: 'section6', label: 'Animaciones' },
+  { id: 'section7', label: 'Prompt' },
+  { id: 'section8', label: 'Malos usos' }
+]
 ---
 
 <MainLayout>
@@ -89,32 +101,34 @@ const colorRows = colorRowSizes.map((size) => {
     </h1>
   </section>
 
-  <section class="bg-white px-indent pb-indent-2">
-    <div class="flex flex-col gap-3 md:gap-6">
-      {
-        colorRows.map((row) => (
-          <div class="grid grid-cols-5 gap-3 md:gap-6">
-            {row.map((color) => (
-              <div
-                class={`flex aspect-2/1 flex-col justify-end rounded-sm p-3 ${getContrastTextClass(color.hex)}`}
-                style={{ backgroundColor: color.hex }}
-              >
-                <p class="text-small">{color.hex}</p>
-                <p class="text-small">RGB {color.rgb}</p>
-                <p class="text-small">CMYK {color.cmyk}</p>
-              </div>
-            ))}
-          </div>
-        ))
-      }
-    </div>
-  </section>
+  <PageAsideLayout sections={asideSections} basePath="/ilustracion">
+    <section id="section1" class="pb-indent-2">
+      <div class="flex flex-col gap-3 md:gap-6">
+        {
+          colorRows.map((row) => (
+            <div class="grid grid-cols-5 gap-3 md:gap-6">
+              {row.map((color) => (
+                <div
+                  class={`flex aspect-2/1 flex-col justify-end rounded-sm p-3 ${getContrastTextClass(color.hex)}`}
+                  style={{ backgroundColor: color.hex }}
+                >
+                  <p class="text-small">{color.hex}</p>
+                  <p class="text-small">RGB {color.rgb}</p>
+                  <p class="text-small">CMYK {color.cmyk}</p>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </section>
 
-  <!-- <section>
-    <Block7
-      title={pageData.badCases.title}
-      description={pageData.description}
-      items={pageData.badCases.items}
-    />
-  </section> -->
+    <!-- <section id="section8">
+      <Block7
+        title={pageData.badCases.title}
+        description={pageData.description}
+        items={pageData.badCases.items}
+      />
+    </section> -->
+  </PageAsideLayout>
 </MainLayout>

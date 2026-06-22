@@ -5,6 +5,7 @@ import Card from '@/components/ui/Card.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
+import PageAsideLayout from '@/components/PageAsideLayout.astro'
 import { RECURSOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
@@ -40,6 +41,8 @@ async function getPageData() {
 }
 
 const pageData = await getPageData()
+
+const asideSections = [{ id: 'section1', label: 'Recursos' }]
 ---
 
 <MainLayout>
@@ -55,20 +58,25 @@ const pageData = await getPageData()
     </h1>
   </section>
 
-  {
-    pageData.section1.length > 0 && (
-      <section class="grid grid-cols-1 gap-indent bg-white px-indent pb-indent-2 md:grid-cols-2">
-        {pageData.section1.map((item: RecursosCard) => (
-          <Card
-            title={item.title}
-            media={item.media}
-            description={item.description}
-            buttonUrl={item.buttonUrl}
-          >
-            <span slot="button">{t('recursos.download')}</span>
-          </Card>
-        ))}
-      </section>
-    )
-  }
+  <PageAsideLayout sections={asideSections} basePath="/recursos">
+    {
+      pageData.section1.length > 0 && (
+        <section
+          id="section1"
+          class="grid grid-cols-1 gap-indent pb-indent-2 md:grid-cols-2"
+        >
+          {pageData.section1.map((item: RecursosCard) => (
+            <Card
+              title={item.title}
+              media={item.media}
+              description={item.description}
+              buttonUrl={item.buttonUrl}
+            >
+              <span slot="button">{t('recursos.download')}</span>
+            </Card>
+          ))}
+        </section>
+      )
+    }
+  </PageAsideLayout>
 </MainLayout>

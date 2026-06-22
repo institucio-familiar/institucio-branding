@@ -13,6 +13,7 @@ import { TEST_1_QUERY } from '@/sanity/queries/pages'
 import { toBlock, toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import { sanityClient } from 'sanity:client'
 import type { BlockData } from '@/components/ui/blocks/block-types'
+import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -79,37 +80,48 @@ const maskTypes = [
   { type: 'tobo_horizontal' },
   { type: 'tobobo' }
 ] as const
+
+const asideSections = [
+  { id: 'typography', label: 'Typography' },
+  { id: 'ctas', label: 'CTAs' },
+  { id: 'icons', label: 'Icons' },
+  { id: 'blocks', label: 'Blocks' },
+  { id: 'masks', label: 'Masks' }
+]
 ---
 
 <MainLayout>
   <Hero media={heroMedia} title={pageData.title} />
 
-  <section
-    class="relative flex flex-col items-center justify-center gap-12 bg-white px-indent py-10"
-  >
-    <Puncha
-      color="white"
-      class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
-    />
-    <h1 class="text-navy text-headline-1 uppercase text-center">
-      {t('test.title')}
-    </h1>
-    <h2 class="text-navy text-headline-2 text-center">Typography</h2>
-    <div class="flex flex-col gap-10">
-      {
-        typographyStyles.map((style) => (
-          <div class="flex flex-col gap-2 border-b border-navy-light/20 pb-10 last:border-b-0 last:pb-0">
-            <p class="text-navy text-micro uppercase">{style}</p>
-            <p class={`text-navy ${style}`}>Abc</p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
+  <PageAsideLayout sections={asideSections} basePath="/library">
+    <section
+      id="typography"
+      class="relative flex flex-col items-center justify-center gap-12 py-10"
+    >
+      <Puncha
+        color="white"
+        class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
+      />
+      <h1 class="text-navy text-headline-1 uppercase text-center">
+        {t('test.title')}
+      </h1>
+      <h2 class="text-navy text-headline-2 text-center">Typography</h2>
+      <div class="flex flex-col gap-10">
+        {
+          typographyStyles.map((style) => (
+            <div class="flex flex-col gap-2 border-b border-navy-light/20 pb-10 last:border-b-0 last:pb-0">
+              <p class="text-navy text-micro uppercase">{style}</p>
+              <p class={`text-navy ${style}`}>Abc</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
 
-  <section
-    class="flex items-center justify-center flex-col gap-12 bg-white px-indent py-10 border-t border-navy-light"
-  >
+    <section
+      id="ctas"
+      class="flex items-center justify-center flex-col gap-12 py-10 border-t border-navy-light"
+    >
     <h2 class="text-navy text-headline-2 text-center">CTAs</h2>
     <div class="flex flex-wrap items-center justify-center gap-6">
       <Button variant="primary-dark">Seguir leyendo</Button>
@@ -121,8 +133,9 @@ const maskTypes = [
   </section>
 
   <section
-    class="flex items-center justify-center flex-col gap-12 bg-white px-indent py-10 border-t border-navy-light"
-  >
+      id="icons"
+      class="flex items-center justify-center flex-col gap-12 py-10 border-t border-navy-light"
+    >
     <h2 class="text-navy text-headline-2 text-center">Icons</h2>
     <div class="flex w-full max-w-4xl flex-col items-center gap-4">
       <p class="text-navy text-small uppercase">number</p>
@@ -164,8 +177,11 @@ const maskTypes = [
   </section>
 
   {
-    pageData.blocks.length ? (
-      <section class="flex flex-col gap-indent bg-white px-indent py-10 border-t border-navy-light">
+      pageData.blocks.length ? (
+        <section
+          id="blocks"
+          class="flex flex-col gap-indent py-10 border-t border-navy-light"
+        >
         <p class="text-ink text-headline-3">Blocks</p>
         {pageData.blocks.map((block) => (
           <Block {...block} />
@@ -175,8 +191,11 @@ const maskTypes = [
   }
 
   {
-    heroMedia && (
-      <section class="grid w-full grid-cols-1 gap-indent bg-white border-t border-navy-light px-indent py-10 md:grid-cols-2 md:py-20">
+      heroMedia && (
+        <section
+          id="masks"
+          class="grid w-full grid-cols-1 gap-indent border-t border-navy-light py-10 md:grid-cols-2 md:py-20"
+        >
         {maskTypes.map((mask) => (
           <Mask
             type={mask.type}
@@ -191,6 +210,7 @@ const maskTypes = [
       </section>
     )
   }
+  </PageAsideLayout>
 
   <section
     class="relative flex items-center justify-center bg-white border-t border-navy-light py-10 md:py-20 min-h-[60vh]"

@@ -7,6 +7,7 @@ import { PATRONES_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
 import Block7 from '@/components/ui/blocks/Block-7.astro'
+import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -23,6 +24,15 @@ async function getPageData() {
 }
 
 const pageData = await getPageData()
+
+const asideSections = [
+  { id: 'section1', label: 'Sección 1' },
+  { id: 'section2', label: 'Sección 2' },
+  { id: 'section3', label: 'Sección 3' },
+  { id: 'section4', label: 'Sección 4' },
+  { id: 'section5', label: 'Sección 5' },
+  { id: 'section6', label: 'Malos usos' }
+]
 ---
 
 <MainLayout>
@@ -38,11 +48,13 @@ const pageData = await getPageData()
     </h1>
   </section>
 
-  <!-- <section>
-    <Block7
-      title={pageData.badCases.title}
-      description={pageData.description}
-      items={pageData.badCases.items}
-    />
-  </section> -->
+  <PageAsideLayout sections={asideSections} basePath="/patrones">
+    <!-- <section id="section6">
+      <Block7
+        title={pageData.badCases.title}
+        description={pageData.description}
+        items={pageData.badCases.items}
+      />
+    </section> -->
+  </PageAsideLayout>
 </MainLayout>

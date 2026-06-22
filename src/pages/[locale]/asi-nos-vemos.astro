@@ -10,7 +10,7 @@ import { sanityClient } from 'sanity:client'
 import { toBlock, toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import type { BlockData } from '@/components/ui/blocks/block-types'
 import Block from '@/components/ui/blocks/Block.astro'
-import ScrollToButton from '@/components/ScrollToButton.astro'
+import PageAsideLayout from '@/components/PageAsideLayout.astro'
 import { ASI_NOS_VEMOS_SECTIONS } from '@/constants'
 import Button from '@/components/ui/Button.astro'
 
@@ -41,6 +41,11 @@ async function getPageData() {
 }
 
 const pageData = await getPageData()
+
+const asideSections = pageData.sections.map((section) => ({
+  id: section.id,
+  label: t(`asi-nos-vemos.${section.id}`)
+}))
 ---
 
 <MainLayout>
@@ -56,53 +61,33 @@ const pageData = await getPageData()
     </h1>
   </section>
 
-  <div class="relative grid grid-cols-12 gap-2 bg-white px-indent">
-    <aside class="col-span-2 sticky top-nav-height self-start pb-8">
-      <div class="flex flex-col gap-2">
-        {
-          pageData.sections.map((section) => (
-            <ScrollToButton
-              targetId={section.id}
-              href={getRelativeLocaleUrl(
-                locale,
-                `/asi-nos-vemos#${section.id}`
-              )}
-              class="text-navy text-body hover:text-body-bold"
-            >
+  <PageAsideLayout sections={asideSections} basePath="/asi-nos-vemos">
+    <section class="pb-indent">
+      <p class="text-navy text-headline-3">
+        {pageData.pageDescription}
+      </p>
+    </section>
+    {
+      pageData.sections.map((section) => (
+        <section id={section.id} class="pb-indent flex flex-col gap-indent">
+          <div class="flex items-center justify-between">
+            <p class="text-navy text-headline-2">
               {t(`asi-nos-vemos.${section.id}`)}
-            </ScrollToButton>
-          ))
-        }
-      </div>
-    </aside>
-    <div class="col-span-10">
-      <section class="pb-indent">
-        <p class="text-navy text-headline-3">
-          {pageData.pageDescription}
-        </p>
-      </section>
-      {
-        pageData.sections.map((section) => (
-          <section id={section.id} class="pb-indent flex flex-col gap-indent">
-            <div class="flex items-center justify-between">
-              <p class="text-navy text-headline-2">
-                {t(`asi-nos-vemos.${section.id}`)}
-              </p>
-              {section.id !== 'asi-nos-vemos' ? (
-                <Button
-                  href={getRelativeLocaleUrl(locale, `/${section.id}`)}
-                  variant="secondary-white"
-                >
-                  {t(`asi-nos-vemos.go-to.${section.id}`)}
-                </Button>
-              ) : null}
-            </div>
-            {section.blocks?.map((block) => (
-              <Block {...block} />
-            ))}
-          </section>
-        ))
-      }
-    </div>
-  </div>
+            </p>
+            {section.id !== 'asi-nos-vemos' ? (
+              <Button
+                href={getRelativeLocaleUrl(locale, `/${section.id}`)}
+                variant="secondary-white"
+              >
+                {t(`asi-nos-vemos.go-to.${section.id}`)}
+              </Button>
+            ) : null}
+          </div>
+          {section.blocks?.map((block) => (
+            <Block {...block} />
+          ))}
+        </section>
+      ))
+    }
+  </PageAsideLayout>
 </MainLayout>

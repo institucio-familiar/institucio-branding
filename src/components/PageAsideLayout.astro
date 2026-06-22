@@ -1,0 +1,40 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { getPageLocale } from '@/i18n/utils'
+import ScrollToButton from '@/components/ScrollToButton.astro'
+
+export interface AsideNavSection {
+  id: string
+  label: string
+}
+
+interface Props {
+  sections: AsideNavSection[]
+  /** Page path without locale prefix, e.g. `/asi-nos-vemos` */
+  basePath: string
+}
+
+const { sections, basePath } = Astro.props
+const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+---
+
+<div class="relative grid grid-cols-12 gap-2 bg-white px-indent">
+  <aside class="col-span-2 sticky top-nav-height self-start pb-8">
+    <div class="flex flex-col gap-2">
+      {
+        sections.map((section) => (
+          <ScrollToButton
+            targetId={section.id}
+            href={getRelativeLocaleUrl(locale, `${basePath}#${section.id}`)}
+            class="text-navy text-body hover:text-body-bold"
+          >
+            {section.label}
+          </ScrollToButton>
+        ))
+      }
+    </div>
+  </aside>
+  <div class="col-span-10">
+    <slot />
+  </div>
+</div>

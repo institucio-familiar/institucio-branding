@@ -2,6 +2,7 @@
 import MainLayout from '@/layouts/MainLayout.astro'
 import Hero from '@/components/Hero.astro'
 import Puncha from '@/components/icons/Puncha.astro'
+import PageAsideLayout from '@/components/PageAsideLayout.astro'
 import Block1 from '@/components/ui/blocks/Block-1.astro'
 import Block2 from '@/components/ui/blocks/Block-2.astro'
 import Block3 from '@/components/ui/blocks/Block-3.astro'
@@ -41,91 +42,100 @@ async function getPageData() {
 
 const pageData = await getPageData()
 const heroMedia = pageData.heroMedia
+
+const asideSections = [
+  { id: 'block-1', label: 'Block 1' },
+  { id: 'block-2', label: 'Block 2' },
+  { id: 'block-3', label: 'Block 3' },
+  { id: 'block-4', label: 'Block 4' },
+  { id: 'block-5', label: 'Block 5' },
+  { id: 'block-6', label: 'Block 6' },
+  { id: 'block-7', label: 'Block 7' }
+]
 ---
 
 <MainLayout>
   <Hero media={pageData.heroMedia} title={pageData.title} />
 
-  <div class="grid grid-cols-10 bg-white relative">
+  <section class="relative bg-white px-indent">
     <Puncha
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <aside class="col-span-2 p-indent">Aside menu</aside>
-    <section
-      class="col-span-8 flex flex-col gap-indent bg-white px-indent py-10"
-    >
-      <h1 class="text-navy text-headline-1 uppercase">Blocks</h1>
-      <div class="py-10">
-        <p class="text-headline-3 pb-3 text-navy-light">Block 1</p>
-        {heroMedia && <Block1 media1={heroMedia} />}
-      </div>
-      <div class="py-10">
-        <p class="text-headline-3 pb-3 text-navy-light">Block 2</p>
-        {heroMedia && <Block2 media1={heroMedia} media2={heroMedia} />}
-      </div>
-      <div class="py-10">
-        <p class="text-headline-3 pb-3 text-navy-light">Block 3</p>
-        {
-          heroMedia && (
-            <Block3
-              title={pageData.title}
-              description={pageData.description}
-              media={heroMedia}
-            />
-          )
-        }
-      </div>
-      <div class="py-10">
-        <p class="text-headline-3 pb-3 text-navy-light">Block 4</p>
-        {
-          heroMedia && (
-            <Block4
-              title={pageData.title}
-              description={pageData.description}
-              media={heroMedia}
-            />
-          )
-        }
-      </div>
-      <div class="py-10">
-        <p class="text-headline-3 pb-3 text-navy-light">Block 5</p>
-        {
-          heroMedia && (
-            <Block5
-              title={pageData.title}
-              description={pageData.description}
-              medias={[heroMedia, heroMedia]}
-            />
-          )
-        }
-      </div>
-      <div class="py-10">
-        <p class="text-headline-3 pb-3 text-navy-light">Block 6</p>
-        {
-          heroMedia && (
-            <Block6
-              title={pageData.title}
-              description={pageData.description}
-              media={heroMedia}
-            />
-          )
-        }
-      </div>
-      <div class="py-10">
-        <p class="text-headline-3 pb-3 text-navy-light">Block 7</p>
-        {
-          heroMedia && (
-            <Block7
-              title={pageData.badCases.title}
-              description={pageData.description}
-              items={pageData.badCases.items}
-            />
-          )
-        }
-      </div>
-    </section>
-  </div>
+    <h1 class="text-navy text-headline-1 uppercase py-indent-2">Blocks</h1>
+  </section>
+
+  <PageAsideLayout sections={asideSections} basePath="/blocks">
+    <div id="block-1" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 1</p>
+      {heroMedia && <Block1 media1={heroMedia} />}
+    </div>
+    <div id="block-2" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 2</p>
+      {heroMedia && <Block2 media1={heroMedia} media2={heroMedia} />}
+    </div>
+    <div id="block-3" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 3</p>
+      {
+        heroMedia && (
+          <Block3
+            title={pageData.title}
+            description={pageData.description}
+            media={heroMedia}
+          />
+        )
+      }
+    </div>
+    <div id="block-4" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 4</p>
+      {
+        heroMedia && (
+          <Block4
+            title={pageData.title}
+            description={pageData.description}
+            media={heroMedia}
+          />
+        )
+      }
+    </div>
+    <div id="block-5" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 5</p>
+      {
+        heroMedia && (
+          <Block5
+            title={pageData.title}
+            description={pageData.description}
+            medias={[heroMedia, heroMedia]}
+          />
+        )
+      }
+    </div>
+    <div id="block-6" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 6</p>
+      {
+        heroMedia && (
+          <Block6
+            title={pageData.title}
+            description={pageData.description}
+            media={heroMedia}
+          />
+        )
+      }
+    </div>
+    <div id="block-7" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 7</p>
+      {
+        heroMedia && (
+          <Block7
+            title={pageData.badCases.title}
+            description={pageData.description}
+            items={pageData.badCases.items}
+          />
+        )
+      }
+    </div>
+  </PageAsideLayout>
+
   <section
     class="relative flex items-center justify-center bg-white border-t border-navy-light py-10 md:py-20 min-h-[60vh]"
   >
