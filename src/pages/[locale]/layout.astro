@@ -12,7 +12,7 @@ import {
   toAtom2,
   toBadUses
 } from '@/sanity/lib/page-parsers'
-// import Block7 from '@/components/ui/blocks/Block-7.astro'
+// import { Block7 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
 
 const { locale: localeParam } = Astro.params
@@ -81,6 +81,11 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/layout">
+    <section class="pb-indent">
+      <p class="text-navy text-headline-3">
+        {pageData.pageDescription}
+      </p>
+    </section>
     <!-- <section id="section4">
       <Block7
         title={pageData.badCases.title}

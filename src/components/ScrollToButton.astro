@@ -34,7 +34,14 @@ const { targetId, href, class: className } = Astro.props
           history.pushState(null, '', href)
         }
 
-        Scroll.scrollTo(`#${targetId}`)
+        const navHeight =
+          parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              '--nav-height'
+            )
+          ) || 0
+
+        Scroll.scrollTo(`#${targetId}`, { offset: -navHeight })
       })
     })
 </script>

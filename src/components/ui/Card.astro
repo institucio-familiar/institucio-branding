@@ -9,10 +9,19 @@ type Props = {
   title: string
   media: Media
   description: string
+  buttonType?: 'download' | 'link' | 'link-external'
   buttonUrl?: string
+  buttonText?: string
 }
 
-const { title, media, description, buttonUrl } = Astro.props
+const {
+  title,
+  media,
+  description,
+  buttonType = 'download',
+  buttonUrl,
+  buttonText
+} = Astro.props
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -28,7 +37,7 @@ const t = useTranslations(locale)
     <h2 class="text-navy text-body-bold">{title}</h2>
     <p class="text-navy text-body">{description}</p>
     {
-      buttonUrl && (
+      buttonUrl && buttonType === 'download' && (
         <Button
           href={buttonUrl}
           variant="secondary-white"
@@ -36,6 +45,25 @@ const t = useTranslations(locale)
           class="self-start"
         >
           <slot name="button">{t('recursos.download')}</slot>
+        </Button>
+      )
+    }
+    {
+      buttonUrl && buttonType === 'link-external' && (
+        <Button href={buttonUrl} variant="secondary-white" class="self-start">
+          <slot name="button">{buttonText}</slot>
+        </Button>
+      )
+    }
+    {
+      buttonUrl && buttonType === 'link' && (
+        <Button
+          href={buttonUrl}
+          internal
+          variant="secondary-white"
+          class="self-start"
+        >
+          <slot name="button">{buttonText}</slot>
         </Button>
       )
     }

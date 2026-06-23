@@ -42,9 +42,7 @@ async function getPageData() {
           media
         }
       })
-      .filter(
-        (item): item is RecursosCard => item !== null
-      )
+      .filter((item): item is RecursosCard => item !== null)
   }
 }
 
@@ -67,6 +65,11 @@ const asideSections = [{ id: 'section1', label: 'Recursos' }]
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/recursos">
+    <section class="pb-indent">
+      <p class="text-navy text-headline-3">
+        {pageData.pageDescription}
+      </p>
+    </section>
     {
       pageData.section1.length > 0 && (
         <section

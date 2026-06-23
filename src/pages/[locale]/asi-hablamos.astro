@@ -60,5 +60,11 @@ const asideSections = [
     </h1>
   </section>
 
-  <PageAsideLayout sections={asideSections} basePath="/asi-hablamos" />
+  <PageAsideLayout sections={asideSections} basePath="/asi-hablamos">
+    <section class="pb-indent">
+      <p class="text-navy text-headline-3">
+        {pageData.pageDescription}
+      </p>
+    </section>
+  </PageAsideLayout>
 </MainLayout>

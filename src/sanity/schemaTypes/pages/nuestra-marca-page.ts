@@ -117,7 +117,12 @@ export const nuestraMarcaPage = defineType({
             })
           ]
         })
-      ]
+      ],
+      preview: {
+        prepare() {
+          return { title: 'Sección 1' }
+        }
+      }
     }),
     defineField({
       name: 'section2',

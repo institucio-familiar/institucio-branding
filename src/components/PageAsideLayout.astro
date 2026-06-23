@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { getPageLocale } from '@/i18n/utils'
 import ScrollToButton from '@/components/ScrollToButton.astro'
+import Arrow from '@/components/ui/icon-glyphs/Arrow.astro'
 
 export interface AsideNavSection {
   id: string
@@ -16,25 +17,197 @@ interface Props {
 
 const { sections, basePath } = Astro.props
 const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+const sectionIds = sections.map((section) => section.id)
 ---
 
 <div class="relative grid grid-cols-12 gap-2 bg-white px-indent">
-  <aside class="col-span-2 sticky top-nav-height self-start pb-8">
-    <div class="flex flex-col gap-2">
-      {
-        sections.map((section) => (
-          <ScrollToButton
-            targetId={section.id}
-            href={getRelativeLocaleUrl(locale, `${basePath}#${section.id}`)}
-            class="text-navy text-body hover:text-body-bold"
-          >
-            {section.label}
-          </ScrollToButton>
-        ))
-      }
-    </div>
+  <aside
+    class="hidden lg:col-span-2 lg:block sticky top-nav-height self-start pb-8"
+  >
+    <nav
+      class="relative"
+      data-aside-nav
+      data-section-ids={JSON.stringify(sectionIds)}
+      aria-label="Page sections"
+    >
+      <span
+        data-aside-arrow
+        class="text-navy pointer-events-none absolute top-0 right-full mr-1 size-2.5 opacity-0 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none"
+        aria-hidden="true"
+      >
+        <Arrow direction="right" />
+      </span>
+      <div class="flex flex-col gap-2">
+        {
+          sections.map((section) => (
+            <ScrollToButton
+              targetId={section.id}
+              href={getRelativeLocaleUrl(locale, `${basePath}#${section.id}`)}
+              class="text-navy text-body hover:text-body-bold"
+            >
+              {section.label}
+            </ScrollToButton>
+          ))
+        }
+      </div>
+    </nav>
   </aside>
-  <div class="col-span-10">
+  <div class="col-span-12 lg:col-span-10 lg:pl-4">
     <slot />
   </div>
 </div>
+
+<script>
+  import { $scroll } from '@/scripts/stores/scroll'
+
+  function getNavHeight() {
+    return (
+      parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          '--nav-height'
+        )
+      ) || 0
+    )
+  }
+
+  function initAsideNav(nav: HTMLElement) {
+    const sectionIds = JSON.parse(nav.dataset.sectionIds ?? '[]') as string[]
+    if (sectionIds.length === 0) return
+
+    const arrow = nav.querySelector<HTMLElement>('[data-aside-arrow]')
+    const links = nav.querySelectorAll<HTMLAnchorElement>(
+      '[data-scroll-to-button]'
+    )
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+
+    let activeId = sectionIds[0]
+    const ratios = new Map<string, number>()
+
+    function moveArrow(immediate = false) {
+      if (!arrow) return
+
+      const activeLink = nav.querySelector<HTMLElement>(
+        `[data-target-id="${activeId}"]`
+      )
+      if (!activeLink) return
+
+      const navRect = nav.getBoundingClientRect()
+      const linkRect = activeLink.getBoundingClientRect()
+      const y = linkRect.top - navRect.top + linkRect.height / 2
+
+      if (immediate || prefersReducedMotion) {
+        arrow.style.transition = 'none'
+      }
+
+      arrow.style.transform = `translateY(${y}px) translateY(-50%)`
+      arrow.style.opacity = '1'
+
+      if (immediate || prefersReducedMotion) {
+        arrow.offsetHeight
+        arrow.style.transition = ''
+      }
+    }
+
+    function setActive(id: string, immediate = false) {
+      if (!sectionIds.includes(id) || id === activeId) {
+        moveArrow(immediate)
+        return
+      }
+
+      activeId = id
+
+      links.forEach((link) => {
+        const isActive = link.dataset.targetId === id
+        if (isActive) {
+          link.setAttribute('aria-current', 'location')
+        } else {
+          link.removeAttribute('aria-current')
+        }
+        link.classList.toggle('text-body-bold', isActive)
+        link.classList.toggle('text-body', !isActive)
+      })
+
+      moveArrow(immediate)
+    }
+
+    function getActiveFromScroll() {
+      const line = getNavHeight() + 1
+      let active = sectionIds[0]
+
+      for (const id of sectionIds) {
+        const element = document.getElementById(id)
+        if (element && element.getBoundingClientRect().top <= line) {
+          active = id
+        }
+      }
+
+      return active
+    }
+
+    const navHeight = getNavHeight()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          ratios.set(entry.target.id, entry.intersectionRatio)
+        }
+
+        let bestId = activeId
+        let bestRatio = 0
+
+        for (const id of sectionIds) {
+          const ratio = ratios.get(id) ?? 0
+          if (ratio > bestRatio) {
+            bestRatio = ratio
+            bestId = id
+          }
+        }
+
+        if (bestRatio > 0) {
+          setActive(bestId)
+        }
+      },
+      {
+        root: null,
+        rootMargin: `-${navHeight}px 0px -55% 0px`,
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+      }
+    )
+
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id)
+      if (element) observer.observe(element)
+    })
+
+    const hash = location.hash.slice(1)
+    if (hash && sectionIds.includes(hash)) {
+      setActive(hash, true)
+    } else {
+      setActive(getActiveFromScroll(), true)
+    }
+
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        const id = link.dataset.targetId
+        if (id) setActive(id)
+      })
+    })
+
+    const resizeObserver = new ResizeObserver(() => moveArrow())
+    resizeObserver.observe(nav)
+
+    window.addEventListener('resize', () => moveArrow())
+    document.fonts?.ready.then(() => moveArrow())
+
+    $scroll.subscribe(({ scroll, limit }) => {
+      if (limit > 0 && scroll >= limit - 2) {
+        setActive(sectionIds[sectionIds.length - 1])
+      }
+    })
+  }
+
+  document
+    .querySelectorAll<HTMLElement>('[data-aside-nav]')
+    .forEach(initAsideNav)
+</script>

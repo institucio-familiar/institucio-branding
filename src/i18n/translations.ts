@@ -175,6 +175,21 @@ export const asiNosVemos: BilingualTranslations = {
   }
 }
 
+export const nuestraMarca: BilingualTranslations = {
+  es: {
+    'nuestra-marca.principios-creativos': 'Principios creativos',
+    'nuestra-marca.go-to.typography': 'Ir a tipografía',
+    'nuestra-marca.go-to.color': 'Ir a color',
+    'nuestra-marca.go-to.voz': 'Ir a voz'
+  },
+  ca: {
+    'nuestra-marca.principios-creativos': 'Principis creatius',
+    'nuestra-marca.go-to.typography': 'Anar a tipografia',
+    'nuestra-marca.go-to.color': 'Anar a color',
+    'nuestra-marca.go-to.voz': 'Anar a veu'
+  }
+}
+
 export const allTranslations: BilingualTranslations[] = [
   generics,
   nav,
@@ -185,5 +200,6 @@ export const allTranslations: BilingualTranslations[] = [
   library,
   notFound,
   recursos,
-  asiNosVemos
+  asiNosVemos,
+  nuestraMarca
 ]

@@ -1,0 +1,8 @@
+export { default as Block } from './Block.astro'
+export { default as Block1 } from './Block-1.astro'
+export { default as Block2 } from './Block-2.astro'
+export { default as Block3 } from './Block-3.astro'
+export { default as Block4 } from './Block-4.astro'
+export { default as Block5 } from './Block-5.astro'
+export { default as Block6 } from './Block-6.astro'
+export { default as Block7 } from './Block-7.astro'

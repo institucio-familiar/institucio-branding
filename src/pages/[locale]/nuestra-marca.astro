@@ -2,18 +2,32 @@
 import MainLayout from '@/layouts/MainLayout.astro'
 import Hero from '@/components/Hero.astro'
 import { getPageLocale } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
 import { NUESTRA_MARCA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
-import {
-  parsePageHeader,
-  toAtom1
-} from '@/sanity/lib/page-parsers'
+import { parsePageHeader, toAtom1 } from '@/sanity/lib/page-parsers'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import { Block1, Block6 } from '@/components/ui/blocks'
+import Card from '@/components/ui/Card.astro'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+
+const PRINCIPIOS_CREATIVOS_PATHS = {
+  typography: '/tipografia',
+  color: '/brand-colors',
+  voz: '/asi-hablamos'
+} as const
+
+const PRINCIPIOS_CREATIVOS_BUTTON_TEXT = {
+  typography: 'nuestra-marca.go-to.typography',
+  color: 'nuestra-marca.go-to.color',
+  voz: 'nuestra-marca.go-to.voz'
+} as const
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
+const t = useTranslations(locale)
 
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(NUESTRA_MARCA_PAGE_QUERY)
@@ -24,42 +38,55 @@ async function getPageData() {
     section1: sanityPageData?.section1
       ? {
           title: sanityPageData.section1.title?.[locale],
-          questions: (sanityPageData.section1.questions ?? []).map(
-            (question) => ({
-              question: question.question?.[locale],
-              answer: question.answer?.[locale]
-            })
+          questions: (sanityPageData.section1.questions ?? []).flatMap(
+            (question) => {
+              const questionText = question.question?.[locale]
+              const answerText = question.answer?.[locale]
+              if (!questionText || !answerText) return []
+
+              return [{ question: questionText, answer: answerText }]
+            }
           )
         }
       : null,
-    section2: (sanityPageData?.section2 ?? [])
-      .map((item) => {
-        const media = toMedia(item.media)
-        if (!media) return null
+    section2: (sanityPageData?.section2 ?? []).flatMap((item) => {
+      const media = toMedia(item.media)
+      const title = item.title?.[locale]
+      const description = item.description?.[locale]
+      if (!media || !title || !description) return []
 
-        return {
-          title: item.title?.[locale],
-          description: item.description?.[locale],
-          media
+      return [{ title, description, media }]
+    }),
+    section3: (
+      Object.keys(
+        PRINCIPIOS_CREATIVOS_PATHS
+      ) as (keyof typeof PRINCIPIOS_CREATIVOS_PATHS)[]
+    ).flatMap((key) => {
+      const card = toAtom1(sanityPageData?.section3?.[key], locale)
+      if (!card) return []
+
+      return [
+        {
+          ...card,
+          buttonUrl: getRelativeLocaleUrl(
+            locale,
+            PRINCIPIOS_CREATIVOS_PATHS[key]
+          ),
+          buttonText: t(PRINCIPIOS_CREATIVOS_BUTTON_TEXT[key])
         }
-      })
-      .filter(Boolean),
-    section3: sanityPageData?.section3
-      ? {
-          typography: toAtom1(sanityPageData.section3.typography, locale),
-          color: toAtom1(sanityPageData.section3.color, locale),
-          voz: toAtom1(sanityPageData.section3.voz, locale)
-        }
-      : null
+      ]
+    })
   }
 }
 
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'section1', label: 'Sección 1' },
-  { id: 'section2', label: 'Sección 2' },
-  { id: 'section3', label: 'Principios creativos' }
+  { id: 'nuestra-marca', label: t('nav.nuestraMarca') },
+  {
+    id: 'principios-creativos',
+    label: t('nuestra-marca.principios-creativos')
+  }
 ]
 ---
 
@@ -76,5 +103,73 @@ const asideSections = [
     </h1>
   </section>
 
-  <PageAsideLayout sections={asideSections} basePath="/nuestra-marca" />
+  <PageAsideLayout sections={asideSections} basePath="/nuestra-marca">
+    <section
+      id={asideSections[0].id}
+      class="flex flex-col gap-indent pb-indent"
+    >
+      <p class="text-navy text-headline-3">
+        {pageData.pageDescription}
+      </p>
+
+      {pageData.introMedia && <Block1 media1={pageData.introMedia} />}
+
+      {
+        pageData.section1 && (
+          <div class="flex flex-col gap-indent pb-indent-2 pt-indent">
+            <h2 class="text-navy text-headline-2 uppercase">
+              {pageData.section1.title}
+            </h2>
+            <div class="flex flex-col gap-indent">
+              {pageData.section1.questions.map((item) => (
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2.5fr)] md:gap-indent">
+                  <p class="text-navy text-body">{item.question}</p>
+                  <p class="text-navy text-body">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      {
+        pageData.section2.length > 0 && (
+          <div class="flex flex-col gap-indent md:gap-indent-2">
+            {pageData.section2.map((block) => (
+              <Block6
+                title={block.title}
+                description={block.description}
+                media={block.media}
+              />
+            ))}
+          </div>
+        )
+      }
+    </section>
+
+    {
+      pageData.section3.length > 0 && (
+        <section
+          id={asideSections[1].id}
+          class="flex flex-col gap-indent pb-indent-2"
+        >
+          <h2 class="text-navy text-headline-2 uppercase">
+            {t('nuestra-marca.principios-creativos')}
+          </h2>
+          <div class="grid grid-cols-1 gap-indent md:grid-cols-3">
+            {pageData.section3.map((card) => (
+              <Card
+                title={card.title}
+                media={card.media}
+                description={card.description}
+                buttonUrl={card.buttonUrl}
+                buttonType="link"
+                buttonText={card.buttonText}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </PageAsideLayout>
 </MainLayout>
