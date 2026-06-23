@@ -93,7 +93,7 @@ const asideSections = [
 <MainLayout>
   <Hero media={pageData.heroMedia} title={pageData.pageTitle} />
 
-  <section class="relative bg-white px-indent">
+  <section class="relative bg-white px-indent" data-header-theme="dark">
     <Puncha
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
@@ -107,6 +107,7 @@ const asideSections = [
     <section
       id={asideSections[0].id}
       class="flex flex-col gap-indent pb-indent"
+      data-header-theme="dark"
     >
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
@@ -152,6 +153,7 @@ const asideSections = [
         <section
           id={asideSections[1].id}
           class="flex flex-col gap-indent pb-indent-2"
+          data-header-theme="dark"
         >
           <h2 class="text-navy text-headline-2 uppercase">
             {t('nuestra-marca.principios-creativos')}

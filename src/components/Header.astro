@@ -13,28 +13,80 @@ const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
 ---
 
-<header class="fixed top-0 left-0 z-50">
-  <div class="flex items-end gap-2 p-indent z-10">
-    <a href={getRelativeLocaleUrl(locale)} class="flex items-center gap-2">
-      <ColegioEscudo color="gray" class="h-9 w-auto" />
-      <ColegioNombre color="gray" class="h-7 w-auto" />
-    </a>
-    <Menu />
-  </div>
-</header>
+<div data-header data-theme="light" class="fixed inset-x-0 top-0 z-50">
+  <header class="absolute -top-1 left-0">
+    <div class="flex items-end gap-2 px-indent py-4 z-10 md:py-8">
+      <a href={getRelativeLocaleUrl(locale)} class="flex items-center gap-2">
+        <ColegioEscudo class="header-logo h-9 w-auto" />
+        <ColegioNombre class="header-logo h-7 w-auto" />
+      </a>
+      <Menu />
+    </div>
+  </header>
 
-<div
-  class="fixed top-indent right-indent flex items-center gap-4 z-40"
-  data-header-actions
->
-  <LanguageSwitcher />
-  <Button variant="secondary-white" href={`mailto:${HELP_EMAIL}`}>
-    {t('header.needHelp')}
-  </Button>
+  <div
+    class="absolute top-4 right-indent flex items-center gap-4 md:top-8"
+    data-header-actions
+  >
+    <Button
+      variant="secondary-white"
+      class="header-help"
+      href={`mailto:${HELP_EMAIL}`}
+    >
+      {t('header.needHelp')}
+    </Button>
+    <LanguageSwitcher />
+  </div>
 </div>
+
+<style>
+  [data-header] {
+    --header-logo: var(--color-white);
+    --header-fg: var(--color-frost);
+  }
+
+  [data-header][data-theme='dark'] {
+    --header-logo: var(--color-navy);
+    --header-fg: var(--color-navy);
+  }
+
+  [data-header] :global(.header-logo path) {
+    transition: fill 0.2s ease;
+  }
+
+  [data-header] :global([data-language-switcher] a) {
+    color: var(--header-fg);
+    transition: color 0.2s ease;
+  }
+
+  [data-header] :global([data-language-switcher] a:hover) {
+    color: var(--color-blue);
+  }
+
+  [data-header][data-theme='dark'] :global(.header-help) {
+    border-color: var(--color-navy);
+    background-color: transparent;
+    color: var(--color-navy);
+  }
+
+  [data-header][data-theme='dark'] :global(.header-help:hover) {
+    border-color: var(--color-navy);
+    background-color: var(--color-navy);
+    color: var(--color-frost);
+  }
+
+  [data-header][data-theme='dark'] :global(.header-help:active) {
+    border-color: var(--color-navy-light);
+    background-color: var(--color-navy-light);
+    color: var(--color-frost);
+  }
+</style>
 
 <script>
   import { $isMenuOpen } from '@/store'
+  import { initHeaderTheme } from '@/scripts/header-theme'
+
+  initHeaderTheme()
 
   document.querySelectorAll('header a').forEach((link) => {
     link.addEventListener('click', () => {

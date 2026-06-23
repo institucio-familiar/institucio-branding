@@ -13,8 +13,17 @@
   --color-primary: var(--color-ink);
   --color-secondary: var(--color-white);
 
-  --nav-height: 100px;
+  --nav-height-sm: 68px;
+  --nav-height-md: 100px;
+  --nav-height: var(--nav-height-sm);
+
   --indent-height: 60px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nav-height: var(--nav-height-md);
+  }
 }
 
 html {

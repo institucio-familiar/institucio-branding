@@ -8,7 +8,10 @@ const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
 ---
 
-<footer class="bg-blue p-indent pt-indent-2 md:pt-indent">
+<footer
+  class="bg-blue p-indent pt-indent-2 md:pt-indent"
+  data-header-theme="light"
+>
   <div class="flex flex-col items-center gap-18 md:gap-8">
     <div class="flex items-center self-end gap-2">
       <button

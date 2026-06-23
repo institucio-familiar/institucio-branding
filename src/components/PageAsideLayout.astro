@@ -59,16 +59,7 @@ const sectionIds = sections.map((section) => section.id)
 
 <script>
   import { $scroll } from '@/scripts/stores/scroll'
-
-  function getNavHeight() {
-    return (
-      parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          '--nav-height'
-        )
-      ) || 0
-    )
-  }
+  import { getNavHeight, getNavProbeLine } from '@/scripts/utils/nav-height'
 
   function initAsideNav(nav: HTMLElement) {
     const sectionIds = JSON.parse(nav.dataset.sectionIds ?? '[]') as string[]
@@ -133,7 +124,7 @@ const sectionIds = sections.map((section) => section.id)
     }
 
     function getActiveFromScroll() {
-      const line = getNavHeight() + 1
+      const line = getNavProbeLine()
       let active = sectionIds[0]
 
       for (const id of sectionIds) {
