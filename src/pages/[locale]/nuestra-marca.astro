@@ -112,50 +112,50 @@ const asideSections = [
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
+    </section>
 
-      {pageData.introMedia && <Block1 media1={pageData.introMedia} />}
+    {pageData.introMedia && <Block1 media1={pageData.introMedia} />}
 
-      {
-        pageData.section1 && (
-          <div class="flex flex-col gap-indent pb-indent-2 pt-indent">
-            <h2 class="text-navy text-headline-2 uppercase">
-              {pageData.section1.title}
-            </h2>
-            <div class="flex flex-col gap-indent">
-              {pageData.section1.questions.map((item) => (
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2.5fr)] md:gap-indent">
-                  <p class="text-navy text-body">{item.question}</p>
-                  <p class="text-navy text-body">{item.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )
-      }
-
-      {
-        pageData.section2.length > 0 && (
-          <div class="flex flex-col gap-indent md:gap-indent-2">
-            {pageData.section2.map((block) => (
-              <Block6
-                title={block.title}
-                description={block.description}
-                media={block.media}
-              />
+    {
+      pageData.section1 && (
+        <section class="flex flex-col gap-indent-1-5 pb-indent-3 pt-indent-2">
+          <h2 class="text-navy text-headline-2 uppercase">
+            {pageData.section1.title}
+          </h2>
+          <div class="flex flex-col gap-indent">
+            {pageData.section1.questions.map((item) => (
+              <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2.5fr)] md:gap-indent">
+                <p class="text-navy text-body">{item.question}</p>
+                <p class="text-navy text-body">{item.answer}</p>
+              </div>
             ))}
           </div>
-        )
-      }
-    </section>
+        </section>
+      )
+    }
+
+    {
+      pageData.section2.length > 0 && (
+        <section class="flex flex-col gap-indent md:gap-indent-2">
+          {pageData.section2.map((block) => (
+            <Block6
+              title={block.title}
+              description={block.description}
+              media={block.media}
+            />
+          ))}
+        </section>
+      )
+    }
 
     {
       pageData.section3.length > 0 && (
         <section
           id={asideSections[1].id}
-          class="flex flex-col gap-indent pb-indent-2"
+          class="flex flex-col gap-indent pb-indent-3 pt-indent-1-5"
           data-header-theme="dark"
         >
-          <h2 class="text-navy text-headline-2 uppercase">
+          <h2 class="text-navy text-headline-3">
             {t('nuestra-marca.principios-creativos')}
           </h2>
           <div class="grid grid-cols-1 gap-indent md:grid-cols-3">

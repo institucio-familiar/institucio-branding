@@ -37,7 +37,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   <div>
     <div
       id="menu-overlay"
-      class="bg-navy -z-1 absolute inset-0 h-screen w-screen"
+      class="bg-navy -z-1 absolute inset-0 h-dvh w-screen"
       style="transform: translateY(-100%)"
     >
     </div>
@@ -63,10 +63,10 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   </div>
   <div
     id="menu-content"
-    class="absolute top-0 left-0 h-screen w-screen -z-1 flex items-center justify-between opacity-0"
+    class="absolute top-0 left-0 h-dvh w-screen -z-1 flex items-center justify-between opacity-0"
   >
     <div id="menu-items" class="p-indent">
-      <ul class="flex flex-col gap-2">
+      <ul class="flex flex-col gap-4">
         {
           MENU_ITEMS.map((item) => (
             <li>
@@ -83,7 +83,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
     <div id="submenu-items" class="relative flex flex-row items-center h-full">
       <PunchaVertical color="blue" class="translate-x-[0.5px]" />
       <ul
-        class="flex flex-col gap-6 justify-center h-full bg-blue p-indent pl-indent-1-5 pr-indent-3"
+        class="flex flex-col gap-6 justify-center h-full bg-blue py-indent pl-indent-2 pr-indent-3"
       >
         {
           SUBMENU_ITEMS.map((item) => (

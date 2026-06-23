@@ -42,7 +42,7 @@ const pageData = await getPageData()
   <Hero media={pageData.heroMedia} heading={t('home.hero')} />
 
   <div class="relative h-[200dvh]" data-home-sections>
-    <div class="sticky top-0 h-screen">
+    <div class="sticky top-0 h-dvh">
       <Puncha
         color="navy"
         class="absolute top-[0.5px] left-1/2 z-2 -translate-x-1/2 -translate-y-full"
@@ -98,9 +98,9 @@ const pageData = await getPageData()
     </div>
   </section>
 
-  <div data-text-slide-section class="relative h-screen md:h-[200dvh]">
+  <div data-text-slide-section class="relative h-dvh md:h-[200dvh]">
     <section
-      class="sticky top-0 flex h-screen items-center justify-center overflow-hidden bg-white p-indent"
+      class="sticky top-0 flex h-dvh items-center justify-center overflow-hidden bg-white p-indent"
     >
       <div id="text-slide-container" class="hidden md:flex flex-col">
         <p
@@ -150,7 +150,7 @@ const pageData = await getPageData()
   </div>
 
   <section
-    class="relative flex items-center justify-center bg-white h-screen w-screen px-indent"
+    class="relative flex items-center justify-center bg-white h-dvh w-screen px-indent"
   >
     <div class="grid grid-cols-4 w-full">
       {
@@ -197,7 +197,7 @@ const pageData = await getPageData()
   </section>
 
   <section
-    class="relative flex items-center justify-center bg-white h-screen w-screen"
+    class="relative flex items-center justify-center bg-white h-dvh w-screen"
   >
     <div class="w-full h-full">
       {
@@ -211,7 +211,7 @@ const pageData = await getPageData()
   </section>
 
   <section
-    class="relative flex items-center justify-center bg-white h-screen w-screen px-indent"
+    class="relative flex items-center justify-center bg-white h-dvh w-screen px-indent"
   >
     <div class="w-full h-full">
       <p class="text-navy text-headline-1 uppercase">
@@ -221,7 +221,7 @@ const pageData = await getPageData()
   </section>
 
   <section
-    class="relative flex items-center justify-center bg-white h-screen w-screen px-indent"
+    class="relative flex items-center justify-center bg-white h-dvh w-screen px-indent"
   >
     <div class="w-full h-full">
       <p class="text-navy text-headline-1 uppercase">
