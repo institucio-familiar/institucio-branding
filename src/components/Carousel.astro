@@ -1,7 +1,124 @@
 ---
-// Carousel component
+import MediaAsset from '@/components/MediaAsset.astro'
+import Icon from '@/components/ui/Icon.astro'
+import type { Media } from '@/components/ui/blocks/block-types'
+
+type AspectRatio = 'video' | 'square'
+
+type Props = {
+  medias: Media[]
+  aspectRatio?: AspectRatio
+  title?: string
+  imageSize?: number
+  autoplayDelay?: number
+}
+
+const {
+  medias,
+  aspectRatio = 'square',
+  title = 'Media',
+  imageSize = 1200,
+  autoplayDelay = 5000
+} = Astro.props
+
+const aspectClass = aspectRatio === 'video' ? 'aspect-video' : 'aspect-4/3'
+const hasMultipleSlides = medias.length > 1
+
+const arrowPath =
+  'M11.7331 10.3244L8.369 4.25933C8.4793 6.47861 8.57582 8.68411 8.68612 10.9034C8.68612 11.1791 8.71369 11.4409 8.72748 11.7029C8.72748 11.882 8.74126 12.0613 8.75505 12.2405C8.76884 12.5299 8.78263 12.8332 8.79642 13.1364C8.79642 13.3294 8.8102 13.5086 8.82399 13.6878C8.83778 14.1151 8.86535 14.5424 8.87914 14.956C8.87914 15.08 8.87914 15.2041 8.89293 15.3281C8.89293 15.5073 8.90672 15.6865 8.92051 15.8657C8.92051 16.1 8.94808 16.3344 8.96187 16.5687C8.96187 16.6928 8.96186 16.803 8.97565 16.9133C8.97565 17.1477 9.00323 17.382 9.01702 17.6025L9.01702 17.6439C9.04459 18.2228 9.07216 18.7742 9.09974 19.2842C9.1411 20.0975 9.16868 20.8005 9.19625 21.3932C9.19625 21.4759 9.19625 21.5449 9.19625 21.6276C9.19625 21.7378 9.19625 21.8343 9.19625 21.9308C9.19625 22.1238 9.21004 22.303 9.22383 22.4684C9.22383 22.5235 9.22383 22.5787 9.22383 22.62C9.22383 22.7027 9.22383 22.7717 9.22383 22.8406C9.22383 22.8544 9.22383 22.8819 9.22383 22.8957C9.22383 22.9371 9.22383 22.9922 9.22383 23.0336C9.22383 23.0749 9.22383 23.1163 9.22383 23.1576C9.22383 23.2817 9.26519 23.4333 9.30655 23.6263C9.40307 24.026 9.55473 24.3431 9.6926 24.5774L5.36333 24.5774C5.50121 24.3431 5.65287 24.026 5.74938 23.6263C5.79074 23.4333 5.81832 23.2817 5.83211 23.1576C5.83211 23.1576 5.83211 23.1576 5.83211 23.1439C5.83211 23.1163 5.83211 23.0887 5.83211 23.0611C5.83211 23.0335 5.83211 23.006 5.83211 22.9922C5.83211 22.9509 5.83211 22.9233 5.83211 22.8819C5.83211 22.7855 5.83211 22.6752 5.83211 22.5649C5.83211 22.3443 5.85968 22.11 5.87347 21.8343C5.87347 21.7516 5.87347 21.6689 5.87347 21.5724C5.87347 21.3243 5.90105 21.0624 5.91483 20.7867C5.92862 20.4972 5.94241 20.1802 5.95619 19.8494C5.98377 19.2153 6.02513 18.4847 6.06649 17.6852C6.08028 17.2993 6.10785 16.8995 6.12164 16.486C6.12164 16.3482 6.12165 16.1965 6.13543 16.0449C6.13543 15.9071 6.13543 15.783 6.14922 15.6452C6.14922 15.4109 6.16301 15.1765 6.17679 14.9422C6.19058 14.5286 6.21816 14.1151 6.23194 13.674C6.23194 13.4948 6.24573 13.3156 6.25952 13.1226C6.27331 12.8332 6.28709 12.5299 6.30088 12.2267C6.30088 12.0475 6.31467 11.8682 6.32846 11.6891C6.34224 11.4272 6.35603 11.1653 6.36982 10.8896C6.46633 8.89086 6.57663 6.67157 6.68693 4.24553L3.32278 10.3106L1.7013e-07 10.3106C0.951337 9.30437 1.91646 8.17409 2.89537 6.94729C4.81183 4.50747 6.31467 2.15034 7.48661 -1.51695e-05C8.65854 2.15034 10.1614 4.50747 12.0778 6.94729C13.043 8.17409 14.0219 9.30437 14.9732 10.3106L11.6504 10.3106L11.7331 10.3244Z'
+
+const createArrowCursor = (rotation: number) => {
+  const size = 48
+  const hotspot = size / 2
+  const scale = 1.6
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><g transform="translate(${hotspot} ${hotspot}) rotate(${rotation}) scale(${scale}) translate(-7.5 -12.5)"><path d="${arrowPath}" fill="#ffffff"/></g></svg>`
+
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}") ${hotspot} ${hotspot}, auto`
+}
+
+const cursorPrev = createArrowCursor(-90)
+const cursorNext = createArrowCursor(90)
 ---
 
-<div>
-  CAROUSEL COMPONENT <br /> HERE
-</div>
+{
+  medias.length > 0 && (
+    <div
+      class="flex w-full flex-col"
+      data-carousel
+      data-autoplay-delay={autoplayDelay}
+    >
+      <div
+        class:list={['relative w-full overflow-hidden rounded-sm', aspectClass]}
+      >
+        <div class="h-full w-full overflow-hidden" data-carousel-viewport>
+          <div class="flex h-full touch-pan-y" data-carousel-container>
+            {medias.map((media) => (
+              <div
+                class="min-w-0 shrink-0 grow-0 basis-full"
+                data-carousel-slide
+              >
+                <MediaAsset media={media} title={title} imageSize={imageSize} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {hasMultipleSlides && (
+          <div class="absolute inset-0 z-1 flex">
+            <button
+              type="button"
+              class="h-full w-1/2 border-0 bg-transparent p-0"
+              data-carousel-prev
+              aria-label="Previous slide"
+            />
+            <button
+              type="button"
+              class="h-full w-1/2 border-0 bg-transparent p-0"
+              data-carousel-next
+              aria-label="Next slide"
+            />
+          </div>
+        )}
+      </div>
+
+      {hasMultipleSlides && (
+        <div class="mt-3 flex justify-start gap-3">
+          {medias.map((_, index) => (
+            <Icon
+              name="number"
+              number={String(index + 1).padStart(2, '0')}
+              variant="secondary-white"
+              class="transition-all duration-200 data-active:bg-navy data-active:text-frost"
+              data-carousel-dot={index}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+<style define:vars={{ cursorPrev, cursorNext }}>
+  [data-carousel-prev] {
+    cursor: var(--cursorPrev);
+  }
+
+  [data-carousel-next] {
+    cursor: var(--cursorNext);
+  }
+</style>
+
+<script>
+  import { initCarousels } from '@/scripts/carousel'
+
+  const destroyCarousels = initCarousels()
+
+  document.addEventListener(
+    'swup:visit:start',
+    () => {
+      destroyCarousels()
+    },
+    { once: true }
+  )
+</script>
