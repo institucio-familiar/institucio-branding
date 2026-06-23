@@ -1,4 +1,6 @@
 import { $scroll } from '@/scripts/stores/scroll'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import LocomotiveScroll, {
   type lenisTargetScrollTo,
@@ -12,7 +14,15 @@ export class Scroll {
   // Lifecycle
   // =============================================================================
   static init() {
+    gsap.registerPlugin(ScrollTrigger)
+
     this.locomotiveScroll = new LocomotiveScroll({
+      initCustomTicker: (render) => {
+        gsap.ticker.add(render)
+      },
+      destroyCustomTicker: (render) => {
+        gsap.ticker.remove(render)
+      },
       scrollCallback({ scroll, limit, velocity, direction, progress }) {
         $scroll.set({
           scroll,
@@ -23,6 +33,15 @@ export class Scroll {
         })
       }
     })
+
+    gsap.ticker.lagSmoothing(0)
+
+    const lenis = this.locomotiveScroll.lenisInstance
+    if (lenis) {
+      lenis.on('scroll', ScrollTrigger.update)
+      ScrollTrigger.addEventListener('refresh', () => lenis.resize())
+      ScrollTrigger.refresh()
+    }
   }
 
   static destroy() {

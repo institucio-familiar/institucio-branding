@@ -56,32 +56,34 @@ const mediaTitle = title ?? heading
 </section>
 
 <script>
-  import { animate, scroll } from 'motion'
+  import { gsap } from 'gsap'
 
   const heroSection = document.querySelector('[data-hero-section]')
   const heroMedia = document.querySelector('[data-hero-media]')
-  const cancelScrolls: Array<() => void> = []
 
   if (heroSection && heroMedia) {
-    const animation = animate(
+    const tween = gsap.fromTo(
       heroMedia,
-      { scale: [1.2, 1] },
-      { ease: 'linear' }
+      { scale: 1.2 },
+      {
+        scale: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroSection,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      }
     )
 
-    cancelScrolls.push(
-      scroll(animation, {
-        target: heroSection,
-        offset: ['start start', 'end start']
-      })
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tween.scrollTrigger?.kill()
+        tween.kill()
+      },
+      { once: true }
     )
   }
-
-  document.addEventListener(
-    'swup:visit:start',
-    () => {
-      cancelScrolls.forEach((cancel) => cancel())
-    },
-    { once: true }
-  )
 </script>

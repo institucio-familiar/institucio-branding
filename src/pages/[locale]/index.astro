@@ -241,51 +241,59 @@ const pageData = await getPageData()
   </section>
 
   <script>
-    import { animate, scroll } from 'motion'
+    import { gsap } from 'gsap'
+
+    const tweens: gsap.core.Tween[] = []
 
     const sectionsBlock = document.querySelector('[data-home-sections]')
     const section2 = document.querySelector('[data-home-section-2]')
     const maskZoom = document.getElementById('mask-zoom')
-
-    const cancelScrolls: Array<() => void> = []
+    const textSlideSection = document.querySelector('[data-text-slide-section]')
 
     if (sectionsBlock && section2) {
-      const animation = animate(
-        section2,
-        { transform: ['translateX(100%)', 'translateX(0%)'] },
-        { ease: 'linear' }
-      )
-
-      cancelScrolls.push(
-        scroll(animation, {
-          target: sectionsBlock,
-          offset: ['start start', 'end end']
-        })
+      tweens.push(
+        gsap.fromTo(
+          section2,
+          { x: '100%' },
+          {
+            x: '0%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionsBlock,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: true
+            }
+          }
+        )
       )
     }
 
     if (maskZoom) {
-      const animation = animate(
-        maskZoom,
-        { scale: [0.25, 1] },
-        { ease: 'linear' }
-      )
-
-      cancelScrolls.push(
-        scroll(animation, {
-          target: maskZoom,
-          offset: ['start end', 'center center']
-        })
+      tweens.push(
+        gsap.fromTo(
+          maskZoom,
+          { scale: 0.25 },
+          {
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: maskZoom,
+              start: 'top bottom',
+              end: 'center center',
+              scrub: true
+            }
+          }
+        )
       )
     }
 
-    const textSlideSection = document.querySelector('[data-text-slide-section]')
     const textSlides = [
-      { id: 'text-slide-1', from: 'translateX(-100vw)' },
-      { id: 'text-slide-2', from: 'translateX(100vw)' },
-      { id: 'text-slide-3', from: 'translateX(-100vw)' },
-      { id: 'text-slide-4', from: 'translateX(100vw)' },
-      { id: 'text-slide-5', from: 'translateX(-100vw)' }
+      { id: 'text-slide-1', from: '-100vw' },
+      { id: 'text-slide-2', from: '100vw' },
+      { id: 'text-slide-3', from: '-100vw' },
+      { id: 'text-slide-4', from: '100vw' },
+      { id: 'text-slide-5', from: '-100vw' }
     ]
 
     if (textSlideSection) {
@@ -293,17 +301,21 @@ const pageData = await getPageData()
         const line = document.getElementById(id)
         if (!line) continue
 
-        const animation = animate(
-          line,
-          { transform: [from, 'translateX(0)'] },
-          { ease: 'linear' }
-        )
-
-        cancelScrolls.push(
-          scroll(animation, {
-            target: textSlideSection,
-            offset: ['start start', 'end end']
-          })
+        tweens.push(
+          gsap.fromTo(
+            line,
+            { x: from },
+            {
+              x: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: textSlideSection,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: true
+              }
+            }
+          )
         )
       }
     }
@@ -311,7 +323,10 @@ const pageData = await getPageData()
     document.addEventListener(
       'swup:visit:start',
       () => {
-        cancelScrolls.forEach((cancel) => cancel())
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
       },
       { once: true }
     )
