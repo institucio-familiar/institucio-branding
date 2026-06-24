@@ -13,7 +13,8 @@ import {
   toSectionWithAtom2Blocks
 } from '@/sanity/lib/page-parsers'
 // import { Block4, Block5, Block7 } from '@/components/ui/blocks'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -162,12 +163,12 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/brand-colors">
-    <section class="pb-indent">
+    <Section class="pb-indent">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
-    </section>
-    <section id="section1" class="grid grid-col-4 pb-indent">
+    </Section>
+    <Section id="section1" class="grid grid-col-4 pb-indent">
       {
         MAIN_COLORS.map((color) => (
           <div class={`bg-${color.name}`}>
@@ -178,13 +179,13 @@ const asideSections = [
           </div>
         ))
       }
-    </section>
+    </Section>
 
-    <section id="section2" class="pb-indent">
+    <Section id="section2" class="pb-indent">
       <!-- <Block5 title={'Tittle'} description={'Description'} medias={[]} /> -->
-    </section>
+    </Section>
 
-    <section class="grid grid-col-4 pb-indent">
+    <Section class="grid grid-col-4 pb-indent">
       {
         Object.values(COLORS).map((color) => (
           <div class={`bg-${color.name}`}>
@@ -195,17 +196,17 @@ const asideSections = [
           </div>
         ))
       }
-    </section>
+    </Section>
 
-    <!-- <section class="pb-indent">
+    <!-- <Section class="pb-indent">
       <Block5 title={'Tittle'} description={'Description'} medias={[]} />
-    </section> -->
+    </Section> -->
 
-    <!-- <section id="section4" class="pb-indent">
+    <!-- <Section id="section4" class="pb-indent">
       <Block4 title={'Tittle'} description={'Description'} media={} />
-    </section> -->
+    </Section> -->
 
-    <section id="section3" class="pb-indent">
+    <Section id="section3" class="pb-indent">
       <h3>Color combination</h3>
       <div class="grid grid-cols-3 gap-6 row-gap-4">
         {
@@ -218,14 +219,14 @@ const asideSections = [
           ))
         }
       </div>
-    </section>
+    </Section>
 
-    <!-- <section id="section5">
+    <!-- <Section id="section5">
       <Block7
         title={pageData.badCases.title}
         description={pageData.description}
         items={pageData.badCases.items}
       />
-    </section> -->
+    </Section> -->
   </PageAsideLayout>
 </MainLayout>

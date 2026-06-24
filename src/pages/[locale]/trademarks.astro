@@ -12,7 +12,8 @@ import {
   toTrademarkSection
 } from '@/sanity/lib/page-parsers'
 // import { Block7 } from '@/components/ui/blocks'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -58,11 +59,11 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/trademarks">
-    <section class="pb-indent">
+    <Section class="pb-indent">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
-    </section>
+    </Section>
     <!-- <section id="section6">
       <Block7
         title={pageData.badCases.title}

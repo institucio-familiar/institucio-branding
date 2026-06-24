@@ -11,7 +11,8 @@ import {
   toMedias,
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import Carousel from '@/components/Carousel.astro'
 import Block3 from '@/components/ui/blocks/Block-3.astro'
 import { useTranslations } from '@/i18n/ui'
@@ -67,17 +68,17 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/asi-hablamos">
-    <section class="pb-indent">
+    <Section class="pb-indent">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
-    </section>
-    <section class="pb-indent">
+    </Section>
+    <Section class="pb-indent">
       <Carousel medias={pageData.introMedias} aspectRatio="video" />
-    </section>
+    </Section>
     {
       pageData.section1 && (
-        <section class="pb-indent">
+        <Section id="section1" class="pb-indent">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
@@ -89,12 +90,12 @@ const asideSections = [
               media={block.media}
             />
           ))}
-        </section>
+        </Section>
       )
     }
     {
       pageData.section2 && (
-        <section class="pb-indent">
+        <Section id="section2" class="pb-indent">
           <h2 class="text-navy text-headline-2 uppercase">
             {t('asi-hablamos.section2.title')}
           </h2>
@@ -107,21 +108,21 @@ const asideSections = [
               />
             ))}
           </div>
-        </section>
+        </Section>
       )
     }
     {
       pageData.section3 && (
-        <section class="pb-indent bg-mist">
+        <Section id="section3" class="pb-indent bg-mist">
           <h2 class="text-blue text-headline-2 uppercase">SECTION 3</h2>
-        </section>
+        </Section>
       )
     }
     {
       pageData.section4 && (
-        <section class="pb-indent bg-navy">
+        <Section id="section4" class="pb-indent bg-navy">
           <h2 class="text-white text-headline-2 uppercase">SECTION 4</h2>
-        </section>
+        </Section>
       )
     }
     <Puncha

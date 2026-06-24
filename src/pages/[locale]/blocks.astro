@@ -2,7 +2,8 @@
 import MainLayout from '@/layouts/MainLayout.astro'
 import Hero from '@/components/Hero.astro'
 import Puncha from '@/components/icons/Puncha.astro'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import {
   Block1,
   Block2,
@@ -69,15 +70,15 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/blocks">
-    <div id="block-1" class="py-10">
+    <Section id="block-1" class="py-10">
       <p class="text-headline-3 pb-3 text-navy-light">Block 1</p>
       {heroMedia && <Block1 media1={heroMedia} />}
-    </div>
-    <div id="block-2" class="py-10">
+    </Section>
+    <Section id="block-2" class="py-10">
       <p class="text-headline-3 pb-3 text-navy-light">Block 2</p>
       {heroMedia && <Block2 media1={heroMedia} media2={heroMedia} />}
-    </div>
-    <div id="block-3" class="py-10">
+    </Section>
+    <Section id="block-3" class="py-10">
       <p class="text-headline-3 pb-3 text-navy-light">Block 3</p>
       {
         heroMedia && (
@@ -88,8 +89,8 @@ const asideSections = [
           />
         )
       }
-    </div>
-    <div id="block-4" class="py-10">
+    </Section>
+    <Section id="block-4" class="py-10">
       <p class="text-headline-3 pb-3 text-navy-light">Block 4</p>
       {
         heroMedia && (
@@ -100,8 +101,8 @@ const asideSections = [
           />
         )
       }
-    </div>
-    <div id="block-5" class="py-10">
+    </Section>
+    <Section id="block-5" class="py-10">
       <p class="text-headline-3 pb-3 text-navy-light">Block 5</p>
       {
         heroMedia && (
@@ -119,8 +120,8 @@ const asideSections = [
           />
         )
       }
-    </div>
-    <div id="block-6" class="py-10">
+    </Section>
+    <Section id="block-6" class="py-10">
       <p class="text-headline-3 pb-3 text-navy-light">Block 6</p>
       {
         heroMedia && (
@@ -131,8 +132,8 @@ const asideSections = [
           />
         )
       }
-    </div>
-    <div id="block-7" class="py-10">
+    </Section>
+    <Section id="block-7" class="py-10">
       <p class="text-headline-3 pb-3 text-navy-light">Block 7</p>
       {
         heroMedia && (
@@ -143,7 +144,7 @@ const asideSections = [
           />
         )
       }
-    </div>
+    </Section>
   </PageAsideLayout>
 
   <section

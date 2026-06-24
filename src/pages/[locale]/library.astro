@@ -13,7 +13,8 @@ import { TEST_1_QUERY } from '@/sanity/queries/pages'
 import { toBlocks } from '@/sanity/lib/page-parsers'
 import { toMedia, type SanityBlockData } from '@/sanity/lib/utils'
 import { sanityClient } from 'sanity:client'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -94,7 +95,7 @@ const asideSections = [
   <Hero media={heroMedia} title={pageData.title} />
 
   <PageAsideLayout sections={asideSections} basePath="/library">
-    <section
+    <Section
       id="typography"
       class="relative flex flex-col items-center justify-center gap-12 py-10"
     >
@@ -116,9 +117,9 @@ const asideSections = [
           ))
         }
       </div>
-    </section>
+    </Section>
 
-    <section
+    <Section
       id="ctas"
       class="flex items-center justify-center flex-col gap-12 py-10 border-t border-navy-light"
     >
@@ -130,9 +131,9 @@ const asideSections = [
         <Button variant="outline-dark">Seguir leyendo</Button>
         <Button variant="outline-blue">Seguir leyendo</Button>
       </div>
-    </section>
+    </Section>
 
-    <section
+    <Section
       id="icons"
       class="flex items-center justify-center flex-col gap-12 py-10 border-t border-navy-light"
     >
@@ -178,11 +179,11 @@ const asideSections = [
           )
         )
       }
-    </section>
+    </Section>
 
     {
       pageData.blocks.length ? (
-        <section
+        <Section
           id="blocks"
           class="flex flex-col gap-indent py-10 border-t border-navy-light"
         >
@@ -190,13 +191,13 @@ const asideSections = [
           {pageData.blocks.map((block) => (
             <Block {...block} />
           ))}
-        </section>
+        </Section>
       ) : null
     }
 
     {
       heroMedia && (
-        <section
+        <Section
           id="masks"
           class="grid w-full grid-cols-1 gap-indent border-t border-navy-light py-10 md:grid-cols-2 md:py-20"
         >
@@ -211,7 +212,7 @@ const asideSections = [
               />
             </Mask>
           ))}
-        </section>
+        </Section>
       )
     }
   </PageAsideLayout>

@@ -10,7 +10,8 @@ import { sanityClient } from 'sanity:client'
 import { parsePageHeader, toBlocks } from '@/sanity/lib/page-parsers'
 import type { SanityBlockData } from '@/sanity/lib/utils'
 import { Block } from '@/components/ui/blocks'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { ASI_NOS_VEMOS_SECTIONS } from '@/constants'
 import Button from '@/components/ui/Button.astro'
 
@@ -57,14 +58,14 @@ const asideSections = pageData.sections.map((section) => ({
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/asi-nos-vemos">
-    <section class="pb-indent">
+    <Section class="pb-indent">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
-    </section>
+    </Section>
     {
       pageData.sections.map((section) => (
-        <section id={section.id} class="pb-indent flex flex-col gap-indent">
+        <Section id={section.id} class="pb-indent flex flex-col gap-indent">
           <div class="flex items-center justify-between">
             <p class="text-navy text-headline-2">
               {t(`asi-nos-vemos.${section.id}`)}
@@ -81,7 +82,7 @@ const asideSections = pageData.sections.map((section) => ({
           {section.blocks?.map((block) => (
             <Block {...block} />
           ))}
-        </section>
+        </Section>
       ))
     }
   </PageAsideLayout>

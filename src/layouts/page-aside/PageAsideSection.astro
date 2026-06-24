@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import {
+  PAGE_ASIDE_CONTENT,
+  PAGE_ASIDE_GRID
+} from '@/layouts/page-aside/page-aside-grid'
+
+type Props = HTMLAttributes<'section'>
+
+const { class: className, ...rest } = Astro.props
+---
+
+<section class={className} {...rest}>
+  <div class={PAGE_ASIDE_GRID}>
+    <div class={PAGE_ASIDE_CONTENT}>
+      <slot />
+    </div>
+  </div>
+</section>

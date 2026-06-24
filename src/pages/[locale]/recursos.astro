@@ -5,7 +5,8 @@ import Card from '@/components/ui/Card.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import Puncha from '@/components/icons/Puncha.astro'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { RECURSOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { parsePageHeader } from '@/sanity/lib/page-parsers'
@@ -65,14 +66,14 @@ const asideSections = [{ id: 'section1', label: 'Recursos' }]
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/recursos">
-    <section class="pb-indent">
+    <Section class="pb-indent">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
-    </section>
+    </Section>
     {
       pageData.section1.length > 0 && (
-        <section
+        <Section
           id="section1"
           class="grid grid-cols-1 gap-indent pb-indent-2 md:grid-cols-2"
         >
@@ -86,7 +87,7 @@ const asideSections = [{ id: 'section1', label: 'Recursos' }]
               <span slot="button">{t('recursos.download')}</span>
             </Card>
           ))}
-        </section>
+        </Section>
       )
     }
   </PageAsideLayout>

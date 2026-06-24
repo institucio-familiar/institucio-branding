@@ -8,7 +8,8 @@ import { NUESTRA_MARCA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
 import { parsePageHeader, toAtom1 } from '@/sanity/lib/page-parsers'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { Block1, Block6 } from '@/components/ui/blocks'
 import Card from '@/components/ui/Card.astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
@@ -104,7 +105,7 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/nuestra-marca">
-    <section
+    <Section
       id={asideSections[0].id}
       class="flex flex-col gap-indent pb-indent"
       data-header-theme="dark"
@@ -112,13 +113,17 @@ const asideSections = [
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
-    </section>
+    </Section>
 
-    {pageData.introMedia && <Block1 media1={pageData.introMedia} />}
+    {pageData.introMedia && (
+      <Section>
+        <Block1 media1={pageData.introMedia} />
+      </Section>
+    )}
 
     {
       pageData.section1 && (
-        <section class="flex flex-col gap-indent-1-5 pb-indent-3 pt-indent-2">
+        <Section class="flex flex-col gap-indent-1-5 pb-indent-3 pt-indent-2">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
@@ -130,13 +135,13 @@ const asideSections = [
               </div>
             ))}
           </div>
-        </section>
+        </Section>
       )
     }
 
     {
       pageData.section2.length > 0 && (
-        <section class="flex flex-col gap-indent md:gap-indent-2">
+        <Section class="flex flex-col gap-indent md:gap-indent-2">
           {pageData.section2.map((block) => (
             <Block6
               title={block.title}
@@ -144,13 +149,13 @@ const asideSections = [
               media={block.media}
             />
           ))}
-        </section>
+        </Section>
       )
     }
 
     {
       pageData.section3.length > 0 && (
-        <section
+        <Section
           id={asideSections[1].id}
           class="relative flex flex-col gap-indent pb-indent-3 pt-indent-2"
           data-header-theme="dark"
@@ -170,7 +175,7 @@ const asideSections = [
               />
             ))}
           </div>
-        </section>
+        </Section>
       )
     }
     <Puncha

@@ -3,6 +3,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n'
 import { getPageLocale } from '@/i18n/utils'
 import ScrollToButton from '@/components/ScrollToButton.astro'
 import Arrow from '@/components/ui/icon-glyphs/Arrow.astro'
+import { PAGE_ASIDE_GRID } from '@/layouts/page-aside/page-aside-grid'
 
 export interface AsideNavSection {
   id: string
@@ -20,41 +21,47 @@ const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const sectionIds = sections.map((section) => section.id)
 ---
 
-<div class="relative grid grid-cols-12 gap-2 bg-white px-indent">
-  <aside
-    class="hidden lg:col-span-2 lg:block sticky top-nav-height self-start pb-8"
+<div class="relative bg-white">
+  <div
+    class:list={[
+      PAGE_ASIDE_GRID,
+      'pointer-events-none absolute inset-0 z-10 max-lg:hidden'
+    ]}
   >
-    <nav
-      class="relative"
-      data-aside-nav
-      data-section-ids={JSON.stringify(sectionIds)}
-      aria-label="Page sections"
+    <aside
+      class="pointer-events-auto col-span-2 sticky top-nav-height self-start pb-8"
     >
-      <span
-        data-aside-arrow
-        class="text-navy pointer-events-none absolute top-0 right-full mr-1 size-2.5 opacity-0 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none"
-        aria-hidden="true"
+      <nav
+        class="relative"
+        data-aside-nav
+        data-section-ids={JSON.stringify(sectionIds)}
+        aria-label="Page sections"
       >
-        <Arrow direction="right" />
-      </span>
-      <div class="flex flex-col gap-2">
-        {
-          sections.map((section) => (
-            <ScrollToButton
-              targetId={section.id}
-              href={getRelativeLocaleUrl(locale, `${basePath}#${section.id}`)}
-              class="text-navy text-body hover:text-body-bold"
-            >
-              {section.label}
-            </ScrollToButton>
-          ))
-        }
-      </div>
-    </nav>
-  </aside>
-  <div class="col-span-12 lg:col-span-10 lg:pl-4">
-    <slot />
+        <span
+          data-aside-arrow
+          class="text-navy pointer-events-none absolute top-0 right-full mr-1 size-2.5 opacity-0 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none"
+          aria-hidden="true"
+        >
+          <Arrow direction="right" />
+        </span>
+        <div class="flex flex-col gap-2">
+          {
+            sections.map((section) => (
+              <ScrollToButton
+                targetId={section.id}
+                href={getRelativeLocaleUrl(locale, `${basePath}#${section.id}`)}
+                class="text-navy text-body hover:text-body-bold"
+              >
+                {section.label}
+              </ScrollToButton>
+            ))
+          }
+        </div>
+      </nav>
+    </aside>
   </div>
+
+  <slot />
 </div>
 
 <script>

@@ -13,7 +13,8 @@ import {
   toMediaDescriptionBlocks
 } from '@/sanity/lib/page-parsers'
 // import { Block7 } from '@/components/ui/blocks'
-import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
+import Section from '@/layouts/page-aside/PageAsideSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -141,12 +142,12 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/ilustracion">
-    <section class="pb-indent">
+    <Section class="pb-indent">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
-    </section>
-    <section id="section1" class="pb-indent-2">
+    </Section>
+    <Section id="section1" class="pb-indent-2">
       <div class="flex flex-col gap-3 md:gap-6">
         {
           colorRows.map((row) => (
@@ -165,14 +166,14 @@ const asideSections = [
           ))
         }
       </div>
-    </section>
+    </Section>
 
-    <!-- <section id="section8">
+    <!-- <Section id="section8">
       <Block7
         title={pageData.badCases.title}
         description={pageData.description}
         items={pageData.badCases.items}
       />
-    </section> -->
+    </Section> -->
   </PageAsideLayout>
 </MainLayout>
