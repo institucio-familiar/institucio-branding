@@ -24,16 +24,12 @@
 
 /* 80px */
 @utility text-headline-2 {
-  font-size: var(--text-heading);
+  font-size: clamp(46px, 6vw, var(--text-heading));
   font-family: var(--font-serif);
   font-weight: 600;
   font-style: normal;
   line-height: 1;
   letter-spacing: -0.02em;
-
-  @media (max-width: 768px) {
-    font-size: 40px;
-  }
 }
 @utility text-headline-menu {
   font-size: clamp(32px, 6vw, var(--text-heading));

@@ -45,19 +45,18 @@ async function getPageData() {
 
 const pageData = await getPageData()
 
-// TESTINGAL
 const asideSections = [
-  { id: 'section1', label: 'Sección 1' },
-  { id: 'section2', label: 'Sección 2' },
-  { id: 'section3', label: 'Sección 3' },
-  { id: 'section4', label: 'Sección 4' }
+  { id: 'title', label: pageData.pageTitle ?? '' },
+  { id: 'section1', label: t('asi-hablamos.aside.section1') },
+  { id: 'section2', label: t('asi-hablamos.aside.section2') },
+  { id: 'section3', label: t('asi-hablamos.aside.section3') }
 ]
 ---
 
 <MainLayout>
   <Hero media={pageData.heroMedia} title={pageData.pageTitle} />
 
-  <section class="relative bg-white px-indent">
+  <section id="title" class="relative bg-white px-indent">
     <Puncha
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
@@ -68,38 +67,42 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/asi-hablamos">
-    <Section class="pb-indent">
+    <Section class="pb-8">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
     </Section>
-    <Section class="pb-indent">
+    <Section class="pb-8">
       <Carousel medias={pageData.introMedias} aspectRatio="video" />
     </Section>
     {
       pageData.section1 && (
-        <Section id="section1" class="pb-indent">
+        <Section id="section1" class="py-8 pt-16">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
-          <p class="text-body text-navy">{pageData.section1.description}</p>
-          {pageData.section1.blocks?.map((block) => (
-            <Block3
-              title={block.title}
-              description={block.description}
-              media={block.media}
-            />
-          ))}
+          <p class="text-body text-navy pt-4 pb-24">
+            {pageData.section1.description}
+          </p>
+          <div class="flex flex-col gap-y-24">
+            {pageData.section1.blocks?.map((block) => (
+              <Block3
+                title={block.title}
+                description={block.description}
+                media={block.media}
+              />
+            ))}
+          </div>
         </Section>
       )
     }
     {
       pageData.section2 && (
-        <Section id="section2" class="pb-indent">
-          <h2 class="text-navy text-headline-2 uppercase">
+        <Section id="section2" class="py-16">
+          <h2 class="text-navy text-headline-4 pb-8">
             {t('asi-hablamos.section2.title')}
           </h2>
-          <div class="grid grid-cols-1 gap-indent-2 md:gap-indent md:grid-cols-3">
+          <div class="grid grid-cols-1 gap-8 md:gap-4 md:grid-cols-3">
             {pageData.section2.blocks?.map((block) => (
               <Card
                 title={block.title}
@@ -113,20 +116,53 @@ const asideSections = [
     }
     {
       pageData.section3 && (
-        <Section id="section3" class="pb-indent bg-mist">
-          <h2 class="text-blue text-headline-2 uppercase">SECTION 3</h2>
+        <Section id="section3" class="py-20 bg-mist">
+          <h3 class="text-blue text-headline-3 pb-10">
+            {t('asi-hablamos.section3.title')}
+          </h3>
+          <div class="flex flex-col gap-y-4">
+            {pageData.section3.map((block, index) => (
+              <p class="text-blue text-headline-2 uppercase flex flex-wrap">
+                {index % 2 === 0 ? (
+                  <>
+                    <span class="line-through pr-6">{block.incorrect}</span>
+                    <span>{block.correct}</span>
+                  </>
+                ) : (
+                  <>
+                    <span class="pr-6">{block.correct}</span>
+                    <span class="line-through">{block.incorrect}</span>
+                  </>
+                )}
+              </p>
+            ))}
+          </div>
         </Section>
       )
     }
     {
       pageData.section4 && (
-        <Section id="section4" class="pb-indent bg-navy">
-          <h2 class="text-white text-headline-2 uppercase">SECTION 4</h2>
+        <Section class="py-20 bg-navy-light">
+          <h3 class="text-white text-headline-3 pb-7">
+            {t('asi-hablamos.section4.title')}
+          </h3>
+          <div class="flex flex-col">
+            {pageData.section4.map((block) => (
+              <div class="flex flex-col pb-12 gap-4">
+                <p class="text-white text-headline-2 uppercase line-through">
+                  {block.incorrect}
+                </p>
+                <p class="text-white text-headline-2 uppercase">
+                  {block.correct}
+                </p>
+              </div>
+            ))}
+          </div>
         </Section>
       )
     }
     <Puncha
-      color="navy"
+      color="navy-light"
       class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
     />
   </PageAsideLayout>

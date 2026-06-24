@@ -58,14 +58,14 @@ const asideSections = pageData.sections.map((section) => ({
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/asi-nos-vemos">
-    <Section class="pb-indent">
+    <Section class="pb-8">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
     </Section>
     {
       pageData.sections.map((section) => (
-        <Section id={section.id} class="pb-indent flex flex-col gap-indent">
+        <Section id={section.id} class="pb-8 flex flex-col gap-indent">
           <div class="flex items-center justify-between">
             <p class="text-navy text-headline-2">
               {t(`asi-nos-vemos.${section.id}`)}

@@ -107,7 +107,7 @@ const asideSections = [
   <PageAsideLayout sections={asideSections} basePath="/nuestra-marca">
     <Section
       id={asideSections[0].id}
-      class="flex flex-col gap-indent pb-indent"
+      class="flex flex-col gap-indent pb-8"
       data-header-theme="dark"
     >
       <p class="text-navy text-headline-3">
@@ -115,15 +115,17 @@ const asideSections = [
       </p>
     </Section>
 
-    {pageData.introMedia && (
-      <Section>
-        <Block1 media1={pageData.introMedia} />
-      </Section>
-    )}
+    {
+      pageData.introMedia && (
+        <Section>
+          <Block1 media1={pageData.introMedia} />
+        </Section>
+      )
+    }
 
     {
       pageData.section1 && (
-        <Section class="flex flex-col gap-indent-1-5 pb-indent-3 pt-indent-2">
+        <Section class="flex flex-col gap-indent-1-5 pb-8-3 pt-indent-2">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
@@ -157,7 +159,7 @@ const asideSections = [
       pageData.section3.length > 0 && (
         <Section
           id={asideSections[1].id}
-          class="relative flex flex-col gap-indent pb-indent-3 pt-indent-2"
+          class="relative flex flex-col gap-indent pb-8-3 pt-indent-2"
           data-header-theme="dark"
         >
           <h2 class="text-navy text-headline-3">

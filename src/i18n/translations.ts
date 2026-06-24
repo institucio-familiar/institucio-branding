@@ -192,10 +192,20 @@ export const nuestraMarca: BilingualTranslations = {
 
 export const asiHablamos: BilingualTranslations = {
   es: {
-    'asi-hablamos.section2.title': 'Nuestra voz no es...'
+    'asi-hablamos.aside.section1': 'Nuestra voz',
+    'asi-hablamos.aside.section2': 'Malos usos',
+    'asi-hablamos.aside.section3': 'Ejemplos',
+    'asi-hablamos.section2.title': 'Nuestra voz no es...',
+    'asi-hablamos.section3.title': 'En lugar de...decimos...',
+    'asi-hablamos.section4.title': 'Alto y claro!'
   },
   ca: {
-    'asi-hablamos.section2.title': 'La nostra veu no és...'
+    'asi-hablamos.aside.section1': 'La nostra veu',
+    'asi-hablamos.aside.section2': 'Mals usos',
+    'asi-hablamos.aside.section3': 'Exemples',
+    'asi-hablamos.section2.title': 'La nostra veu no és...',
+    'asi-hablamos.section3.title': 'En lloc de...diem...',
+    'asi-hablamos.section4.title': 'Alt i clar!'
   }
 }
 

@@ -163,12 +163,12 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/brand-colors">
-    <Section class="pb-indent">
+    <Section class="pb-8">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
     </Section>
-    <Section id="section1" class="grid grid-col-4 pb-indent">
+    <Section id="section1" class="grid grid-col-4 pb-8">
       {
         MAIN_COLORS.map((color) => (
           <div class={`bg-${color.name}`}>
@@ -181,11 +181,11 @@ const asideSections = [
       }
     </Section>
 
-    <Section id="section2" class="pb-indent">
+    <Section id="section2" class="pb-8">
       <!-- <Block5 title={'Tittle'} description={'Description'} medias={[]} /> -->
     </Section>
 
-    <Section class="grid grid-col-4 pb-indent">
+    <Section class="grid grid-col-4 pb-8">
       {
         Object.values(COLORS).map((color) => (
           <div class={`bg-${color.name}`}>
@@ -198,15 +198,15 @@ const asideSections = [
       }
     </Section>
 
-    <!-- <Section class="pb-indent">
+    <!-- <Section class="pb-8">
       <Block5 title={'Tittle'} description={'Description'} medias={[]} />
     </Section> -->
 
-    <!-- <Section id="section4" class="pb-indent">
+    <!-- <Section id="section4" class="pb-8">
       <Block4 title={'Tittle'} description={'Description'} media={} />
     </Section> -->
 
-    <Section id="section3" class="pb-indent">
+    <Section id="section3" class="pb-8">
       <h3>Color combination</h3>
       <div class="grid grid-cols-3 gap-6 row-gap-4">
         {

@@ -66,7 +66,7 @@ const asideSections = [{ id: 'section1', label: 'Recursos' }]
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/recursos">
-    <Section class="pb-indent">
+    <Section class="pb-8">
       <p class="text-navy text-headline-3">
         {pageData.pageDescription}
       </p>
@@ -75,7 +75,7 @@ const asideSections = [{ id: 'section1', label: 'Recursos' }]
       pageData.section1.length > 0 && (
         <Section
           id="section1"
-          class="grid grid-cols-1 gap-indent pb-indent-2 md:grid-cols-2"
+          class="grid grid-cols-1 gap-indent pb-8 md:grid-cols-2"
         >
           {pageData.section1.map((item: RecursosCard) => (
             <Card
