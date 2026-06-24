@@ -152,13 +152,13 @@ const asideSections = [
       pageData.section3.length > 0 && (
         <section
           id={asideSections[1].id}
-          class="flex flex-col gap-indent pb-indent-3 pt-indent-1-5"
+          class="relative flex flex-col gap-indent pb-indent-3 pt-indent-2"
           data-header-theme="dark"
         >
           <h2 class="text-navy text-headline-3">
             {t('nuestra-marca.principios-creativos')}
           </h2>
-          <div class="grid grid-cols-1 gap-indent md:grid-cols-3">
+          <div class="grid grid-cols-1 gap-indent-2 md:gap-indent md:grid-cols-3">
             {pageData.section3.map((card) => (
               <Card
                 title={card.title}
@@ -173,5 +173,9 @@ const asideSections = [
         </section>
       )
     }
+    <Puncha
+      color="white"
+      class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
+    />
   </PageAsideLayout>
 </MainLayout>

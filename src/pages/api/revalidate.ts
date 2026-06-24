@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const body = await request.json()
 
-    const bypassToken = secret ?? '' // TESTINGAL (Typescript fix)
+    const bypassToken = secret
 
     // TESTINGAL > Decide how to revalidate. Could map types and slugs to paths.
     // Now the sanity webhook returns {_type, _id, slug }

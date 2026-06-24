@@ -9,7 +9,7 @@ const { title, description, media } = Astro.props
 
 <div class="w-full text-navy">
   <h3 class="text-headline-2 uppercase">{title}</h3>
-  <p class="text-body pt-4 pb-10">{description}</p>
+  <p class="text-body pt-2 pb-6 md:pt-4 md:pb-10">{description}</p>
   <div class="aspect-video w-full overflow-hidden rounded-sm col-span-7">
     <MediaAsset media={media} />
   </div>

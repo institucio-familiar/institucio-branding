@@ -190,6 +190,15 @@ export const nuestraMarca: BilingualTranslations = {
   }
 }
 
+export const asiHablamos: BilingualTranslations = {
+  es: {
+    'asi-hablamos.section2.title': 'Nuestra voz no es...'
+  },
+  ca: {
+    'asi-hablamos.section2.title': 'La nostra veu no és...'
+  }
+}
+
 export const allTranslations: BilingualTranslations[] = [
   generics,
   nav,
@@ -201,5 +210,6 @@ export const allTranslations: BilingualTranslations[] = [
   notFound,
   recursos,
   asiNosVemos,
-  nuestraMarca
+  nuestraMarca,
+  asiHablamos
 ]

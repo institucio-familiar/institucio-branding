@@ -35,9 +35,9 @@
 
   --spacing-nav-height: var(--nav-height);
   --spacing-indent: clamp(16px, calc(100vw / 36), 36px);
-  --spacing-indent-1-5: clamp(16px, calc(100vw / 27), 54px);
-  --spacing-indent-2: clamp(16px, calc(100vw / 18), 72px);
-  --spacing-indent-3: clamp(16px, calc(100vw / 9), 108px);
+  --spacing-indent-1-5: clamp(24px, calc(100vw / 27), 54px);
+  --spacing-indent-2: clamp(32px, calc(100vw / 18), 72px);
+  --spacing-indent-3: clamp(48px, calc(100vw / 9), 108px);
 }
 
 @utility translate-text {

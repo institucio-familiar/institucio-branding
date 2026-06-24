@@ -12,9 +12,14 @@ import {
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
 import PageAsideLayout from '@/components/PageAsideLayout.astro'
+import Carousel from '@/components/Carousel.astro'
+import Block3 from '@/components/ui/blocks/Block-3.astro'
+import { useTranslations } from '@/i18n/ui'
+import Card from '@/components/ui/Card.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
+const t = useTranslations(locale)
 
 async function getPageData() {
   const sanityPageData = await sanityClient.fetch(ASI_HABLAMOS_PAGE_QUERY)
@@ -39,6 +44,7 @@ async function getPageData() {
 
 const pageData = await getPageData()
 
+// TESTINGAL
 const asideSections = [
   { id: 'section1', label: 'Sección 1' },
   { id: 'section2', label: 'Sección 2' },
@@ -66,5 +72,61 @@ const asideSections = [
         {pageData.pageDescription}
       </p>
     </section>
+    <section class="pb-indent">
+      <Carousel medias={pageData.introMedias} aspectRatio="video" />
+    </section>
+    {
+      pageData.section1 && (
+        <section class="pb-indent">
+          <h2 class="text-navy text-headline-2 uppercase">
+            {pageData.section1.title}
+          </h2>
+          <p class="text-body text-navy">{pageData.section1.description}</p>
+          {pageData.section1.blocks?.map((block) => (
+            <Block3
+              title={block.title}
+              description={block.description}
+              media={block.media}
+            />
+          ))}
+        </section>
+      )
+    }
+    {
+      pageData.section2 && (
+        <section class="pb-indent">
+          <h2 class="text-navy text-headline-2 uppercase">
+            {t('asi-hablamos.section2.title')}
+          </h2>
+          <div class="grid grid-cols-1 gap-indent-2 md:gap-indent md:grid-cols-3">
+            {pageData.section2.blocks?.map((block) => (
+              <Card
+                title={block.title}
+                description={block.description}
+                media={block.media}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {
+      pageData.section3 && (
+        <section class="pb-indent bg-mist">
+          <h2 class="text-blue text-headline-2 uppercase">SECTION 3</h2>
+        </section>
+      )
+    }
+    {
+      pageData.section4 && (
+        <section class="pb-indent bg-navy">
+          <h2 class="text-white text-headline-2 uppercase">SECTION 4</h2>
+        </section>
+      )
+    }
+    <Puncha
+      color="navy"
+      class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
+    />
   </PageAsideLayout>
 </MainLayout>

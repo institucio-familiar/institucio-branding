@@ -53,7 +53,15 @@ export const asiHablamosPage = defineType({
           of: [defineArrayMember({ type: 'mediaAsset' })],
           validation: (rule) => rule.required()
         })
-      ]
+      ],
+      preview: {
+        select: {
+          title: 'title.es'
+        },
+        prepare({ title }) {
+          return { title }
+        }
+      }
     }),
     // Section 1
     defineField({
@@ -107,11 +115,8 @@ export const asiHablamosPage = defineType({
         })
       ],
       preview: {
-        select: {
-          title: 'title.es'
-        },
-        prepare({ title }) {
-          return { title }
+        prepare() {
+          return { title: 'Sección 2' }
         }
       }
     }),
