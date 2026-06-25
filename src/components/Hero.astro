@@ -23,7 +23,7 @@ const mediaTitle = title ?? heading
   media && (
     <div
       data-hero-media
-      class="pointer-events-none fixed inset-0 -z-1 h-dvh w-full origin-center"
+      class="pointer-events-none fixed inset-0 -z-1 h-screen w-full origin-center"
       style="transform: scale(1.2)"
     >
       <MediaAsset
@@ -55,10 +55,11 @@ const mediaTitle = title ?? heading
 </div>
 
 <section
-  class="relative min-h-dvh"
+  class="relative min-h-screen"
   data-hero-section
   data-header-theme="light"
-/>
+>
+</section>
 
 <script>
   import { gsap } from 'gsap'

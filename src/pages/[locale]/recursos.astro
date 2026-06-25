@@ -66,27 +66,27 @@ const asideSections = [{ id: 'section1', label: 'Recursos' }]
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/recursos">
-    <Section class="pb-8">
+    <Section class="pb-8 md:pb-16">
       <p class="text-page-description">
         {pageData.pageDescription}
       </p>
     </Section>
     {
       pageData.section1.length > 0 && (
-        <Section
-          id="section1"
-          class="grid grid-cols-1 gap-indent pb-8 md:grid-cols-2"
-        >
-          {pageData.section1.map((item: RecursosCard) => (
-            <Card
-              title={item.title}
-              media={item.media}
-              description={item.description}
-              buttonUrl={item.buttonUrl}
-            >
-              <span slot="button">{t('recursos.download')}</span>
-            </Card>
-          ))}
+        <Section id="section1" class="pb-8 md:pb-16">
+          <h2 class="text-navy text-headline-2 uppercase pb-4 md:pb-6">
+            {t('recursos.assets')}
+          </h2>
+          <div class="grid grid-cols-1 gap-indent pb-8 md:grid-cols-2">
+            {pageData.section1.map((item: RecursosCard) => (
+              <Card
+                title={item.title}
+                media={item.media}
+                description={item.description}
+                buttonUrl={item.buttonUrl}
+              />
+            ))}
+          </div>
         </Section>
       )
     }

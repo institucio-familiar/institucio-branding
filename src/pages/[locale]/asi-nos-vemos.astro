@@ -65,25 +65,25 @@ const asideSections = pageData.sections.map((section) => ({
     </Section>
     {
       pageData.sections.map((section) => (
-        <Section id={section.id} class="pb-8 flex flex-col gap-indent">
-          <div class="flex items-center justify-between">
-            <p class="text-navy text-headline-2">
-              {t(`asi-nos-vemos.${section.id}`)}
-            </p>
-            {section.id !== 'asi-nos-vemos' ? (
+        <Section id={section.id} class="pb-8 md:pb-12">
+          {section.id !== 'asi-nos-vemos' ? (
+            <div class="flex items-center justify-between pb-4 md:pb-6">
+              <p class="text-navy text-headline-3">
+                {t(`asi-nos-vemos.${section.id}`)}
+              </p>
               <Button
                 href={getRelativeLocaleUrl(locale, `/${section.id}`)}
                 variant="secondary-white"
               >
                 {t(`asi-nos-vemos.go-to.${section.id}`)}
               </Button>
-            ) : null}
-          </div>
-          {section.blocks?.map((block) => (
-            <div class="py-4">
-              <Block {...block} />
             </div>
-          ))}
+          ) : null}
+          <div class="flex flex-col gap-4 md:gap-8">
+            {section.blocks?.map((block) => (
+              <Block {...block} />
+            ))}
+          </div>
         </Section>
       ))
     }

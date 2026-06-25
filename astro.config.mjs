@@ -14,7 +14,8 @@ const {
   PUBLIC_SANITY_DATASET,
   PUBLIC_SANITY_API_VERSION,
   SANITY_REVALIDATE_SECRET,
-  PUBLIC_SITE_URL
+  PUBLIC_SITE_URL,
+  NGROK_HOST
 } = loadEnv(import.meta.env.NODE_ENV, process.cwd(), '')
 
 if (
@@ -49,8 +50,25 @@ export default defineConfig({
       exclude: ['/api/revalidate', /^\/studio/]
     }
   }),
+  server: {
+    host: true
+  },
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: [
+        '.ngrok-free.app',
+        '.ngrok.io',
+        ...(NGROK_HOST ? [NGROK_HOST] : [])
+      ],
+      ...(NGROK_HOST && {
+        hmr: {
+          protocol: 'wss',
+          host: NGROK_HOST,
+          clientPort: 443
+        }
+      })
+    },
     optimizeDeps: {
       include: [
         'react/compiler-runtime',

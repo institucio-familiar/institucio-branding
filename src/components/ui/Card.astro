@@ -28,30 +28,30 @@ const locale = getPageLocale(Astro.currentLocale, localeParam)
 const t = useTranslations(locale)
 ---
 
-<article class="flex flex-col gap-2 md:gap-4">
+<article class="flex flex-col gap-4">
   <div class="aspect-4/3 w-full overflow-hidden rounded-sm bg-frost">
     <MediaAsset media={media} title={title} />
   </div>
 
-  <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-2">
     <h2 class="text-navy text-body-bold">{title}</h2>
-    <p class="text-navy text-body">{description}</p>
+    <p class="text-navy text-body pb-3">{description}</p>
     {
       buttonUrl && buttonType === 'download' && (
         <Button
           href={buttonUrl}
-          variant="primary-blue"
+          variant="secondary-white"
           icon="download"
           class="self-start"
         >
-          <slot name="button">{t('recursos.download')}</slot>
+          <span>{t('card.download')}</span>
         </Button>
       )
     }
     {
       buttonUrl && buttonType === 'link-external' && (
         <Button href={buttonUrl} variant="primary-blue" class="self-start">
-          <slot name="button">{buttonText}</slot>
+          <span>{buttonText}</span>
         </Button>
       )
     }
@@ -63,7 +63,7 @@ const t = useTranslations(locale)
           variant="primary-blue"
           class="self-start"
         >
-          <slot name="button">{buttonText}</slot>
+          <span>{buttonText}</span>
         </Button>
       )
     }

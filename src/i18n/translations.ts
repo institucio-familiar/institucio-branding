@@ -83,6 +83,15 @@ export const footer: BilingualTranslations = {
   }
 }
 
+export const card: BilingualTranslations = {
+  es: {
+    'card.download': 'Descarga'
+  },
+  ca: {
+    'card.download': 'Descarrega'
+  }
+}
+
 export const lang: BilingualTranslations = {
   es: {
     'lang.switch': 'Idioma'
@@ -127,10 +136,10 @@ export const notFound: BilingualTranslations = {
 
 export const recursos: BilingualTranslations = {
   es: {
-    'recursos.download': 'Descarga'
+    'recursos.assets': 'Assets'
   },
   ca: {
-    'recursos.download': 'Descarrega'
+    'recursos.assets': 'Assets'
   }
 }
 
@@ -211,11 +220,14 @@ export const asiHablamos: BilingualTranslations = {
 
 export const allTranslations: BilingualTranslations[] = [
   generics,
+  // Components
   nav,
   header,
   footer,
+  card,
   lang,
   hero,
+  // Pages
   library,
   notFound,
   recursos,

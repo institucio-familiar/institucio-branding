@@ -3,14 +3,17 @@ interface Props {
   targetId: string
   href: string
   class?: string
+  'aria-current'?: 'location' | undefined
 }
 
-const { targetId, href, class: className } = Astro.props
+const { targetId, href, class: className, 'aria-current': ariaCurrent } =
+  Astro.props
 ---
 
 <a
   href={href}
   class={className}
+  aria-current={ariaCurrent}
   data-scroll-to-button
   data-target-id={targetId}
 >

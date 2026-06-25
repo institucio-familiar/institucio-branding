@@ -46,11 +46,15 @@ const sectionIds = sections.map((section) => section.id)
         </span>
         <div class="flex flex-col gap-2">
           {
-            sections.map((section) => (
+            sections.map((section, index) => (
               <ScrollToButton
                 targetId={section.id}
                 href={getRelativeLocaleUrl(locale, `${basePath}#${section.id}`)}
-                class="text-navy text-body hover:text-body-bold"
+                class:list={[
+                  'text-navy hover:text-body-bold',
+                  index === 0 ? 'text-body-bold' : 'text-body'
+                ]}
+                aria-current={index === 0 ? 'location' : undefined}
               >
                 {section.label}
               </ScrollToButton>
@@ -109,7 +113,7 @@ const sectionIds = sections.map((section) => section.id)
     }
 
     function setActive(id: string, immediate = false) {
-      if (!sectionIds.includes(id) || id === activeId) {
+      if (!sectionIds.includes(id)) {
         moveArrow(immediate)
         return
       }
@@ -164,6 +168,8 @@ const sectionIds = sections.map((section) => section.id)
 
         if (bestRatio > 0) {
           setActive(bestId)
+        } else {
+          setActive(getActiveFromScroll())
         }
       },
       {
