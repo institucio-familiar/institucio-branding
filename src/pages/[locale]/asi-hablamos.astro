@@ -46,7 +46,7 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'title', label: pageData.pageTitle ?? '' },
+  { id: 'title', label: pageData.pageTitle },
   { id: 'section1', label: t('asi-hablamos.aside.section1') },
   { id: 'section2', label: t('asi-hablamos.aside.section2') },
   { id: 'section3', label: t('asi-hablamos.aside.section3') }

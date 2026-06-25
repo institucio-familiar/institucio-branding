@@ -11,9 +11,18 @@ import {
   toBadUses,
   toTrademarkSection
 } from '@/sanity/lib/page-parsers'
-// import { Block7 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
+import Card from '@/components/ui/Card.astro'
+import { Block4, Block5, Block6, Block7 } from '@/components/ui/blocks'
+
+const SECTIONS = [
+  'section1',
+  'section2',
+  'section3',
+  'section4',
+  'section5'
+] as const
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -24,11 +33,10 @@ async function getPageData() {
   return {
     ...parsePageHeader(sanityPageData, locale),
     introBlocks: toAtom1Array(sanityPageData?.intro?.blocks, locale),
-    section1: toTrademarkSection(sanityPageData?.section1, locale),
-    section2: toTrademarkSection(sanityPageData?.section2, locale),
-    section3: toTrademarkSection(sanityPageData?.section3, locale),
-    section4: toTrademarkSection(sanityPageData?.section4, locale),
-    section5: toTrademarkSection(sanityPageData?.section5, locale),
+    sections: SECTIONS.map((id) => ({
+      id,
+      data: toTrademarkSection(sanityPageData?.[id], locale)
+    })),
     section6: toBadUses(sanityPageData?.section6, locale)
   }
 }
@@ -36,12 +44,12 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'section1', label: 'Logotipo' },
-  { id: 'section2', label: 'Escudo' },
-  { id: 'section3', label: 'Favicon' },
-  { id: 'section4', label: 'Otros formatos' },
-  { id: 'section5', label: 'Colaboraciones' },
-  { id: 'section6', label: 'Malos usos' }
+  { id: 'intro', label: pageData.pageTitle },
+  ...pageData.sections.map((section) => ({
+    id: section.id,
+    label: section.data.title
+  })),
+  { id: 'section6', label: pageData.section6.title }
 ]
 ---
 
@@ -59,17 +67,72 @@ const asideSections = [
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/trademarks">
-    <Section class="pb-8">
+    <Section id="intro" class="pb-8">
       <p class="text-page-description">
         {pageData.pageDescription}
       </p>
     </Section>
-    <!-- <section id="section6">
+    {
+      pageData.introBlocks && (
+        <Section class="pb-12 md:pb-16">
+          <div class="grid grid-cols-1 gap-8 md:gap-4 md:grid-cols-3">
+            {pageData.introBlocks?.map((block) => (
+              <Card
+                title={block.title}
+                description={block.description}
+                media={block.media}
+              />
+            ))}
+          </div>
+        </Section>
+      )
+    }
+    {
+      pageData.sections.map(
+        (section) =>
+          section.data.media && (
+            <Section id={section.id} class="pb-12 md:pb-16">
+              <div class="pb-4 md:pb-8">
+                <Block6
+                  title={section.data.title}
+                  description={section.data.description}
+                  media={section.data.media}
+                />
+              </div>
+
+              {section.data.blocks?.map((block) => {
+                if (block.type === 'atom_1') {
+                  return (
+                    <div class="pb-4 md:pb-8">
+                      <Block4
+                        title={block.block.title}
+                        description={block.block.description}
+                        media={block.block.media}
+                      />
+                    </div>
+                  )
+                } else if (block.type === 'atom_2') {
+                  return (
+                    <div class="pb-4 md:pb-8">
+                      <Block5
+                        title={block.block.title}
+                        description={block.block.description}
+                        medias={block.block.medias}
+                      />
+                    </div>
+                  )
+                }
+              })}
+            </Section>
+          )
+      )
+    }
+    <Section id="section6" class="pb-12 md:pb-20">
       <Block7
-        title={pageData.badCases.title}
-        description={pageData.description}
-        items={pageData.badCases.items}
+        title={pageData.section6.title}
+        description={pageData.section6.description}
+        items={pageData.section6.items}
       />
-    </section> -->
+    </Section>
   </PageAsideLayout>
 </MainLayout>

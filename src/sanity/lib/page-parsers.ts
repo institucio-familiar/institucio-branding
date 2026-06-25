@@ -10,6 +10,10 @@ import {
 export type I18nString = Partial<Record<Locale, string>> | null | undefined
 export type I18nText = Partial<Record<Locale, string>> | null | undefined
 
+export function toLocaleString(value: I18nString, locale: Locale): string {
+  return value?.[locale] ?? ''
+}
+
 export function toMedias(
   medias: SanityMediaAsset[] | null | undefined
 ): Media[] {
@@ -172,11 +176,7 @@ export function toBadUses(
     | null
     | undefined,
   locale: Locale
-): BadUsesData | null {
-  const title = badUses?.title?.[locale]
-  const description = badUses?.description?.[locale]
-  if (!title || !description) return null
-
+): BadUsesData {
   const items = (badUses?.blocks ?? [])
     .map((block) => {
       const media = toMedia(block.media)
@@ -189,7 +189,11 @@ export function toBadUses(
       (item): item is { media: Media; description: string } => item !== null
     )
 
-  return { title, description, items }
+  return {
+    title: toLocaleString(badUses?.title, locale),
+    description: toLocaleString(badUses?.description, locale),
+    items
+  }
 }
 
 export type SectionWithAtom1Blocks = {
@@ -251,7 +255,7 @@ export function toSectionWithAtom2Blocks(
 export type TrademarkSection = {
   title: string
   description: string
-  media: Media
+  media: Media | null
   blocks: AtomBlockData[]
 }
 
@@ -266,16 +270,11 @@ export function toTrademarkSection(
     | null
     | undefined,
   locale: Locale
-): TrademarkSection | null {
-  const media = toMedia(section?.media)
-  const title = section?.title?.[locale]
-  const description = section?.description?.[locale]
-  if (!media || !title || !description) return null
-
+): TrademarkSection {
   return {
-    title,
-    description,
-    media,
+    title: toLocaleString(section?.title, locale),
+    description: toLocaleString(section?.description, locale),
+    media: toMedia(section?.media),
     blocks: toAtomBlockArray(section?.blocks, locale)
   }
 }
@@ -291,7 +290,10 @@ export function toMotionSection(
     | {
         title?: I18nString
         description?: I18nText
-        blocks?: Array<{ description?: I18nText; media?: SanityMediaAsset }> | null
+        blocks?: Array<{
+          description?: I18nText
+          media?: SanityMediaAsset
+        }> | null
       }
     | null
     | undefined,
@@ -309,15 +311,18 @@ export function toMotionSection(
 }
 
 export function parsePageHeader(
-  data: {
-    hero?: { media?: SanityMediaAsset } | null
-    intro?: { title?: I18nString; description?: I18nText } | null
-  } | null | undefined,
+  data:
+    | {
+        hero?: { media?: SanityMediaAsset } | null
+        intro?: { title?: I18nString; description?: I18nText } | null
+      }
+    | null
+    | undefined,
   locale: Locale
 ) {
   return {
     heroMedia: toMedia(data?.hero?.media),
-    pageTitle: data?.intro?.title?.[locale],
-    pageDescription: data?.intro?.description?.[locale]
+    pageTitle: toLocaleString(data?.intro?.title, locale),
+    pageDescription: toLocaleString(data?.intro?.description, locale)
   }
 }

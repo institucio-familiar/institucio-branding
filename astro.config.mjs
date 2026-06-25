@@ -55,20 +55,20 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
-    server: {
-      allowedHosts: [
-        '.ngrok-free.app',
-        '.ngrok.io',
-        ...(NGROK_HOST ? [NGROK_HOST] : [])
-      ],
-      ...(NGROK_HOST && {
-        hmr: {
-          protocol: 'wss',
-          host: NGROK_HOST,
-          clientPort: 443
-        }
-      })
-    },
+    // server: {
+    //   allowedHosts: [
+    //     '.ngrok-free.app',
+    //     '.ngrok.io',
+    //     ...(NGROK_HOST ? [NGROK_HOST] : [])
+    //   ],
+    //   ...(NGROK_HOST && {
+    //     hmr: {
+    //       protocol: 'wss',
+    //       host: NGROK_HOST,
+    //       clientPort: 443
+    //     }
+    //   })
+    // },
     optimizeDeps: {
       include: [
         'react/compiler-runtime',
