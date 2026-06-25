@@ -61,14 +61,14 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 class="text-navy text-headline-1 uppercase py-indent-2">
+    <h1 class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/asi-hablamos">
     <Section class="pb-8">
-      <p class="text-navy text-headline-3">
+      <p class="text-page-description">
         {pageData.pageDescription}
       </p>
     </Section>
@@ -77,14 +77,14 @@ const asideSections = [
     </Section>
     {
       pageData.section1 && (
-        <Section id="section1" class="py-8 pt-16">
+        <Section id="section1" class="py-4 pt-8 md:py-8 md:pt-16">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
-          <p class="text-body text-navy pt-4 pb-24">
+          <p class="text-body text-navy py-4 pb-12 md:pb-24">
             {pageData.section1.description}
           </p>
-          <div class="flex flex-col gap-y-24">
+          <div class="flex flex-col gap-y-12 md:gap-y-24">
             {pageData.section1.blocks?.map((block) => (
               <Block3
                 title={block.title}
@@ -98,7 +98,7 @@ const asideSections = [
     }
     {
       pageData.section2 && (
-        <Section id="section2" class="py-16">
+        <Section id="section2" class="py-12 md:py-16">
           <h2 class="text-navy text-headline-4 pb-8">
             {t('asi-hablamos.section2.title')}
           </h2>
@@ -116,22 +116,26 @@ const asideSections = [
     }
     {
       pageData.section3 && (
-        <Section id="section3" class="py-20 bg-mist">
-          <h3 class="text-blue text-headline-3 pb-10">
+        <Section id="section3" class="py-12 md:py-20 bg-mist">
+          <h3 class="text-blue text-headline-4 md:text-headline-3 pb-10">
             {t('asi-hablamos.section3.title')}
           </h3>
-          <div class="flex flex-col gap-y-4">
+          <div class="flex flex-col gap-y-2 md:gap-y-4">
             {pageData.section3.map((block, index) => (
-              <p class="text-blue text-headline-2 uppercase flex flex-wrap">
+              <p class="text-headline-3 md:text-headline-2 uppercase flex flex-wrap">
                 {index % 2 === 0 ? (
                   <>
-                    <span class="line-through pr-6">{block.incorrect}</span>
-                    <span>{block.correct}</span>
+                    <span class="text-white line-through pr-4 md:pr-6">
+                      {block.incorrect}
+                    </span>
+                    <span class="text-blue">{block.correct}</span>
                   </>
                 ) : (
                   <>
-                    <span class="pr-6">{block.correct}</span>
-                    <span class="line-through">{block.incorrect}</span>
+                    <span class="pr-4 md:pr-6 text-blue">{block.correct}</span>
+                    <span class="text-white line-through">
+                      {block.incorrect}
+                    </span>
                   </>
                 )}
               </p>
@@ -142,17 +146,17 @@ const asideSections = [
     }
     {
       pageData.section4 && (
-        <Section class="py-20 bg-navy-light">
-          <h3 class="text-white text-headline-3 pb-7">
+        <Section class="py-12 md:py-20 bg-navy-light">
+          <h3 class="text-white text-headline-4 md:text-headline-3 pb-4 md:pb-7">
             {t('asi-hablamos.section4.title')}
           </h3>
           <div class="flex flex-col">
             {pageData.section4.map((block) => (
-              <div class="flex flex-col pb-12 gap-4">
-                <p class="text-white text-headline-2 uppercase line-through">
+              <div class="flex flex-col pb-8 md:pb-12 gap-2 md:gap-4">
+                <p class="text-white text-headline-3 md:text-headline-2 uppercase line-through">
                   {block.incorrect}
                 </p>
-                <p class="text-white text-headline-2 uppercase">
+                <p class="text-blue text-headline-3 md:text-headline-2 uppercase">
                   {block.correct}
                 </p>
               </div>

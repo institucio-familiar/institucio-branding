@@ -99,7 +99,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 class="text-navy text-headline-1 uppercase py-indent-2">
+    <h1 class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -110,7 +110,7 @@ const asideSections = [
       class="flex flex-col gap-indent pb-8"
       data-header-theme="dark"
     >
-      <p class="text-navy text-headline-3">
+      <p class="text-page-description">
         {pageData.pageDescription}
       </p>
     </Section>
@@ -125,7 +125,7 @@ const asideSections = [
 
     {
       pageData.section1 && (
-        <Section class="flex flex-col gap-indent-1-5 pb-8-3 pt-indent-2">
+        <Section class="flex flex-col gap-indent-1-5 pb-8 pt-indent-2">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
@@ -159,7 +159,7 @@ const asideSections = [
       pageData.section3.length > 0 && (
         <Section
           id={asideSections[1].id}
-          class="relative flex flex-col gap-indent pb-8-3 pt-indent-2"
+          class="relative flex flex-col gap-indent pb-8 pt-indent-2"
           data-header-theme="dark"
         >
           <h2 class="text-navy text-headline-3">
