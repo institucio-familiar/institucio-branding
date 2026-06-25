@@ -10,9 +10,9 @@ type Props = HTMLAttributes<'section'>
 const { class: className, ...rest } = Astro.props
 ---
 
-<section class={className} {...rest}>
+<section class={className} data-page-aside-section {...rest}>
   <div class={PAGE_ASIDE_GRID}>
-    <div class={PAGE_ASIDE_CONTENT}>
+    <div class={PAGE_ASIDE_CONTENT} data-page-aside-content>
       <slot />
     </div>
   </div>

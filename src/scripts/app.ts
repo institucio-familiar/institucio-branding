@@ -1,5 +1,6 @@
 // import { Transitions } from '@/scripts/classes/Transitions'
 import { Scroll } from '@/scripts/classes/Scroll'
+import { setupRevealInView } from '@/scripts/reveal-in-view'
 
 // Initialize the Transitions class
 // const transitions = new Transitions()
@@ -7,6 +8,7 @@ import { Scroll } from '@/scripts/classes/Scroll'
 
 // Initialize the Scroll class
 Scroll.init()
+setupRevealInView()
 
 if (import.meta.env.MODE === 'development') {
   // Dynamically import the grid-helper only in development mode

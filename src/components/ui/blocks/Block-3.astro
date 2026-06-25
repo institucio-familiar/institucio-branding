@@ -7,7 +7,7 @@ type Props = Block3
 const { title, description, media } = Astro.props
 ---
 
-<div class="grid w-full gap-indent text-navy md:grid-cols-12">
+<div class="grid w-full gap-indent text-navy md:grid-cols-12" data-reveal-in-view>
   <div class="flex flex-col justify-between gap-6 col-span-5">
     <p class="text-headline-3">{title}</p>
     <p class="text-body">{description}</p>
