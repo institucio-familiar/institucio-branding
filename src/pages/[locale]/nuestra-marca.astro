@@ -82,6 +82,7 @@ async function getPageData() {
 
 const pageData = await getPageData()
 
+// TESTINGAL
 const asideSections = [
   { id: 'nuestra-marca', label: t('nav.nuestraMarca') },
   {
@@ -125,11 +126,11 @@ const asideSections = [
 
     {
       pageData.section1 && (
-        <Section class="flex flex-col gap-indent-1-5 pb-8 pt-indent-2">
+        <Section class="flex flex-col pb-8 pt-indent-2">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
-          <div class="flex flex-col gap-indent">
+          <div class="flex flex-col gap-indent py-12 md:py-18">
             {pageData.section1.questions.map((item) => (
               <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2.5fr)] md:gap-indent">
                 <p class="text-navy text-body">{item.question}</p>
@@ -143,7 +144,7 @@ const asideSections = [
 
     {
       pageData.section2.length > 0 && (
-        <Section class="flex flex-col gap-indent md:gap-indent-2">
+        <Section class="flex flex-col gap-8 md:gap-16">
           {pageData.section2.map((block) => (
             <Block6
               title={block.title}
@@ -159,7 +160,7 @@ const asideSections = [
       pageData.section3.length > 0 && (
         <Section
           id={asideSections[1].id}
-          class="relative flex flex-col gap-indent pb-8 pt-indent-2"
+          class="relative flex flex-col gap-6 md:gap-12 pt-16 md:pt-24 pb-12 md:pb-20"
           data-header-theme="dark"
         >
           <h2 class="text-navy text-headline-3">

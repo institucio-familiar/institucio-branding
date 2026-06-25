@@ -5,14 +5,16 @@ import {
   PAGE_ASIDE_GRID
 } from '@/layouts/page-aside/page-aside-grid'
 
-type Props = HTMLAttributes<'section'>
+type Props = HTMLAttributes<'section'> & {
+  backgroundColor?: string
+}
 
-const { class: className, ...rest } = Astro.props
+const { class: className, backgroundColor, ...rest } = Astro.props
 ---
 
-<section class={className} data-page-aside-section {...rest}>
+<section data-page-aside-section {...rest} class={backgroundColor}>
   <div class={PAGE_ASIDE_GRID}>
-    <div class={PAGE_ASIDE_CONTENT} data-page-aside-content>
+    <div class:list={[PAGE_ASIDE_CONTENT, className]} data-page-aside-content>
       <slot />
     </div>
   </div>
