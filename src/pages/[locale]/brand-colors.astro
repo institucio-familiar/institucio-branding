@@ -12,9 +12,10 @@ import {
   toBadUses,
   toSectionWithAtom2Blocks
 } from '@/sanity/lib/page-parsers'
-// import { Block4, Block5, Block7 } from '@/components/ui/blocks'
+import { Block4, Block5, Block7 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
+import { toLocaleString } from '@/sanity/lib/page-parsers'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -28,11 +29,15 @@ async function getPageData() {
     section2: toAtom2(sanityPageData?.section2, locale),
     section3: sanityPageData?.section3
       ? {
-          title: sanityPageData.section3.title?.[locale],
+          title: toLocaleString(sanityPageData.section3.title, locale),
           description: sanityPageData.section3.description?.[locale],
           percentages: toAtom1(sanityPageData.section3.percentages, locale)
         }
-      : null,
+      : {
+          title: '',
+          description: '',
+          percentages: null
+        },
     section4: toSectionWithAtom2Blocks(sanityPageData?.section4, locale),
     section5: toBadUses(sanityPageData?.section5, locale)
   }
@@ -141,11 +146,11 @@ const COLOR_COMBINATIONS = [
 ]
 
 const asideSections = [
-  { id: 'section1', label: 'Paleta principal' },
-  { id: 'section2', label: 'Paleta completa' },
-  { id: 'section3', label: 'Combinación de color' },
-  { id: 'section4', label: 'Color en contexto' },
-  { id: 'section5', label: 'Malos usos' }
+  { id: 'section1', label: pageData.section1.title },
+  { id: 'section2', label: pageData.section2.title },
+  { id: 'section3', label: pageData.section3.title },
+  { id: 'section4', label: pageData.section4.title },
+  { id: 'section5', label: pageData.section5.title }
 ]
 ---
 
@@ -221,12 +226,12 @@ const asideSections = [
       </div>
     </Section>
 
-    <!-- <Section id="section5">
+    <Section id="section5" class="pb-12 md:pb-20">
       <Block7
-        title={pageData.badCases.title}
-        description={pageData.description}
-        items={pageData.badCases.items}
+        title={pageData.section5.title}
+        description={pageData.section5.description}
+        items={pageData.section5.items}
       />
-    </Section> -->
+    </Section>
   </PageAsideLayout>
 </MainLayout>

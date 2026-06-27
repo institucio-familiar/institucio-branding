@@ -41,7 +41,7 @@ export type SanityAtomData = (SanityAtom1 | SanityAtom2) & {
 export type Atom1Data = {
   title: string
   description: string
-  media: Media
+  media: Media | null
 }
 
 export type Atom2Data = {
@@ -63,17 +63,22 @@ export function toAtom1(
   const description = atom?.description?.[locale]
   if (!media || !title || !description) return null
 
-  return { title, description, media }
+  return { title: title ?? '', description: description ?? '', media }
 }
 
 export function toAtom2(
   atom: SanityAtom2 | null | undefined,
   locale: Locale
-): Atom2Data | null {
+): Atom2Data {
   const medias = toMedias(atom?.medias)
   const title = atom?.title?.[locale]
   const description = atom?.description?.[locale]
-  if (!title || !description || medias.length === 0) return null
+  if (!title || !description || medias.length === 0)
+    return {
+      title: '',
+      description: '',
+      medias: []
+    }
 
   return { title, description, medias }
 }
@@ -212,10 +217,15 @@ export function toSectionWithAtom1Blocks(
     | null
     | undefined,
   locale: Locale
-): SectionWithAtom1Blocks | null {
+): SectionWithAtom1Blocks {
   const title = section?.title?.[locale]
   const description = section?.description?.[locale]
-  if (!title || !description) return null
+  if (!title || !description)
+    return {
+      title: '',
+      description: '',
+      blocks: []
+    }
 
   return {
     title,
@@ -240,14 +250,10 @@ export function toSectionWithAtom2Blocks(
     | null
     | undefined,
   locale: Locale
-): SectionWithAtom2Blocks | null {
-  const title = section?.title?.[locale]
-  const description = section?.description?.[locale]
-  if (!title || !description) return null
-
+): SectionWithAtom2Blocks {
   return {
-    title,
-    description,
+    title: toLocaleString(section?.title, locale),
+    description: toLocaleString(section?.description, locale),
     blocks: toAtom2Array(section?.blocks, locale)
   }
 }

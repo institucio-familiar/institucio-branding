@@ -12,7 +12,7 @@ import {
   toBadUses,
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
-// import { Block7 } from '@/components/ui/blocks'
+import { Block7 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 
@@ -34,9 +34,9 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'section1', label: 'Sección 1' },
-  { id: 'section2', label: 'Sección 2' },
-  { id: 'section3', label: 'Malos usos' }
+  { id: 'section1', label: pageData.section1?.title || '' }, // TESTINGAL > Avoid this from being null
+  { id: 'section2', label: pageData.section2.title },
+  { id: 'section3', label: pageData.section3.title }
 ]
 ---
 
@@ -59,12 +59,12 @@ const asideSections = [
         {pageData.pageDescription}
       </p>
     </Section>
-    <!-- <section id="section3">
+    <Section id="section3" class="pb-12 md:pb-20">
       <Block7
-        title={pageData.badCases.title}
-        description={pageData.description}
-        items={pageData.badCases.items}
+        title={pageData.section3.title}
+        description={pageData.section3.description}
+        items={pageData.section3.items}
       />
-    </section> -->
+    </Section>
   </PageAsideLayout>
 </MainLayout>

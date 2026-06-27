@@ -12,9 +12,10 @@ import {
   toAtom2,
   toBadUses
 } from '@/sanity/lib/page-parsers'
-// import { Block7 } from '@/components/ui/blocks'
+import { Block7 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
+import { toLocaleString } from '@/sanity/lib/page-parsers'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -27,14 +28,18 @@ async function getPageData() {
     introOverview: toAtom1(sanityPageData?.intro?.overview, locale),
     section1: sanityPageData?.section1
       ? {
-          title: sanityPageData.section1.title?.[locale],
+          title: toLocaleString(sanityPageData.section1.title, locale),
           description: sanityPageData.section1.description?.[locale],
           configuration: toAtom2(sanityPageData.section1.configuration, locale)
         }
-      : null,
+      : {
+          title: '',
+          description: '',
+          configuration: null
+        },
     section2: sanityPageData?.section2
       ? {
-          title: sanityPageData.section2.title?.[locale],
+          title: toLocaleString(sanityPageData.section2.title, locale),
           description: sanityPageData.section2.description?.[locale],
           mediaAsset: toMedia(sanityPageData.section2.mediaAsset),
           formats: (sanityPageData.section2.formats ?? [])
@@ -52,7 +57,12 @@ async function getPageData() {
             })
             .filter(Boolean)
         }
-      : null,
+      : {
+          title: '',
+          description: '',
+          mediaAsset: null,
+          formats: []
+        },
     section3: toAtom1(sanityPageData?.section3, locale),
     section4: toBadUses(sanityPageData?.section4, locale)
   }
@@ -61,10 +71,10 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'section1', label: 'Sección 1' },
-  { id: 'section2', label: 'Sección 2' },
-  { id: 'section3', label: 'Sección 3' },
-  { id: 'section4', label: 'Malos usos' }
+  { id: 'section1', label: pageData.section1.title },
+  { id: 'section2', label: pageData.section2.title },
+  { id: 'section3', label: pageData.section3?.title || '' }, // TESTINGAL > Avoid this from being null
+  { id: 'section4', label: pageData.section4.title }
 ]
 ---
 
@@ -87,12 +97,12 @@ const asideSections = [
         {pageData.pageDescription}
       </p>
     </Section>
-    <!-- <section id="section4">
+    <Section id="section4" class="pb-12 md:pb-20">
       <Block7
-        title={pageData.badCases.title}
-        description={pageData.description}
-        items={pageData.badCases.items}
+        title={pageData.section4.title}
+        description={pageData.section4.description}
+        items={pageData.section4.items}
       />
-    </section> -->
+    </Section>
   </PageAsideLayout>
 </MainLayout>

@@ -12,7 +12,10 @@ const { title, description, items } = Astro.props
   <h3 class="text-headline-2 uppercase">{title}</h3>
   <p class="text-body pt-4 pb-10">{description}</p>
 
-  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+  <div
+    class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6"
+    data-reveal-in-view
+  >
     {
       items.map((item) => (
         <div>

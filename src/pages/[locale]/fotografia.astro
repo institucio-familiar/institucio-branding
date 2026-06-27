@@ -11,7 +11,7 @@ import {
   toAtom1Array,
   toBadUses
 } from '@/sanity/lib/page-parsers'
-// import { Block7 } from '@/components/ui/blocks'
+import { Block7 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 
@@ -56,12 +56,12 @@ const asideSections = [
         {pageData.pageDescription}
       </p>
     </Section>
-    <!-- <section id="section2">
+    <Section id="section2" class="pb-12 md:pb-20">
       <Block7
-        title={pageData.badCases.title}
-        description={pageData.description}
-        items={pageData.badCases.items}
+        title={pageData.section2.title}
+        description={pageData.section2.description}
+        items={pageData.section2.items}
       />
-    </section> -->
+    </Section>
   </PageAsideLayout>
 </MainLayout>
