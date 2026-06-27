@@ -243,7 +243,7 @@ const asideSections = [
       {
         MAIN_COLORS.map((color) => (
           <div
-            class={`${BG_CLASS[color.name]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
+            class={`${BG_CLASS[color.name]} ${TEXT_CLASS[color.textColor]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
           >
             <p>{color.hex}</p>
             <p>RGB: {color.rgb}</p>
@@ -272,7 +272,7 @@ const asideSections = [
           const renderCell = (color: BrandColor | null) =>
             color ? (
               <div
-                class={`${BG_CLASS[color.name]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
+                class={`${BG_CLASS[color.name]} ${TEXT_CLASS[color.textColor]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
               >
                 <p>{color.hex}</p>
                 <p>RGB: {color.rgb}</p>
