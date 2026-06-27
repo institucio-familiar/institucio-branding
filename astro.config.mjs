@@ -14,8 +14,8 @@ const {
   PUBLIC_SANITY_DATASET,
   PUBLIC_SANITY_API_VERSION,
   SANITY_REVALIDATE_SECRET,
-  PUBLIC_SITE_URL,
-  NGROK_HOST
+  PUBLIC_SITE_URL
+  // NGROK_HOST
 } = loadEnv(import.meta.env.NODE_ENV, process.cwd(), '')
 
 if (

@@ -85,13 +85,16 @@ const asideSections = [
             {pageData.section1.description}
           </p>
           <div class="flex flex-col gap-y-12 md:gap-y-24">
-            {pageData.section1.blocks?.map((block) => (
-              <Block3
-                title={block.title}
-                description={block.description}
-                media={block.media}
-              />
-            ))}
+            {pageData.section1.blocks?.map(
+              (block) =>
+                block.media && (
+                  <Block3
+                    title={block.title}
+                    description={block.description}
+                    media={block.media}
+                  />
+                )
+            )}
           </div>
         </Section>
       )
@@ -103,13 +106,16 @@ const asideSections = [
             {t('asi-hablamos.section2.title')}
           </h2>
           <div class="grid grid-cols-1 gap-8 md:gap-4 md:grid-cols-3">
-            {pageData.section2.blocks?.map((block) => (
-              <Card
-                title={block.title}
-                description={block.description}
-                media={block.media}
-              />
-            ))}
+            {pageData.section2.blocks?.map(
+              (block) =>
+                block.media && (
+                  <Card
+                    title={block.title}
+                    description={block.description}
+                    media={block.media}
+                  />
+                )
+            )}
           </div>
         </Section>
       )

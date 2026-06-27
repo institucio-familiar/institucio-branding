@@ -166,16 +166,19 @@ const asideSections = [
             {t('nuestra-marca.principios-creativos')}
           </h2>
           <div class="grid grid-cols-1 gap-indent-2 md:gap-indent md:grid-cols-3">
-            {pageData.section3.map((card) => (
-              <Card
-                title={card.title}
-                media={card.media}
-                description={card.description}
-                buttonUrl={card.buttonUrl}
-                buttonType="link"
-                buttonText={card.buttonText}
-              />
-            ))}
+            {pageData.section3.map(
+              (card) =>
+                card.media && (
+                  <Card
+                    title={card.title}
+                    media={card.media}
+                    description={card.description}
+                    buttonUrl={card.buttonUrl}
+                    buttonType="link"
+                    buttonText={card.buttonText}
+                  />
+                )
+            )}
           </div>
         </Section>
       )
