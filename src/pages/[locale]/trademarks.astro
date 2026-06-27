@@ -75,7 +75,10 @@ const asideSections = [
     {
       pageData.introBlocks && (
         <Section class="pb-12 md:pb-16">
-          <div class="grid grid-cols-1 gap-8 md:gap-4 md:grid-cols-3">
+          <div
+            class="grid grid-cols-1 gap-8 md:gap-4 md:grid-cols-3"
+            data-reveal-in-view
+          >
             {pageData.introBlocks?.map(
               (block) =>
                 block.media && (

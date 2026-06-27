@@ -30,7 +30,7 @@ async function getPageData() {
     section3: sanityPageData?.section3
       ? {
           title: toLocaleString(sanityPageData.section3.title, locale),
-          description: sanityPageData.section3.description?.[locale],
+          description: sanityPageData.section3.description?.[locale] ?? '',
           percentages: toAtom1(sanityPageData.section3.percentages, locale)
         }
       : {
@@ -132,6 +132,36 @@ const COLORS: Record<string, BrandColor> = {
   }
 }
 
+const BG_CLASS: Record<string, string> = {
+  white: 'bg-white',
+  ink: 'bg-ink',
+  gray: 'bg-gray',
+  blue: 'bg-blue',
+  navy: 'bg-navy',
+  mist: 'bg-mist',
+  sky: 'bg-sky',
+  'navy-light': 'bg-navy-light',
+  'sky-light': 'bg-sky-light',
+  frost: 'bg-frost'
+}
+
+const TEXT_CLASS: Record<string, string> = {
+  white: 'text-white',
+  ink: 'text-ink',
+  gray: 'text-gray',
+  blue: 'text-blue',
+  navy: 'text-navy',
+  mist: 'text-mist',
+  sky: 'text-sky',
+  'navy-light': 'text-navy-light',
+  'sky-light': 'text-sky-light',
+  frost: 'text-frost'
+}
+
+const SWATCH_BORDER_CLASS: Record<string, string> = {
+  '#F7F7F7': 'border border-black'
+}
+
 const MAIN_COLORS = [COLORS.GRAY, COLORS.BLUE, COLORS.NAVY, COLORS.MIST]
 const COLOR_COMBINATIONS = [
   { background: COLORS.NAVY, text: COLORS.BLUE },
@@ -145,12 +175,40 @@ const COLOR_COMBINATIONS = [
   { background: COLORS.NAVY_LIGHT, text: COLORS.SKY_LIGHT }
 ]
 
+// Each pair is [left, right]: 1 = color cell, 0 = empty cell
+const COLOR_CELL_LAYOUT: [0 | 1, 0 | 1][] = [
+  [1, 0],
+  [1, 0],
+  [1, 1],
+  [1, 1],
+  [0, 1],
+  [1, 0],
+  [0, 1],
+  [0, 0],
+  [0, 1],
+  [0, 0]
+]
+
+function buildColorGrid(colors: BrandColor[]): (BrandColor | null)[] {
+  let colorIndex = 0
+  const cells: (BrandColor | null)[] = []
+
+  for (const [left, right] of COLOR_CELL_LAYOUT) {
+    cells.push(left ? colors[colorIndex++] : null)
+    cells.push(right ? colors[colorIndex++] : null)
+  }
+
+  return cells
+}
+
+const COLOR_GRID = buildColorGrid(Object.values(COLORS))
+
+// TESTINGAL
 const asideSections = [
-  { id: 'section1', label: pageData.section1.title },
-  { id: 'section2', label: pageData.section2.title },
-  { id: 'section3', label: pageData.section3.title },
-  { id: 'section4', label: pageData.section4.title },
-  { id: 'section5', label: pageData.section5.title }
+  { id: 'title', label: pageData.pageTitle },
+  // { id: 'section2', label: pageData.section2.title }, // Combinaciones
+  // { id: 'section3', label: pageData.section3.title }, // Color en contexto
+  { id: 'section5', label: pageData.section5.title } // Color en contexto
 ]
 ---
 
@@ -162,7 +220,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 class="text-page-title">
+    <h1 id="title" class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -173,10 +231,15 @@ const asideSections = [
         {pageData.pageDescription}
       </p>
     </Section>
-    <Section id="section1" class="grid grid-col-4 pb-8">
+    <Section
+      id="section1"
+      class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pb-8"
+    >
       {
         MAIN_COLORS.map((color) => (
-          <div class={`bg-${color.name}`}>
+          <div
+            class={`${BG_CLASS[color.name]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
+          >
             <p>{color.hex}</p>
             <p>RGB: {color.rgb}</p>
             <p>CMYK: {color.cmyk}</p>
@@ -186,44 +249,75 @@ const asideSections = [
       }
     </Section>
 
-    <Section id="section2" class="pb-8">
-      <!-- <Block5 title={'Tittle'} description={'Description'} medias={[]} /> -->
+    <Section id="section1" class="pb-8">
+      <Block5
+        title={pageData.section1.title}
+        description={pageData.section1.description}
+        medias={pageData.section1.medias}
+      />
     </Section>
 
-    <Section class="grid grid-col-4 pb-8">
+    <Section class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pb-8">
       {
-        Object.values(COLORS).map((color) => (
-          <div class={`bg-${color.name}`}>
-            <p>{color.hex}</p>
-            <p>RGB: {color.rgb}</p>
-            <p>CMYK: {color.cmyk}</p>
-            {color.pantone && <p>PANTONE: {color.pantone}</p>}
-          </div>
-        ))
+        COLOR_GRID.map((color) =>
+          color ? (
+            <div
+              class={`${BG_CLASS[color.name]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
+            >
+              <p>{color.hex}</p>
+              <p>RGB: {color.rgb}</p>
+              <p>CMYK: {color.cmyk}</p>
+              {color.pantone && <p>PANTONE: {color.pantone}</p>}
+            </div>
+          ) : (
+            <div class="aspect-square" aria-hidden="true" />
+          )
+        )
       }
     </Section>
 
-    <!-- <Section class="pb-8">
-      <Block5 title={'Tittle'} description={'Description'} medias={[]} />
-    </Section> -->
+    <Section id="section2" class="pb-8">
+      <Block5
+        title={pageData.section2.title}
+        description={pageData.section2.description}
+        medias={pageData.section2.medias}
+      />
+    </Section>
 
     <!-- <Section id="section4" class="pb-8">
       <Block4 title={'Tittle'} description={'Description'} media={} />
     </Section> -->
 
     <Section id="section3" class="pb-8">
-      <h3>Color combination</h3>
+      <h3 class="text-headline-4 pb-8">{pageData.section3.title}</h3>
+      <p class="text-page-description pb-8">
+        {pageData.section3.description}
+      </p>
       <div class="grid grid-cols-3 gap-6 row-gap-4">
         {
           COLOR_COMBINATIONS.map((combi) => (
             <div
-              class={`flex items-center justify-center bg-${combi.background.name}`}
+              class={`flex items-center justify-center ${BG_CLASS[combi.background.name]}`}
             >
-              <span class={`text-headline-2 text-${combi.text.name}`}>Aa</span>
+              <span class={`text-headline-2 ${TEXT_CLASS[combi.text.name]}`}>
+                Aa
+              </span>
             </div>
           ))
         }
       </div>
+    </Section>
+    <Section class="pb-8">
+      {
+        pageData.section3.percentages &&
+          pageData.section3.percentages.media && (
+            <Block4
+              title={pageData.section3.percentages.title}
+              description={pageData.section3.percentages.description}
+              media={pageData.section3.percentages.media}
+            />
+          )
+      }
     </Section>
 
     <Section id="section5" class="pb-12 md:pb-20">

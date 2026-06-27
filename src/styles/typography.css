@@ -85,7 +85,7 @@
 }
 
 /* 14px */
-@utility text-cta {
+@utility text-small {
   font-size: var(--text-small);
   font-family: var(--font-serif);
   font-weight: 400;
