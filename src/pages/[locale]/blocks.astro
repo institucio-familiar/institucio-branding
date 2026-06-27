@@ -11,7 +11,8 @@ import {
   Block4,
   Block5,
   Block6,
-  Block7
+  Block7,
+  Block8
 } from '@/components/ui/blocks'
 import type { Media } from '@/components/ui/blocks/block-types'
 
@@ -54,7 +55,8 @@ const asideSections = [
   { id: 'block-4', label: 'Block 4' },
   { id: 'block-5', label: 'Block 5' },
   { id: 'block-6', label: 'Block 6' },
-  { id: 'block-7', label: 'Block 7' }
+  { id: 'block-7', label: 'Block 7' },
+  { id: 'block-8', label: 'Block 8' }
 ]
 ---
 
@@ -138,6 +140,25 @@ const asideSections = [
       {
         heroMedia && (
           <Block7
+            title={pageData.title}
+            description={pageData.description}
+            medias={[
+              heroMedia,
+              heroMedia,
+              heroMedia,
+              heroMedia,
+              heroMedia,
+              heroMedia
+            ]}
+          />
+        )
+      }
+    </Section>
+    <Section id="block-8" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 8</p>
+      {
+        heroMedia && (
+          <Block8
             title={pageData.badCases.title}
             description={pageData.description}
             items={pageData.badCases.items}

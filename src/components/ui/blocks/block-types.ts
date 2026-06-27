@@ -53,6 +53,12 @@ export type Block6 = {
 export type Block7 = {
   title: string
   description: string
+  medias: Media[]
+}
+
+export type Block8 = {
+  title: string
+  description: string
   items: { media: Media; description: string }[]
 }
 

@@ -12,7 +12,8 @@ import {
   toBadUses,
   toSectionWithAtom2Blocks
 } from '@/sanity/lib/page-parsers'
-import { Block4, Block5, Block7 } from '@/components/ui/blocks'
+import { Block4, Block5, Block7, Block8 } from '@/components/ui/blocks'
+import Mask from '@/components/ui/Mask.astro'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { toLocaleString } from '@/sanity/lib/page-parsers'
@@ -189,19 +190,23 @@ const COLOR_CELL_LAYOUT: [0 | 1, 0 | 1][] = [
   [0, 0]
 ]
 
-function buildColorGrid(colors: BrandColor[]): (BrandColor | null)[] {
-  let colorIndex = 0
-  const cells: (BrandColor | null)[] = []
-
-  for (const [left, right] of COLOR_CELL_LAYOUT) {
-    cells.push(left ? colors[colorIndex++] : null)
-    cells.push(right ? colors[colorIndex++] : null)
-  }
-
-  return cells
+type ColorPair = {
+  left: BrandColor | null
+  right: BrandColor | null
+  isEmptyPair: boolean
 }
 
-const COLOR_GRID = buildColorGrid(Object.values(COLORS))
+function buildColorPairs(colors: BrandColor[]): ColorPair[] {
+  let colorIndex = 0
+
+  return COLOR_CELL_LAYOUT.map(([left, right]) => ({
+    left: left ? colors[colorIndex++] : null,
+    right: right ? colors[colorIndex++] : null,
+    isEmptyPair: left === 0 && right === 0
+  }))
+}
+
+const COLOR_PAIRS = buildColorPairs(Object.values(COLORS))
 
 // TESTINGAL
 const asideSections = [
@@ -259,20 +264,27 @@ const asideSections = [
 
     <Section class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pb-8">
       {
-        COLOR_GRID.map((color) =>
-          color ? (
-            <div
-              class={`${BG_CLASS[color.name]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
-            >
-              <p>{color.hex}</p>
-              <p>RGB: {color.rgb}</p>
-              <p>CMYK: {color.cmyk}</p>
-              {color.pantone && <p>PANTONE: {color.pantone}</p>}
-            </div>
-          ) : (
-            <div class="aspect-square" aria-hidden="true" />
-          )
-        )
+        COLOR_PAIRS.flatMap((pair) => {
+          const emptyCellClass = pair.isEmptyPair
+            ? 'hidden md:block aspect-square'
+            : 'aspect-square'
+
+          const renderCell = (color: BrandColor | null) =>
+            color ? (
+              <div
+                class={`${BG_CLASS[color.name]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
+              >
+                <p>{color.hex}</p>
+                <p>RGB: {color.rgb}</p>
+                <p>CMYK: {color.cmyk}</p>
+                {color.pantone && <p>PANTONE: {color.pantone}</p>}
+              </div>
+            ) : (
+              <div class={emptyCellClass} aria-hidden="true" />
+            )
+
+          return [renderCell(pair.left), renderCell(pair.right)]
+        })
       }
     </Section>
 
@@ -296,13 +308,15 @@ const asideSections = [
       <div class="grid grid-cols-3 gap-6 row-gap-4">
         {
           COLOR_COMBINATIONS.map((combi) => (
-            <div
-              class={`flex items-center justify-center ${BG_CLASS[combi.background.name]}`}
-            >
-              <span class={`text-headline-2 ${TEXT_CLASS[combi.text.name]}`}>
-                Aa
-              </span>
-            </div>
+            <Mask type="tibo_square">
+              <div
+                class={`flex h-full w-full items-center justify-center ${BG_CLASS[combi.background.name]}`}
+              >
+                <span class={`text-headline-2 ${TEXT_CLASS[combi.text.name]}`}>
+                  Aa
+                </span>
+              </div>
+            </Mask>
           ))
         }
       </div>
@@ -320,8 +334,26 @@ const asideSections = [
       }
     </Section>
 
+    <Section id="section4" class="pb-8">
+      <h3 class="text-headline-4 pb-8">{pageData.section4.title}</h3>
+      <p class="text-page-description pb-8">
+        {pageData.section4.description}
+      </p>
+      <div class="flex flex-col gap-8 md:gap-16">
+        {
+          pageData.section4.blocks &&
+            pageData.section4.blocks.map((block) => (
+              <Block7
+                title={block.title}
+                description={block.description}
+                medias={block.medias}
+              />
+            ))
+        }
+      </div>
+    </Section>
     <Section id="section5" class="pb-12 md:pb-20">
-      <Block7
+      <Block8
         title={pageData.section5.title}
         description={pageData.section5.description}
         items={pageData.section5.items}
