@@ -1,29 +1,14 @@
 ---
-import MediaAsset from '@/components/MediaAsset.astro'
+import Carousel from '@/components/Carousel.astro'
 import type { Block8 } from '@/components/ui/blocks/block-types'
 
 type Props = Block8
 
-const { title, description, items } = Astro.props
+const { titleSize = 'text-body-bold', title, description, medias } = Astro.props
 ---
 
 <div class="w-full text-navy" data-reveal-in-view>
-  <h3 class="text-headline-2 uppercase">{title}</h3>
-  <p class="text-body pt-4 pb-10">{description}</p>
-
-  <div
-    class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6"
-    data-reveal-in-view
-  >
-    {
-      items.map((item) => (
-        <div>
-          <div class="aspect-square w-full overflow-hidden rounded-sm">
-            <MediaAsset media={item.media} />
-          </div>
-          <p class="pt-4 pb-4 text-body">{item.description}</p>
-        </div>
-      ))
-    }
-  </div>
+  <h3 class={titleSize}>{title}</h3>
+  <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">{description}</p>
+  <Carousel medias={medias} aspectRatio="video" />
 </div>

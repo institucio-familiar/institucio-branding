@@ -12,7 +12,7 @@ import {
   toBadUses,
   toSectionWithAtom2Blocks
 } from '@/sanity/lib/page-parsers'
-import { Block4, Block5, Block7, Block8 } from '@/components/ui/blocks'
+import { Block4, Block5, Block8, Block9 } from '@/components/ui/blocks'
 import Mask from '@/components/ui/Mask.astro'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
@@ -208,11 +208,10 @@ function buildColorPairs(colors: BrandColor[]): ColorPair[] {
 
 const COLOR_PAIRS = buildColorPairs(Object.values(COLORS))
 
-// TESTINGAL
 const asideSections = [
   { id: 'title', label: pageData.pageTitle },
-  { id: 'section3', label: pageData.section3.title }, // Combinaciones
-  { id: 'section4', label: pageData.section4.title }, // Color en contexto
+  { id: 'section3', label: pageData.section3.title },
+  { id: 'section4', label: pageData.section4.title },
   { id: 'section5', label: pageData.section5.title }
 ]
 ---
@@ -306,7 +305,10 @@ const asideSections = [
       <div class="grid grid-cols-3 gap-6 row-gap-4">
         {
           COLOR_COMBINATIONS.map((combi) => (
-            <Mask type="tibo_square">
+            <Mask
+              type="tibo_square"
+              border={combi.background.hex === '#F7F7F7'}
+            >
               <div
                 class={`flex h-full w-full items-center justify-center ${BG_CLASS[combi.background.name]}`}
               >
@@ -343,7 +345,7 @@ const asideSections = [
         {
           pageData.section4.blocks &&
             pageData.section4.blocks.map((block) => (
-              <Block7
+              <Block8
                 title={block.title}
                 description={block.description}
                 medias={block.medias}
@@ -353,7 +355,7 @@ const asideSections = [
       </div>
     </Section>
     <Section id="section5" class="pb-12 md:pb-20">
-      <Block8
+      <Block9
         title={pageData.section5.title}
         description={pageData.section5.description}
         items={pageData.section5.items}

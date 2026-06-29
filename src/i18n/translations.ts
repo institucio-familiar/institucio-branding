@@ -199,6 +199,23 @@ export const nuestraMarca: BilingualTranslations = {
   }
 }
 
+export const tipografia: BilingualTranslations = {
+  es: {
+    'tipografia.download.inter': 'Descarga Inter',
+    'tipografia.download.alverata': 'Descarga Alverata',
+    'tipografia.weight.regular': 'Regular',
+    'tipografia.weight.bold': 'Bold',
+    'tipografia.size': 'Size'
+  },
+  ca: {
+    'tipografia.download.inter': 'Descarrega Inter',
+    'tipografia.download.alverata': 'Descarrega Alverata',
+    'tipografia.weight.regular': 'Regular',
+    'tipografia.weight.bold': 'Bold',
+    'tipografia.size': 'Size'
+  }
+}
+
 export const asiHablamos: BilingualTranslations = {
   es: {
     'asi-hablamos.aside.section1': 'Nuestra voz',
@@ -233,5 +250,6 @@ export const allTranslations: BilingualTranslations[] = [
   recursos,
   asiNosVemos,
   nuestraMarca,
-  asiHablamos
+  asiHablamos,
+  tipografia
 ]

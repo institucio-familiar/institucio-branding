@@ -1,0 +1,154 @@
+---
+import Button from '@/components/ui/Button.astro'
+
+type FontFamily = 'serif' | 'sans'
+
+interface Props {
+  name: string
+  fontFamily: FontFamily
+  testText: string
+  downloadUrl: string
+  downloadLabel: string
+  regularLabel: string
+  boldLabel: string
+  sizeLabel: string
+  defaultSize?: number
+  minSize?: number
+  maxSize?: number
+}
+
+const {
+  name,
+  fontFamily,
+  testText,
+  downloadUrl,
+  downloadLabel,
+  regularLabel,
+  boldLabel,
+  sizeLabel,
+  defaultSize = 64,
+  minSize = 24,
+  maxSize = 96
+} = Astro.props
+
+const regularWeight = 400
+const boldWeight = fontFamily === 'serif' ? 700 : 600
+const nameFontClass = fontFamily === 'serif' ? 'font-serif' : 'font-sans'
+const previewFontClass = fontFamily === 'serif' ? 'font-serif' : 'font-sans'
+---
+
+<div
+  class="font-preview min-w-0"
+  data-font-preview
+  data-regular-weight={regularWeight}
+  data-bold-weight={boldWeight}
+  data-regular-label={regularLabel}
+  data-bold-label={boldLabel}
+>
+  <div class="flex flex-wrap items-center gap-4 md:gap-6">
+    <span class:list={['text-headline-4 text-navy', nameFontClass]}>{name}</span
+    >
+
+    <button
+      type="button"
+      class="rounded-sm border border-navy bg-transparent px-3 py-1.5 font-sans text-small text-navy transition-colors duration-200 hover:bg-navy hover:text-frost cursor-pointer"
+      data-font-preview-weight
+      aria-pressed="false"
+    >
+      {regularLabel}
+    </button>
+
+    <div class="flex w-full min-w-0 items-center gap-3 md:ml-auto md:w-auto">
+      <span class="shrink-0 font-sans text-body text-navy">{sizeLabel}</span>
+      <div class="relative min-w-[140px] flex-1 md:w-44">
+        <span
+          class="pointer-events-none absolute -top-7 -translate-x-1/2 rounded-sm border border-navy/30 bg-white px-1.5 py-0.5 font-sans text-micro text-navy"
+          data-font-preview-size-label
+        >
+          {defaultSize}px
+        </span>
+        <input
+          type="range"
+          class="font-preview-slider w-full"
+          data-font-preview-size
+          min={minSize}
+          max={maxSize}
+          value={defaultSize}
+          aria-label={sizeLabel}
+        />
+      </div>
+    </div>
+  </div>
+
+  <hr class="mt-6 border-navy/15" />
+
+  <div class="min-w-0 max-h-[min(50vh,22rem)] overflow-hidden pt-8 mb-10">
+    <p
+      class:list={[
+        'wrap-break-word leading-none tracking-[-0.02em] text-navy',
+        previewFontClass
+      ]}
+      data-font-preview-text
+      style={`font-size: ${defaultSize}px; font-weight: ${regularWeight}`}
+    >
+      {testText}
+    </p>
+  </div>
+
+  <div class="flex justify-end">
+    <Button href={downloadUrl} variant="secondary-white" icon="download">
+      {downloadLabel}
+    </Button>
+  </div>
+</div>
+
+<style>
+  .font-preview-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1px;
+    background: var(--color-navy);
+    outline: none;
+    cursor: pointer;
+  }
+
+  .font-preview-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-navy);
+    border: none;
+    cursor: pointer;
+  }
+
+  .font-preview-slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-navy);
+    border: none;
+    cursor: pointer;
+  }
+
+  .font-preview-slider::-moz-range-track {
+    height: 1px;
+    background: var(--color-navy);
+  }
+</style>
+
+<script>
+  import { initFontPreviews } from '@/scripts/font-preview'
+
+  const destroyFontPreviews = initFontPreviews()
+
+  // TESTINGAL > swup
+  document.addEventListener(
+    'swup:visit:start',
+    () => {
+      destroyFontPreviews()
+    },
+    { once: true }
+  )
+</script>

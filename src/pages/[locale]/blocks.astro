@@ -12,7 +12,8 @@ import {
   Block5,
   Block6,
   Block7,
-  Block8
+  Block8,
+  Block9
 } from '@/components/ui/blocks'
 import type { Media } from '@/components/ui/blocks/block-types'
 
@@ -56,7 +57,8 @@ const asideSections = [
   { id: 'block-5', label: 'Block 5' },
   { id: 'block-6', label: 'Block 6' },
   { id: 'block-7', label: 'Block 7' },
-  { id: 'block-8', label: 'Block 8' }
+  { id: 'block-8', label: 'Block 8' },
+  { id: 'block-9', label: 'Block 9' }
 ]
 ---
 
@@ -130,7 +132,14 @@ const asideSections = [
           <Block6
             title={pageData.title}
             description={pageData.description}
-            media={heroMedia}
+            medias={[
+              heroMedia,
+              heroMedia,
+              heroMedia,
+              heroMedia,
+              heroMedia,
+              heroMedia
+            ]}
           />
         )
       }
@@ -140,6 +149,18 @@ const asideSections = [
       {
         heroMedia && (
           <Block7
+            title={pageData.title}
+            description={pageData.description}
+            media={heroMedia}
+          />
+        )
+      }
+    </Section>
+    <Section id="block-8" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 8</p>
+      {
+        heroMedia && (
+          <Block8
             title={pageData.title}
             description={pageData.description}
             medias={[
@@ -154,11 +175,11 @@ const asideSections = [
         )
       }
     </Section>
-    <Section id="block-8" class="py-10">
-      <p class="text-headline-3 pb-3 text-navy-light">Block 8</p>
+    <Section id="block-9" class="py-10">
+      <p class="text-headline-3 pb-3 text-navy-light">Block 9</p>
       {
         heroMedia && (
-          <Block8
+          <Block9
             title={pageData.badCases.title}
             description={pageData.description}
             items={pageData.badCases.items}

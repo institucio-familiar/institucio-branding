@@ -39,6 +39,7 @@ export type Block4 = {
 }
 
 export type Block5 = {
+  bigTitle?: string
   title: string
   description: string
   medias: Media[]
@@ -47,16 +48,23 @@ export type Block5 = {
 export type Block6 = {
   title: string
   description: string
-  media: Media
+  medias: Media[]
 }
 
 export type Block7 = {
   title: string
   description: string
-  medias: Media[]
+  media: Media
 }
 
 export type Block8 = {
+  titleSize?: string
+  title: string
+  description: string
+  medias: Media[]
+}
+
+export type Block9 = {
   title: string
   description: string
   items: { media: Media; description: string }[]

@@ -1,0 +1,130 @@
+---
+type ScaleRow = {
+  size: number
+  name: string
+  weight: string
+  preview: string
+  textClass: string
+}
+
+const rows: ScaleRow[] = [
+  {
+    size: 350,
+    name: 'Macro Alverata',
+    weight: 'Semibold',
+    preview: 'ABC',
+    textClass: 'text-macro'
+  },
+  {
+    size: 128,
+    name: 'Headline 1 Alverata',
+    weight: 'Semibold',
+    preview: 'ABC',
+    textClass: 'text-headline-1'
+  },
+  {
+    size: 80,
+    name: 'Headline 2 Alverata',
+    weight: 'Semibold',
+    preview: 'ABC',
+    textClass: 'text-headline-2'
+  },
+  {
+    size: 40,
+    name: 'Headline 3 Alverata',
+    weight: 'Regular',
+    preview: 'abc',
+    textClass: 'text-headline-3'
+  },
+  {
+    size: 20,
+    name: 'Headline 4 Alverata',
+    weight: 'Regular',
+    preview: 'abc',
+    textClass: 'text-headline-4'
+  },
+  {
+    size: 16,
+    name: 'Body 1 (inter)',
+    weight: 'Regular',
+    preview: 'abc',
+    textClass: 'text-body'
+  },
+  {
+    size: 16,
+    name: 'Body Emphasis (inter)',
+    weight: 'Semibold',
+    preview: 'abc',
+    textClass: 'text-body-bold'
+  },
+  {
+    size: 14,
+    name: 'CTA Alverata',
+    weight: 'Regular',
+    preview: 'abc',
+    textClass: 'text-small'
+  },
+  {
+    size: 10,
+    name: 'Micro (links)/pie de foto (inter)',
+    weight: 'Regular',
+    preview: 'abc',
+    textClass: 'text-micro'
+  }
+]
+
+const infoClass = 'font-sans text-small text-navy'
+
+const sansTextClasses = new Set(['text-body', 'text-body-bold', 'text-micro'])
+const bodyTextClasses = new Set(['text-body', 'text-body-bold'])
+
+function previewOffsetClass(textClass: string) {
+  if (bodyTextClasses.has(textClass)) return 'typography-scale__preview--body'
+  if (sansTextClasses.has(textClass)) return 'typography-scale__preview--sans'
+  return 'typography-scale__preview--serif'
+}
+---
+
+<div class="typography-scale">
+  <div class="flex flex-col">
+    {
+      rows.map((row, index) => (
+        <div class:list={['py-4', index > 0 && 'border-t border-navy']}>
+          <span
+            class:list={[
+              'typography-scale__preview text-navy',
+              previewOffsetClass(row.textClass),
+              row.textClass
+            ]}
+          >
+            {row.preview}
+          </span>
+          <div class="mt-4 flex flex-col gap-1">
+            <span class={infoClass}>{row.size}px</span>
+            <span class={infoClass}>{row.name}</span>
+            <span class={infoClass}>{row.weight}</span>
+          </div>
+        </div>
+      ))
+    }
+    <div class="border-t border-navy" aria-hidden="true"></div>
+  </div>
+</div>
+
+<style>
+  .typography-scale__preview {
+    display: inline-block;
+  }
+
+  .typography-scale__preview--serif {
+    margin-bottom: -0.11em;
+  }
+
+  .typography-scale__preview--sans {
+    margin-bottom: -0.07em;
+  }
+
+  .typography-scale__preview--body {
+    margin-bottom: -0.28em;
+  }
+</style>

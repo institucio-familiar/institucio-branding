@@ -14,7 +14,7 @@ import {
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import Card from '@/components/ui/Card.astro'
-import { Block4, Block5, Block6, Block8 } from '@/components/ui/blocks'
+import { Block4, Block5, Block7, Block9 } from '@/components/ui/blocks'
 
 const SECTIONS = [
   'section1',
@@ -99,7 +99,7 @@ const asideSections = [
           section.data.media && (
             <Section id={section.id} class="pb-12 md:pb-16">
               <div class="pb-4 md:pb-8">
-                <Block6
+                <Block7
                   title={section.data.title}
                   description={section.data.description}
                   media={section.data.media}
@@ -134,7 +134,7 @@ const asideSections = [
       )
     }
     <Section id="section6" class="pb-12 md:pb-20">
-      <Block8
+      <Block9
         title={pageData.section6.title}
         description={pageData.section6.description}
         items={pageData.section6.items}

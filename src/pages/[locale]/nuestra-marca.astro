@@ -10,7 +10,7 @@ import { toMedia } from '@/sanity/lib/utils'
 import { parsePageHeader, toAtom1 } from '@/sanity/lib/page-parsers'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
-import { Block1, Block6 } from '@/components/ui/blocks'
+import { Block1, Block7 } from '@/components/ui/blocks'
 import Card from '@/components/ui/Card.astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
@@ -145,7 +145,7 @@ const asideSections = [
       pageData.section2.length > 0 && (
         <Section class="flex flex-col gap-8 md:gap-16">
           {pageData.section2.map((block) => (
-            <Block6
+            <Block7
               title={block.title}
               description={block.description}
               media={block.media}

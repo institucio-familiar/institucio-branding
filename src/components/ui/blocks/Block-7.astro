@@ -1,14 +1,16 @@
 ---
-import Carousel from '@/components/Carousel.astro'
+import MediaAsset from '@/components/MediaAsset.astro'
 import type { Block7 } from '@/components/ui/blocks/block-types'
 
 type Props = Block7
 
-const { title, description, medias } = Astro.props
+const { title, description, media } = Astro.props
 ---
 
 <div class="w-full text-navy" data-reveal-in-view>
-  <h3 class="text-body-bold">{title}</h3>
+  <h3 class="text-headline-2 uppercase">{title}</h3>
   <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">{description}</p>
-  <Carousel medias={medias} aspectRatio="video" />
+  <div class="aspect-video w-full overflow-hidden rounded-sm col-span-7">
+    <MediaAsset media={media} />
+  </div>
 </div>
