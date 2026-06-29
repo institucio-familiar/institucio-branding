@@ -47,6 +47,10 @@ body {
   --swup-overlay-theme-skew: 0deg;
 }
 
+p {
+  white-space: pre-line;
+}
+
 .swup-transition-overlay {
   transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1) !important;
 }

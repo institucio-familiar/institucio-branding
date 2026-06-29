@@ -17,6 +17,7 @@ interface Props {
   id?: string
   'aria-label'?: string
   internal?: boolean
+  selected?: boolean
 }
 
 const {
@@ -27,7 +28,8 @@ const {
   class: className,
   id,
   'aria-label': ariaLabel,
-  internal = false
+  internal = false,
+  selected = false
 } = Astro.props
 
 const base =

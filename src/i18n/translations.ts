@@ -92,6 +92,17 @@ export const card: BilingualTranslations = {
   }
 }
 
+export const blocks: BilingualTranslations = {
+  es: {
+    'blocks.mediaToggle.example': 'Ejemplo',
+    'blocks.mediaToggle.gridSetup': 'Grid setup'
+  },
+  ca: {
+    'blocks.mediaToggle.example': 'Exemple',
+    'blocks.mediaToggle.gridSetup': 'Grid setup'
+  }
+}
+
 export const lang: BilingualTranslations = {
   es: {
     'lang.switch': 'Idioma'
@@ -201,6 +212,9 @@ export const nuestraMarca: BilingualTranslations = {
 
 export const tipografia: BilingualTranslations = {
   es: {
+    'tipografia.aside.section2': 'Jerarquía',
+    'tipografia.aside.section3': 'Composiciones',
+    'tipografia.aside.section4': 'Uso del color',
     'tipografia.download.inter': 'Descarga Inter',
     'tipografia.download.alverata': 'Descarga Alverata',
     'tipografia.weight.regular': 'Regular',
@@ -208,6 +222,9 @@ export const tipografia: BilingualTranslations = {
     'tipografia.size': 'Size'
   },
   ca: {
+    'tipografia.aside.section2': 'Jerarquia',
+    'tipografia.aside.section3': 'Composicions',
+    'tipografia.aside.section4': 'Ús del color',
     'tipografia.download.inter': 'Descarrega Inter',
     'tipografia.download.alverata': 'Descarrega Alverata',
     'tipografia.weight.regular': 'Regular',
@@ -242,6 +259,7 @@ export const allTranslations: BilingualTranslations[] = [
   header,
   footer,
   card,
+  blocks,
   lang,
   hero,
   // Pages

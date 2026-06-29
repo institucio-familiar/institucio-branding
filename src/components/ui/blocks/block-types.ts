@@ -70,6 +70,13 @@ export type Block9 = {
   items: { media: Media; description: string }[]
 }
 
+export type Block10 = {
+  title: string
+  description: string
+  media1: Media
+  media2: Media
+}
+
 export type BlockData =
   | { type: 'block_1'; block: Block1 }
   | { type: 'block_2'; block: Block2 }

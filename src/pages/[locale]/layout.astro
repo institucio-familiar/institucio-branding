@@ -12,7 +12,7 @@ import {
   toAtom2,
   toBadUses
 } from '@/sanity/lib/page-parsers'
-import { Block9 } from '@/components/ui/blocks'
+import { Block1, Block5, Block7, Block9, Block10 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { toLocaleString } from '@/sanity/lib/page-parsers'
@@ -35,12 +35,12 @@ async function getPageData() {
       : {
           title: '',
           description: '',
-          configuration: null
+          configuration: { title: '', description: '', medias: [] }
         },
     section2: sanityPageData?.section2
       ? {
           title: toLocaleString(sanityPageData.section2.title, locale),
-          description: sanityPageData.section2.description?.[locale],
+          description: sanityPageData.section2.description?.[locale] || '',
           mediaAsset: toMedia(sanityPageData.section2.mediaAsset),
           formats: (sanityPageData.section2.formats ?? [])
             .map((format) => {
@@ -49,13 +49,14 @@ async function getPageData() {
               if (!image1 || !image2) return null
 
               return {
-                title: format.title?.[locale],
-                description: format.description?.[locale],
+                title: toLocaleString(format.title, locale),
+                description: format.description?.[locale] || '',
                 image1,
                 image2
               }
             })
             .filter(Boolean)
+            .filter((format) => format !== null)
         }
       : {
           title: '',
@@ -63,7 +64,11 @@ async function getPageData() {
           mediaAsset: null,
           formats: []
         },
-    section3: toAtom1(sanityPageData?.section3, locale),
+    section3: toAtom1(sanityPageData?.section3, locale) || {
+      title: '',
+      description: '',
+      media: null
+    },
     section4: toBadUses(sanityPageData?.section4, locale)
   }
 }
@@ -71,6 +76,7 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
+  { id: 'title', label: pageData.pageTitle },
   { id: 'section1', label: pageData.section1.title },
   { id: 'section2', label: pageData.section2.title },
   { id: 'section3', label: pageData.section3?.title || '' }, // TESTINGAL > Avoid this from being null
@@ -86,17 +92,80 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 class="text-page-title">
+    <h1 id="title" class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/layout">
-    <Section class="pb-8">
+    <Section class="pb-16">
       <p class="text-page-description">
         {pageData.pageDescription}
       </p>
     </Section>
+    {
+      pageData.introOverview && pageData.introOverview.media && (
+        <Section class="pb-16 md:pb-28">
+          <h3 class="text-headline-3">{pageData.introOverview.title}</h3>
+          <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
+            {pageData.introOverview.description}
+          </p>
+          <Block1 media1={pageData.introOverview.media} />
+        </Section>
+      )
+    }
+    {
+      pageData.section1 && (
+        <Section id="section1" class="pb-16 md:pb-28">
+          <h3 class="text-headline-2 uppercase">{pageData.section1.title}</h3>
+          <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
+            {pageData.section1.description}
+          </p>
+          <Block5
+            title={pageData.section1.configuration?.title}
+            description={pageData.section1.configuration?.description}
+            medias={pageData.section1.configuration?.medias}
+          />
+        </Section>
+      )
+    }
+    {
+      pageData.section2 && pageData.section2.mediaAsset && (
+        <Section id="section2" class="pb-16 md:pb-28">
+          <Block7
+            title={pageData.section2.title}
+            description={pageData.section2.description}
+            media={pageData.section2.mediaAsset}
+          />
+          <div class="mt-8" />
+          {pageData.section2.formats &&
+            pageData.section2.formats.length > 0 && (
+              <div class="flex flex-col gap-8 md:gap-16">
+                {pageData.section2.formats.map((format) => (
+                  <Block10
+                    title={format.title}
+                    description={format.description}
+                    media1={format.image1}
+                    media2={format.image2}
+                  />
+                ))}
+              </div>
+            )}
+        </Section>
+      )
+    }
+
+    {
+      pageData.section3 && pageData.section3.media && (
+        <Section id="section3" class="pb-16 md:pb-28">
+          <Block7
+            title={pageData.section3.title}
+            description={pageData.section3.description}
+            media={pageData.section3.media}
+          />
+        </Section>
+      )
+    }
     <Section id="section4" class="pb-12 md:pb-20">
       <Block9
         title={pageData.section4.title}
