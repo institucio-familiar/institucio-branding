@@ -242,6 +242,7 @@ const asideSections = [
       {
         MAIN_COLORS.map((color) => (
           <div
+            data-reveal-in-view
             class={`${BG_CLASS[color.name]} ${TEXT_CLASS[color.textColor]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end gap-1`}
           >
             <p>{color.hex}</p>
@@ -271,6 +272,7 @@ const asideSections = [
           const renderCell = (color: BrandColor | null) =>
             color ? (
               <div
+                data-reveal-in-view
                 class={`${BG_CLASS[color.name]} ${TEXT_CLASS[color.textColor]} ${SWATCH_BORDER_CLASS[color.hex] ?? ''} text-small rounded-sm p-4 md:p-6 aspect-square flex flex-col items-start justify-end`}
               >
                 <p>{color.hex}</p>
@@ -302,7 +304,7 @@ const asideSections = [
       <p class="text-body pt-6 pb-10 md:pt-8 md:pb-12 max-w-4xl">
         {pageData.section3.description}
       </p>
-      <div class="grid grid-cols-3 gap-6 row-gap-4">
+      <div class="grid grid-cols-3 gap-6 row-gap-4" data-reveal-in-view>
         {
           COLOR_COMBINATIONS.map((combi) => (
             <Mask
@@ -341,7 +343,7 @@ const asideSections = [
       <p class="text-body pt-6 pb-16 md:pt-8 md:pb-24 max-w-4xl">
         {pageData.section4.description}
       </p>
-      <div class="flex flex-col gap-8 md:gap-16">
+      <div class="flex flex-col gap-8 md:gap-16" data-reveal-in-view>
         {
           pageData.section4.blocks &&
             pageData.section4.blocks.map((block) => (

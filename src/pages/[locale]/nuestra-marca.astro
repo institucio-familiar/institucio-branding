@@ -129,7 +129,10 @@ const asideSections = [
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
-          <div class="flex flex-col gap-indent py-12 md:py-18">
+          <div
+            class="flex flex-col gap-indent py-12 md:py-18"
+            data-reveal-in-view
+          >
             {pageData.section1.questions.map((item) => (
               <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2.5fr)] md:gap-indent">
                 <p class="text-navy text-body">{item.question}</p>

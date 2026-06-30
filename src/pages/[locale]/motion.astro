@@ -11,9 +11,10 @@ import {
   toMotionSection,
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
-import { Block9 } from '@/components/ui/blocks'
+import { Block4, Block9 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
+import Card from '@/components/ui/Card.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -34,8 +35,11 @@ async function getPageData() {
 
 const pageData = await getPageData()
 
+const cardSections = ['section2', 'section3', 'section4', 'section5'] as const
+
 const asideSections = [
-  { id: 'section1', label: 'Sección 1' },
+  { id: 'title', label: pageData.pageTitle },
+  { id: 'section1', label: pageData.section1.title },
   { id: 'section2', label: 'Animación logotipo' },
   { id: 'section3', label: 'Animación tipográfica' },
   { id: 'section4', label: 'Transiciones' },
@@ -52,17 +56,70 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 class="text-page-title">
+    <h1 id="title" class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
 
   <PageAsideLayout sections={asideSections} basePath="/motion">
-    <Section class="pb-8">
+    <Section class="pb-16 md:pb-28">
       <p class="text-page-description">
         {pageData.pageDescription}
       </p>
     </Section>
+    {
+      pageData.section1 && (
+        <Section id="section1" class="pb-16 md:pb-28">
+          <h3 class="text-headline-2 uppercase">{pageData.section1.title}</h3>
+          <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
+            {pageData.section1.description}
+          </p>
+          <div class="mt-2 md:mt-4" />
+          <div class="flex flex-col gap-4 md:gap-8" data-reveal-in-view>
+            {pageData.section1.blocks?.map(
+              (block) =>
+                block.media && (
+                  <Block4
+                    title={block.title}
+                    description={block.description}
+                    media={block.media}
+                  />
+                )
+            )}
+          </div>
+        </Section>
+      )
+    }
+    {
+      cardSections.map((sectionKey, index) => {
+        const section = pageData[sectionKey]
+        const isLast = index === cardSections.length - 1
+        return (
+          section && (
+            <Section
+              id={sectionKey}
+              class={isLast ? 'pb-16 md:pb-28' : 'pb-10 md:pb-20'}
+            >
+              <h3 class="text-headline-2 uppercase">{section.title}</h3>
+              <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
+                {section.description}
+              </p>
+              <div class="grid gap-8 md:grid-cols-2" data-reveal-in-view>
+                {section.blocks?.map(
+                  (block) =>
+                    block.media && (
+                      <Card
+                        description={block.description}
+                        media={block.media}
+                      />
+                    )
+                )}
+              </div>
+            </Section>
+          )
+        )
+      })
+    }
     <Section id="section6" class="pb-12 md:pb-20">
       <Block9
         title={pageData.section6.title}

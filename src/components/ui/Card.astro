@@ -6,9 +6,9 @@ import { useTranslations } from '@/i18n/ui'
 import { getPageLocale } from '@/i18n/utils'
 
 type Props = {
-  title: string
+  title?: string
   media: Media
-  description: string
+  description?: string
   buttonType?: 'download' | 'link' | 'link-external'
   buttonUrl?: string
   buttonText?: string
@@ -34,8 +34,8 @@ const t = useTranslations(locale)
   </div>
 
   <div class="flex flex-col gap-2">
-    <h2 class="text-navy text-body-bold">{title}</h2>
-    <p class="text-navy text-body pb-3">{description}</p>
+    {title && <h2 class="text-navy text-body-bold">{title}</h2>}
+    {description && <p class="text-navy text-body pb-3">{description}</p>}
     {
       buttonUrl && buttonType === 'download' && (
         <Button

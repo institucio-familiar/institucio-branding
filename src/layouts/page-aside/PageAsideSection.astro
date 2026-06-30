@@ -15,7 +15,7 @@ const { class: className, backgroundColor, ...rest } = Astro.props
 <section data-page-aside-section {...rest} class={backgroundColor}>
   <div class={PAGE_ASIDE_GRID}>
     <div class={PAGE_ASIDE_CONTENT} data-page-aside-content>
-      <div class={className}>
+      <div class={className} data-reveal-in-view>
         <slot />
       </div>
     </div>

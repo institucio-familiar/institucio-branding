@@ -77,7 +77,10 @@ const asideSections = [{ id: 'section1', label: 'Recursos' }]
           <h2 class="text-navy text-headline-2 uppercase pb-4 md:pb-6">
             {t('recursos.assets')}
           </h2>
-          <div class="grid grid-cols-1 gap-indent pb-8 md:grid-cols-2">
+          <div
+            class="grid grid-cols-1 gap-indent pb-8 md:grid-cols-2"
+            data-reveal-in-view
+          >
             {pageData.section1.map((item: RecursosCard) => (
               <Card
                 title={item.title}

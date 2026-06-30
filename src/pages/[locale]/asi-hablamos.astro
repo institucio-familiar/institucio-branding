@@ -84,7 +84,7 @@ const asideSections = [
           <p class="text-body text-navy py-4 pb-12 md:pb-24">
             {pageData.section1.description}
           </p>
-          <div class="flex flex-col gap-y-12 md:gap-y-24">
+          <div class="flex flex-col gap-y-12 md:gap-y-24" data-reveal-in-view>
             {pageData.section1.blocks?.map(
               (block) =>
                 block.media && (
@@ -105,7 +105,10 @@ const asideSections = [
           <h2 class="text-navy text-headline-4 pb-8">
             {t('asi-hablamos.section2.title')}
           </h2>
-          <div class="grid grid-cols-1 gap-8 md:gap-4 md:grid-cols-3">
+          <div
+            class="grid grid-cols-1 gap-8 md:gap-4 md:grid-cols-3"
+            data-reveal-in-view
+          >
             {pageData.section2.blocks?.map(
               (block) =>
                 block.media && (
@@ -126,7 +129,7 @@ const asideSections = [
           <h3 class="text-blue text-headline-4 md:text-headline-3 pb-10">
             {t('asi-hablamos.section3.title')}
           </h3>
-          <div class="flex flex-col gap-y-2 md:gap-y-4">
+          <div class="flex flex-col gap-y-2 md:gap-y-4" data-reveal-in-view>
             {pageData.section3.map((block, index) => (
               <p class="text-headline-2 uppercase flex flex-wrap">
                 {index % 2 === 0 ? (
@@ -156,7 +159,7 @@ const asideSections = [
           <h3 class="text-white text-headline-4 md:text-headline-3 pb-4 md:pb-7">
             {t('asi-hablamos.section4.title')}
           </h3>
-          <div class="flex flex-col">
+          <div class="flex flex-col" data-reveal-in-view>
             {pageData.section4.map((block) => (
               <div class="flex flex-col pb-8 md:pb-12 gap-2 md:gap-4">
                 <p class="text-white text-headline-2 uppercase line-through">

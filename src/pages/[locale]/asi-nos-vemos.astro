@@ -79,7 +79,7 @@ const asideSections = pageData.sections.map((section) => ({
               </Button>
             </div>
           ) : null}
-          <div class="flex flex-col gap-4 md:gap-8">
+          <div class="flex flex-col gap-4 md:gap-8" data-reveal-in-view>
             {section.blocks?.map((block) => (
               <Block {...block} />
             ))}

@@ -160,10 +160,10 @@ const asideSections = [
       </p>
     </Section>
     <Section id="section1" class="pb-8">
-      <div class="flex flex-col gap-3 md:gap-6">
+      <div class="flex flex-col gap-3 md:gap-6" data-reveal-in-view>
         {
           colorRows.map((row) => (
-            <div class="grid grid-cols-5 gap-3 md:gap-6">
+            <div class="grid grid-cols-5 gap-3 md:gap-6" data-reveal-in-view>
               {row.map((color) => (
                 <div
                   class={`flex aspect-2/1 flex-col justify-end rounded-sm p-3 ${getContrastTextClass(color.hex)}`}
