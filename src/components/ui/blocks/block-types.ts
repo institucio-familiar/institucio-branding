@@ -33,7 +33,7 @@ export type Block3 = {
 }
 
 export type Block4 = {
-  title: string
+  title?: string
   description: string
   media: Media
 }

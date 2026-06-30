@@ -1,0 +1,76 @@
+---
+import Copy from '@/components/ui/icon-glyphs/Copy.astro'
+
+type Props = {
+  title: string
+  description: string
+  prompt: string
+  copyLabel: string
+  copiedLabel: string
+}
+
+const { title, description, prompt, copyLabel, copiedLabel } = Astro.props
+---
+
+<div
+  class="grid w-full gap-indent rounded-sm bg-white text-navy md:grid-cols-12"
+  data-reveal-in-view
+>
+  <div class="flex flex-col gap-3 md:col-span-5">
+    <p class="text-body-bold">{title}</p>
+    <p class="text-body">{description}</p>
+  </div>
+
+  <div class="md:col-span-7" data-prompt-card>
+    <div class="relative rounded-sm bg-blue p-6 md:p-8">
+      <span
+        class="absolute top-4 right-12 font-sans text-small text-frost opacity-0 transition-opacity duration-200 pointer-events-none"
+        data-prompt-copied
+        aria-live="polite"
+      >
+        {copiedLabel}
+      </span>
+      <button
+        type="button"
+        class="absolute top-4 right-4 size-5 cursor-pointer text-frost transition-opacity hover:opacity-70"
+        data-prompt-copy
+        aria-label={copyLabel}
+      >
+        <Copy />
+      </button>
+      <p
+        class="pr-8 font-sans text-tiny leading-normal whitespace-pre-wrap text-frost"
+        data-prompt-text
+      >
+        {prompt}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-prompt-card]').forEach((card) => {
+    const button = card.querySelector('[data-prompt-copy]')
+    const textEl = card.querySelector('[data-prompt-text]')
+    const copiedEl = card.querySelector('[data-prompt-copied]')
+    let copiedTimeout: ReturnType<typeof setTimeout> | undefined
+
+    button?.addEventListener('click', async () => {
+      const text = textEl?.textContent?.trim()
+      if (!text) return
+
+      await navigator.clipboard.writeText(text)
+
+      if (!copiedEl) return
+
+      copiedEl.classList.remove('opacity-0')
+      copiedEl.classList.add('opacity-100')
+
+      if (copiedTimeout) clearTimeout(copiedTimeout)
+      copiedTimeout = setTimeout(() => {
+        copiedEl.classList.remove('opacity-100')
+        copiedEl.classList.add('opacity-0')
+      }, 2000)
+    })
+  })
+</script>

@@ -233,6 +233,17 @@ export const tipografia: BilingualTranslations = {
   }
 }
 
+export const ilustracion: BilingualTranslations = {
+  es: {
+    'ilustracion.copyPrompt': 'Copiar prompt',
+    'ilustracion.copiedPrompt': 'Copiado'
+  },
+  ca: {
+    'ilustracion.copyPrompt': 'Copiar el prompt',
+    'ilustracion.copiedPrompt': 'Copiat'
+  }
+}
+
 export const asiHablamos: BilingualTranslations = {
   es: {
     'asi-hablamos.aside.section1': 'Nuestra voz',
@@ -269,5 +280,6 @@ export const allTranslations: BilingualTranslations[] = [
   asiNosVemos,
   nuestraMarca,
   asiHablamos,
-  tipografia
+  tipografia,
+  ilustracion
 ]
