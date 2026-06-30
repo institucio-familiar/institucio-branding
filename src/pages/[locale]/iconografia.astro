@@ -12,9 +12,13 @@ import {
   toBadUses,
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
-import { Block9 } from '@/components/ui/blocks'
+import { Block1, Block7, Block9 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
+import iconografia1 from '@/assets/svgs/iconografia_1.svg'
+import iconografia2 from '@/assets/svgs/iconografia_2.svg'
+import iconografia3 from '@/assets/svgs/iconografia_3.svg'
+import iconografia4 from '@/assets/svgs/iconografia_4.svg'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -33,6 +37,7 @@ async function getPageData() {
 
 const pageData = await getPageData()
 
+// TESTINGAL > Menu
 const asideSections = [
   { id: 'section1', label: pageData.section1?.title || '' }, // TESTINGAL > Avoid this from being null
   { id: 'section2', label: pageData.section2.title },
@@ -59,6 +64,66 @@ const asideSections = [
         {pageData.pageDescription}
       </p>
     </Section>
+    {
+      pageData.introMedia && (
+        <Section class="pb-16 md:pb-28">
+          <Block1 media1={pageData.introMedia} />
+        </Section>
+      )
+    }
+    <Section class="pb-16 md:pb-28">
+      <div
+        class="flex flex-col text-[7.5vw] lg:text-[6vw] font-serif font-semibold uppercase text-blue"
+      >
+        <div class="flex flex-row gap-4 md:gap-6">
+          <p>Los iconos</p>
+          <img
+            src={iconografia1.src}
+            alt="ens porta"
+            class="w-full max-w-[5vw] lg:max-w-[4vw] translate-y-[-0.5vw]"
+          />
+          <p>nos</p>
+        </div>
+        <div class="flex flex-row gap-4 md:gap-6">
+          <p>ayudan</p>
+          <img
+            src={iconografia2.src}
+            alt="ens porta"
+            class="w-full max-w-[5vw] lg:max-w-[4vw] translate-y-[-0.5vw]"
+          />
+          <p>a reconocer</p>
+        </div>
+        <div class="flex flex-row gap-4 md:gap-6">
+          <p>ideas</p>
+          <img
+            src={iconografia3.src}
+            alt="ens porta"
+            class="w-full max-w-[5.5vw] lg:max-w-[4.5vw] translate-y-[-0.5vw]"
+          />
+          <p>complejas de</p>
+        </div>
+        <div class="flex flex-row gap-4 md:gap-6">
+          <p>manera</p>
+          <img
+            src={iconografia4.src}
+            alt="ens porta"
+            class="w-full max-w-[4.5vw] lg:max-w-[3.5vw] translate-y-[-0.5vw]"
+          />
+          <p>instantánea.</p>
+        </div>
+      </div>
+    </Section>
+    {
+      pageData.section1 && pageData.section1.media && (
+        <Section id="section1" class="pb-12 md:pb-20">
+          <Block7
+            title={pageData.section1.title}
+            description={pageData.section1.description}
+            media={pageData.section1.media}
+          />
+        </Section>
+      )
+    }
     <Section id="section3" class="pb-12 md:pb-20">
       <Block9
         title={pageData.section3.title}
