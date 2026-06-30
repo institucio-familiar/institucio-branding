@@ -72,6 +72,7 @@ const asideSections = pageData.sections.map((section) => ({
                 {t(`asi-nos-vemos.${section.id}`)}
               </p>
               <Button
+                internal
                 href={getRelativeLocaleUrl(locale, `/${section.id}`)}
                 variant="secondary-white"
               >

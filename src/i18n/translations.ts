@@ -218,7 +218,7 @@ export const tipografia: BilingualTranslations = {
     'tipografia.download.inter': 'Descarga Inter',
     'tipografia.download.alverata': 'Descarga Alverata',
     'tipografia.weight.regular': 'Regular',
-    'tipografia.weight.bold': 'Bold',
+    'tipografia.weight.semibold': 'Semibold',
     'tipografia.size': 'Size'
   },
   ca: {
@@ -228,7 +228,7 @@ export const tipografia: BilingualTranslations = {
     'tipografia.download.inter': 'Descarrega Inter',
     'tipografia.download.alverata': 'Descarrega Alverata',
     'tipografia.weight.regular': 'Regular',
-    'tipografia.weight.bold': 'Bold',
+    'tipografia.weight.semibold': 'Semibold',
     'tipografia.size': 'Size'
   }
 }

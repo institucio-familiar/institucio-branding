@@ -28,9 +28,6 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   { key: 'nav.fotografia', href: '/fotografia' },
   { key: 'nav.motion', href: '/motion' }
 ]
-
-// const menuOverlayClass =
-//   'absolute top-1/2 left-1/2 bg-navy -z-1 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square'
 ---
 
 <div>
@@ -80,7 +77,10 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
         }
       </ul>
     </div>
-    <div id="submenu-items" class="relative flex flex-row items-center h-full">
+    <div
+      id="submenu-items"
+      class="relative hidden md:flex md:flex-row md:items-center md:h-full"
+    >
       <PunchaVertical color="blue" class="translate-x-[0.5px]" />
       <ul
         class="flex flex-col gap-6 justify-center h-full bg-blue py-indent pl-indent-2 pr-indent-3"
