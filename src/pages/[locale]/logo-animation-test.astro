@@ -1,0 +1,326 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro'
+import ColegioNombre from '@/components/icons/ColegioNombre.astro'
+import ColegioEscudo from '@/components/icons/ColegioEscudo.astro'
+---
+
+<MainLayout title="Logo animation test">
+  <section class="bg-navy px-indent py-16 text-frost md:py-24">
+    <h1 class="text-headline-2 mb-2 uppercase">Logo animation test</h1>
+    <p class="text-body max-w-2xl text-mist">
+      Prototype for the header logo transition: nombre collapses to its first
+      letter, and the escudo loses its outer shield while the inner mark scales
+      up.
+    </p>
+  </section>
+
+  <section class="border-b border-mist bg-white px-indent py-12 md:py-16">
+    <h2 class="text-headline-3 mb-6 uppercase text-navy">Header reference</h2>
+    <div
+      class="inline-flex items-end gap-2 rounded-lg bg-navy px-6 py-4"
+      style="--header-logo: var(--color-frost)"
+    >
+      <ColegioEscudo class="header-logo h-9 w-auto" />
+      <ColegioNombre class="header-logo h-7 w-auto" />
+    </div>
+  </section>
+
+  <section class="border-b border-mist bg-frost px-indent py-12 md:py-16">
+    <div class="mb-8 flex flex-wrap items-center gap-4">
+      <h2 class="text-headline-3 uppercase text-navy">Animated preview</h2>
+      <div class="flex gap-2">
+        <button
+          type="button"
+          data-logo-play
+          class="rounded-full border border-navy bg-navy px-4 py-2 text-sm text-frost transition-colors hover:bg-navy-light"
+        >
+          Play
+        </button>
+        <button
+          type="button"
+          data-logo-reset
+          class="rounded-full border border-navy px-4 py-2 text-sm text-navy transition-colors hover:bg-mist"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="inline-flex items-end gap-2 rounded-lg bg-navy px-6 py-4"
+      data-logo-stage
+      style="--header-logo: var(--color-frost)"
+    >
+      <div data-logo-escudo-wrap>
+        <ColegioEscudo class="header-logo h-9 w-auto" />
+      </div>
+      <div data-logo-nombre-wrap class="overflow-hidden">
+        <ColegioNombre class="header-logo h-7 w-auto" />
+      </div>
+    </div>
+
+    <p class="text-body mt-6 max-w-2xl text-navy">
+      Use Play to run the compact state. Reset returns both marks to the full
+      header version.
+    </p>
+  </section>
+
+  <section class="bg-white px-indent py-12 md:py-16">
+    <h2 class="text-headline-3 mb-8 uppercase text-navy">Target states</h2>
+    <div class="grid gap-10 md:grid-cols-2">
+      <div>
+        <p class="text-body mb-4 text-navy">Full wordmark</p>
+        <div
+          class="inline-flex rounded-lg bg-navy px-6 py-4"
+          style="--header-logo: var(--color-frost)"
+        >
+          <ColegioNombre class="header-logo h-7 w-auto" />
+        </div>
+      </div>
+      <div>
+        <p class="text-body mb-4 text-navy">First letter only</p>
+        <div
+          class="inline-flex overflow-hidden rounded-lg bg-navy px-6 py-4"
+          style="--header-logo: var(--color-frost); width: 3.75rem"
+        >
+          <div style="margin-right: -78.9%">
+            <ColegioNombre class="header-logo h-7 w-auto" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="text-body mb-4 text-gray">Full escudo</p>
+        <div
+          class="inline-flex rounded-lg bg-navy px-6 py-4"
+          style="--header-logo: var(--color-frost)"
+        >
+          <ColegioEscudo class="header-logo h-9 w-auto" />
+        </div>
+      </div>
+      <div>
+        <p class="text-body mb-4 text-gray">Compact pair</p>
+        <div
+          class="inline-flex items-end gap-2 rounded-lg bg-navy px-6 py-4"
+          style="--header-logo: var(--color-frost)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="6.25 13.12 8.79 13.98"
+            fill="none"
+            class="header-logo h-7 w-auto"
+            aria-hidden="true"
+          >
+            <path
+              d="M14.2142 13.8699V21.4541H12.0582V20.2742C12.0582 20.0642 11.9772 19.8725 11.8288 19.7196C11.6805 19.5712 11.4796 19.4902 11.2741 19.4902C10.8439 19.4902 10.4901 19.8394 10.4901 20.2742V21.4541H8.33984V13.8699H9.61126V15.0019H10.5243V13.8699H12.0388V15.0019H12.9519V13.8699H14.2233H14.2142Z"
+              style="fill: var(--header-logo)"></path>
+            <path
+              d="M14.7865 24.6323V25.8557H7.77539V24.6323H14.7865Z"
+              style="fill: var(--header-logo)"></path>
+          </svg>
+          <div class="overflow-hidden" style="width: 1.65rem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 248 436"
+              fill="none"
+              class="header-logo h-7 w-auto"
+              aria-hidden="true"
+            >
+              <path
+                d="M247.709 145.871C247.709 145.871 243.906 141.147 230.593 133.114C219.182 126.499 200.64 121.775 178.294 121.775H147.389V263.049C147.389 400.543 149.291 402.433 159.276 421.332L163.555 429.365C163.555 429.365 152.144 428.42 124.092 428.42C96.0407 428.42 84.1545 429.365 84.1545 429.365L88.4336 421.332C97.9425 403.378 100.32 400.07 100.32 258.324V121.775H69.4156C47.0695 121.775 28.5269 126.499 17.1162 133.114C4.75448 140.674 0.475449 144.926 0 145.871C0 145.399 1.42634 135.949 1.42634 117.05C1.42634 100.04 0.950875 92.4802 0.950875 92.4802H246.758C246.758 92.4802 246.283 100.04 246.283 117.05C246.283 135.949 247.709 144.926 247.709 145.871Z"
+                style="fill: var(--header-logo)"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  import { gsap } from 'gsap'
+
+  const FIRST_LETTER_VIEWBOX_WIDTH = 248
+  const FULL_VIEWBOX = '0 0 1173 436'
+  const COMPACT_VIEWBOX = `0 0 ${FIRST_LETTER_VIEWBOX_WIDTH} 436`
+  const FIRST_LETTER_RATIO = FIRST_LETTER_VIEWBOX_WIDTH / 1173
+  const ESCUDO_FULL_VIEWBOX = '0 0 23 35'
+  const ESCUDO_VIEWBOX_PADDING = 0.75
+  const ESCUDO_TRANSLATE_Y = 3
+
+  const playButton = document.querySelector('[data-logo-play]')
+  const resetButton = document.querySelector('[data-logo-reset]')
+  const nombreWrap = document.querySelector('[data-logo-nombre-wrap]')
+  const escudoWrap = document.querySelector('[data-logo-escudo-wrap]')
+
+  let timeline: gsap.core.Timeline | null = null
+
+  function getNombreSvg() {
+    return nombreWrap?.querySelector('svg') ?? null
+  }
+
+  function getNombreLetters() {
+    return getNombreSvg()?.querySelectorAll(':scope > path') ?? []
+  }
+
+  function getEscudoSvg() {
+    return escudoWrap?.querySelector('svg') ?? null
+  }
+
+  function getEscudoPaths() {
+    return getEscudoSvg()?.querySelectorAll(':scope > path') ?? []
+  }
+
+  function getEscudoInnerPaths() {
+    const paths = getEscudoPaths()
+    return [paths[0], paths[1]].filter(Boolean)
+  }
+
+  function getEscudoPathsToHide() {
+    const paths = getEscudoPaths()
+    return [paths[2], paths[3]].filter(Boolean)
+  }
+
+  function measureEscudoInnerViewBox() {
+    const paths = getEscudoInnerPaths()
+    if (paths.length === 0) return ESCUDO_FULL_VIEWBOX
+
+    let minX = Infinity
+    let minY = Infinity
+    let maxX = -Infinity
+    let maxY = -Infinity
+
+    paths.forEach((path) => {
+      const box = (path as SVGGraphicsElement).getBBox()
+      minX = Math.min(minX, box.x)
+      minY = Math.min(minY, box.y)
+      maxX = Math.max(maxX, box.x + box.width)
+      maxY = Math.max(maxY, box.y + box.height)
+    })
+
+    const pad = ESCUDO_VIEWBOX_PADDING
+    const x = minX - pad
+    const y = minY - pad
+    const width = maxX - minX + pad * 2
+    const height = maxY - minY + pad * 2
+
+    return `${x} ${y} ${width} ${height}`
+  }
+
+  function setInitialState() {
+    timeline?.kill()
+    timeline = null
+
+    const nombreSvg = getNombreSvg()
+    const escudoSvg = getEscudoSvg()
+    const letters = getNombreLetters()
+    const trailingLetters = Array.from(letters).slice(1)
+    const escudoPathsToHide = getEscudoPathsToHide()
+
+    if (!nombreWrap || !escudoWrap || !nombreSvg || !escudoSvg) return
+
+    gsap.killTweensOf([escudoWrap, escudoSvg, nombreSvg])
+
+    gsap.set(nombreSvg, {
+      attr: { viewBox: FULL_VIEWBOX },
+      width: 'auto',
+      clearProps: 'width'
+    })
+    gsap.set(trailingLetters, {
+      autoAlpha: 1,
+      clearProps: 'opacity,visibility,display'
+    })
+    trailingLetters.forEach((letter) => letter.removeAttribute('display'))
+
+    gsap.set(escudoSvg, {
+      attr: { viewBox: ESCUDO_FULL_VIEWBOX },
+      height: 'auto',
+      clearProps: 'height'
+    })
+    gsap.set(escudoWrap, { y: 0, clearProps: 'transform' })
+    gsap.set(escudoPathsToHide, {
+      autoAlpha: 1,
+      clearProps: 'opacity,visibility,display'
+    })
+    escudoPathsToHide.forEach((path) => path.removeAttribute('display'))
+  }
+
+  function playAnimation() {
+    const nombreSvg = getNombreSvg()
+    const escudoSvg = getEscudoSvg()
+    const letters = getNombreLetters()
+    const trailingLetters = Array.from(letters).slice(1)
+    const escudoPathsToHide = getEscudoPathsToHide()
+    const escudoInnerViewBox = measureEscudoInnerViewBox()
+
+    if (!nombreWrap || !escudoWrap || !nombreSvg || !escudoSvg || letters.length < 2) {
+      return
+    }
+
+    timeline?.kill()
+
+    const fullWidth = nombreSvg.getBoundingClientRect().width
+    const compactWidth = fullWidth * FIRST_LETTER_RATIO
+    const nombreTargetHeight = nombreSvg.getBoundingClientRect().height
+
+    timeline = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
+
+    timeline.to(
+      trailingLetters,
+      {
+        autoAlpha: 0,
+        duration: 0.35,
+        stagger: 0.03
+      },
+      0
+    )
+
+    timeline.set(trailingLetters, { display: 'none' }, 0.38)
+
+    timeline.to(
+      nombreSvg,
+      {
+        attr: { viewBox: COMPACT_VIEWBOX },
+        width: compactWidth,
+        duration: 0.7
+      },
+      0.05
+    )
+
+    if (escudoPathsToHide.length > 0) {
+      timeline.to(
+        escudoPathsToHide,
+        {
+          autoAlpha: 0,
+          duration: 0.5
+        },
+        0
+      )
+
+      timeline.set(escudoPathsToHide, { display: 'none' }, 0.5)
+    }
+
+    timeline.to(
+      escudoSvg,
+      {
+        attr: { viewBox: escudoInnerViewBox },
+        height: nombreTargetHeight,
+        duration: 0.7
+      },
+      0.15
+    )
+
+    timeline.to(
+      escudoWrap,
+      {
+        y: ESCUDO_TRANSLATE_Y,
+        duration: 0.7
+      },
+      0.15
+    )
+  }
+
+  setInitialState()
+
+  playButton?.addEventListener('click', playAnimation)
+  resetButton?.addEventListener('click', setInitialState)
+</script>
