@@ -37,10 +37,9 @@ async function getPageData() {
 
 const pageData = await getPageData()
 
-// TESTINGAL > Menu
 const asideSections = [
   { id: 'title', label: pageData.pageTitle },
-  { id: 'section1', label: pageData.section1?.title || '' }, // TESTINGAL > Avoid this from being null
+  { id: 'section1', label: pageData.section1?.title || '' }, // TESTINGAL > Typescript > Avoid this from being null
   { id: 'section2', label: pageData.section2.title },
   { id: 'section3', label: pageData.section3.title }
 ]

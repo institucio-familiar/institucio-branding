@@ -11,7 +11,7 @@ import {
   toAtom1Array,
   toBadUses
 } from '@/sanity/lib/page-parsers'
-import { Block9 } from '@/components/ui/blocks'
+import { Block1, Block4, Block9 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 
@@ -32,6 +32,7 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
+  { id: 'title', label: pageData.pageTitle },
   { id: 'section1', label: 'Sección 1' },
   { id: 'section2', label: 'Malos usos' }
 ]
@@ -45,7 +46,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 class="text-page-title">
+    <h1 id="title" class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -56,6 +57,31 @@ const asideSections = [
         {pageData.pageDescription}
       </p>
     </Section>
+    {
+      pageData.introMedia && (
+        <Section class="pb-8">
+          <Block1 media1={pageData.introMedia} />
+        </Section>
+      )
+    }
+    {
+      pageData.section1 && (
+        <Section id="section1" class="pb-16 md:pb-28">
+          <div class="flex flex-col gap-8">
+            {pageData.section1.map(
+              (block) =>
+                block.media && (
+                  <Block4
+                    title={block.title}
+                    description={block.description}
+                    media={block.media}
+                  />
+                )
+            )}
+          </div>
+        </Section>
+      )
+    }
     <Section id="section2" class="pb-12 md:pb-20">
       <Block9
         title={pageData.section2.title}
