@@ -12,7 +12,7 @@ import {
   toBadUses,
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
-import { Block1, Block7, Block9 } from '@/components/ui/blocks'
+import { Block1, Block4, Block7, Block9 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import iconografia1 from '@/assets/svgs/iconografia_1.svg'
@@ -39,6 +39,7 @@ const pageData = await getPageData()
 
 // TESTINGAL > Menu
 const asideSections = [
+  { id: 'title', label: pageData.pageTitle },
   { id: 'section1', label: pageData.section1?.title || '' }, // TESTINGAL > Avoid this from being null
   { id: 'section2', label: pageData.section2.title },
   { id: 'section3', label: pageData.section3.title }
@@ -53,7 +54,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 class="text-page-title">
+    <h1 id="title" class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -73,7 +74,7 @@ const asideSections = [
     }
     <Section class="pb-16 md:pb-28">
       <div
-        class="flex flex-col text-[7.5vw] lg:text-[6vw] font-serif font-semibold uppercase text-blue"
+        class="flex flex-col text-[7vw] lg:text-[6vw] font-serif font-semibold uppercase text-blue"
       >
         <div class="flex flex-row gap-4 md:gap-6">
           <p>Los iconos</p>
@@ -121,6 +122,29 @@ const asideSections = [
             description={pageData.section1.description}
             media={pageData.section1.media}
           />
+        </Section>
+      )
+    }
+    {
+      pageData.section2 && (
+        <Section id="section2" class="pb-16 md:pb-28">
+          <h3 class="text-headline-2 uppercase">{pageData.section2.title}</h3>
+          <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
+            {pageData.section2.description}
+          </p>
+          <div class="mt-2 md:mt-4" />
+          <div class="flex flex-col gap-4 md:gap-8">
+            {pageData.section2.blocks?.map(
+              (block) =>
+                block.media && (
+                  <Block4
+                    title={block.title}
+                    description={block.description}
+                    media={block.media}
+                  />
+                )
+            )}
+          </div>
         </Section>
       )
     }
