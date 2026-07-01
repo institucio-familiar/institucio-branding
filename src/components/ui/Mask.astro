@@ -6,6 +6,8 @@ import maskTiboHorizontal from '@/assets/svgs/mask_tibo_horizontal.svg'
 import maskTobo from '@/assets/svgs/mask_tobo.svg'
 import maskToboHorizontal from '@/assets/svgs/mask_tobo_horizontal.svg'
 import maskTobobo from '@/assets/svgs/mask_tobobo.svg'
+import maskHomeLeft from '@/assets/svgs/mask_home_left.svg'
+import maskHomeRight from '@/assets/svgs/mask_home_right.svg'
 
 type MaskType =
   | '4o'
@@ -15,7 +17,8 @@ type MaskType =
   | 'tobo'
   | 'tobo_horizontal'
   | 'tobobo'
-
+  | 'home_left'
+  | 'home_right'
 interface Props {
   type: MaskType
   class?: string
@@ -24,18 +27,20 @@ interface Props {
 
 const masks: Record<MaskType, { src: string; aspectClass: string }> = {
   '4o': { src: mask4o.src, aspectClass: 'aspect-square' },
-  tibo: { src: maskTibo.src, aspectClass: 'aspect-[103/111]' },
+  tibo: { src: maskTibo.src, aspectClass: 'aspect-[273.27/345]' },
   tibo_square: { src: maskTiboSquare.src, aspectClass: 'aspect-square' },
   tibo_horizontal: {
     src: maskTiboHorizontal.src,
-    aspectClass: 'aspect-[1313/807]'
+    aspectClass: 'aspect-[1297/854]'
   },
-  tobo: { src: maskTobo.src, aspectClass: 'aspect-[577/720]' },
+  tobo: { src: maskTobo.src, aspectClass: 'aspect-[576.51/719.98]' },
   tobo_horizontal: {
     src: maskToboHorizontal.src,
     aspectClass: 'aspect-[1297/854]'
   },
-  tobobo: { src: maskTobobo.src, aspectClass: 'aspect-[577/365]' }
+  tobobo: { src: maskTobobo.src, aspectClass: 'aspect-[576.52/364.45]' },
+  home_left: { src: maskHomeLeft.src, aspectClass: 'aspect-[273.27/345]' },
+  home_right: { src: maskHomeRight.src, aspectClass: 'aspect-[273.27/345]' }
 }
 
 const { type, class: className, border = false } = Astro.props

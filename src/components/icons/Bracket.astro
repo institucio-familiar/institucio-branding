@@ -1,0 +1,38 @@
+---
+type Color =
+  | 'ink'
+  | 'navy'
+  | 'navy-light'
+  | 'blue'
+  | 'sky'
+  | 'sky-light'
+  | 'mist'
+  | 'frost'
+  | 'gray'
+  | 'white'
+
+interface Props {
+  color?: Color
+  class?: string
+  rotate180?: boolean
+}
+
+const { color = 'navy', class: className, rotate180 = false } = Astro.props
+
+const viewBox = '0 0 50 350.509'
+const rotateTransform = rotate180 ? 'rotate(180 25 175.2545)' : undefined
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={viewBox}
+  fill="none"
+  class:list={['block', className]}
+  aria-hidden="true"
+>
+  <g transform={rotateTransform}>
+    <path
+      d="M49.891 350.509H26.8379V238.949C26.3562 226.561 23.5347 214.311 18.3735 202.955C15.1392 195.867 11.0105 189.122 5.64289 182.378L0 175.22L5.64289 168.063C11.0105 161.318 15.1392 154.573 18.3735 147.485C23.5347 136.198 26.3562 123.948 26.8379 111.078V0H49.891V111.491C49.3405 127.733 45.7621 142.943 39.3623 157.051C36.5409 163.314 33.1001 169.301 29.04 175.22C33.1001 181.139 36.5409 187.126 39.3623 193.389C45.7621 207.497 49.3405 222.638 49.891 238.536V350.509Z"
+      style={`fill: var(--color-${color})`}></path>
+  </g>
+</svg>

@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/MainLayout.astro'
 import Hero from '@/components/Hero.astro'
 import Puncha from '@/components/icons/Puncha.astro'
 import PunchaVertical from '@/components/icons/PunchaVertical.astro'
+import Bracket from '@/components/icons/Bracket.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
@@ -99,187 +100,154 @@ const pageData = await getPageData()
     </div>
   </section>
 
-  <!-- <div data-text-slide-section class="relative h-dvh md:h-[200dvh]">
-    <section
-      class="sticky top-0 flex h-dvh items-center justify-center overflow-hidden bg-white p-indent"
-    >
-      <div id="text-slide-container" class="hidden md:flex flex-col">
-        <p
-          id="text-slide-1"
-          class="text-navy text-headline-1 uppercase"
-          style="transform: translateX(-100vw)"
-        >
-          Per un camí []
-        </p>
-        <p
-          id="text-slide-2"
-          class="text-navy text-headline-1 uppercase"
-          style="transform: translateX(100vw)"
-        >
-          que [] ens porta
-        </p>
-        <p
-          id="text-slide-3"
-          class="text-navy text-headline-1 uppercase"
-          style="transform: translateX(-100vw)"
-        >
-          ben lluny [] la
-        </p>
-        <p
-          id="text-slide-4"
-          class="text-navy text-headline-1 uppercase"
-          style="transform: translateX(100vw)"
-        >
-          nostra guía [] és
-        </p>
-        <p
-          id="text-slide-5"
-          class="text-navy text-headline-1 uppercase"
-          style="transform: translateX(-100vw)"
-        >
-          la llum []
-        </p>
-      </div>
-    </section>
-  </div> -->
-
-  <section data-text-slide-section class="relative h-dvh md:h-[200dvh]">
+  <section data-text-slide-section class="relative h-dvh md:h-[600dvh]">
     <div
-      class="sticky top-0 flex h-dvh items-center justify-center overflow-hidden bg-white p-indent"
+      class="sticky top-0 flex h-dvh items-center overflow-hidden bg-white pt-nav-height"
     >
-      <div
-        id="text-slide-container"
-        class="flex flex-col text-[10vw] lg:text-[8vw] font-serif font-semibold uppercase"
-      >
-        <div id="text-slide-1" class="flex flex-row gap-4 md:gap-6">
-          <p class="shrink-0">Per un camí</p>
-          <Mask
-            type="tibo_horizontal"
-            class="w-[13vw] shrink-0 lg:w-[11vw] translate-y-[-0.5vw]"
+      <div id="text-slide-track" class="flex items-center w-screen">
+        <div class="flex shrink-0 items-center justify-center w-screen">
+          <div
+            id="text-slide-container"
+            class="flex shrink-0 flex-col justify-center px-indent text-[10vw] font-serif font-semibold uppercase lg:text-[8vw]"
           >
-            <MediaAsset
-              media={{
-                mediaType: 'video',
-                playbackId: 'w1AiO61GLM9yZWVlvBtoDZZoqsE299slTkUfWMcXCw00'
-              }}
-            />
-          </Mask>
-        </div>
-        <div id="text-slide-2" class="flex flex-row gap-4 md:gap-6">
-          <p class="shrink-0">que</p>
-          <Mask
-            type="4o"
-            class="w-full max-w-[8vw] shrink-0 translate-y-[-6px]"
-          >
-            <img
-              src="https://cdn.sanity.io/images/ryub47of/production/f4ce79b920f9e4ed92beb72d82738b0f29bffc16-1728x2424.png?w=300"
-              alt="ens porta"
-            />
-          </Mask>
-          <p class="shrink-0">ens porta</p>
-        </div>
-        <div id="text-slide-3" class="flex flex-row gap-2">
-          <p class="shrink-0">ben lluny</p>
-          <div class="relative w-full max-w-[11vw] lg:max-w-[9vw]">
-            <img
-              src="https://cdn.sanity.io/images/ryub47of/production/bd1225fc754aae5d9278ff44668adf3ec4e6afb1-2048x2080.png?w=300"
-              alt="ens porta"
-              class="absolute top-0 left-0 w-full max-w-[11vw] lg:max-w-[9vw] translate-y-[-1.5vw] rotate-25"
-            />
+            <div id="text-slide-1" class="flex flex-row gap-4 md:gap-6">
+              <p class="shrink-0">Per un camí</p>
+              <Mask
+                type="tibo_horizontal"
+                class="w-[13vw] shrink-0 lg:w-[11vw] translate-y-[-0.5vw]"
+              >
+                <MediaAsset
+                  media={{
+                    mediaType: 'video',
+                    playbackId: 'w1AiO61GLM9yZWVlvBtoDZZoqsE299slTkUfWMcXCw00'
+                  }}
+                />
+              </Mask>
+            </div>
+            <div id="text-slide-2" class="flex flex-row gap-4 md:gap-6">
+              <p class="shrink-0">que</p>
+              <Mask
+                type="4o"
+                class="w-full max-w-[8vw] shrink-0 translate-y-[-6px]"
+              >
+                <img
+                  src="https://cdn.sanity.io/images/ryub47of/production/f4ce79b920f9e4ed92beb72d82738b0f29bffc16-1728x2424.png?w=300"
+                  alt="ens porta"
+                />
+              </Mask>
+              <p class="shrink-0">ens porta</p>
+            </div>
+            <div id="text-slide-3" class="flex flex-row gap-2">
+              <p class="shrink-0">ben lluny</p>
+              <div class="relative w-[11vw] lg:max-w-[9vw]">
+                <img
+                  src="https://cdn.sanity.io/images/ryub47of/production/bd1225fc754aae5d9278ff44668adf3ec4e6afb1-2048x2080.png?w=300"
+                  alt="ens porta"
+                  class="absolute top-0 left-0 w-[11vw] lg:max-w-[9vw] translate-y-[-1.5vw] rotate-25"
+                />
+              </div>
+              <p class="shrink-0">la</p>
+            </div>
+            <div id="text-slide-4" class="flex flex-row gap-2">
+              <p class="shrink-0">nostra guía</p>
+              <img
+                src={textMask4.src}
+                alt="ens porta"
+                class="w-full max-w-[6vw] lg:max-w-[5vw] translate-y-[-0.5vw]"
+              />
+              <p class="shrink-0">és</p>
+            </div>
+            <div id="text-slide-5" class="flex flex-row relative w-fit">
+              <p class="shrink-0">la llum</p>
+              <img
+                src="https://cdn.sanity.io/images/ryub47of/production/3508dd5abbd012e3411d83889b23af4e3af43497-1856x2304.png?w=300"
+                alt="ens porta"
+                class="w-full absolute top-[-4vw] right-[-10vw] lg:right-[-8vw] max-w-[12vw] lg:max-w-[10vw]"
+              />
+            </div>
           </div>
-          <p class="shrink-0">la</p>
         </div>
-        <div id="text-slide-4" class="flex flex-row gap-2">
-          <p class="shrink-0">nostra guía</p>
-          <img
-            src={textMask4.src}
-            alt="ens porta"
-            class="w-full max-w-[6vw] lg:max-w-[5vw] translate-y-[-0.5vw]"
-          />
-          <p class="shrink-0">és</p>
-        </div>
-        <div id="text-slide-5" class="flex flex-row relative w-fit">
-          <p class="shrink-0">la llum</p>
-          <img
-            src="https://cdn.sanity.io/images/ryub47of/production/3508dd5abbd012e3411d83889b23af4e3af43497-1856x2304.png?w=300"
-            alt="ens porta"
-            class="w-full absolute top-[-4vw] right-[-10vw] lg:right-[-8vw] max-w-[12vw] lg:max-w-[10vw]"
-          />
+        <div class="flex items-center justify-center">
+          <p class="text-macro pr-indent uppercase whitespace-nowrap">
+            {t('home.since1970')}
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="text-macro uppercase text-nowrap">
-    Desde 1970 acompañando familias
-  </div>
-
-  <section
-    class="relative flex items-center justify-center bg-white h-dvh w-screen px-indent"
-  >
-    <div class="grid grid-cols-4 w-full">
-      {
-        pageData.imagesGrid.image1 && (
-          <Mask type="tobo" class="w-full h-full col-span-2 row-span-2">
-            <MediaAsset
-              media={pageData.imagesGrid.image1}
-              title={t('home.imagesGrid')}
-            />
-          </Mask>
-        )
-      }
-      {
-        pageData.imagesGrid.image2 && (
-          <Mask type="tobobo" class="w-full h-full col-span-2">
-            <MediaAsset
-              media={pageData.imagesGrid.image2}
-              title={t('home.imagesGrid')}
-            />
-          </Mask>
-        )
-      }
-      {
-        pageData.imagesGrid.image3 && (
-          <Mask type="tibo" class="w-full h-full">
-            <MediaAsset
-              media={pageData.imagesGrid.image3}
-              title={t('home.imagesGrid')}
-            />
-          </Mask>
-        )
-      }
-      {
-        pageData.imagesGrid.image4 && (
-          <Mask type="tibo" class="w-full h-full">
-            <MediaAsset
-              media={pageData.imagesGrid.image4}
-              title={t('home.imagesGrid')}
-            />
-          </Mask>
-        )
-      }
+  <section class="w-screen bg-white px-indent">
+    <div class="flex flex-row gap-[30px]">
+      <div class="w-full">
+        {
+          pageData.imagesGrid.image1 && (
+            <Mask type="tobo" class="w-full h-full col-span-2 row-span-2">
+              <MediaAsset
+                media={pageData.imagesGrid.image1}
+                title={t('home.imagesGrid')}
+              />
+            </Mask>
+          )
+        }
+      </div>
+      <div class="flex flex-col w-full gap-[12px]">
+        {
+          pageData.imagesGrid.image2 && (
+            <Mask type="tobobo" class="w-full col-span-2">
+              <MediaAsset
+                media={pageData.imagesGrid.image2}
+                title={t('home.imagesGrid')}
+              />
+            </Mask>
+          )
+        }
+        <div class="w-full flex flex-row gap-[30px]">
+          {
+            pageData.imagesGrid.image3 && (
+              <Mask type="home_left" class="w-full">
+                <MediaAsset
+                  media={pageData.imagesGrid.image3}
+                  title={t('home.imagesGrid')}
+                />
+              </Mask>
+            )
+          }
+          {
+            pageData.imagesGrid.image4 && (
+              <Mask type="home_right" class="w-full">
+                <MediaAsset
+                  media={pageData.imagesGrid.image4}
+                  title={t('home.imagesGrid')}
+                />
+              </Mask>
+            )
+          }
+        </div>
+      </div>
     </div>
   </section>
 
   <section
-    class="relative flex items-center justify-center bg-white h-dvh w-screen"
+    class="relative flex items-center justify-center bg-white w-screen py-indent"
   >
-    <div class="w-full h-full">
-      {
-        pageData.imageEyeMedia && (
-          <Mask type="tobo_horizontal" class="h-full w-full">
-            <MediaAsset media={pageData.imageEyeMedia} title={'TESTINGAL'} />
-          </Mask>
-        )
-      }
-    </div>
+    {
+      pageData.imageEyeMedia && (
+        <Mask type="tobo_horizontal" class="w-full">
+          <MediaAsset media={pageData.imageEyeMedia} title={'TESTINGAL'} />
+        </Mask>
+      )
+    }
   </section>
 
   <section class="relative flex items-center justify-center bg-white px-indent">
-    <div class="w-full h-full">
-      <p class="text-navy text-headline-3 uppercase">
-        {pageData.bookText?.[locale]}
-      </p>
+    <div class="flex w-full items-stretch justify-center gap-4">
+      <Bracket color="navy" class="h-[50vh] shrink-0" />
+      <div class="flex flex-col justify-center gap-4">
+        <p class="text-navy text-headline-3">
+          {pageData.bookText?.[locale]}
+        </p>
+      </div>
+      <Bracket color="navy" class="h-[50vh] shrink-0" rotate180 />
     </div>
   </section>
 
@@ -311,6 +279,7 @@ const pageData = await getPageData()
   const section2 = document.querySelector('[data-home-section-2]')
   const maskZoom = document.getElementById('mask-zoom')
   const textSlideSection = document.querySelector('[data-text-slide-section]')
+  const textSlideTrack = document.getElementById('text-slide-track')
 
   if (sectionsBlock && section2) {
     tweens.push(
@@ -359,27 +328,44 @@ const pageData = await getPageData()
   ]
 
   if (textSlideSection) {
+    const slideDuration = 1
+    const panDuration = 3
+
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: textSlideSection,
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: true,
+        invalidateOnRefresh: true
+      }
+    })
+
     for (const { id, from } of textSlides) {
       const line = document.getElementById(id)
       if (!line) continue
 
-      tweens.push(
-        gsap.fromTo(
-          line,
-          { x: from },
-          {
-            x: 0,
-            ease: 'ease-out',
-            scrollTrigger: {
-              trigger: textSlideSection,
-              start: 'top bottom',
-              end: 'bottom bottom',
-              scrub: true
-            }
-          }
-        )
+      timeline.fromTo(
+        line,
+        { x: from },
+        { x: 0, ease: 'none', duration: slideDuration },
+        0
       )
     }
+
+    if (textSlideTrack) {
+      timeline.to(
+        textSlideTrack,
+        {
+          x: () => -(textSlideTrack.scrollWidth - window.innerWidth),
+          ease: 'ease-out',
+          duration: panDuration
+        },
+        slideDuration
+      )
+    }
+
+    tweens.push(timeline)
   }
 
   document.addEventListener(

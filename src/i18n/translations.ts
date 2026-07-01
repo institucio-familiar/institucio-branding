@@ -121,6 +121,15 @@ export const hero: BilingualTranslations = {
   }
 }
 
+export const home: BilingualTranslations = {
+  es: {
+    'home.since1970': 'Desde 1970 acompañando familias'
+  },
+  ca: {
+    'home.since1970': 'Des de 1970 acompanyant famílies'
+  }
+}
+
 export const library: BilingualTranslations = {
   es: {
     'test.title': 'Library'
@@ -273,6 +282,7 @@ export const allTranslations: BilingualTranslations[] = [
   blocks,
   lang,
   hero,
+  home,
   // Pages
   library,
   notFound,
