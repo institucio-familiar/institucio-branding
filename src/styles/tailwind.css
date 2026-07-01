@@ -5,6 +5,12 @@
   --unit-md: 20px; */
 }
 
+@layer base {
+  p {
+    white-space: pre-line;
+  }
+}
+
 @theme static {
   --font-sans: var(--custom-font-sans);
   --font-serif: var(--custom-font-serif);
