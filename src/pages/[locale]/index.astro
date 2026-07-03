@@ -3,7 +3,6 @@ import MainLayout from '@/layouts/MainLayout.astro'
 import Hero from '@/components/Hero.astro'
 import Puncha from '@/components/icons/Puncha.astro'
 import PunchaVertical from '@/components/icons/PunchaVertical.astro'
-import Bracket from '@/components/icons/Bracket.astro'
 import MediaAsset from '@/components/MediaAsset.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
@@ -12,7 +11,7 @@ import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
 import Mask from '@/components/ui/Mask.astro'
 import textMask4 from '@/assets/svgs/text_mask_4.svg'
-import PunchaInvert from '@/components/PunchaInvert.astro'
+import HomeMaskSection from '@/components/HomeMaskSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -44,20 +43,14 @@ const pageData = await getPageData()
 <MainLayout>
   <Hero media={pageData.heroMedia} heading={t('home.hero')} />
 
-  <div class="relative h-[200dvh]" data-home-sections>
+  <div class="relative h-[400dvh]" data-home-sections>
     <div class="sticky top-0 h-dvh">
-      <div class="relative h-full clip-x-at-right">
-        <section class="relative h-full w-full">
-          <PunchaInvert />
-          <div class="h-full w-full bg-navy"></div>
-          <div
-            class="absolute inset-0 flex h-full items-center justify-center p-20"
-          >
-            <p class="text-blue text-headline-1 uppercase text-center">
-              {pageData.textSlides?.textSlide1?.[locale]}
-            </p>
-          </div>
-        </section>
+      <div class="relative h-full clip-x-at-right" data-header-theme="light">
+        <HomeMaskSection
+          text={pageData.textSlides?.textSlide1?.[locale] ?? ''}
+          backgroundColor="navy"
+          textColor="blue"
+        />
 
         <section
           class="absolute inset-0 z-1 h-full"
@@ -83,7 +76,9 @@ const pageData = await getPageData()
     </div>
   </div>
 
-  <section
+  <section class="bg-white h-[50vh] w-full"></section>
+
+  <!-- <section
     class="flex flex-wrap items-center justify-center gap-12 bg-white px-indent py-10 md:py-20"
   >
     <div
@@ -99,9 +94,9 @@ const pageData = await getPageData()
         )
       }
     </div>
-  </section>
+  </section> -->
 
-  <section data-text-slide-section class="relative h-dvh md:h-[600dvh]">
+  <!-- <section data-text-slide-section class="relative h-dvh md:h-[600dvh]">
     <div
       class="sticky top-0 flex h-dvh items-center overflow-hidden bg-white pt-nav-height"
     >
@@ -175,82 +170,7 @@ const pageData = await getPageData()
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="w-screen bg-white px-indent">
-    <div class="flex flex-row gap-[30px]">
-      <div class="w-full">
-        {
-          pageData.imagesGrid.image1 && (
-            <Mask type="tobo" class="w-full h-full col-span-2 row-span-2">
-              <MediaAsset
-                media={pageData.imagesGrid.image1}
-                title={t('home.imagesGrid')}
-              />
-            </Mask>
-          )
-        }
-      </div>
-      <div class="flex flex-col w-full gap-[12px]">
-        {
-          pageData.imagesGrid.image2 && (
-            <Mask type="tobobo" class="w-full col-span-2">
-              <MediaAsset
-                media={pageData.imagesGrid.image2}
-                title={t('home.imagesGrid')}
-              />
-            </Mask>
-          )
-        }
-        <div class="w-full flex flex-row gap-[30px]">
-          {
-            pageData.imagesGrid.image3 && (
-              <Mask type="home_left" class="w-full">
-                <MediaAsset
-                  media={pageData.imagesGrid.image3}
-                  title={t('home.imagesGrid')}
-                />
-              </Mask>
-            )
-          }
-          {
-            pageData.imagesGrid.image4 && (
-              <Mask type="home_right" class="w-full">
-                <MediaAsset
-                  media={pageData.imagesGrid.image4}
-                  title={t('home.imagesGrid')}
-                />
-              </Mask>
-            )
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section
-    class="relative flex items-center justify-center bg-white w-screen py-indent"
-  >
-    {
-      pageData.imageEyeMedia && (
-        <Mask type="tobo_horizontal" class="w-full">
-          <MediaAsset media={pageData.imageEyeMedia} title={'TESTINGAL'} />
-        </Mask>
-      )
-    }
-  </section>
-
-  <section class="relative flex items-center justify-center bg-white px-indent">
-    <div class="flex w-full items-stretch justify-center gap-4">
-      <Bracket color="navy" class="h-[50vh] shrink-0" />
-      <div class="flex flex-col justify-center gap-4">
-        <p class="text-navy text-headline-3">
-          {pageData.bookText?.[locale]}
-        </p>
-      </div>
-      <Bracket color="navy" class="h-[50vh] shrink-0" rotate180 />
-    </div>
-  </section>
+  </section> -->
 
   <section class="relative flex items-center justify-center bg-white px-indent">
     <!-- <div class="w-full h-full">
@@ -278,9 +198,6 @@ const pageData = await getPageData()
 
   const sectionsBlock = document.querySelector('[data-home-sections]')
   const section2 = document.querySelector('[data-home-section-2]')
-  const maskZoom = document.getElementById('mask-zoom')
-  const textSlideSection = document.querySelector('[data-text-slide-section]')
-  const textSlideTrack = document.getElementById('text-slide-track')
 
   if (sectionsBlock && section2) {
     tweens.push(
@@ -289,7 +206,7 @@ const pageData = await getPageData()
         { x: '100%' },
         {
           x: '0%',
-          ease: 'ease-out',
+          ease: 'power2.inOut',
           scrollTrigger: {
             trigger: sectionsBlock,
             start: 'top top',
@@ -300,6 +217,8 @@ const pageData = await getPageData()
       )
     )
   }
+
+  const maskZoom = document.getElementById('mask-zoom')
 
   if (maskZoom) {
     tweens.push(
@@ -319,6 +238,9 @@ const pageData = await getPageData()
       )
     )
   }
+
+  const textSlideSection = document.querySelector('[data-text-slide-section]')
+  const textSlideTrack = document.getElementById('text-slide-track')
 
   const textSlides = [
     { id: 'text-slide-1', from: '-100vw' },
