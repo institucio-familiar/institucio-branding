@@ -783,43 +783,66 @@ export type Home_page = {
     textSlide1?: I18nText;
     textSlide2?: I18nText;
   };
-  imageZoom?: MediaAsset;
+  videoLogos?: MuxVideo;
+  tileGrid?: {
+    image1?: MediaAsset;
+    image2?: MediaAsset;
+    text1?: I18nText;
+    text2?: I18nText;
+  };
+  carouselIllustrations?: {
+    images?: Array<{
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    video?: MuxVideo;
+    text_lines?: {
+      line1?: I18nString;
+      line2?: I18nString;
+      line3?: I18nString;
+    };
+  };
+  valuesSection?: {
+    text?: I18nText;
+    image?: MediaAsset;
+  };
   imagesGrid?: {
     image1?: MediaAsset;
     image2?: MediaAsset;
     image3?: MediaAsset;
     image4?: MediaAsset;
+    image5?: MediaAsset;
   };
-  imageEye?: MediaAsset;
-  bookText?: I18nText;
-  words?: {
-    word1?: I18nString;
-    word2?: I18nString;
-    word3?: I18nString;
+  missionSection?: {
+    text?: I18nText;
   };
-};
-
-export type Block_2 = {
-  _type: "block_2";
-  media1?: MediaAsset;
-  media2?: MediaAsset;
-};
-
-export type Block_1 = {
-  _type: "block_1";
-  media1?: MediaAsset;
-};
-
-export type MuxVideoAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "mux.videoAsset";
-};
-
-export type MuxVideo = {
-  _type: "mux.video";
-  asset?: MuxVideoAssetReference;
+  slidesSection?: {
+    images?: Array<{
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    text?: I18nText;
+  };
+  finalMessageSection?: {
+    firstMessage?: {
+      image?: MediaAsset;
+      text?: I18nString;
+    };
+    secondMessage?: {
+      text?: I18nString;
+    };
+    thirdMessage?: {
+      text?: I18nString;
+    };
+  };
 };
 
 export type SanityImageCrop = {
@@ -836,6 +859,29 @@ export type SanityImageHotspot = {
   y?: number;
   height?: number;
   width?: number;
+};
+
+export type MuxVideoAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "mux.videoAsset";
+};
+
+export type MuxVideo = {
+  _type: "mux.video";
+  asset?: MuxVideoAssetReference;
+};
+
+export type Block_2 = {
+  _type: "block_2";
+  media1?: MediaAsset;
+  media2?: MediaAsset;
+};
+
+export type Block_1 = {
+  _type: "block_1";
+  media1?: MediaAsset;
 };
 
 export type I18nNumber = {
@@ -1064,12 +1110,12 @@ export type AllSanitySchemaTypes =
   | Asi_hablamos_page
   | Nuestra_marca_page
   | Home_page
-  | Block_2
-  | Block_1
-  | MuxVideoAssetReference
-  | MuxVideo
   | SanityImageCrop
   | SanityImageHotspot
+  | MuxVideoAssetReference
+  | MuxVideo
+  | Block_2
+  | Block_1
   | I18nNumber
   | MuxVideoAsset
   | MuxAssetData
@@ -1112,21 +1158,7 @@ export type HOME_PAGE_QUERY_RESULT = {
     textSlide1: I18nText | null;
     textSlide2: I18nText | null;
   } | null;
-  imageZoom: {
-    mediaType: "image" | "video" | null;
-    image: {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    } | null;
-    video: {
-      asset: {
-        playbackId: string | null;
-      } | null;
-    } | null;
-  } | null;
+  imageZoom: null;
   imagesGrid: {
     image1: {
       mediaType: "image" | "video" | null;
@@ -1189,27 +1221,9 @@ export type HOME_PAGE_QUERY_RESULT = {
       } | null;
     } | null;
   } | null;
-  imageEye: {
-    mediaType: "image" | "video" | null;
-    image: {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    } | null;
-    video: {
-      asset: {
-        playbackId: string | null;
-      } | null;
-    } | null;
-  } | null;
-  bookText: I18nText | null;
-  words: {
-    word1: I18nString | null;
-    word2: I18nString | null;
-    word3: I18nString | null;
-  } | null;
+  imageEye: null;
+  bookText: null;
+  words: null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts

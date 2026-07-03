@@ -8,6 +8,7 @@ import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import { HOME_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
+import { toLocaleString } from '@/sanity/lib/page-parsers'
 import { toMedia } from '@/sanity/lib/utils'
 import Mask from '@/components/ui/Mask.astro'
 import textMask4 from '@/assets/svgs/text_mask_4.svg'
@@ -23,17 +24,75 @@ async function getPageData() {
   // Parse data
   return {
     heroMedia: toMedia(sanityPageData?.hero?.media),
-    textSlides: sanityPageData?.textSlides,
-    imageZoomMedia: toMedia(sanityPageData?.imageZoom),
+    textSlides: {
+      textSlide1: toLocaleString(sanityPageData?.textSlides?.textSlide1, locale),
+      textSlide2: toLocaleString(sanityPageData?.textSlides?.textSlide2, locale)
+    },
+    videoLogosPlaybackId: sanityPageData?.videoLogos?.asset?.playbackId,
+    tileGrid: {
+      image1: toMedia(sanityPageData?.tileGrid?.image1),
+      image2: toMedia(sanityPageData?.tileGrid?.image2),
+      text1: toLocaleString(sanityPageData?.tileGrid?.text1, locale),
+      text2: toLocaleString(sanityPageData?.tileGrid?.text2, locale)
+    },
+    carouselIllustrations: {
+      images: sanityPageData?.carouselIllustrations?.images ?? [],
+      videoPlaybackId:
+        sanityPageData?.carouselIllustrations?.video?.asset?.playbackId,
+      textLines: {
+        line1: toLocaleString(
+          sanityPageData?.carouselIllustrations?.text_lines?.line1,
+          locale
+        ),
+        line2: toLocaleString(
+          sanityPageData?.carouselIllustrations?.text_lines?.line2,
+          locale
+        ),
+        line3: toLocaleString(
+          sanityPageData?.carouselIllustrations?.text_lines?.line3,
+          locale
+        )
+      }
+    },
+    valuesSection: {
+      text: toLocaleString(sanityPageData?.valuesSection?.text, locale),
+      image: toMedia(sanityPageData?.valuesSection?.image)
+    },
     imagesGrid: {
       image1: toMedia(sanityPageData?.imagesGrid?.image1),
       image2: toMedia(sanityPageData?.imagesGrid?.image2),
       image3: toMedia(sanityPageData?.imagesGrid?.image3),
-      image4: toMedia(sanityPageData?.imagesGrid?.image4)
+      image4: toMedia(sanityPageData?.imagesGrid?.image4),
+      image5: toMedia(sanityPageData?.imagesGrid?.image5)
     },
-    imageEyeMedia: toMedia(sanityPageData?.imageEye),
-    bookText: sanityPageData?.bookText,
-    words: sanityPageData?.words
+    missionSection: {
+      text: toLocaleString(sanityPageData?.missionSection?.text, locale)
+    },
+    slidesSection: {
+      images: sanityPageData?.slidesSection?.images ?? [],
+      text: toLocaleString(sanityPageData?.slidesSection?.text, locale)
+    },
+    finalMessageSection: {
+      firstMessage: {
+        image: toMedia(sanityPageData?.finalMessageSection?.firstMessage?.image),
+        text: toLocaleString(
+          sanityPageData?.finalMessageSection?.firstMessage?.text,
+          locale
+        )
+      },
+      secondMessage: {
+        text: toLocaleString(
+          sanityPageData?.finalMessageSection?.secondMessage?.text,
+          locale
+        )
+      },
+      thirdMessage: {
+        text: toLocaleString(
+          sanityPageData?.finalMessageSection?.thirdMessage?.text,
+          locale
+        )
+      }
+    }
   }
 }
 
@@ -47,7 +106,7 @@ const pageData = await getPageData()
     <div class="sticky top-0 h-dvh">
       <div class="relative h-full clip-x-at-right" data-header-theme="light">
         <HomeMaskSection
-          text={pageData.textSlides?.textSlide1?.[locale] ?? ''}
+          text={pageData.textSlides.textSlide1}
           backgroundColor="navy"
           textColor="blue"
         />
@@ -63,7 +122,7 @@ const pageData = await getPageData()
           />
           <div class="flex items-center justify-center p-20 h-full bg-blue">
             <p class="text-navy text-headline-1 uppercase text-center">
-              {pageData.textSlides?.textSlide2?.[locale]}
+              {pageData.textSlides.textSlide2}
             </p>
           </div>
         </section>

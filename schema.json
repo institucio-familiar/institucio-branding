@@ -4504,11 +4504,188 @@
         },
         "optional": true
       },
-      "imageZoom": {
+      "videoLogos": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "mediaAsset"
+          "name": "mux.video"
+        },
+        "optional": true
+      },
+      "tileGrid": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "image1": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "mediaAsset"
+              },
+              "optional": true
+            },
+            "image2": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "mediaAsset"
+              },
+              "optional": true
+            },
+            "text1": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "i18n.text"
+              },
+              "optional": true
+            },
+            "text2": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "i18n.text"
+              },
+              "optional": true
+            }
+          }
+        },
+        "optional": true
+      },
+      "carouselIllustrations": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "images": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "array",
+                "of": {
+                  "type": "object",
+                  "attributes": {
+                    "asset": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "sanity.imageAsset.reference"
+                      },
+                      "optional": true
+                    },
+                    "media": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "unknown"
+                      },
+                      "optional": true
+                    },
+                    "hotspot": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "sanity.imageHotspot"
+                      },
+                      "optional": true
+                    },
+                    "crop": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "sanity.imageCrop"
+                      },
+                      "optional": true
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "image"
+                      }
+                    }
+                  },
+                  "rest": {
+                    "type": "object",
+                    "attributes": {
+                      "_key": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "optional": true
+            },
+            "video": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "mux.video"
+              },
+              "optional": true
+            },
+            "text_lines": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "line1": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "i18n.string"
+                    },
+                    "optional": true
+                  },
+                  "line2": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "i18n.string"
+                    },
+                    "optional": true
+                  },
+                  "line3": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "i18n.string"
+                    },
+                    "optional": true
+                  }
+                }
+              },
+              "optional": true
+            }
+          }
+        },
+        "optional": true
+      },
+      "valuesSection": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "text": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "i18n.text"
+              },
+              "optional": true
+            },
+            "image": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "mediaAsset"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": true
       },
@@ -4548,169 +4725,181 @@
                 "name": "mediaAsset"
               },
               "optional": true
+            },
+            "image5": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "mediaAsset"
+              },
+              "optional": true
             }
           }
         },
         "optional": true
       },
-      "imageEye": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "mediaAsset"
-        },
-        "optional": true
-      },
-      "bookText": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "i18n.text"
-        },
-        "optional": true
-      },
-      "words": {
+      "missionSection": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
           "attributes": {
-            "word1": {
+            "text": {
               "type": "objectAttribute",
               "value": {
                 "type": "inline",
-                "name": "i18n.string"
-              },
-              "optional": true
-            },
-            "word2": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "i18n.string"
-              },
-              "optional": true
-            },
-            "word3": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "i18n.string"
+                "name": "i18n.text"
               },
               "optional": true
             }
           }
         },
         "optional": true
-      }
-    }
-  },
-  {
-    "name": "block_2",
-    "type": "type",
-    "value": {
-      "type": "object",
-      "attributes": {
-        "_type": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string",
-            "value": "block_2"
-          }
-        },
-        "media1": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "mediaAsset"
-          },
-          "optional": true
-        },
-        "media2": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "mediaAsset"
-          },
-          "optional": true
-        }
-      }
-    }
-  },
-  {
-    "name": "block_1",
-    "type": "type",
-    "value": {
-      "type": "object",
-      "attributes": {
-        "_type": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string",
-            "value": "block_1"
-          }
-        },
-        "media1": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "mediaAsset"
-          },
-          "optional": true
-        }
-      }
-    }
-  },
-  {
-    "type": "type",
-    "name": "mux.videoAsset.reference",
-    "value": {
-      "type": "object",
-      "attributes": {
-        "_ref": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          }
-        },
-        "_type": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string",
-            "value": "reference"
-          }
-        },
-        "_weak": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": true
-        }
       },
-      "dereferencesTo": "mux.videoAsset"
-    }
-  },
-  {
-    "name": "mux.video",
-    "type": "type",
-    "value": {
-      "type": "object",
-      "attributes": {
-        "_type": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string",
-            "value": "mux.video"
+      "slidesSection": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "images": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "array",
+                "of": {
+                  "type": "object",
+                  "attributes": {
+                    "asset": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "sanity.imageAsset.reference"
+                      },
+                      "optional": true
+                    },
+                    "media": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "unknown"
+                      },
+                      "optional": true
+                    },
+                    "hotspot": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "sanity.imageHotspot"
+                      },
+                      "optional": true
+                    },
+                    "crop": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "sanity.imageCrop"
+                      },
+                      "optional": true
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "image"
+                      }
+                    }
+                  },
+                  "rest": {
+                    "type": "object",
+                    "attributes": {
+                      "_key": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "optional": true
+            },
+            "text": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "i18n.text"
+              },
+              "optional": true
+            }
           }
         },
-        "asset": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "mux.videoAsset.reference"
-          },
-          "optional": true
-        }
+        "optional": true
+      },
+      "finalMessageSection": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "firstMessage": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "image": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "mediaAsset"
+                    },
+                    "optional": true
+                  },
+                  "text": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "i18n.string"
+                    },
+                    "optional": true
+                  }
+                }
+              },
+              "optional": true
+            },
+            "secondMessage": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "text": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "i18n.string"
+                    },
+                    "optional": true
+                  }
+                }
+              },
+              "optional": true
+            },
+            "thirdMessage": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "text": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "i18n.string"
+                    },
+                    "optional": true
+                  }
+                }
+              },
+              "optional": true
+            }
+          }
+        },
+        "optional": true
       }
     }
   },
@@ -4796,6 +4985,116 @@
           "type": "objectAttribute",
           "value": {
             "type": "number"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
+    "type": "type",
+    "name": "mux.videoAsset.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "mux.videoAsset"
+    }
+  },
+  {
+    "name": "mux.video",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "mux.video"
+          }
+        },
+        "asset": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "mux.videoAsset.reference"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
+    "name": "block_2",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "block_2"
+          }
+        },
+        "media1": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "mediaAsset"
+          },
+          "optional": true
+        },
+        "media2": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "mediaAsset"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
+    "name": "block_1",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "block_1"
+          }
+        },
+        "media1": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "mediaAsset"
           },
           "optional": true
         }

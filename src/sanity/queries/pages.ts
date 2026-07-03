@@ -14,6 +14,12 @@ const heroProjection = /* groq */ `{
   media ${mediaAssetProjection}
 }`
 
+const muxVideoProjection = /* groq */ `{
+  asset->{
+    playbackId
+  }
+}`
+
 const atom1Projection = /* groq */ `{
   title,
   description,
@@ -93,19 +99,51 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
       textSlide1,
       textSlide2
     },
-    imageZoom ${mediaAssetProjection},
+    videoLogos ${muxVideoProjection},
+    tileGrid {
+      image1 ${mediaAssetProjection},
+      image2 ${mediaAssetProjection},
+      text1,
+      text2
+    },
+    carouselIllustrations {
+      images,
+      video ${muxVideoProjection},
+      text_lines {
+        line1,
+        line2,
+        line3
+      }
+    },
+    valuesSection {
+      text,
+      image ${mediaAssetProjection}
+    },
     imagesGrid {
       image1 ${mediaAssetProjection},
       image2 ${mediaAssetProjection},
       image3 ${mediaAssetProjection},
-      image4 ${mediaAssetProjection}
+      image4 ${mediaAssetProjection},
+      image5 ${mediaAssetProjection}
     },
-    imageEye ${mediaAssetProjection},
-    bookText,
-    words {
-      word1,
-      word2,
-      word3
+    missionSection {
+      text
+    },
+    slidesSection {
+      images,
+      text
+    },
+    finalMessageSection {
+      firstMessage {
+        image ${mediaAssetProjection},
+        text
+      },
+      secondMessage {
+        text
+      },
+      thirdMessage {
+        text
+      }
     }
   }
 `)
