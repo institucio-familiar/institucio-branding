@@ -1,4 +1,4 @@
-# School variables
+# School assets
 
 - Logo Header
 - Logo Footer
@@ -18,5 +18,5 @@
 
 # Content
 
-- Translations
+- Translations (School related)
 - Sanity content

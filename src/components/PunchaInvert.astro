@@ -1,0 +1,26 @@
+<div class="w-full h-full flex rotate-180">
+  <div class="bg-navy w-full"></div>
+  <div class="puncha-invert bg-navy w-full"></div>
+  <div class="bg-navy w-full"></div>
+</div>
+
+<style>
+  .puncha-invert {
+    -webkit-mask-image: linear-gradient(#fff, #fff), url('/pincho.svg');
+    mask-image: linear-gradient(#fff, #fff), url('/pincho.svg');
+    -webkit-mask-size:
+      100% 100%,
+      25vw auto;
+    mask-size:
+      100% 100%,
+      25vw auto;
+    -webkit-mask-position:
+      center,
+      center top;
+    mask-position:
+      center,
+      center top;
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+</style>

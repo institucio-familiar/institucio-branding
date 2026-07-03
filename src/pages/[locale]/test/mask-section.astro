@@ -1,0 +1,53 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro'
+import Hero from '@/components/Hero.astro'
+import type { Media } from '@/components/ui/blocks/block-types'
+
+const fakeMedia: Media = {
+  mediaType: 'offline',
+  imageSrc: '/dev.jpg'
+}
+---
+
+<MainLayout title="Mask section test">
+  <Hero media={fakeMedia} heading="Mask section test" />
+
+  <section
+    class="section-top-mask flex min-h-screen w-screen items-center justify-center bg-navy px-indent"
+  >
+    <p class="text-headline-1 text-center uppercase text-frost">
+      Masked text section one
+    </p>
+  </section>
+
+  <section
+    class="section-top-mask flex min-h-screen w-screen items-center justify-center bg-white px-indent"
+  >
+    <p class="text-headline-1 text-center uppercase text-navy">
+      Masked text section two
+    </p>
+  </section>
+</MainLayout>
+
+<style>
+  .section-top-mask {
+    -webkit-mask-image: linear-gradient(#fff, #fff), url('/pincho_invert.svg');
+    mask-image: linear-gradient(#fff, #fff), url('/pincho_invert.svg');
+    -webkit-mask-size:
+      100% 100%,
+      clamp(120px, 25vw, 260px) auto;
+    mask-size:
+      100% 100%,
+      clamp(120px, 25vw, 260px) auto;
+    -webkit-mask-position:
+      center,
+      center top;
+    mask-position:
+      center,
+      center top;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+</style>

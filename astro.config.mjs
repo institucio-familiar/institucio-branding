@@ -51,7 +51,7 @@ export default defineConfig({
     }
   }),
   server: {
-    host: true
+    host: true // TESTINGAL > Investigate why this is needed
   },
   vite: {
     plugins: [tailwindcss()],
