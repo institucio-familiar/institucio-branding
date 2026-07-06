@@ -62,7 +62,7 @@ export const homePage = defineType({
     defineField({
       name: 'videoLogos',
       title: 'Videos logos',
-      type: 'mux.video',
+      type: 'file',
       validation: (rule) => rule.required()
     }),
     defineField({

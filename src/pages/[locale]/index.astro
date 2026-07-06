@@ -31,7 +31,7 @@ async function getPageData() {
       ),
       textSlide2: toLocaleString(sanityPageData?.textSlides?.textSlide2, locale)
     },
-    videoLogosPlaybackId: sanityPageData?.videoLogos?.asset?.playbackId,
+    videoLogosUrl: sanityPageData?.videoLogos?.asset?.url,
     tileGrid: {
       image1: toMedia(sanityPageData?.tileGrid?.image1),
       image2: toMedia(sanityPageData?.tileGrid?.image2),
@@ -143,7 +143,15 @@ const pageData = await getPageData()
     </div>
   </div>
 
-  <section class="bg-white h-[50vh] w-full"></section>
+  <section class="w-full aspect-video">
+    <video
+      src={pageData.videoLogosUrl}
+      autoplay
+      muted
+      loop
+      playsinline
+      class="w-full h-full object-cover bg-white"></video>
+  </section>
 
   <!-- <section
     class="flex flex-wrap items-center justify-center gap-12 bg-white px-indent py-10 md:py-20"

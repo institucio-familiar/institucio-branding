@@ -99,7 +99,11 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
       textSlide1,
       textSlide2
     },
-    videoLogos ${muxVideoProjection},
+    videoLogos {
+      asset->{
+        url
+      }
+    },
     tileGrid {
       image1 ${mediaAssetProjection},
       image2 ${mediaAssetProjection},

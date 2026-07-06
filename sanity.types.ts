@@ -770,6 +770,13 @@ export type Nuestra_marca_page = {
   };
 };
 
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+};
+
 export type Home_page = {
   _id: string;
   _type: "home_page";
@@ -783,7 +790,11 @@ export type Home_page = {
     textSlide1?: I18nText;
     textSlide2?: I18nText;
   };
-  videoLogos?: MuxVideo;
+  videoLogos?: {
+    asset?: SanityFileAssetReference;
+    media?: unknown;
+    _type: "file";
+  };
   tileGrid?: {
     image1?: MediaAsset;
     image2?: MediaAsset;
@@ -1109,6 +1120,7 @@ export type AllSanitySchemaTypes =
   | Asi_nos_vemos_page
   | Asi_hablamos_page
   | Nuestra_marca_page
+  | SanityFileAssetReference
   | Home_page
   | SanityImageCrop
   | SanityImageHotspot
@@ -1135,7 +1147,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/queries/pages.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "home_page" && _id == "home_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    textSlides {      textSlide1,      textSlide2    },    imageZoom {  mediaType,  image,  video {    asset->{      playbackId    }  }},    imagesGrid {      image1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image2 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image3 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image4 {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    imageEye {  mediaType,  image,  video {    asset->{      playbackId    }  }},    bookText,    words {      word1,      word2,      word3    }  }
+// Query: *[_type == "home_page" && _id == "home_page"][0]{    hero {  media {  mediaType,  image,  video {    asset->{      playbackId    }  }}},    textSlides {      textSlide1,      textSlide2    },    videoLogos {      asset->{        url      }    },    tileGrid {      image1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image2 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      text1,      text2    },    carouselIllustrations {      images,      video {  asset->{    playbackId  }},      text_lines {        line1,        line2,        line3      }    },    valuesSection {      text,      image {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    imagesGrid {      image1 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image2 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image3 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image4 {  mediaType,  image,  video {    asset->{      playbackId    }  }},      image5 {  mediaType,  image,  video {    asset->{      playbackId    }  }}    },    missionSection {      text    },    slidesSection {      images,      text    },    finalMessageSection {      firstMessage {        image {  mediaType,  image,  video {    asset->{      playbackId    }  }},        text      },      secondMessage {        text      },      thirdMessage {        text      }    }  }
 export type HOME_PAGE_QUERY_RESULT = {
   hero: {
     media: {
@@ -1158,7 +1170,83 @@ export type HOME_PAGE_QUERY_RESULT = {
     textSlide1: I18nText | null;
     textSlide2: I18nText | null;
   } | null;
-  imageZoom: null;
+  videoLogos: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+  tileGrid: {
+    image1: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    image2: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+    text1: I18nText | null;
+    text2: I18nText | null;
+  } | null;
+  carouselIllustrations: {
+    images: Array<{
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }> | null;
+    video: {
+      asset: {
+        playbackId: string | null;
+      } | null;
+    } | null;
+    text_lines: {
+      line1: I18nString | null;
+      line2: I18nString | null;
+      line3: I18nString | null;
+    } | null;
+  } | null;
+  valuesSection: {
+    text: I18nText | null;
+    image: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
   imagesGrid: {
     image1: {
       mediaType: "image" | "video" | null;
@@ -1220,10 +1308,62 @@ export type HOME_PAGE_QUERY_RESULT = {
         } | null;
       } | null;
     } | null;
+    image5: {
+      mediaType: "image" | "video" | null;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      video: {
+        asset: {
+          playbackId: string | null;
+        } | null;
+      } | null;
+    } | null;
   } | null;
-  imageEye: null;
-  bookText: null;
-  words: null;
+  missionSection: {
+    text: I18nText | null;
+  } | null;
+  slidesSection: {
+    images: Array<{
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }> | null;
+    text: I18nText | null;
+  } | null;
+  finalMessageSection: {
+    firstMessage: {
+      image: {
+        mediaType: "image" | "video" | null;
+        image: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        video: {
+          asset: {
+            playbackId: string | null;
+          } | null;
+        } | null;
+      } | null;
+      text: I18nString | null;
+    } | null;
+    secondMessage: {
+      text: I18nString | null;
+    } | null;
+    thirdMessage: {
+      text: I18nString | null;
+    } | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/queries/pages.ts
@@ -3600,7 +3740,7 @@ export type TEST_1_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "home_page" && _id == "home_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    textSlides {\n      textSlide1,\n      textSlide2\n    },\n    imageZoom {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    imagesGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image3 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image4 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    imageEye {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    bookText,\n    words {\n      word1,\n      word2,\n      word3\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "home_page" && _id == "home_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    textSlides {\n      textSlide1,\n      textSlide2\n    },\n    videoLogos {\n      asset->{\n        url\n      }\n    },\n    tileGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      text1,\n      text2\n    },\n    carouselIllustrations {\n      images,\n      video {\n  asset->{\n    playbackId\n  }\n},\n      text_lines {\n        line1,\n        line2,\n        line3\n      }\n    },\n    valuesSection {\n      text,\n      image {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    imagesGrid {\n      image1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image3 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image4 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n      image5 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    missionSection {\n      text\n    },\n    slidesSection {\n      images,\n      text\n    },\n    finalMessageSection {\n      firstMessage {\n        image {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n        text\n      },\n      secondMessage {\n        text\n      },\n      thirdMessage {\n        text\n      }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "nuestra_marca_page" && _id == "nuestra_marca_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 {\n      title,\n      questions[]{\n        question,\n        answer\n      }\n    },\n    section2[]{\n      title,\n      description,\n      media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section3 {\n      typography {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n      color {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n      voz {\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    }\n  }\n': NUESTRA_MARCA_PAGE_QUERY_RESULT;
     '\n  *[_type == "asi_hablamos_page" && _id == "asi_hablamos_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description,\n      medias[] {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n    },\n    section1 {\n  title,\n  description,\n  blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n},\n    section2 {\n      blocks []{\n  title,\n  description,\n  media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n}\n    },\n    section3[]{\n      correct,\n      incorrect\n    },\n    section4[]{\n      correct,\n      incorrect\n    }\n  }\n': ASI_HABLAMOS_PAGE_QUERY_RESULT;
     '\n  *[_type == "asi_nos_vemos_page" && _id == "asi_nos_vemos_page"][0]{\n    hero {\n  media {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n},\n    intro {\n      title,\n      description\n    },\n    sections {\n      asiNosVemos []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      color []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      tipografia []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      patrones []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      layout []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      ilustracion []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      iconografia []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      fotografia []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n},\n      motion []{\n  _type,\n  _type == "block_1" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  },\n  _type == "block_2" => {\n    media1 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n},\n    media2 {\n  mediaType,\n  image,\n  video {\n    asset->{\n      playbackId\n    }\n  }\n}\n  }\n}\n    }\n  }\n': ASI_NOS_VEMOS_PAGE_QUERY_RESULT;
