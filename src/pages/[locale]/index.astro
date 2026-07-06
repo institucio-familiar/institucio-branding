@@ -25,7 +25,10 @@ async function getPageData() {
   return {
     heroMedia: toMedia(sanityPageData?.hero?.media),
     textSlides: {
-      textSlide1: toLocaleString(sanityPageData?.textSlides?.textSlide1, locale),
+      textSlide1: toLocaleString(
+        sanityPageData?.textSlides?.textSlide1,
+        locale
+      ),
       textSlide2: toLocaleString(sanityPageData?.textSlides?.textSlide2, locale)
     },
     videoLogosPlaybackId: sanityPageData?.videoLogos?.asset?.playbackId,
@@ -74,7 +77,9 @@ async function getPageData() {
     },
     finalMessageSection: {
       firstMessage: {
-        image: toMedia(sanityPageData?.finalMessageSection?.firstMessage?.image),
+        image: toMedia(
+          sanityPageData?.finalMessageSection?.firstMessage?.image
+        ),
         text: toLocaleString(
           sanityPageData?.finalMessageSection?.firstMessage?.text,
           locale
@@ -102,9 +107,12 @@ const pageData = await getPageData()
 <MainLayout>
   <Hero media={pageData.heroMedia} heading={t('home.hero')} />
 
-  <div class="relative h-[400dvh]" data-home-sections>
-    <div class="sticky top-0 h-dvh">
-      <div class="relative h-full clip-x-at-right" data-header-theme="light">
+  <div class="relative h-[400dvh] w-full" data-home-sections>
+    <div class="sticky top-0 h-dvh w-full">
+      <div
+        class="relative h-full w-full overflow-x-hidden"
+        data-header-theme="light"
+      >
         <HomeMaskSection
           text={pageData.textSlides.textSlide1}
           backgroundColor="navy"
@@ -130,7 +138,7 @@ const pageData = await getPageData()
 
       <Puncha
         color="blue"
-        class="absolute bottom-[0.5px] left-1/2 z-2 -translate-x-1/2 translate-y-full rotate-180"
+        class="absolute bottom-[0.5px] left-1/2 -z-1 -translate-x-1/2 translate-y-full rotate-180"
       />
     </div>
   </div>

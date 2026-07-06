@@ -50,7 +50,7 @@
   transform: translateY(1px);
 }
 
-/* Clip horizontal overflow on the right only — Safari clips both axes with overflow-x-clip */
+/* Clip horizontal overflow on the right only — avoid -100vw left inset (breaks mobile Safari layout) */
 @utility clip-x-at-right {
-  clip-path: inset(-100vh 0 -100vh -100vw);
+  clip-path: inset(-100dvh 0 -100dvh 0);
 }
