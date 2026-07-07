@@ -1,0 +1,115 @@
+---
+import Puncha from '@/components/icons/Puncha.astro'
+import MediaAsset from '@/components/MediaAsset.astro'
+import Mask from '@/components/ui/Mask.astro'
+import type { Media } from '@/components/ui/blocks/block-types'
+
+interface Props {
+  image1?: Media | null
+  image2?: Media | null
+  text1: string
+  text2: string
+}
+
+const { image1, image2, text1, text2 } = Astro.props
+---
+
+<section class="relative bg-white" data-home-tile-grid>
+  <div class="grid grid-cols-2">
+    {
+      image1 && (
+        <div data-tile-grid-mask data-origin="top-left" class="w-full">
+          <Mask type="tibo" class="w-full mb-[-3.6vw]">
+            <MediaAsset media={image1} />
+          </Mask>
+        </div>
+      )
+    }
+    <p
+      data-tile-grid-text
+      class="text-navy text-headline-2 flex items-center justify-center text-center uppercase"
+    >
+      {text1}
+    </p>
+    <p
+      data-tile-grid-text
+      class="text-navy text-headline-2 flex items-center justify-center text-center uppercase"
+    >
+      {text2}
+    </p>
+    {
+      image2 && (
+        <div data-tile-grid-mask data-origin="top-right" class="w-full">
+          <Mask type="tibo" class="w-full">
+            <MediaAsset media={image2} />
+          </Mask>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap'
+
+  const section = document.querySelector('[data-home-tile-grid]')
+
+  if (section) {
+    const tweens: gsap.core.Tween[] = []
+
+    section.querySelectorAll('[data-tile-grid-mask]').forEach((mask) => {
+      const transformOrigin =
+        mask.getAttribute('data-origin') === 'top-right'
+          ? 'top right'
+          : 'top left'
+
+      tweens.push(
+        gsap.fromTo(
+          mask,
+          { scale: 0.3, transformOrigin },
+          {
+            scale: 1,
+            transformOrigin,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: mask,
+              start: 'top bottom',
+              end: 'center center',
+              scrub: true
+            }
+          }
+        )
+      )
+    })
+
+    section.querySelectorAll('[data-tile-grid-text]').forEach((text) => {
+      tweens.push(
+        gsap.fromTo(
+          text,
+          { y: 150 },
+          {
+            y: 0,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+              trigger: text,
+              start: 'top bottom',
+              end: 'center center',
+              scrub: true
+            }
+          }
+        )
+      )
+    })
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
+      },
+      { once: true }
+    )
+  }
+</script>

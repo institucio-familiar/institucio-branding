@@ -13,6 +13,7 @@ import { toMedia } from '@/sanity/lib/utils'
 import Mask from '@/components/ui/Mask.astro'
 import textMask4 from '@/assets/svgs/text_mask_4.svg'
 import HomeMaskSection from '@/components/HomeMaskSection.astro'
+import HomeTileGridSection from '@/components/HomeTileGridSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -153,6 +154,13 @@ const pageData = await getPageData()
       class="w-full h-full object-cover bg-white"></video>
   </section>
 
+  <HomeTileGridSection
+    image1={pageData.tileGrid.image1}
+    image2={pageData.tileGrid.image2}
+    text1={pageData.tileGrid.text1}
+    text2={pageData.tileGrid.text2}
+  />
+
   <!-- <section
     class="flex flex-wrap items-center justify-center gap-12 bg-white px-indent py-10 md:py-20"
   >
@@ -247,18 +255,7 @@ const pageData = await getPageData()
     </div>
   </section> -->
 
-  <section class="relative flex items-center justify-center bg-white px-indent">
-    <!-- <div class="w-full h-full">
-      <p class="text-navy text-macro uppercase">
-        {pageData.words?.word1?.[locale]}
-      </p>
-      <p class="text-navy text-macro uppercase">
-        {pageData.words?.word2?.[locale]}
-      </p>
-      <p class="text-navy text-macro uppercase">
-        {pageData.words?.word3?.[locale]}
-      </p>
-    </div> -->
+  <section class="relative bg-white h-[50vh] w-full">
     <Puncha
       color="white"
       class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
