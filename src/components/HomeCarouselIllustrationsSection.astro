@@ -167,30 +167,65 @@ const { line1, line2, line3 } = textLines
 
     if (sticky && track && items.length > 0) {
       const getSlideDistance = () => window.innerWidth
-      const updateArc = () => {
+
+      type ArcItem = {
+        centerInTrack: number
+        setY: (value: number) => void
+        isVideo: boolean
+      }
+
+      const arcCache = {
+        viewportCenter: 0,
+        maxYOffset: 0,
+        arcSpread: 0,
+        items: [] as ArcItem[]
+      }
+
+      let arcDisabled = false
+
+      const refreshArcCache = () => {
         const viewportWidth = window.innerWidth
-        const viewportCenter = viewportWidth / 2
-        const maxYOffset = Math.min(80, window.innerHeight * 0.15)
-        const arcSpread = viewportWidth * 0.6
 
-        items.forEach((item) => {
+        arcCache.viewportCenter = viewportWidth / 2
+        arcCache.maxYOffset = Math.min(80, window.innerHeight * 0.15)
+        arcCache.arcSpread = viewportWidth * 0.6
+        arcCache.items = Array.from(items).map((item) => {
           const element = item as HTMLElement
-
-          if (element === videoItem) {
-            const scale = gsap.getProperty(element, 'scale') as number
-            if (scale > 1.01) {
-              gsap.set(element, { y: 0 })
-              return
-            }
+          return {
+            centerInTrack: element.offsetLeft + element.offsetWidth / 2,
+            setY: gsap.quickSetter(element, 'y', 'px') as (
+              value: number
+            ) => void,
+            isVideo: element === videoItem
           }
-
-          const rect = element.getBoundingClientRect()
-          const itemCenter = rect.left + rect.width / 2
-          const t = (itemCenter - viewportCenter) / arcSpread
-          const y = t * t * maxYOffset
-
-          gsap.set(element, { y })
         })
+      }
+
+      const updateArc = () => {
+        if (arcDisabled) return
+
+        if (videoItem) {
+          const scale = gsap.getProperty(videoItem, 'scale') as number
+          if (scale > 1.01) {
+            arcDisabled = true
+            arcCache.items.find(({ isVideo }) => isVideo)?.setY(0)
+            return
+          }
+        }
+
+        const trackLeft = (track as HTMLElement).getBoundingClientRect().left
+        const videoX = videoItem
+          ? (gsap.getProperty(videoItem, 'x') as number)
+          : 0
+        const { viewportCenter, maxYOffset, arcSpread, items: arcItems } =
+          arcCache
+
+        for (const { centerInTrack, setY, isVideo } of arcItems) {
+          const itemX = isVideo ? videoX : 0
+          const itemCenter = trackLeft + centerInTrack + itemX
+          const t = (itemCenter - viewportCenter) / arcSpread
+          setY(t * t * maxYOffset)
+        }
       }
 
       const getMetrics = () => {
@@ -245,6 +280,7 @@ const { line1, line2, line3 } = textLines
         })
       })
 
+      refreshArcCache()
       updateArc()
 
       const timeline = gsap.timeline({
@@ -255,7 +291,8 @@ const { line1, line2, line3 } = textLines
           scrub: true,
           pin: sticky,
           anticipatePin: 1,
-          invalidateOnRefresh: true
+          invalidateOnRefresh: true,
+          onRefresh: refreshArcCache
         }
       })
 

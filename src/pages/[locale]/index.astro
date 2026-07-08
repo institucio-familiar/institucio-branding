@@ -42,7 +42,7 @@ async function getPageData() {
     },
     carouselIllustrations: {
       images: sanityPageData?.carouselIllustrations?.images ?? [],
-      videoUrl: sanityPageData?.carouselIllustrations?.video?.asset?.url,
+      videoUrl: sanityPageData?.carouselIllustrations?.video?.asset?.url ?? '',
       textLines: {
         line1: toLocaleString(
           sanityPageData?.carouselIllustrations?.text_lines?.line1,
