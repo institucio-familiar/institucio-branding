@@ -1,0 +1,137 @@
+---
+import Puncha from '@/components/icons/Puncha.astro'
+import MediaAsset from '@/components/MediaAsset.astro'
+import Mask from '@/components/ui/Mask.astro'
+import type { Media } from '@/components/ui/blocks/block-types'
+import symbol1 from '@/assets/svgs/symbol_1.svg'
+import symbol2 from '@/assets/svgs/symbol_2.svg'
+import symbol3 from '@/assets/svgs/symbol_3.svg'
+import symbol4 from '@/assets/svgs/symbol_4.svg'
+import symbol5 from '@/assets/svgs/symbol_5.svg'
+import symbol6 from '@/assets/svgs/symbol_6.svg'
+import symbol7 from '@/assets/svgs/symbol_7.svg'
+import symbol8 from '@/assets/svgs/symbol_8.svg'
+import symbol9 from '@/assets/svgs/symbol_9.svg'
+import symbol10 from '@/assets/svgs/symbol_10.svg'
+
+interface Props {
+  text: string
+  image?: Media | null
+}
+
+const { text, image } = Astro.props
+const hasContent = Boolean(text)
+
+const symbols = [
+  symbol1,
+  symbol2,
+  symbol3,
+  symbol4,
+  symbol5,
+  symbol6,
+  symbol7,
+  symbol8,
+  symbol9,
+  symbol10
+]
+---
+
+{
+  hasContent && (
+    <section
+      class="relative bg-navy px-indent py-20 md:py-28"
+      data-home-values-section
+      data-header-theme="light"
+    >
+      <Puncha
+        color="navy"
+        class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
+      />
+
+      <div class="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 md:gap-16">
+        <div
+          data-values-symbols
+          class="values-symbols relative aspect-square w-[clamp(6rem,15vw,10rem)]"
+        >
+          {symbols.map((symbol, index) => (
+            <img
+              src={symbol.src}
+              alt=""
+              data-values-symbol
+              data-index={index}
+              class="values-symbol absolute inset-0 h-full w-full object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
+
+        <p class="text-frost text-headline-2 text-center uppercase">{text}</p>
+
+        {image && (
+          <Mask type="4o" class="w-[min(80vw,22rem)] md:w-[min(70vw,28rem)]">
+            <MediaAsset media={image} />
+          </Mask>
+        )}
+      </div>
+
+      <Puncha
+        color="navy"
+        class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180 z-1"
+      />
+    </section>
+  )
+}
+
+<style>
+  .values-symbol {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .values-symbol[data-index='0'] {
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap'
+
+  const section = document.querySelector('[data-home-values-section]')
+
+  if (section && !section.hasAttribute('data-values-init')) {
+    section.setAttribute('data-values-init', '')
+
+    const symbols = section.querySelectorAll('[data-values-symbol]')
+    const tweens: gsap.core.Timeline[] = []
+
+    if (symbols.length > 1) {
+      gsap.set(symbols, { autoAlpha: 0 })
+      gsap.set(symbols[0], { autoAlpha: 1 })
+
+      const timeline = gsap.timeline({ repeat: -1 })
+
+      for (let i = 0; i < symbols.length; i++) {
+        const current = symbols[i]
+        const next = symbols[(i + 1) % symbols.length]
+
+        timeline
+          .to(current, { autoAlpha: 0, duration: 0.35, ease: 'power2.inOut' })
+          .to(next, { autoAlpha: 1, duration: 0.35, ease: 'power2.inOut' }, '<')
+          .to({}, { duration: 0.65 })
+      }
+
+      tweens.push(timeline)
+    }
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tweens.forEach((tween) => tween.kill())
+        section.removeAttribute('data-values-init')
+      },
+      { once: true }
+    )
+  }
+</script>

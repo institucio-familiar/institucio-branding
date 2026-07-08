@@ -15,6 +15,7 @@ import textMask4 from '@/assets/svgs/text_mask_4.svg'
 import HomeMaskSection from '@/components/HomeMaskSection.astro'
 import HomeTileGridSection from '@/components/HomeTileGridSection.astro'
 import HomeCarouselIllustrationsSection from '@/components/HomeCarouselIllustrationsSection.astro'
+import HomeValuesSection from '@/components/HomeValuesSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -165,6 +166,11 @@ const pageData = await getPageData()
     images={pageData.carouselIllustrations.images}
     videoUrl={pageData.carouselIllustrations.videoUrl}
     textLines={pageData.carouselIllustrations.textLines}
+  />
+
+  <HomeValuesSection
+    text={pageData.valuesSection.text}
+    image={pageData.valuesSection.image}
   />
 
   <!-- <section
