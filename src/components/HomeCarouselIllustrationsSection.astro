@@ -1,0 +1,336 @@
+---
+import type { SanityImageSource } from '@sanity/image-url'
+import { urlForImage } from '@/sanity/lib/image'
+
+interface Props {
+  images: SanityImageSource[]
+  videoUrl?: string
+  textLines: {
+    line1: string
+    line2: string
+    line3: string
+  }
+}
+
+const { images, videoUrl, textLines } = Astro.props
+const hasContent = images.length > 0 && Boolean(videoUrl)
+
+const { line1, line2, line3 } = textLines
+---
+
+{
+  hasContent && (
+    <section class="relative bg-white" data-home-carousel-illustrations>
+      <div
+        data-carousel-sticky
+        class="relative flex h-dvh w-full items-center overflow-hidden"
+      >
+        <div
+          data-carousel-text
+          class="carousel-text pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+        >
+          <div class="flex flex-col items-center text-center">
+            {line1 && (
+              <p
+                data-carousel-text-line="1"
+                class="carousel-text-line text-navy text-headline-1 uppercase"
+              >
+                {line1}
+              </p>
+            )}
+            {line2 && (
+              <p
+                data-carousel-text-line="2"
+                class="carousel-text-line text-navy text-headline-1 uppercase"
+              >
+                {line2}
+              </p>
+            )}
+            {line3 && (
+              <p
+                data-carousel-text-line="3"
+                class="carousel-text-line text-navy text-headline-1 uppercase"
+              >
+                {line3}
+              </p>
+            )}
+          </div>
+        </div>
+        <div data-carousel-track class="carousel-track flex w-max items-center">
+          {images.map((image, index) => (
+            <div
+              data-carousel-item
+              data-index={index}
+              class:list={[
+                'carousel-illustration shrink-0',
+                index >= 5 && index <= 6 && 'px-[clamp(1rem,3vw,2rem)]'
+              ]}
+            >
+              <img
+                src={urlForImage(image).width(500).url()}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ))}
+          {videoUrl && (
+            <div
+              data-carousel-item
+              data-carousel-video-item
+              class="carousel-illustration carousel-video-item shrink-0"
+            >
+              <video
+                data-carousel-video-media
+                class="carousel-video-media aspect-square"
+                src={videoUrl}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  [data-home-carousel-illustrations] {
+    height: 500svh;
+  }
+
+  .carousel-track {
+    will-change: transform;
+  }
+
+  .carousel-illustration {
+    width: clamp(9rem, 22vw, 18rem);
+    will-change: transform;
+    transform-origin: center center;
+  }
+
+  .carousel-illustration img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .carousel-video-item {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    will-change: transform;
+    transform-origin: center center;
+  }
+
+  .carousel-video-media {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+    transform-origin: center center;
+  }
+
+  .carousel-text-line {
+    will-change: transform;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const section = document.querySelector('[data-home-carousel-illustrations]')
+
+  if (section && !section.hasAttribute('data-carousel-init')) {
+    section.setAttribute('data-carousel-init', '')
+
+    const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+    const sticky = section.querySelector('[data-carousel-sticky]')
+    const track = section.querySelector('[data-carousel-track]')
+    const items = section.querySelectorAll('[data-carousel-item]')
+    const videoItem = section.querySelector(
+      '[data-carousel-video-item]'
+    ) as HTMLElement | null
+    const videoMedia = section.querySelector(
+      '[data-carousel-video-media]'
+    ) as HTMLVideoElement | null
+    const textLines = section.querySelectorAll('[data-carousel-text-line]')
+
+    if (sticky && track && items.length > 0) {
+      const getSlideDistance = () => window.innerWidth
+      const updateArc = () => {
+        const viewportWidth = window.innerWidth
+        const viewportCenter = viewportWidth / 2
+        const maxYOffset = Math.min(80, window.innerHeight * 0.15)
+        const arcSpread = viewportWidth * 0.6
+
+        items.forEach((item) => {
+          const element = item as HTMLElement
+
+          if (element === videoItem) {
+            const scale = gsap.getProperty(element, 'scale') as number
+            if (scale > 1.01) {
+              gsap.set(element, { y: 0 })
+              return
+            }
+          }
+
+          const rect = element.getBoundingClientRect()
+          const itemCenter = rect.left + rect.width / 2
+          const t = (itemCenter - viewportCenter) / arcSpread
+          const y = t * t * maxYOffset
+
+          gsap.set(element, { y })
+        })
+      }
+
+      const getMetrics = () => {
+        const viewportWidth = window.innerWidth
+        const viewportHeight = window.innerHeight
+        const viewportCenter = viewportWidth / 2
+        const heroItem = (videoItem ?? items[items.length - 1]) as HTMLElement
+        const heroCenterInTrack = heroItem.offsetLeft + heroItem.offsetWidth / 2
+        const lockX = viewportCenter - heroCenterInTrack
+
+        const heroIndex = Array.from(items).indexOf(heroItem)
+        const previousItem =
+          heroIndex > 0 ? (items[heroIndex - 1] as HTMLElement) : null
+        const previousRight = previousItem
+          ? previousItem.offsetLeft + previousItem.offsetWidth
+          : 0
+        const driftEndX = previousItem ? -previousRight - 40 : lockX
+        const heroCompensationAtEnd = lockX - driftEndX
+
+        const scaleBaseWidth = heroItem.offsetWidth || 1
+        const scaleBaseHeight = heroItem.offsetHeight || 1
+        const fullscreenScale = Math.min(
+          viewportWidth / scaleBaseWidth,
+          viewportHeight / scaleBaseHeight
+        )
+
+        return {
+          startX: viewportWidth,
+          lockX,
+          driftEndX,
+          heroCompensationAtEnd,
+          fullscreenScale
+        }
+      }
+
+      const { startX } = getMetrics()
+      gsap.set(track, { x: startX })
+      if (videoItem) {
+        gsap.set(videoItem, { x: 0 })
+      }
+      if (videoMedia) {
+        gsap.set(videoMedia, { scale: 1 })
+      }
+      if (videoItem) {
+        gsap.set(videoItem, { scale: 1 })
+      }
+
+      textLines.forEach((line, index) => {
+        const fromLeft = index === 1 ? false : true
+        gsap.set(line, {
+          x: fromLeft ? -getSlideDistance() : getSlideDistance()
+        })
+      })
+
+      updateArc()
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          pin: sticky,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
+      })
+
+      timeline.fromTo(
+        track,
+        { x: () => getMetrics().startX },
+        {
+          x: () => getMetrics().lockX,
+          ease: 'none',
+          duration: 0.45
+        }
+      )
+
+      timeline.to(
+        track,
+        {
+          x: () => getMetrics().driftEndX,
+          ease: 'none',
+          duration: videoItem ? 0.15 : 0.35
+        },
+        '>'
+      )
+
+      if (videoItem) {
+        timeline.to(
+          videoItem,
+          {
+            x: () => getMetrics().heroCompensationAtEnd,
+            ease: 'none',
+            duration: 0.15
+          },
+          '<'
+        )
+      }
+
+      if (videoItem) {
+        timeline.to(
+          videoItem,
+          {
+            scale: () => getMetrics().fullscreenScale,
+            ease: 'power2.inOut',
+            duration: 0.2
+          },
+          '>'
+        )
+      }
+
+      if (textLines.length > 0) {
+        textLines.forEach((line, index) => {
+          timeline.to(
+            line,
+            {
+              x: 0,
+              ease: 'power2.inOut',
+              duration: 0.067
+            },
+            index === 0 ? '>' : '>'
+          )
+        })
+      }
+
+      timeline.eventCallback('onUpdate', updateArc)
+      tweens.push(timeline)
+    }
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
+        section.removeAttribute('data-carousel-init')
+      },
+      { once: true }
+    )
+  }
+</script>

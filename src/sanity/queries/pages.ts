@@ -112,7 +112,11 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
     },
     carouselIllustrations {
       images,
-      video ${muxVideoProjection},
+      video {
+        asset->{
+          url
+        }
+      },
       text_lines {
         line1,
         line2,
