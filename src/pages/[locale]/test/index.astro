@@ -1,0 +1,57 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { getPageLocale } from '@/i18n/utils'
+
+const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
+
+const testPages = [
+  {
+    href: '/test/clip-path',
+    title: 'Clip-path test',
+    description:
+      'Interactive inset clip-path with rounded corners and live controls.'
+  },
+  {
+    href: '/test/logo-animation',
+    title: 'Logo animation test',
+    description:
+      'Prototype for the header logo transition between full and compact states.'
+  },
+  {
+    href: '/test/mask-section',
+    title: 'Mask section test',
+    description: 'Section masking using SVG mask composites.'
+  }
+]
+---
+
+<MainLayout title="Test pages">
+  <section class="bg-navy px-indent py-16 text-frost md:py-24">
+    <h1 class="text-headline-2 mb-2 uppercase">Test pages</h1>
+    <p class="text-body max-w-2xl text-mist">
+      Internal prototypes and experiments. Not linked from the main site
+      navigation.
+    </p>
+  </section>
+
+  <section class="bg-frost px-indent py-12 md:py-16">
+    <ul class="grid gap-4">
+      {
+        testPages.map((page) => (
+          <li>
+            <a
+              href={getRelativeLocaleUrl(locale, page.href)}
+              class="group block rounded-lg border border-mist bg-white p-6 transition-colors hover:border-navy"
+            >
+              <h2 class="text-headline-3 mb-2 uppercase text-navy group-hover:underline">
+                {page.title}
+              </h2>
+              <p class="text-body text-sky">{page.description}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</MainLayout>

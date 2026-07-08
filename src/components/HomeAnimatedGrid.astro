@@ -1,0 +1,134 @@
+---
+import MediaAsset from '@/components/MediaAsset.astro'
+import type { Media } from '@/components/ui/blocks/block-types'
+
+interface Props {
+  image1?: Media | null
+  image2?: Media | null
+  image3?: Media | null
+  image4?: Media | null
+  image5?: Media | null
+}
+
+const { image1, image2, image3, image4, image5 } = Astro.props
+
+const images = [image1, image2, image3, image4, image5]
+const hasContent = images.every(Boolean)
+---
+
+{
+  hasContent && (
+    <section
+      class="relative bg-frost px-indent py-20 md:py-28"
+      data-home-animated-grid
+      data-header-theme="light"
+    >
+      <div class="animated-grid mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 md:grid-cols-[1.1fr_1fr_0.78fr] md:grid-rows-2 md:gap-5">
+        <div
+          data-grid-item
+          data-origin="left"
+          class="animated-grid-item overflow-hidden rounded-sm md:col-start-1 md:row-start-1 md:w-[min(100%,28rem)]"
+        >
+          <div class="aspect-447/332">
+            <MediaAsset media={image1!} />
+          </div>
+        </div>
+
+        <div
+          data-grid-item
+          data-origin="left"
+          class="animated-grid-item overflow-hidden rounded-sm md:col-start-1 md:row-start-2 md:ml-auto md:w-[min(90%,25rem)]"
+        >
+          <div class="aspect-401/451">
+            <MediaAsset media={image2!} />
+          </div>
+        </div>
+
+        <div
+          data-grid-item
+          data-origin="center"
+          class="animated-grid-item overflow-hidden rounded-sm md:col-start-2 md:row-span-2 md:row-start-1 md:self-center"
+        >
+          <div class="aspect-419/930">
+            <MediaAsset media={image3!} />
+          </div>
+        </div>
+
+        <div
+          data-grid-item
+          data-origin="right"
+          class="animated-grid-item overflow-hidden rounded-sm md:col-start-3 md:row-start-1 md:ml-auto md:w-[min(100%,18rem)]"
+        >
+          <div class="aspect-282/394">
+            <MediaAsset media={image4!} />
+          </div>
+        </div>
+
+        <div
+          data-grid-item
+          data-origin="right"
+          class="animated-grid-item overflow-hidden rounded-sm md:col-start-3 md:row-start-2 md:ml-auto md:w-[min(100%,20rem)]"
+        >
+          <div class="aspect-318/369">
+            <MediaAsset media={image5!} />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { gsap } from 'gsap'
+
+  const section = document.querySelector('[data-home-animated-grid]')
+
+  if (section && !section.hasAttribute('data-animated-grid-init')) {
+    section.setAttribute('data-animated-grid-init', '')
+
+    const tweens: gsap.core.Tween[] = []
+
+    const originMap: Record<string, string> = {
+      left: 'center left',
+      right: 'center right',
+      center: 'center center'
+    }
+
+    section.querySelectorAll('[data-grid-item]').forEach((item, index) => {
+      const origin = item.getAttribute('data-origin') ?? 'center'
+      const transformOrigin = originMap[origin] ?? 'center center'
+      const startOffset = 92 - index * 4
+
+      tweens.push(
+        gsap.fromTo(
+          item,
+          { scale: 0.82, autoAlpha: 0, transformOrigin },
+          {
+            scale: 1,
+            autoAlpha: 1,
+            transformOrigin,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: item,
+              start: `top ${startOffset}%`,
+              end: 'top 55%',
+              scrub: true
+            }
+          }
+        )
+      )
+    })
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
+        section.removeAttribute('data-animated-grid-init')
+      },
+      { once: true }
+    )
+  }
+</script>

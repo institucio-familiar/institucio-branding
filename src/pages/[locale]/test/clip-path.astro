@@ -1,0 +1,194 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro'
+
+const defaults = {
+  top: 149.64354099888536,
+  right: 287.4831385601996,
+  bottom: 149.64354099888536,
+  left: 287.4831385601996,
+  round: 12
+}
+
+const width = 1174.97
+const height = 598.57
+
+function buildClipPath(values: typeof defaults) {
+  return `inset(${values.top}px ${values.right}px ${values.bottom}px ${values.left}px round ${values.round}px)`
+}
+
+const clipPath = buildClipPath(defaults)
+---
+
+<MainLayout title="Clip-path test">
+  <section class="bg-navy px-indent py-16 text-frost md:py-24">
+    <h1 class="text-headline-2 mb-2 uppercase">Clip-path test</h1>
+    <p class="text-body max-w-2xl text-mist">
+      Example element using an inset clip-path with rounded corners. Adjust the
+      values below to see the result live.
+    </p>
+  </section>
+
+  <section class="bg-frost px-indent py-12 md:py-16">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <h2 class="text-headline-3 uppercase text-navy">Clipped example</h2>
+      <button
+        type="button"
+        data-clip-reset
+        class="rounded-full border border-navy px-4 py-2 text-sm text-navy transition-colors hover:bg-mist"
+      >
+        Reset
+      </button>
+    </div>
+
+    <div
+      class="mb-10 grid gap-6 rounded-lg bg-white p-6 md:grid-cols-2 lg:grid-cols-3"
+      data-clip-controls
+    >
+      {
+        (
+          [
+            ['top', 'Top', width],
+            ['right', 'Right', width],
+            ['bottom', 'Bottom', height],
+            ['left', 'Left', width],
+            ['round', 'Round', 120]
+          ] as const
+        ).map(([key, label, max]) => (
+          <label class="flex flex-col gap-2">
+            <span class="text-body flex items-center justify-between text-navy">
+              <span>{label}</span>
+              <span data-clip-value={key} class="tabular-nums text-gray">
+                {defaults[key]}px
+              </span>
+            </span>
+            <input
+              type="range"
+              data-clip-input={key}
+              min="0"
+              max={max}
+              step="0.01"
+              value={defaults[key]}
+              class="w-full accent-navy"
+            />
+          </label>
+        ))
+      }
+    </div>
+
+    <div class="overflow-x-auto">
+      <div
+        data-clip-target
+        class="clip-example relative overflow-hidden bg-mist"
+        style={`width: ${width}px; height: ${height}px; clip-path: ${clipPath};`}
+      >
+        <img
+          src="/dev.jpg"
+          alt=""
+          class="h-full w-full object-cover"
+          width={width}
+          height={height}
+        />
+      </div>
+    </div>
+
+    <pre
+      class="text-body mt-8 max-w-full overflow-x-auto rounded-lg bg-white p-4 text-navy"
+    ><code data-clip-output>clip-path: {clipPath};</code></pre>
+  </section>
+
+  <section class="border-t border-mist bg-white px-indent py-12 md:py-16">
+    <h2 class="text-headline-3 mb-8 uppercase text-navy">Unclipped reference</h2>
+
+    <div class="overflow-x-auto">
+      <div
+        class="relative overflow-hidden bg-mist"
+        style={`width: ${width}px; height: ${height}px;`}
+      >
+        <img
+          src="/dev.jpg"
+          alt=""
+          class="h-full w-full object-cover"
+          width={width}
+          height={height}
+        />
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<script
+  define:vars={{
+    defaults,
+    width,
+    height
+  }}
+>
+  const target = document.querySelector('[data-clip-target]')
+  const output = document.querySelector('[data-clip-output]')
+  const resetButton = document.querySelector('[data-clip-reset]')
+  const inputs = document.querySelectorAll('[data-clip-input]')
+
+  function buildClipPath(values) {
+    return `inset(${values.top}px ${values.right}px ${values.bottom}px ${values.left}px round ${values.round}px)`
+  }
+
+  function getValues() {
+    return {
+      top: parseFloat(
+        document.querySelector('[data-clip-input="top"]')?.value ?? defaults.top
+      ),
+      right: parseFloat(
+        document.querySelector('[data-clip-input="right"]')?.value ??
+          defaults.right
+      ),
+      bottom: parseFloat(
+        document.querySelector('[data-clip-input="bottom"]')?.value ??
+          defaults.bottom
+      ),
+      left: parseFloat(
+        document.querySelector('[data-clip-input="left"]')?.value ?? defaults.left
+      ),
+      round: parseFloat(
+        document.querySelector('[data-clip-input="round"]')?.value ??
+          defaults.round
+      )
+    }
+  }
+
+  function update() {
+    const values = getValues()
+    const clipPath = buildClipPath(values)
+
+    if (target) {
+      target.style.clipPath = clipPath
+    }
+
+    if (output) {
+      output.textContent = `clip-path: ${clipPath};`
+    }
+
+    for (const key of Object.keys(defaults)) {
+      const valueEl = document.querySelector(`[data-clip-value="${key}"]`)
+      if (valueEl) {
+        valueEl.textContent = `${values[key]}px`
+      }
+    }
+  }
+
+  function reset() {
+    for (const input of inputs) {
+      const key = input.getAttribute('data-clip-input')
+      if (key && key in defaults) {
+        input.value = String(defaults[key])
+      }
+    }
+
+    update()
+  }
+
+  inputs.forEach((input) => {
+    input.addEventListener('input', update)
+  })
+
+  resetButton?.addEventListener('click', reset)
+</script>
