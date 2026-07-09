@@ -1,0 +1,30 @@
+---
+interface Props {
+  firstMessage: string
+  secondMessage: string
+  thirdMessage: string
+}
+
+const { firstMessage, secondMessage, thirdMessage } = Astro.props
+
+const messages = [
+  { text: firstMessage, background: 'bg-navy', textColor: 'text-frost' },
+  { text: secondMessage, background: 'bg-blue', textColor: 'text-white' },
+  { text: thirdMessage, background: 'bg-frost', textColor: 'text-navy' }
+].filter(({ text }) => Boolean(text))
+---
+
+{
+  messages.map(({ text, background, textColor }) => (
+    <section
+      class:list={[
+        'flex h-dvh w-full items-center justify-center px-indent',
+        background
+      ]}
+    >
+      <p class:list={['text-headline-2 text-center uppercase', textColor]}>
+        {text}
+      </p>
+    </section>
+  ))
+}

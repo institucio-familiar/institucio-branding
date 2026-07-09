@@ -1,0 +1,38 @@
+---
+import Puncha from '@/components/icons/Puncha.astro'
+import BracketFrame from '@/components/ui/BracketFrame.astro'
+
+interface Props {
+  text: string
+}
+
+const { text } = Astro.props
+const hasContent = Boolean(text)
+---
+
+{
+  hasContent && (
+    <section class="relative flex h-dvh w-full items-center justify-center bg-blue px-indent">
+      <div class="relative flex justify-center items-center gap-4 w-full aspect-square px-indent-2 py-indent">
+        <div class="absolute top-0 left-0 flex justify-center items-center w-full h-full">
+          <BracketFrame class="w-full scale-[0.35]" />
+        </div>
+        <div class="absolute top-0 right-0 flex justify-center items-center w-full h-full">
+          <BracketFrame class="w-full scale-[0.45]" />
+        </div>
+        <div class="absolute top-0 right-0 flex justify-center items-center w-full h-full">
+          <BracketFrame class="w-full scale-[0.57]" />
+        </div>
+
+        <p class="text-navy text-[4vw] font-serif font-semibold text-center uppercase">
+          {text}
+        </p>
+      </div>
+
+      <Puncha
+        color="blue"
+        class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180 z-1"
+      />
+    </section>
+  )
+}

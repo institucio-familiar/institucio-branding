@@ -1,0 +1,50 @@
+---
+import bracketFrame from '@/assets/svgs/bracket_frame.svg'
+
+type Color =
+  | 'ink'
+  | 'navy'
+  | 'navy-light'
+  | 'blue'
+  | 'sky'
+  | 'sky-light'
+  | 'mist'
+  | 'frost'
+  | 'gray'
+  | 'white'
+
+interface Props {
+  color?: Color
+  class?: string
+}
+
+const { color = 'navy', class: className } = Astro.props
+const frameStyle = {
+  '--bracket-frame-color': `var(--color-${color})`,
+  '--bracket-frame-mask': `url(${bracketFrame.src})`
+}
+---
+
+<div
+  class:list={[
+    'bracket-frame__shape pointer-events-none absolute inset-0',
+    className
+  ]}
+  style={frameStyle}
+  aria-hidden="true"
+>
+</div>
+
+<style>
+  .bracket-frame__shape {
+    background-color: var(--bracket-frame-color);
+    mask-image: var(--bracket-frame-mask);
+    -webkit-mask-image: var(--bracket-frame-mask);
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+  }
+</style>

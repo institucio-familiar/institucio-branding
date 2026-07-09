@@ -17,6 +17,9 @@ import HomeTileGridSection from '@/components/HomeTileGridSection.astro'
 import HomeCarouselIllustrationsSection from '@/components/HomeCarouselIllustrationsSection.astro'
 import HomeValuesSection from '@/components/HomeValuesSection.astro'
 import HomeAnimatedGrid from '@/components/HomeAnimatedGrid.astro'
+import HomeMissionSection from '@/components/HomeMissionSection.astro'
+import HomeTextFillSection from '@/components/HomeTextFillSection.astro'
+import HomeFinalMessageSection from '@/components/HomeFinalMessageSection.astro'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -180,6 +183,16 @@ const pageData = await getPageData()
     image3={pageData.imagesGrid.image3}
     image4={pageData.imagesGrid.image4}
     image5={pageData.imagesGrid.image5}
+  />
+
+  <HomeMissionSection text={pageData.missionSection.text} />
+
+  <HomeTextFillSection />
+
+  <HomeFinalMessageSection
+    firstMessage={pageData.finalMessageSection.firstMessage.text}
+    secondMessage={pageData.finalMessageSection.secondMessage.text}
+    thirdMessage={pageData.finalMessageSection.thirdMessage.text}
   />
 
   <!-- <section
