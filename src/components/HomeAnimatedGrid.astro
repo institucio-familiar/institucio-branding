@@ -19,58 +19,67 @@ const hasContent = images.every(Boolean)
 {
   hasContent && (
     <section
-      class="relative bg-frost px-indent py-20 md:py-28"
+      class="relative overflow-x-clip bg-frost"
       data-home-animated-grid
       data-header-theme="light"
     >
-      <div class="animated-grid mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 md:grid-cols-[1.1fr_1fr_0.78fr] md:grid-rows-2 md:gap-5">
-        <div
-          data-grid-item
-          data-origin="left"
-          class="animated-grid-item overflow-hidden rounded-sm md:col-start-1 md:row-start-1 md:w-[min(100%,28rem)]"
-        >
-          <div class="aspect-447/332">
-            <MediaAsset media={image1!} />
-          </div>
-        </div>
+      <div
+        data-animated-grid-sticky
+        class="flex min-h-svh w-full items-center px-[8vw] py-2"
+      >
+        <div class="animated-grid grid w-full aspect-1190/765 max-w-7xl grid-cols-1 gap-2 md:grid-cols-3 p-2">
+          <div class="animated-grid-column flex flex-col items-end gap-2">
+            <div
+              data-grid-item
+              data-grid-slot="left-top"
+              data-origin="left"
+              class="animated-grid-item"
+            >
+              <div class="grid-media aspect-video">
+                <MediaAsset media={image1!} class="rounded-sm" />
+              </div>
+            </div>
 
-        <div
-          data-grid-item
-          data-origin="left"
-          class="animated-grid-item overflow-hidden rounded-sm md:col-start-1 md:row-start-2 md:ml-auto md:w-[min(90%,25rem)]"
-        >
-          <div class="aspect-401/451">
-            <MediaAsset media={image2!} />
+            <div
+              data-grid-item
+              data-grid-slot="left-bottom"
+              data-origin="left"
+              class="animated-grid-item"
+            >
+              <div class="grid-media aspect-4/3">
+                <MediaAsset media={image2!} class="rounded-sm" />
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div
-          data-grid-item
-          data-origin="center"
-          class="animated-grid-item overflow-hidden rounded-sm md:col-start-2 md:row-span-2 md:row-start-1 md:self-center"
-        >
-          <div class="aspect-419/930">
-            <MediaAsset media={image3!} />
+          <div class="flex items-center justify-center">
+            <div class="grid-media-center w-full h-[65svh] max-h-[45vw]">
+              <MediaAsset media={image3!} class="rounded-sm" />
+            </div>
           </div>
-        </div>
 
-        <div
-          data-grid-item
-          data-origin="right"
-          class="animated-grid-item overflow-hidden rounded-sm md:col-start-3 md:row-start-1 md:ml-auto md:w-[min(100%,18rem)]"
-        >
-          <div class="aspect-282/394">
-            <MediaAsset media={image4!} />
-          </div>
-        </div>
+          <div class="animated-grid-column flex flex-col justify-end gap-2">
+            <div
+              data-grid-item
+              data-grid-slot="right-top"
+              data-origin="right"
+              class="animated-grid-item w-full"
+            >
+              <div class="grid-media aspect-4/3">
+                <MediaAsset media={image4!} class="rounded-sm" />
+              </div>
+            </div>
 
-        <div
-          data-grid-item
-          data-origin="right"
-          class="animated-grid-item overflow-hidden rounded-sm md:col-start-3 md:row-start-2 md:ml-auto md:w-[min(100%,20rem)]"
-        >
-          <div class="aspect-318/369">
-            <MediaAsset media={image5!} />
+            <div
+              data-grid-item
+              data-grid-slot="right-bottom"
+              data-origin="right"
+              class="animated-grid-item w-full"
+            >
+              <div class="grid-media aspect-video">
+                <MediaAsset media={image5!} class="rounded-sm" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,46 +87,76 @@ const hasContent = images.every(Boolean)
   )
 }
 
+<style>
+  [data-home-animated-grid] {
+    height: 400svh;
+  }
+
+  .grid-media {
+    isolation: isolate;
+    height: 15vw;
+  }
+
+  .grid-media :global(img),
+  .grid-media :global(video) {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
+
 <script>
   import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
 
   const section = document.querySelector('[data-home-animated-grid]')
 
   if (section && !section.hasAttribute('data-animated-grid-init')) {
     section.setAttribute('data-animated-grid-init', '')
 
-    const tweens: gsap.core.Tween[] = []
+    const sticky = section.querySelector('[data-animated-grid-sticky]')
+    const slotOrder = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
+    const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
 
-    const originMap: Record<string, string> = {
-      left: 'center left',
-      right: 'center right',
-      center: 'center center'
-    }
+    if (sticky) {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          pin: sticky,
+          anticipatePin: 1
+        }
+      })
 
-    section.querySelectorAll('[data-grid-item]').forEach((item, index) => {
-      const origin = item.getAttribute('data-origin') ?? 'center'
-      const transformOrigin = originMap[origin] ?? 'center center'
-      const startOffset = 92 - index * 4
+      slotOrder.forEach((slot, index) => {
+        const item = section.querySelector(`[data-grid-slot="${slot}"]`)
+        if (!item) return
 
-      tweens.push(
-        gsap.fromTo(
+        const origin = item.getAttribute('data-origin')
+        const fromX = origin === 'right' ? '50vw' : '-50vw'
+        const fromY = origin === 'right' ? '30vh' : '30vh'
+
+        timeline.fromTo(
           item,
-          { scale: 0.82, autoAlpha: 0, transformOrigin },
+          { x: fromX, y: fromY },
           {
-            scale: 1,
-            autoAlpha: 1,
-            transformOrigin,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: item,
-              start: `top ${startOffset}%`,
-              end: 'top 55%',
-              scrub: true
-            }
-          }
+            x: 0,
+            y: 0,
+            ease: 'power4.out',
+            duration: 6
+          },
+          index * 0.25
         )
-      )
-    })
+      })
+
+      tweens.push(timeline)
+    }
 
     document.addEventListener(
       'swup:visit:start',
