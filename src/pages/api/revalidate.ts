@@ -1,6 +1,19 @@
-// src/pages/api/revalidate.ts
 import type { APIRoute } from 'astro'
-// import { revalidateTag } from '@vercel/functions'
+import { getPathsForSanityType } from '@/sanity/lib/revalidate-paths'
+
+type WebhookPayload = {
+  _type?: string
+  _id?: string
+  slug?: { current?: string }
+}
+
+type RevalidateResult = {
+  path: string
+  revalidated: boolean
+  status: number
+  statusText: string
+  cache: string | null
+}
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -10,46 +23,44 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    const body = await request.json()
+    const body = (await request.json()) as WebhookPayload
+    const documentType = body._type
 
-    const bypassToken = secret
-
-    // TESTINGAL > Decide how to revalidate. Could map types and slugs to paths.
-    // Now the sanity webhook returns {_type, _id, slug }
-    // {
-    //   _id: '7ddf8774-2f0b-4bbf-94ca-d32dd9d1f2d5',
-    //   _type: 'test',
-    //   slug: { _type: 'slug', current: 'first-one-change-1' }
-    // }
-    const url = buildUrl()
-
-    const response = await fetch(url, {
-      method: 'HEAD',
-      headers: {
-        'x-prerender-revalidate': bypassToken
-      }
-    })
-
-    const revalidated = response.ok
-    const payload = {
-      revalidated,
-      path: url.pathname,
-      status: response.status,
-      statusText: response.statusText,
-      cache: response.headers.get('x-vercel-cache'),
-      ...(body && typeof body === 'object' ? { webhook: body } : {})
+    if (!documentType) {
+      return Response.json(
+        { revalidated: false, reason: 'Missing _type', webhook: body },
+        { status: 200 }
+      )
     }
 
-    // console.log('Revalidate response:', payload)
+    const paths = getPathsForSanityType(documentType)
 
-    // TESTINGAL > Vercel revalidate by tags
-    // const { slug } = await request.json()
-    // revalidateTag(`post:${slug}`)
-    // revalidateTag('post-list')
+    if (paths.length === 0) {
+      return Response.json(
+        {
+          revalidated: false,
+          reason: `Unknown document type: ${documentType}`,
+          webhook: body
+        },
+        { status: 200 }
+      )
+    }
 
-    return Response.json(payload, {
-      status: revalidated ? 200 : 502
-    })
+    const siteUrl = import.meta.env.PUBLIC_SITE_URL
+    const results = await Promise.all(
+      paths.map((path) => revalidatePath(path, siteUrl, secret))
+    )
+
+    const revalidated = results.every((result) => result.revalidated)
+
+    return Response.json(
+      {
+        revalidated,
+        paths: results,
+        webhook: body
+      },
+      { status: revalidated ? 200 : 502 }
+    )
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Internal server error'
     console.error('Revalidate error:', err)
@@ -57,7 +68,24 @@ export const POST: APIRoute = async ({ request }) => {
   }
 }
 
-function buildUrl() {
-  // Include other urls in this function
-  return new URL('/', import.meta.env.PUBLIC_SITE_URL)
+async function revalidatePath(
+  path: string,
+  siteUrl: string,
+  bypassToken: string
+): Promise<RevalidateResult> {
+  const url = new URL(path, siteUrl)
+  const response = await fetch(url, {
+    method: 'HEAD',
+    headers: {
+      'x-prerender-revalidate': bypassToken
+    }
+  })
+
+  return {
+    path: url.pathname,
+    revalidated: response.ok,
+    status: response.status,
+    statusText: response.statusText,
+    cache: response.headers.get('x-vercel-cache')
+  }
 }
