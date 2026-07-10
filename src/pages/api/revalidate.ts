@@ -13,6 +13,7 @@ type RevalidateResult = {
   status: number
   statusText: string
   cache: string | null
+  redirectLocation: string | null
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -46,12 +47,17 @@ export const POST: APIRoute = async ({ request }) => {
       )
     }
 
-    const siteUrl = import.meta.env.PUBLIC_SITE_URL
-    const results = await Promise.all(
-      paths.map((path) => revalidatePath(path, siteUrl, secret))
-    )
+    const results: RevalidateResult[] = []
+
+    for (const path of paths) {
+      results.push(await revalidatePath(path, secret))
+    }
 
     const revalidated = results.every((result) => result.revalidated)
+
+    if (!revalidated) {
+      console.error('Revalidate failures:', results.filter((result) => !result.revalidated))
+    }
 
     return Response.json(
       {
@@ -69,23 +75,30 @@ export const POST: APIRoute = async ({ request }) => {
 }
 
 async function revalidatePath(
-  path: string,
-  siteUrl: string,
+  url: string,
   bypassToken: string
 ): Promise<RevalidateResult> {
-  const url = new URL(path, siteUrl)
   const response = await fetch(url, {
-    method: 'HEAD',
+    method: 'GET',
+    redirect: 'manual',
     headers: {
       'x-prerender-revalidate': bypassToken
     }
   })
 
+  if (response.body) {
+    await response.body.cancel()
+  }
+
+  const redirectLocation = response.headers.get('location')
+  const revalidated = response.ok
+
   return {
-    path: url.pathname,
-    revalidated: response.ok,
+    path: new URL(url).pathname,
+    revalidated,
     status: response.status,
     statusText: response.statusText,
-    cache: response.headers.get('x-vercel-cache')
+    cache: response.headers.get('x-vercel-cache'),
+    redirectLocation
   }
 }
