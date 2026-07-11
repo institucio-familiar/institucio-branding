@@ -12,27 +12,139 @@ const hasContent = Boolean(text)
 
 {
   hasContent && (
-    <section class="relative flex h-dvh w-full items-center justify-center bg-blue px-indent">
-      <div class="relative flex justify-center items-center gap-4 w-full aspect-square px-indent-2 py-indent">
-        <div class="absolute top-0 left-0 flex justify-center items-center w-full h-full">
-          <BracketFrame class="w-full scale-[0.35]" />
-        </div>
-        <div class="absolute top-0 right-0 flex justify-center items-center w-full h-full">
-          <BracketFrame class="w-full scale-[0.45]" />
-        </div>
-        <div class="absolute top-0 right-0 flex justify-center items-center w-full h-full">
-          <BracketFrame class="w-full scale-[0.57]" />
-        </div>
+    <section
+      class="relative w-full bg-blue px-indent"
+      data-home-mission-section
+    >
+      <div
+        data-mission-sticky
+        class="relative flex h-dvh w-full items-center justify-center"
+      >
+        <div class="relative flex aspect-square w-full items-center justify-center gap-4 px-indent-2 py-indent">
+          <div
+            data-mission-frame="outer"
+            class="absolute top-0 left-0 flex h-full w-full items-center justify-center"
+          >
+            <BracketFrame class="w-full scale-[0.57]" />
+          </div>
+          <div
+            data-mission-frame="middle"
+            class="absolute top-0 right-0 flex h-full w-full items-center justify-center"
+          >
+            <BracketFrame class="w-full scale-[0.45]" />
+          </div>
+          <div
+            data-mission-frame="inner"
+            class="absolute top-0 right-0 flex h-full w-full items-center justify-center"
+          >
+            <BracketFrame class="w-full scale-[0.35]" />
+          </div>
 
-        <p class="text-navy text-[4vw] font-serif font-semibold text-center uppercase">
-          {text}
-        </p>
+          <p
+            data-mission-text
+            class="text-navy relative z-1 text-center font-serif text-[4vw] font-semibold uppercase"
+          >
+            {text}
+          </p>
+        </div>
       </div>
 
       <Puncha
         color="blue"
-        class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180 z-1"
+        class="absolute bottom-[0.5px] left-1/2 z-1 -translate-x-1/2 translate-y-full rotate-180"
       />
     </section>
   )
 }
+
+<style>
+  [data-home-mission-section] {
+    height: 400svh;
+  }
+
+  [data-mission-frame],
+  [data-mission-text] {
+    opacity: 0;
+    visibility: hidden;
+    will-change: transform, opacity;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const section = document.querySelector('[data-home-mission-section]')
+
+  if (section && !section.hasAttribute('data-mission-init')) {
+    section.setAttribute('data-mission-init', '')
+
+    const sticky = section.querySelector('[data-mission-sticky]')
+    const frameOrder = ['outer', 'middle', 'inner']
+    const text = section.querySelector('[data-mission-text]')
+    const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+
+    if (sticky) {
+      const frames = frameOrder
+        .map((name) => section.querySelector(`[data-mission-frame="${name}"]`))
+        .filter(Boolean)
+
+      gsap.set([...frames, text], { autoAlpha: 0 })
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          pin: sticky,
+          anticipatePin: 1
+        }
+      })
+
+      frames.forEach((frame, index) => {
+        timeline.fromTo(
+          frame,
+          { autoAlpha: 0, scale: 0.85 },
+          {
+            autoAlpha: 1,
+            scale: 1,
+            ease: 'power2.out',
+            duration: 1
+          },
+          index === 0 ? 0 : '>'
+        )
+      })
+
+      if (text) {
+        timeline.fromTo(
+          text,
+          { autoAlpha: 0, y: 40 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            ease: 'power2.out',
+            duration: 1
+          },
+          '>'
+        )
+      }
+
+      tweens.push(timeline)
+    }
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
+        section.removeAttribute('data-mission-init')
+      },
+      { once: true }
+    )
+  }
+</script>

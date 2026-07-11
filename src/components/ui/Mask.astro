@@ -3,6 +3,7 @@ import mask4o from '@/assets/svgs/mask_4o.svg'
 import maskTibo from '@/assets/svgs/mask_tibo.svg'
 import maskTiboSquare from '@/assets/svgs/mask_tibo_square.svg'
 import maskTiboHorizontal from '@/assets/svgs/mask_tibo_horizontal.svg'
+import maskTobiHorizontal from '@/assets/svgs/mask_tobi_horizontal.svg'
 import maskTobo from '@/assets/svgs/mask_tobo.svg'
 import maskToboHorizontal from '@/assets/svgs/mask_tobo_horizontal.svg'
 import maskTobobo from '@/assets/svgs/mask_tobobo.svg'
@@ -14,6 +15,7 @@ type MaskType =
   | 'tibo'
   | 'tibo_square'
   | 'tibo_horizontal'
+  | 'tobi_horizontal'
   | 'tobo'
   | 'tobo_horizontal'
   | 'tobobo'
@@ -31,6 +33,10 @@ const masks: Record<MaskType, { src: string; aspectClass: string }> = {
   tibo_square: { src: maskTiboSquare.src, aspectClass: 'aspect-square' },
   tibo_horizontal: {
     src: maskTiboHorizontal.src,
+    aspectClass: 'aspect-[1297/854]'
+  },
+  tobi_horizontal: {
+    src: maskTobiHorizontal.src,
     aspectClass: 'aspect-[1297/854]'
   },
   tobo: { src: maskTobo.src, aspectClass: 'aspect-[576.51/719.98]' },
