@@ -20,24 +20,29 @@ const hasFirstMessage = Boolean(firstMessage?.text)
 
 {
   hasFirstMessage && (
-    <section class="relative w-full">
+    <section class="relative w-full h-screen" data-home-final-message-first>
       <div class="absolute inset-0 flex flex-col" aria-hidden="true">
         <div class="h-1/2 bg-frost" />
         <div class="h-1/2 bg-white" />
       </div>
       {firstMessage.image && (
-        <Mask type="tobi_horizontal" class="h-full w-full">
+        // <Mask type="tobi_horizontal" class="h-full w-full overflow-hidden">
+        <div class="h-full w-full overflow-hidden relative">
           <MediaAsset media={firstMessage.image} imageSize={2000} />
-        </Mask>
+          <div
+            class="absolute inset-0 flex flex-col z-1 items-center justify-center px-indent"
+            aria-hidden="true"
+          >
+            <p
+              class="text-[13vw] font-serif font-semibold text-frost text-center uppercase"
+              data-final-message-first-text
+            >
+              {firstMessage.text}
+            </p>
+          </div>
+        </div>
+        // </Mask>
       )}
-      <div
-        class="absolute inset-0 flex flex-col z-1 items-center justify-center px-indent"
-        aria-hidden="true"
-      >
-        <p class="text-headline-1 text-frost text-center uppercase">
-          {firstMessage.text}
-        </p>
-      </div>
     </section>
   )
 }
@@ -45,43 +50,71 @@ const hasFirstMessage = Boolean(firstMessage?.text)
 {
   secondMessage && (
     <section
-      class="relative w-full overflow-hidden bg-white"
+      class="relative flex flex-col w-full items-center justify-center bg-white px-indent"
       data-home-final-message-second
     >
-      <div class="flex min-h-dvh w-full flex-col items-center justify-center gap-8 py-indent">
-        <p class="text-headline-1 text-center uppercase text-navy">
-          {secondMessage}
-        </p>
-        <div
-          data-final-message-icon-track
-          class="relative w-full overflow-hidden"
-        >
-          <img
-            data-final-message-icon
-            src={iconSection.src}
-            alt=""
-            class="final-message-icon block max-w-none px-indent"
-            decoding="async"
-          />
+      <div class="h-[150svh]" data-final-message-second-container>
+        <div class="h-[40vw] sticky top-[calc(50svh-20vw)] flex items-center justify-center">
+          <div class="overflow-hidden">
+            <p
+              class="text-[13vw] font-serif font-semibold text-navy text-center uppercase"
+              data-final-message-second-text
+            >
+              {secondMessage}
+            </p>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
+<section
+  class="relative w-full overflow-hidden bg-white"
+  data-home-final-message-icon-section
+>
+  <div
+    class="flex min-h-dvh w-full flex-col items-center justify-center gap-8 py-indent"
+  >
+    <div data-final-message-icon-track class="relative w-full overflow-hidden">
+      <img
+        data-final-message-icon
+        src={iconSection.src}
+        alt=""
+        class="final-message-icon block max-w-none px-indent"
+        decoding="async"
+      />
+    </div>
+  </div>
+</section>
+
 {
   thirdMessage && (
-    <section class="relative flex flex-col w-full items-center justify-center bg-white px-indent">
-      <p class="text-headline-1 text-navy text-center uppercase">
-        {thirdMessage}
-      </p>
-      <img
-        src="https://cdn.sanity.io/images/ryub47of/production/bd1225fc754aae5d9278ff44668adf3ec4e6afb1-2048x2080.png?w=400"
-        alt=""
-        class="rotate-25 w-[clamp(150px,20vw,340px)]"
-        decoding="async"
-        loading="lazy"
-      />
+    <section
+      class="relative flex flex-col w-full items-center justify-center bg-white px-indent"
+      data-home-final-message-third
+    >
+      <div class="h-[150svh]" data-final-message-third-container>
+        <div class="h-[40vw] sticky top-[calc(50svh-20vw)] flex items-center justify-center">
+          <div class="overflow-hidden">
+            <p
+              class="text-[13vw] font-serif font-semibold text-navy text-center uppercase"
+              data-final-message-third-text
+            >
+              {thirdMessage}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="h-[50svh] translate-y-[-10vw] mb-[-4vw]">
+        <img
+          src="https://cdn.sanity.io/images/ryub47of/production/bd1225fc754aae5d9278ff44668adf3ec4e6afb1-2048x2080.png?w=400"
+          alt=""
+          class="rotate-25 w-[clamp(150px,20vw,340px)]"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
       <Puncha
         color="white"
         class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
@@ -96,6 +129,11 @@ const hasFirstMessage = Boolean(firstMessage?.text)
     aspect-ratio: 2161 / 445;
     will-change: transform;
   }
+
+  [data-final-message-first-text],
+  [data-final-message-third-text] {
+    will-change: transform;
+  }
 </style>
 
 <script>
@@ -104,63 +142,166 @@ const hasFirstMessage = Boolean(firstMessage?.text)
 
   gsap.registerPlugin(ScrollTrigger)
 
-  const section = document.querySelector('[data-home-final-message-second]')
+  const firstSection = document.querySelector('[data-home-final-message-first]')
+  const iconSection = document.querySelector(
+    '[data-home-final-message-icon-section]'
+  )
+  const secondSection = document.querySelector(
+    '[data-home-final-message-second]'
+  )
+  const thirdSection = document.querySelector('[data-home-final-message-third]')
 
-  if (section && !section.hasAttribute('data-final-message-second-init')) {
-    section.setAttribute('data-final-message-second-init', '')
+  const initAttrs = {
+    first: 'data-final-message-first-init',
+    icon: 'data-final-message-icon-section-init',
+    second: 'data-final-message-second-init',
+    third: 'data-final-message-third-init'
+  }
 
-    const track = section.querySelector('[data-final-message-icon-track]')
-    const icon = section.querySelector('[data-final-message-icon]')
-    const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+  const markInited = (section: Element | null, attr: string) => {
+    if (!section || section.hasAttribute(attr)) return false
+    section.setAttribute(attr, '')
+    return true
+  }
 
-    const createAnimation = () => {
-      if (!track || !icon) return
+  const firstInited = markInited(firstSection, initAttrs.first)
+  const iconInited = markInited(iconSection, initAttrs.icon)
+  const secondInited = markInited(secondSection, initAttrs.second)
+  const thirdInited = markInited(thirdSection, initAttrs.third)
 
-      const getTravelDistance = () => window.innerWidth * 0.6
+  if (firstInited || iconInited || secondInited || thirdInited) {
+    const setupFirstMessageParallax = (section: Element) => {
+      const text = section.querySelector('[data-final-message-first-text]')
+      if (!text) return
 
-      gsap.set(icon, { x: 0 })
+      gsap.fromTo(
+        text,
+        { y: '-100vh' },
+        {
+          y: '100vh',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        }
+      )
+    }
 
-      const timeline = gsap.timeline({
+    const setupStickyTextReveal = (
+      section: Element,
+      containerSelector: string,
+      textSelector: string
+    ) => {
+      const container = section.querySelector(containerSelector)
+      const text = section.querySelector(textSelector)
+      if (!container || !text) return
+
+      gsap.set(text, { y: '100%' })
+
+      gsap.to(text, {
+        y: '17.5%',
+        ease: 'power4.out',
         scrollTrigger: {
-          trigger: track,
-          start: 'top bottom',
-          end: 'bottom top',
+          trigger: container,
+          start: 'top top',
+          end: 'bottom bottom',
           scrub: true,
           invalidateOnRefresh: true
         }
       })
-
-      timeline.fromTo(
-        icon,
-        { x: 0 },
-        {
-          x: () => -getTravelDistance(),
-          ease: 'none',
-          duration: 1,
-          immediateRender: false
-        }
-      )
-
-      tweens.push(timeline)
-      ScrollTrigger.refresh()
     }
 
-    if (icon instanceof HTMLImageElement) {
-      if (icon.complete) {
-        requestAnimationFrame(createAnimation)
-      } else {
-        icon.addEventListener('load', createAnimation, { once: true })
+    const ctx = gsap.context(() => {})
+
+    const schedule = (fn: () => void) => {
+      requestAnimationFrame(() => {
+        ctx.add(fn)
+        ScrollTrigger.refresh()
+      })
+    }
+
+    if (firstInited && firstSection) {
+      schedule(() => setupFirstMessageParallax(firstSection))
+    }
+
+    if (secondInited && secondSection) {
+      schedule(() =>
+        setupStickyTextReveal(
+          secondSection,
+          '[data-final-message-second-container]',
+          '[data-final-message-second-text]'
+        )
+      )
+    }
+
+    if (thirdInited && thirdSection) {
+      schedule(() =>
+        setupStickyTextReveal(
+          thirdSection,
+          '[data-final-message-third-container]',
+          '[data-final-message-third-text]'
+        )
+      )
+    }
+
+    if (iconInited && iconSection) {
+      const track = iconSection.querySelector('[data-final-message-icon-track]')
+      const icon = iconSection.querySelector('[data-final-message-icon]')
+
+      const setupIconAnimation = () => {
+        if (!track || !icon) return
+
+        ctx.add(() => {
+          const getTravelDistance = () => window.innerWidth * 0.6
+
+          gsap.set(icon, { x: 0 })
+
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: track,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+                invalidateOnRefresh: true
+              }
+            })
+            .fromTo(
+              icon,
+              { x: 0 },
+              {
+                x: () => -getTravelDistance(),
+                ease: 'none',
+                duration: 1,
+                immediateRender: false
+              }
+            )
+        })
+
+        ScrollTrigger.refresh()
+      }
+
+      if (icon instanceof HTMLImageElement) {
+        if (icon.complete) {
+          requestAnimationFrame(setupIconAnimation)
+        } else {
+          icon.addEventListener('load', setupIconAnimation, { once: true })
+        }
       }
     }
 
     document.addEventListener(
       'swup:visit:start',
       () => {
-        tweens.forEach((tween) => {
-          tween.scrollTrigger?.kill()
-          tween.kill()
-        })
-        section.removeAttribute('data-final-message-second-init')
+        ctx.revert()
+        if (firstInited) firstSection?.removeAttribute(initAttrs.first)
+        if (iconInited) iconSection?.removeAttribute(initAttrs.icon)
+        if (secondInited) secondSection?.removeAttribute(initAttrs.second)
+        if (thirdInited) thirdSection?.removeAttribute(initAttrs.third)
       },
       { once: true }
     )

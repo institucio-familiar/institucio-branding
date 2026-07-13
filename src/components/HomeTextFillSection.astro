@@ -3,67 +3,148 @@ import MediaAsset from '@/components/MediaAsset.astro'
 import Mask from '@/components/ui/Mask.astro'
 ---
 
-<section class="relative h-svh md:h-[300svh]">
+<section
+  data-home-text-fill
+  class="relative min-h-svh bg-frost pt-nav-height flex items-center"
+>
   <div
-    class="sticky top-0 flex h-svh items-center overflow-hidden bg-frost pt-nav-height"
+    class="flex flex-col w-full items-center justify-center px-indent text-[8vw] font-serif font-semibold uppercase lg:text-[8vw]"
   >
-    <div class="flex items-center w-screen">
-      <div class="flex shrink-0 items-center justify-center w-screen">
-        <div
-          class="flex shrink-0 flex-col justify-center items-center px-indent text-[8vw] font-serif font-semibold uppercase lg:text-[8vw]"
-        >
-          <div class="flex flex-row gap-2 md:gap-4">
-            <p class="shrink-0">Acompañar</p>
-            <img
-              src="https://cdn.sanity.io/images/ryub47of/production/c6fd218fd4e3146b18e20da935bd829919c96b68-510x510.png?w=300"
-              alt=""
-              class="w-full max-w-[8vw] lg:max-w-[8vw] translate-y-[-0.5vw]"
-            />
-            <p class="shrink-0">a las</p>
-          </div>
-          <div class="flex flex-row gap-2 md:gap-4">
-            <p class="shrink-0">familias</p>
-            <Mask
-              type="4o"
-              class="w-full max-w-[8vw] shrink-0 translate-y-[-6px]"
-            >
-              <img
-                src="https://cdn.sanity.io/images/ryub47of/production/f4ce79b920f9e4ed92beb72d82738b0f29bffc16-1728x2424.png?w=300"
-                alt=""
-              />
-            </Mask>
-            <p class="shrink-0">en esta</p>
-          </div>
-          <div class="flex flex-row gap-2 relative">
-            <div
-              class="scale-[1.5] translate-y-[-1.5vw] w-full max-w-[6vw] lg:max-w-[6vw]"
-            >
-              <img
-                src="https://cdn.sanity.io/images/ryub47of/production/ce91b71ea5f84ed1cc48b17744150adb0b589621-1854x2304.png?w=300"
-                alt=""
-                class="w-full scale-x-[-1]"
-              />
-              <img
-                src="https://cdn.sanity.io/images/ryub47of/production/3508dd5abbd012e3411d83889b23af4e3af43497-1856x2304.png?w=300"
-                alt=""
-                class="w-full scale-x-[-1] absolute top-0 left-0 z-[-1]"
-              />
-            </div>
-            <p class="shrink-0">aventura</p>
-            <Mask
-              type="tibo_horizontal"
-              class="w-[13vw] shrink-0 lg:w-[11vw] translate-y-[-0.5vw]"
-            >
-              <MediaAsset
-                media={{
-                  mediaType: 'video',
-                  playbackId: 'w1AiO61GLM9yZWVlvBtoDZZoqsE299slTkUfWMcXCw00'
-                }}
-              />
-            </Mask>
-          </div>
-        </div>
+    <div class="flex flex-row gap-2 md:gap-4">
+      <p class="shrink-0" data-text-fill-line>Acompañar</p>
+      <img
+        src="https://cdn.sanity.io/images/ryub47of/production/c6fd218fd4e3146b18e20da935bd829919c96b68-510x510.png?w=300"
+        alt=""
+        class="w-full max-w-[8vw] translate-y-[-0.5vw] lg:max-w-[8vw]"
+      />
+      <p class="shrink-0" data-text-fill-line>a las</p>
+    </div>
+    <div class="flex flex-row gap-2 md:gap-4">
+      <p class="shrink-0" data-text-fill-line>familias</p>
+      <Mask type="4o" class="w-full max-w-[8vw] shrink-0 translate-y-[-6px]">
+        <img
+          src="https://cdn.sanity.io/images/ryub47of/production/f4ce79b920f9e4ed92beb72d82738b0f29bffc16-1728x2424.png?w=300"
+          alt=""
+        />
+      </Mask>
+      <p class="shrink-0" data-text-fill-line>en esta</p>
+    </div>
+    <div class="relative flex flex-row gap-2">
+      <div
+        class="w-full max-w-[6vw] translate-y-[-1.5vw] scale-[1.5] lg:max-w-[6vw]"
+      >
+        <img
+          src="https://cdn.sanity.io/images/ryub47of/production/ce91b71ea5f84ed1cc48b17744150adb0b589621-1854x2304.png?w=300"
+          alt=""
+          class="w-full scale-x-[-1]"
+        />
+        <img
+          src="https://cdn.sanity.io/images/ryub47of/production/3508dd5abbd012e3411d83889b23af4e3af43497-1856x2304.png?w=300"
+          alt=""
+          class="absolute top-0 left-0 z-[-1] w-full scale-x-[-1]"
+        />
       </div>
+      <p class="shrink-0" data-text-fill-line>aventura</p>
+      <Mask
+        type="tibo_horizontal"
+        class="w-[13vw] shrink-0 translate-y-[-0.5vw] lg:w-[11vw]"
+      >
+        <MediaAsset
+          media={{
+            mediaType: 'video',
+            playbackId: 'w1AiO61GLM9yZWVlvBtoDZZoqsE299slTkUfWMcXCw00'
+          }}
+        />
+      </Mask>
     </div>
   </div>
 </section>
+
+<style>
+  [data-text-fill-letter] {
+    color: var(--color-blue);
+    will-change: color;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const BLUE = '#1469ff'
+  const INK = '#040d1a'
+
+  const section = document.querySelector('[data-home-text-fill]')
+
+  if (section && !section.hasAttribute('data-text-fill-init')) {
+    section.setAttribute('data-text-fill-init', '')
+
+    const lines = [...section.querySelectorAll('[data-text-fill-line]')]
+    const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+
+    const splitIntoLetters = (paragraph: Element) => {
+      const text = paragraph.textContent ?? ''
+      const letters: HTMLSpanElement[] = []
+
+      paragraph.textContent = ''
+      paragraph.setAttribute('aria-label', text.trim())
+
+      for (const char of text) {
+        const span = document.createElement('span')
+        span.textContent = char === ' ' ? '\u00a0' : char
+        span.setAttribute('data-text-fill-letter', '')
+        span.className = 'inline-block'
+        letters.push(span)
+        paragraph.appendChild(span)
+      }
+
+      return letters
+    }
+
+    const letters = lines.flatMap((line) => splitIntoLetters(line))
+
+    if (letters.length > 0) {
+      gsap.set(letters, { color: BLUE })
+
+      const letterDuration = 1 / letters.length
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 40%',
+          end: 'bottom 80%',
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      })
+
+      letters.forEach((letter, index) => {
+        timeline.to(
+          letter,
+          {
+            color: INK,
+            ease: 'none',
+            duration: letterDuration
+          },
+          index * letterDuration
+        )
+      })
+
+      tweens.push(timeline)
+      ScrollTrigger.refresh()
+    }
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
+        section.removeAttribute('data-text-fill-init')
+      },
+      { once: true }
+    )
+  }
+</script>
