@@ -38,52 +38,96 @@ const symbols = [
 
 {
   hasContent && (
-    <section
-      class="relative bg-navy px-indent py-20 md:py-28"
-      data-home-values-section
-      data-header-theme="light"
-    >
-      <Puncha
-        color="navy"
-        class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
-      />
-
-      <div class="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 md:gap-16">
-        <div
-          data-values-symbols
-          class="values-symbols relative aspect-square w-[clamp(6rem,15vw,10rem)]"
+    <div class="relative w-full bg-white" data-home-values-scroll>
+      <div
+        data-home-values-sticky
+        class="relative min-h-dvh w-full overflow-hidden"
+      >
+        <section
+          class="values-section relative w-full"
+          data-home-values-section
+          data-header-theme="light"
         >
-          {symbols.map((symbol, index) => (
-            <img
-              src={symbol.src}
-              alt=""
-              data-values-symbol
-              data-index={index}
-              class="values-symbol absolute inset-0 h-full w-full object-contain"
-              loading="lazy"
-              decoding="async"
-            />
-          ))}
-        </div>
+          <div class="absolute inset-0 flex items-center justify-center h-screen">
+            <div
+              data-home-values-bg
+              class="values-bg relative pointer-events-none bg-navy w-full"
+            >
+              <Puncha
+                color="navy"
+                class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
+              />
 
-        <p class="text-frost text-headline-2 text-center uppercase">{text}</p>
+              <Puncha
+                color="navy"
+                class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
+              />
+            </div>
+          </div>
 
-        {image && (
-          <Mask type="4o" class="w-[min(80vw,22rem)] md:w-[min(70vw,28rem)]">
-            <MediaAsset media={image} />
-          </Mask>
-        )}
+          <div
+            data-home-values-inner
+            class="values-inner relative z-1 flex gap-24 w-full flex-col items-center px-indent pb-20 md:pb-28"
+          >
+            <div
+              data-values-symbols
+              class="values-symbols relative aspect-square w-(--values-symbol-size) shrink-0"
+            >
+              {symbols.map((symbol, index) => (
+                <img
+                  src={symbol.src}
+                  alt=""
+                  data-values-symbol
+                  data-index={index}
+                  class="values-symbol absolute inset-0 h-full w-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ))}
+            </div>
+
+            <div
+              data-values-reveal
+              class="flex w-full flex-col items-center gap-24 md:gap-16"
+            >
+              <p class="text-frost text-headline-2 text-center uppercase">
+                {text}
+              </p>
+
+              {image && (
+                <div
+                  id="mask-zoom"
+                  class="w-[min(80vw,22rem)] md:w-[min(70vw,28rem)]"
+                >
+                  <Mask type="4o" class="h-full w-full">
+                    <MediaAsset media={image} />
+                  </Mask>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
       </div>
-
-      <Puncha
-        color="navy"
-        class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180 z-1"
-      />
-    </section>
+    </div>
   )
 }
 
 <style>
+  [data-home-values-scroll] {
+    height: 400svh;
+    min-height: 100svh;
+  }
+
+  .values-inner {
+    --values-symbol-size: clamp(6rem, 15vw, 10rem);
+    padding-top: calc(50vh - calc(var(--values-symbol-size) / 2));
+    will-change: transform;
+  }
+
+  .values-bg {
+    will-change: height;
+  }
+
   .values-symbol {
     opacity: 0;
     visibility: hidden;
@@ -97,39 +141,149 @@ const symbols = [
 
 <script>
   import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-  const section = document.querySelector('[data-home-values-section]')
+  gsap.registerPlugin(ScrollTrigger)
 
-  if (section && !section.hasAttribute('data-values-init')) {
-    section.setAttribute('data-values-init', '')
+  const scrollContainer = document.querySelector('[data-home-values-scroll]')
+  const section = scrollContainer?.querySelector('[data-home-values-section]')
 
-    const symbols = section.querySelectorAll('[data-values-symbol]')
-    const tweens: gsap.core.Timeline[] = []
+  if (
+    scrollContainer &&
+    section &&
+    !scrollContainer.hasAttribute('data-values-init')
+  ) {
+    scrollContainer.setAttribute('data-values-init', '')
 
-    if (symbols.length > 1) {
-      gsap.set(symbols, { autoAlpha: 0 })
-      gsap.set(symbols[0], { autoAlpha: 1 })
+    const sticky = scrollContainer.querySelector('[data-home-values-sticky]')
+    const background = section.querySelector('[data-home-values-bg]')
+    const inner = section.querySelector('[data-home-values-inner]')
+    const reveal = section.querySelector('[data-values-reveal]')
+    const symbolImages = section.querySelectorAll('[data-values-symbol]')
+    const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+
+    const getInnerScrollDistance = () => {
+      if (!(inner instanceof HTMLElement)) return 0
+
+      return Math.max(0, inner.scrollHeight - window.innerHeight)
+    }
+
+    const SCROLL_RUNWAY_VH = 400
+    const EXPAND_COMPLETE_AT_SCROLL_VH = 200
+    const PIN_SCROLL_VH = SCROLL_RUNWAY_VH - 100
+    const TOTAL_TIMELINE_DURATION = 1
+    const EXPAND_TO_100VH_DURATION =
+      TOTAL_TIMELINE_DURATION * (EXPAND_COMPLETE_AT_SCROLL_VH / PIN_SCROLL_VH)
+    const INNER_SCROLL_DURATION =
+      TOTAL_TIMELINE_DURATION - EXPAND_TO_100VH_DURATION
+
+    const setupSymbolCycle = () => {
+      if (symbolImages.length <= 1) return
+
+      gsap.set(symbolImages, { autoAlpha: 0 })
+      gsap.set(symbolImages[0], { autoAlpha: 1 })
 
       const timeline = gsap.timeline({ repeat: -1 })
 
-      for (let i = 0; i < symbols.length; i++) {
-        const current = symbols[i]
-        const next = symbols[(i + 1) % symbols.length]
+      for (let i = 0; i < symbolImages.length; i++) {
+        const current = symbolImages[i]
+        const next = symbolImages[(i + 1) % symbolImages.length]
 
         timeline
-          .to(current, { autoAlpha: 0, duration: 0.35, ease: 'power2.inOut' })
-          .to(next, { autoAlpha: 1, duration: 0.35, ease: 'power2.inOut' }, '<')
+          .set(current, { autoAlpha: 0 })
+          .set(next, { autoAlpha: 1 }, '<')
           .to({}, { duration: 0.65 })
       }
 
       tweens.push(timeline)
     }
 
+    const setupScrollReveal = () => {
+      if (
+        !(sticky instanceof HTMLElement) ||
+        !(background instanceof HTMLElement) ||
+        !(inner instanceof HTMLElement)
+      ) {
+        return
+      }
+
+      gsap.set(background, {
+        height: '50vh'
+      })
+      gsap.set(inner, { y: 0 })
+      gsap.set(reveal, { autoAlpha: 0 })
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: scrollContainer,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          pin: sticky,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
+      })
+
+      timeline
+        .to(background, {
+          height: '100vh',
+          ease: 'none',
+          duration: EXPAND_TO_100VH_DURATION
+        })
+        .to(reveal, {
+          autoAlpha: 1,
+          ease: 'none',
+          duration: 0.1
+        })
+        .to(
+          inner,
+          {
+            y: () => -getInnerScrollDistance(),
+
+            ease: 'none',
+            duration: INNER_SCROLL_DURATION
+          },
+          '>'
+        )
+
+      tweens.push(timeline)
+
+      const maskZoom = document.getElementById('mask-zoom')
+
+      if (maskZoom) {
+        tweens.push(
+          gsap.fromTo(
+            maskZoom,
+            { scale: 0.65 },
+            {
+              scale: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: maskZoom,
+                start: 'top bottom',
+                end: 'center center',
+                scrub: true
+              }
+            }
+          )
+        )
+      }
+
+      ScrollTrigger.refresh()
+    }
+
+    setupSymbolCycle()
+    requestAnimationFrame(setupScrollReveal)
+
     document.addEventListener(
       'swup:visit:start',
       () => {
-        tweens.forEach((tween) => tween.kill())
-        section.removeAttribute('data-values-init')
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
+        scrollContainer.removeAttribute('data-values-init')
       },
       { once: true }
     )

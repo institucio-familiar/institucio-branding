@@ -1,0 +1,181 @@
+---
+import type { SanityImageSource } from '@sanity/image-url'
+import { urlForImage } from '@/sanity/lib/image'
+
+interface Props {
+  images: SanityImageSource[]
+  text?: string
+}
+
+const { images, text } = Astro.props
+const hasContent = images.length > 0
+---
+
+{
+  hasContent && (
+    <section
+      class="relative w-full bg-frost"
+      data-home-slides-stack
+      style={`--slides-count: ${images.length}`}
+    >
+      <div
+        data-slides-sticky
+        class="relative flex h-dvh w-full items-center justify-center overflow-hidden px-indent"
+      >
+        <div
+          data-slides-stack
+          class="slides-stack relative aspect-square w-[clamp(200px,50vw,700px)]"
+        >
+          {images.map((image, index) => {
+            const isLast = index === images.length - 1
+
+            return (
+              <div
+                data-slides-card
+                data-index={index}
+                class="slides-card absolute inset-0 overflow-hidden rounded-sm shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
+                style={`z-index: ${index + 1}`}
+              >
+                <img
+                  src={urlForImage(image).width(900).url()}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover"
+                />
+                {isLast && text && (
+                  <>
+                    <div
+                      class="pointer-events-none absolute inset-0 z-1 bg-black/40"
+                      aria-hidden="true"
+                    />
+                    <p
+                      data-slides-text
+                      class="text-white pointer-events-none absolute inset-0 z-2 flex items-center justify-center px-6 text-center font-serif text-[clamp(2rem,6vw,3.5rem)] font-semibold uppercase"
+                    >
+                      {text}
+                    </p>
+                  </>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  [data-home-slides-stack] {
+    height: calc(max(var(--slides-count), 2) * 100svh);
+  }
+
+  .slides-card {
+    will-change: transform;
+    transform-origin: center bottom;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const section = document.querySelector('[data-home-slides-stack]')
+
+  if (section && !section.hasAttribute('data-slides-stack-init')) {
+    section.setAttribute('data-slides-stack-init', '')
+
+    const sticky = section.querySelector('[data-slides-sticky]')
+    const cards = [...section.querySelectorAll('[data-slides-card]')]
+    const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+
+    const STACK_OFFSET = 14
+    const SCALE_STEP = 0.035
+    const CARD_DURATION = 1
+    const COLUMN_GAP = 16
+
+    const getColumnSpacing = () => {
+      const cardHeight = cards[0]?.getBoundingClientRect().height ?? 300
+      return cardHeight + COLUMN_GAP
+    }
+
+    const getColumnY = (index: number) => index * getColumnSpacing()
+
+    const getStackY = (cardIndex: number, topCardIndex: number) => {
+      if (cardIndex > topCardIndex) return getColumnY(cardIndex)
+      return (cardIndex - topCardIndex) * STACK_OFFSET
+    }
+
+    const getStackScale = (cardIndex: number, topCardIndex: number) => {
+      if (cardIndex > topCardIndex) return 1
+      return 1 - (topCardIndex - cardIndex) * SCALE_STEP
+    }
+
+    if (sticky && cards.length > 0) {
+      cards.forEach((card, index) => {
+        gsap.set(card, {
+          y: getColumnY(index),
+          scale: 1
+        })
+      })
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          pin: sticky,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
+      })
+
+      for (let index = 1; index < cards.length; index++) {
+        const card = cards[index]
+
+        timeline.to(
+          card,
+          {
+            y: () => getStackY(index, index),
+            scale: () => getStackScale(index, index),
+            ease: 'power2.out',
+            duration: CARD_DURATION
+          },
+          index === 1 ? 0 : '>'
+        )
+
+        for (let previousIndex = 0; previousIndex < index; previousIndex++) {
+          const previousCard = cards[previousIndex]
+          timeline.to(
+            previousCard,
+            {
+              y: () => getStackY(previousIndex, index),
+              scale: () => getStackScale(previousIndex, index),
+              ease: 'power2.out',
+              duration: CARD_DURATION
+            },
+            '<'
+          )
+        }
+      }
+
+      tweens.push(timeline)
+      ScrollTrigger.refresh()
+    }
+
+    document.addEventListener(
+      'swup:visit:start',
+      () => {
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill()
+          tween.kill()
+        })
+        section.removeAttribute('data-slides-stack-init')
+      },
+      { once: true }
+    )
+  }
+</script>

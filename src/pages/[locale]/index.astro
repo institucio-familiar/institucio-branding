@@ -3,15 +3,12 @@ import MainLayout from '@/layouts/MainLayout.astro'
 import Hero from '@/components/Hero.astro'
 import Puncha from '@/components/icons/Puncha.astro'
 import PunchaVertical from '@/components/icons/PunchaVertical.astro'
-import MediaAsset from '@/components/MediaAsset.astro'
 import { getPageLocale } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/ui'
 import { HOME_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toLocaleString } from '@/sanity/lib/page-parsers'
 import { toMedia } from '@/sanity/lib/utils'
-import Mask from '@/components/ui/Mask.astro'
-import textMask4 from '@/assets/svgs/text_mask_4.svg'
 import HomeMaskSection from '@/components/HomeMaskSection.astro'
 import HomeTileGridSection from '@/components/HomeTileGridSection.astro'
 import HomeCarouselIllustrationsSection from '@/components/HomeCarouselIllustrationsSection.astro'
@@ -19,6 +16,7 @@ import HomeValuesSection from '@/components/HomeValuesSection.astro'
 import HomeAnimatedGrid from '@/components/HomeAnimatedGrid.astro'
 import HomeMissionSection from '@/components/HomeMissionSection.astro'
 import HomeTextFillSection from '@/components/HomeTextFillSection.astro'
+import HomeSlidesStackSection from '@/components/HomeSlidesStackSection.astro'
 import HomeFinalMessageSection from '@/components/HomeFinalMessageSection.astro'
 
 const { locale: localeParam } = Astro.params
@@ -189,6 +187,11 @@ const pageData = await getPageData()
 
   <HomeTextFillSection />
 
+  <HomeSlidesStackSection
+    images={pageData.slidesSection.images}
+    text={pageData.slidesSection.text}
+  />
+
   <HomeFinalMessageSection
     firstMessage={pageData.finalMessageSection.firstMessage}
     secondMessage={pageData.finalMessageSection.secondMessage.text}
@@ -216,27 +219,6 @@ const pageData = await getPageData()
             trigger: sectionsBlock,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: true
-          }
-        }
-      )
-    )
-  }
-
-  const maskZoom = document.getElementById('mask-zoom')
-
-  if (maskZoom) {
-    tweens.push(
-      gsap.fromTo(
-        maskZoom,
-        { scale: 0.25 },
-        {
-          scale: 1,
-          ease: 'ease-out',
-          scrollTrigger: {
-            trigger: maskZoom,
-            start: 'top bottom',
-            end: 'center center',
             scrub: true
           }
         }
