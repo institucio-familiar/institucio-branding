@@ -15,18 +15,24 @@ import Mask from '@/components/ui/Mask.astro'
       <img
         src="https://cdn.sanity.io/images/ryub47of/production/c6fd218fd4e3146b18e20da935bd829919c96b68-510x510.png?w=300"
         alt=""
+        data-compass-rotate
         class="w-full max-w-[8vw] translate-y-[-0.5vw] lg:max-w-[8vw]"
       />
       <p class="shrink-0" data-text-fill-line>a las</p>
     </div>
     <div class="flex flex-row gap-2 md:gap-4">
       <p class="shrink-0" data-text-fill-line>familias</p>
-      <Mask type="4o" class="w-full max-w-[8vw] shrink-0 translate-y-[-6px]">
-        <img
-          src="https://cdn.sanity.io/images/ryub47of/production/f4ce79b920f9e4ed92beb72d82738b0f29bffc16-1728x2424.png?w=300"
-          alt=""
-        />
-      </Mask>
+      <div
+        data-image-zoom
+        class="translate-y-[-6px] w-full max-w-[8vw] shrink-0"
+      >
+        <Mask type="4o" class="w-full">
+          <img
+            src="https://cdn.sanity.io/images/ryub47of/production/f4ce79b920f9e4ed92beb72d82738b0f29bffc16-1728x2424.png?w=300"
+            alt=""
+          />
+        </Mask>
+      </div>
       <p class="shrink-0" data-text-fill-line>en esta</p>
     </div>
     <div class="relative flex flex-row gap-2">
@@ -36,6 +42,7 @@ import Mask from '@/components/ui/Mask.astro'
         <img
           src="https://cdn.sanity.io/images/ryub47of/production/ce91b71ea5f84ed1cc48b17744150adb0b589621-1854x2304.png?w=300"
           alt=""
+          data-light-on
           class="w-full scale-x-[-1]"
         />
         <img
@@ -45,17 +52,16 @@ import Mask from '@/components/ui/Mask.astro'
         />
       </div>
       <p class="shrink-0" data-text-fill-line>aventura</p>
-      <Mask
-        type="tibo_horizontal"
-        class="w-[13vw] shrink-0 translate-y-[-0.5vw] lg:w-[11vw]"
-      >
-        <MediaAsset
-          media={{
-            mediaType: 'video',
-            playbackId: 'w1AiO61GLM9yZWVlvBtoDZZoqsE299slTkUfWMcXCw00'
-          }}
-        />
-      </Mask>
+      <div data-video-clip class="w-[13vw] shrink-0 lg:w-[11vw]">
+        <Mask type="tibo_horizontal" class="w-full">
+          <MediaAsset
+            media={{
+              mediaType: 'video',
+              playbackId: 'w1AiO61GLM9yZWVlvBtoDZZoqsE299slTkUfWMcXCw00'
+            }}
+          />
+        </Mask>
+      </div>
     </div>
   </div>
 </section>
@@ -64,6 +70,16 @@ import Mask from '@/components/ui/Mask.astro'
   [data-text-fill-letter] {
     color: var(--color-blue);
     will-change: color;
+  }
+
+  [data-light-on] {
+    opacity: 0;
+  }
+
+  [data-video-clip] {
+    --clip-inset-x: 50%;
+    clip-path: inset(0 var(--clip-inset-x) 0 var(--clip-inset-x));
+    will-change: clip-path;
   }
 </style>
 
@@ -82,7 +98,74 @@ import Mask from '@/components/ui/Mask.astro'
     section.setAttribute('data-text-fill-init', '')
 
     const lines = [...section.querySelectorAll('[data-text-fill-line]')]
+    const compassRotate = section.querySelector('[data-compass-rotate]')
+    const imageZoom = section.querySelector('[data-image-zoom]')
+    const videoClip = section.querySelector('[data-video-clip]')
+    const lightOn = section.querySelector('[data-light-on]')
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+
+    if (videoClip) {
+      const videoClipTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: videoClip,
+          start: 'top 85%',
+          end: 'center center',
+          scrub: true
+        }
+      })
+
+      videoClipTimeline.fromTo(
+        videoClip,
+        { '--clip-inset-x': '50%' },
+        { '--clip-inset-x': '0%', ease: 'none' },
+        0
+      )
+
+      if (lightOn) {
+        videoClipTimeline.set(lightOn, { autoAlpha: 1 })
+      }
+
+      tweens.push(videoClipTimeline)
+    }
+
+    if (imageZoom) {
+      tweens.push(
+        gsap.fromTo(
+          imageZoom,
+          { scale: 0.65 },
+          {
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: imageZoom,
+              start: 'top bottom',
+              end: 'center center',
+              scrub: true
+            }
+          }
+        )
+      )
+    }
+
+    if (compassRotate) {
+      const rotateTween = gsap.fromTo(
+        compassRotate,
+        { rotation: 0 },
+        {
+          rotation: 240,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        }
+      )
+
+      tweens.push(rotateTween)
+    }
 
     const splitIntoLetters = (paragraph: Element) => {
       const text = paragraph.textContent ?? ''
@@ -132,6 +215,9 @@ import Mask from '@/components/ui/Mask.astro'
       })
 
       tweens.push(timeline)
+    }
+
+    if (tweens.length > 0) {
       ScrollTrigger.refresh()
     }
 

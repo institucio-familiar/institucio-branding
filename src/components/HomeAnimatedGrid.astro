@@ -23,61 +23,72 @@ const hasContent = images.every(Boolean)
       data-home-animated-grid
       data-header-theme="light"
     >
-      <div
-        data-animated-grid-sticky
-        class="flex min-h-svh w-full items-center px-[9vw] py-2"
-      >
-        <div class="animated-grid grid w-full aspect-1190/765 max-w-7xl grid-cols-1 gap-2 md:grid-cols-3 p-2">
-          <div class="animated-grid-column flex flex-col items-end gap-2">
-            <div
-              data-grid-item
-              data-grid-slot="left-top"
-              data-origin="left"
-              class="animated-grid-item"
-            >
-              <div class="grid-media aspect-video">
-                <MediaAsset media={image1!} class="rounded-sm" />
-              </div>
-            </div>
-
-            <div
-              data-grid-item
-              data-grid-slot="left-bottom"
-              data-origin="left"
-              class="animated-grid-item"
-            >
-              <div class="grid-media aspect-4/3">
-                <MediaAsset media={image2!} class="rounded-sm" />
-              </div>
-            </div>
+      <div data-animated-grid-sticky class="relative min-h-svh w-full">
+        <div
+          data-grid-center-media
+          class="pointer-events-none absolute inset-0 z-0"
+          aria-hidden="true"
+        >
+          <div data-grid-center-media-inner class="h-full w-full">
+            <MediaAsset media={image3!} />
           </div>
+        </div>
 
-          <div class="flex items-center justify-center">
-            <div class="grid-media-center w-full h-[65svh] max-h-[45vw]">
-              <MediaAsset media={image3!} class="rounded-sm" />
-            </div>
-          </div>
+        <div class="relative z-10 flex min-h-svh w-full items-center px-[9vw] py-2">
+          <div class="animated-grid grid w-full aspect-1190/765 max-w-7xl grid-cols-1 gap-2 md:grid-cols-3 p-2">
+            <div class="animated-grid-column flex flex-col items-end gap-2">
+              <div
+                data-grid-item
+                data-grid-slot="left-top"
+                data-origin="left"
+                class="animated-grid-item"
+              >
+                <div class="grid-media aspect-video">
+                  <MediaAsset media={image1!} class="rounded-sm" />
+                </div>
+              </div>
 
-          <div class="animated-grid-column flex flex-col justify-end gap-2">
-            <div
-              data-grid-item
-              data-grid-slot="right-top"
-              data-origin="right"
-              class="animated-grid-item w-full"
-            >
-              <div class="grid-media aspect-4/3">
-                <MediaAsset media={image4!} class="rounded-sm" />
+              <div
+                data-grid-item
+                data-grid-slot="left-bottom"
+                data-origin="left"
+                class="animated-grid-item"
+              >
+                <div class="grid-media aspect-4/3">
+                  <MediaAsset media={image2!} class="rounded-sm" />
+                </div>
               </div>
             </div>
 
-            <div
-              data-grid-item
-              data-grid-slot="right-bottom"
-              data-origin="right"
-              class="animated-grid-item w-full"
-            >
-              <div class="grid-media aspect-video">
-                <MediaAsset media={image5!} class="rounded-sm" />
+            <div class="flex items-center justify-center">
+              <div
+                data-grid-center-slot
+                class="grid-media-center pointer-events-none invisible w-full h-[65svh] max-h-[45vw]"
+                aria-hidden="true"
+              />
+            </div>
+
+            <div class="animated-grid-column flex flex-col justify-end gap-2">
+              <div
+                data-grid-item
+                data-grid-slot="right-top"
+                data-origin="right"
+                class="animated-grid-item w-full"
+              >
+                <div class="grid-media aspect-4/3">
+                  <MediaAsset media={image4!} class="rounded-sm" />
+                </div>
+              </div>
+
+              <div
+                data-grid-item
+                data-grid-slot="right-bottom"
+                data-origin="right"
+                class="animated-grid-item w-full"
+              >
+                <div class="grid-media aspect-video">
+                  <MediaAsset media={image5!} class="rounded-sm" />
+                </div>
               </div>
             </div>
           </div>
@@ -90,6 +101,25 @@ const hasContent = images.every(Boolean)
 <style>
   [data-home-animated-grid] {
     height: 400svh;
+  }
+
+  [data-grid-center-media] {
+    clip-path: inset(0 round 5px);
+    will-change: clip-path;
+  }
+
+  [data-grid-center-media-inner] {
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  [data-grid-center-media-inner] :global(img),
+  [data-grid-center-media-inner] :global(video) {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .grid-media {
@@ -119,10 +149,72 @@ const hasContent = images.every(Boolean)
     section.setAttribute('data-animated-grid-init', '')
 
     const sticky = section.querySelector('[data-animated-grid-sticky]')
+    const centerMedia = section.querySelector(
+      '[data-grid-center-media]'
+    ) as HTMLElement | null
+    const centerMediaInner = section.querySelector(
+      '[data-grid-center-media-inner]'
+    )
+    const centerSlot = section.querySelector('[data-grid-center-slot]')
     const slotOrder = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
 
+    const CLIP_ROUND_END = 5
+
+    type ClipInsets = {
+      top: number
+      right: number
+      bottom: number
+      left: number
+      round: number
+    }
+
+    let targetClip: ClipInsets = {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      round: CLIP_ROUND_END
+    }
+
+    function measureTargetClip(): ClipInsets {
+      if (!centerMedia || !centerSlot) {
+        return targetClip
+      }
+
+      const mediaRect = centerMedia.getBoundingClientRect()
+      const slotRect = centerSlot.getBoundingClientRect()
+
+      return {
+        top: Math.max(0, slotRect.top - mediaRect.top),
+        right: Math.max(0, mediaRect.right - slotRect.right),
+        bottom: Math.max(0, mediaRect.bottom - slotRect.bottom),
+        left: Math.max(0, slotRect.left - mediaRect.left),
+        round: CLIP_ROUND_END
+      }
+    }
+
+    function applyCenterClip(progress: number) {
+      if (!centerMedia) return
+
+      const top = gsap.utils.interpolate(0, targetClip.top, progress)
+      const right = gsap.utils.interpolate(0, targetClip.right, progress)
+      const bottom = gsap.utils.interpolate(0, targetClip.bottom, progress)
+      const left = gsap.utils.interpolate(0, targetClip.left, progress)
+      // const round = gsap.utils.interpolate(0, targetClip.round, progress)
+
+      centerMedia.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round 5px)`
+    }
+
+    function refreshClipTarget() {
+      targetClip = measureTargetClip()
+    }
+
     if (sticky) {
+      refreshClipTarget()
+
+      const clipProgress = { value: 0 }
+
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -130,9 +222,32 @@ const hasContent = images.every(Boolean)
           end: 'bottom bottom',
           scrub: true,
           pin: sticky,
-          anticipatePin: 1
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefreshInit: refreshClipTarget,
+          onRefresh: () => applyCenterClip(clipProgress.value)
         }
       })
+
+      timeline.to(
+        clipProgress,
+        {
+          value: 1,
+          ease: 'power4.out',
+          duration: 6,
+          onUpdate: () => applyCenterClip(clipProgress.value)
+        },
+        0
+      )
+
+      if (centerMediaInner) {
+        timeline.fromTo(
+          centerMediaInner,
+          { scale: 1 },
+          { scale: 0.65, ease: 'power4.out', duration: 6 },
+          0
+        )
+      }
 
       slotOrder.forEach((slot, index) => {
         const item = section.querySelector(`[data-grid-slot="${slot}"]`)
