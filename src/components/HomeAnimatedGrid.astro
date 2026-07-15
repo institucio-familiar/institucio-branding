@@ -30,7 +30,7 @@ const hasContent = images.every(Boolean)
           aria-hidden="true"
         >
           <div data-grid-center-media-inner class="h-full w-full">
-            <MediaAsset media={image3!} />
+            <MediaAsset media={image3!} imageSize={2200} />
           </div>
         </div>
 
@@ -104,7 +104,7 @@ const hasContent = images.every(Boolean)
   }
 
   [data-grid-center-media] {
-    clip-path: inset(0 round 5px);
+    clip-path: inset(16px round 5px);
     will-change: clip-path;
   }
 
@@ -159,7 +159,8 @@ const hasContent = images.every(Boolean)
     const slotOrder = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
 
-    const CLIP_ROUND_END = 5
+    const CLIP_ROUND = 5
+    const CLIP_START = 16
 
     type ClipInsets = {
       top: number
@@ -170,11 +171,11 @@ const hasContent = images.every(Boolean)
     }
 
     let targetClip: ClipInsets = {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      round: CLIP_ROUND_END
+      top: CLIP_START,
+      right: CLIP_START,
+      bottom: CLIP_START,
+      left: CLIP_START,
+      round: CLIP_ROUND
     }
 
     function measureTargetClip(): ClipInsets {
@@ -190,20 +191,27 @@ const hasContent = images.every(Boolean)
         right: Math.max(0, mediaRect.right - slotRect.right),
         bottom: Math.max(0, mediaRect.bottom - slotRect.bottom),
         left: Math.max(0, slotRect.left - mediaRect.left),
-        round: CLIP_ROUND_END
+        round: CLIP_ROUND
       }
     }
 
     function applyCenterClip(progress: number) {
       if (!centerMedia) return
 
-      const top = gsap.utils.interpolate(0, targetClip.top, progress)
-      const right = gsap.utils.interpolate(0, targetClip.right, progress)
-      const bottom = gsap.utils.interpolate(0, targetClip.bottom, progress)
-      const left = gsap.utils.interpolate(0, targetClip.left, progress)
-      // const round = gsap.utils.interpolate(0, targetClip.round, progress)
+      const top = gsap.utils.interpolate(CLIP_START, targetClip.top, progress)
+      const right = gsap.utils.interpolate(
+        CLIP_START,
+        targetClip.right,
+        progress
+      )
+      const bottom = gsap.utils.interpolate(
+        CLIP_START,
+        targetClip.bottom,
+        progress
+      )
+      const left = gsap.utils.interpolate(CLIP_START, targetClip.left, progress)
 
-      centerMedia.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round 5px)`
+      centerMedia.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round ${CLIP_ROUND}px)`
     }
 
     function refreshClipTarget() {

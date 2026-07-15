@@ -108,9 +108,10 @@ const hasFirstMessage = Boolean(firstMessage?.text)
       </div>
       <div class="h-[50svh] translate-y-[-10vw] mb-[-4vw]">
         <img
+          data-final-message-third-image
           src="https://cdn.sanity.io/images/ryub47of/production/bd1225fc754aae5d9278ff44668adf3ec4e6afb1-2048x2080.png?w=400"
           alt=""
-          class="rotate-25 w-[clamp(150px,20vw,340px)]"
+          class="w-[clamp(150px,20vw,340px)]"
           decoding="async"
           loading="lazy"
         />
@@ -131,7 +132,8 @@ const hasFirstMessage = Boolean(firstMessage?.text)
   }
 
   [data-final-message-first-text],
-  [data-final-message-third-text] {
+  [data-final-message-third-text],
+  [data-final-message-third-image] {
     will-change: transform;
   }
 </style>
@@ -191,6 +193,27 @@ const hasFirstMessage = Boolean(firstMessage?.text)
       )
     }
 
+    const setupThirdMessageImageRotation = (section: Element) => {
+      const image = section.querySelector('[data-final-message-third-image]')
+      if (!image) return
+
+      gsap.fromTo(
+        image,
+        { rotation: 25 },
+        {
+          rotation: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: image,
+            start: 'top bottom',
+            end: 'center center',
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        }
+      )
+    }
+
     const setupStickyTextReveal = (
       section: Element,
       containerSelector: string,
@@ -239,13 +262,14 @@ const hasFirstMessage = Boolean(firstMessage?.text)
     }
 
     if (thirdInited && thirdSection) {
-      schedule(() =>
+      schedule(() => {
         setupStickyTextReveal(
           thirdSection,
           '[data-final-message-third-container]',
           '[data-final-message-third-text]'
         )
-      )
+        setupThirdMessageImageRotation(thirdSection)
+      })
     }
 
     if (iconInited && iconSection) {

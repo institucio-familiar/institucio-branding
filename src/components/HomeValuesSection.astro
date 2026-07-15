@@ -90,7 +90,7 @@ const symbols = [
               data-values-reveal
               class="flex w-full flex-col items-center gap-24 md:gap-16"
             >
-              <p class="text-frost text-headline-2 text-center uppercase">
+              <p class="text-frost text-headline-2 text-center uppercase w-[clamp(300px,70vw,1024px)]">
                 {text}
               </p>
 
@@ -207,11 +207,17 @@ const symbols = [
         return
       }
 
+      const maskZoom = section.querySelector('#mask-zoom')
+
       gsap.set(background, {
         height: '50vh'
       })
       gsap.set(inner, { y: 0 })
       gsap.set(reveal, { autoAlpha: 0 })
+
+      if (maskZoom) {
+        gsap.set(maskZoom, { scale: 0.65 })
+      }
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -247,28 +253,19 @@ const symbols = [
           '>'
         )
 
-      tweens.push(timeline)
-
-      const maskZoom = document.getElementById('mask-zoom')
-
       if (maskZoom) {
-        tweens.push(
-          gsap.fromTo(
-            maskZoom,
-            { scale: 0.65 },
-            {
-              scale: 1,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: maskZoom,
-                start: 'top bottom',
-                end: 'center center',
-                scrub: true
-              }
-            }
-          )
+        timeline.to(
+          maskZoom,
+          {
+            scale: 1,
+            ease: 'none',
+            duration: INNER_SCROLL_DURATION
+          },
+          '<'
         )
       }
+
+      tweens.push(timeline)
 
       ScrollTrigger.refresh()
     }
