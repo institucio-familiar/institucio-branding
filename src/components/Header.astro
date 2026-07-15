@@ -16,15 +16,12 @@ const t = useTranslations(locale)
 <div data-header data-theme="light" class="fixed inset-x-0 top-0 z-50">
   <header class="absolute left-0 z-10">
     <div class="flex items-end gap-2 px-indent py-3 md:py-7">
-      <a
-        href={getRelativeLocaleUrl(locale)}
-        class="flex min-h-9 items-end gap-2"
-      >
-        <div data-header-logo-escudo-wrap class="flex h-9 items-end">
-          <ColegioEscudo class="header-logo h-9 w-auto" />
+      <a href={getRelativeLocaleUrl(locale)} class="flex items-end">
+        <div data-header-logo-escudo-wrap class="flex h-[42px] items-end">
+          <ColegioEscudo class="header-logo h-[42px] w-auto" />
         </div>
-        <div data-header-logo-nombre-wrap class="overflow-hidden">
-          <ColegioNombre class="header-logo h-7 w-auto mb-[2px]" />
+        <div data-header-logo-nombre-wrap class="overflow-hidden pl-2">
+          <ColegioNombre class="header-logo h-[36px] w-auto" />
         </div>
       </a>
       <Menu />

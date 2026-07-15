@@ -60,18 +60,66 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   </div>
   <div
     id="menu-content"
-    class="absolute top-0 left-0 h-dvh w-screen -z-1 flex items-center justify-between opacity-0"
+    class="absolute top-0 left-0 h-dvh w-screen pt-[160px] md:pt-0 -z-1 flex md:items-center justify-between opacity-0"
   >
     <div id="menu-items" class="p-indent">
       <ul class="flex flex-col gap-4">
         {
           MENU_ITEMS.map((item) => (
             <li>
-              <a href={getRelativeLocaleUrl(locale, item.href)} data-menu-link>
-                <span class="text-white text-headline-menu uppercase hover:text-blue transition-colors duration-200">
-                  {t(item.key)}
-                </span>
-              </a>
+              {item.key === 'nav.asiNosVemos' ? (
+                <>
+                  <a
+                    href={getRelativeLocaleUrl(locale, item.href)}
+                    data-menu-link
+                    class="hidden md:inline"
+                  >
+                    <span class="text-white text-headline-menu uppercase hover:text-blue transition-colors duration-200">
+                      {t(item.key)}
+                    </span>
+                  </a>
+                  <div class="md:hidden">
+                    <button
+                      type="button"
+                      data-menu-submenu-trigger
+                      aria-expanded="false"
+                      class="block cursor-pointer border-0 bg-transparent p-0"
+                    >
+                      <span class="text-white text-headline-menu uppercase hover:text-blue transition-colors duration-200">
+                        {t(item.key)}
+                      </span>
+                    </button>
+                    <div
+                      id="mobile-submenu-wrapper"
+                      class="overflow-hidden h-0"
+                    >
+                      <ul id="mobile-submenu" class="flex flex-col gap-4 pt-4">
+                        {SUBMENU_ITEMS.map((subItem) => (
+                          <li>
+                            <a
+                              href={getRelativeLocaleUrl(locale, subItem.href)}
+                              data-menu-link
+                            >
+                              <span class="text-white text-body hover:text-blue transition-colors duration-200">
+                                {t(subItem.key)}
+                              </span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <a
+                  href={getRelativeLocaleUrl(locale, item.href)}
+                  data-menu-link
+                >
+                  <span class="text-white text-headline-menu uppercase hover:text-blue transition-colors duration-200">
+                    {t(item.key)}
+                  </span>
+                </a>
+              )}
             </li>
           ))
         }
@@ -107,6 +155,59 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   import { $isMenuOpen } from '@/store'
 
   const menuButton = document.getElementById('menu-button')
+  const mobileSubmenuWrapper = document.getElementById('mobile-submenu-wrapper')
+  const submenuTrigger = document.querySelector('[data-menu-submenu-trigger]')
+  let isSubmenuOpen = false
+
+  const getSubmenuHeight = () => {
+    if (!mobileSubmenuWrapper) return 0
+    mobileSubmenuWrapper.style.height = 'auto'
+    const height = mobileSubmenuWrapper.scrollHeight
+    mobileSubmenuWrapper.style.height = '0px'
+    return height
+  }
+
+  const closeMobileSubmenu = (animated = true) => {
+    isSubmenuOpen = false
+    submenuTrigger?.setAttribute('aria-expanded', 'false')
+
+    if (!mobileSubmenuWrapper) return
+
+    if (animated) {
+      animate('#mobile-submenu li', { opacity: 0, y: 10 }, { duration: 0.2 })
+      animate(
+        mobileSubmenuWrapper,
+        { height: 0 },
+        { duration: 0.35, ease: 'easeInOut' }
+      )
+    } else {
+      mobileSubmenuWrapper.style.height = '0px'
+      animate('#mobile-submenu li', { opacity: 0, y: 10 })
+    }
+  }
+
+  submenuTrigger?.addEventListener('click', () => {
+    if (!mobileSubmenuWrapper) return
+
+    if (!isSubmenuOpen) {
+      isSubmenuOpen = true
+      submenuTrigger.setAttribute('aria-expanded', 'true')
+      const targetHeight = getSubmenuHeight()
+
+      animate(
+        mobileSubmenuWrapper,
+        { height: `${targetHeight}px` },
+        { duration: 0.4, ease: 'easeInOut' }
+      )
+      animate(
+        '#mobile-submenu li',
+        { opacity: [0, 1], y: [10, 0] },
+        { type: 'spring', delay: stagger(0.04, { startDelay: 0.1 }) }
+      )
+    } else {
+      closeMobileSubmenu()
+    }
+  })
 
   menuButton?.addEventListener('click', () => {
     $isMenuOpen.set(!$isMenuOpen.get())
@@ -150,6 +251,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
     }
 
     if (!value) {
+      closeMobileSubmenu(false)
       Scroll.start()
       animate(
         '#menu-overlay',
@@ -162,7 +264,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
         { opacity: 0, pointerEvents: 'none' },
         { duration: 0.45, ease: 'easeInOut' }
       )
-      animate('#menu-items li', { opacity: 0 })
+      animate('#menu-items > ul > li', { opacity: 0 })
       animate(
         '#submenu-items',
         { x: '100%' },
@@ -186,7 +288,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
         { duration: 0.45, ease: 'easeInOut' }
       )
       animate(
-        '#menu-items li',
+        '#menu-items > ul > li',
         { opacity: 1, y: [100, 0] },
         { type: 'spring', delay: stagger(0.08), ease: 'easeInOut' }
       )

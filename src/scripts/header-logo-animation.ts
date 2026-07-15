@@ -7,7 +7,9 @@ const COMPACT_VIEWBOX = `0 0 ${FIRST_LETTER_VIEWBOX_WIDTH} 436`
 const FIRST_LETTER_RATIO = FIRST_LETTER_VIEWBOX_WIDTH / 1173
 const ESCUDO_FULL_VIEWBOX = '0 0 23 35'
 const ESCUDO_VIEWBOX_PADDING = 0.75
-const ESCUDO_TRANSLATE_Y = 3
+const ESCUDO_INNER_GAP_OFFSET = 1.2 // svg units; moves bottom bar up in compact state
+// const ESCUDO_TRANSLATE_Y_RATIO = 3 / 36 // tuned for h-9 escudo (36px)
+const ESCUDO_TRANSLATE_Y_RATIO = 0.035 // tuned for h-9 escudo (36px)
 const SCROLL_THRESHOLD = 50
 
 type LogoElements = {
@@ -50,7 +52,17 @@ function getEscudoPathsToHide(logo: LogoElements) {
   return [paths[2], paths[3]].filter(Boolean)
 }
 
-function measureEscudoInnerViewBox(logo: LogoElements) {
+function getEscudoBottomBarPath(logo: LogoElements) {
+  return getEscudoPaths(logo)[1] ?? null
+}
+
+function getEscudoTranslateY(logo: LogoElements) {
+  return (
+    logo.escudoSvg.getBoundingClientRect().height * ESCUDO_TRANSLATE_Y_RATIO
+  )
+}
+
+function measureEscudoInnerViewBox(logo: LogoElements, gapOffset = 0) {
   const paths = getEscudoInnerPaths(logo)
   if (paths.length === 0) return ESCUDO_FULL_VIEWBOX
 
@@ -59,12 +71,15 @@ function measureEscudoInnerViewBox(logo: LogoElements) {
   let maxX = -Infinity
   let maxY = -Infinity
 
-  paths.forEach((path) => {
+  paths.forEach((path, index) => {
     const box = (path as SVGGraphicsElement).getBBox()
+    const y = index === 1 ? box.y - gapOffset : box.y
+    const height = box.height
+
     minX = Math.min(minX, box.x)
-    minY = Math.min(minY, box.y)
+    minY = Math.min(minY, y)
     maxX = Math.max(maxX, box.x + box.width)
-    maxY = Math.max(maxY, box.y + box.height)
+    maxY = Math.max(maxY, y + height)
   })
 
   const pad = ESCUDO_VIEWBOX_PADDING
@@ -78,13 +93,21 @@ function measureEscudoInnerViewBox(logo: LogoElements) {
 
 function getCompactMetrics(
   logo: LogoElements,
-  fullMetrics: { nombreWidth: number; escudoHeight: number }
+  fullMetrics: {
+    nombreWidth: number
+    escudoHeight: number
+    nombreWrapPadding: number
+  }
 ) {
   const fullWidth = logo.nombreSvg.getBoundingClientRect().width
   const compactWidth = fullWidth * FIRST_LETTER_RATIO
-  const escudoInnerViewBox = measureEscudoInnerViewBox(logo)
+  const escudoInnerViewBox = measureEscudoInnerViewBox(
+    logo,
+    ESCUDO_INNER_GAP_OFFSET
+  )
   const escudoScale =
-    logo.nombreSvg.getBoundingClientRect().height / fullMetrics.escudoHeight
+    logo.nombreSvg.getBoundingClientRect().height / fullMetrics.escudoHeight -
+    0.1
 
   return { compactWidth, escudoInnerViewBox, escudoScale }
 }
@@ -93,11 +116,14 @@ function setFullState(logo: LogoElements) {
   const letters = getNombreLetters(logo)
   const trailingLetters = Array.from(letters).slice(1)
   const escudoPathsToHide = getEscudoPathsToHide(logo)
+  const escudoBottomBar = getEscudoBottomBarPath(logo)
 
   gsap.killTweensOf([
+    logo.nombreWrap,
     logo.escudoWrap,
     logo.escudoSvg,
     logo.nombreSvg,
+    escudoBottomBar,
     ...trailingLetters,
     ...escudoPathsToHide
   ])
@@ -119,6 +145,10 @@ function setFullState(logo: LogoElements) {
     transformOrigin: '50% 100%'
   })
   gsap.set(logo.escudoWrap, { y: 0, clearProps: 'transform' })
+  gsap.set(logo.nombreWrap, { clearProps: 'paddingLeft' })
+  if (escudoBottomBar) {
+    gsap.set(escudoBottomBar, { y: 0, clearProps: 'transform' })
+  }
   gsap.set(escudoPathsToHide, {
     autoAlpha: 1,
     clearProps: 'opacity,visibility,display'
@@ -128,11 +158,16 @@ function setFullState(logo: LogoElements) {
 
 function animateToFullState(
   logo: LogoElements,
-  fullMetrics: { nombreWidth: number; escudoHeight: number }
+  fullMetrics: {
+    nombreWidth: number
+    escudoHeight: number
+    nombreWrapPadding: number
+  }
 ) {
   const letters = getNombreLetters(logo)
   const trailingLetters = Array.from(letters).slice(1)
   const escudoPathsToHide = getEscudoPathsToHide(logo)
+  const escudoBottomBar = getEscudoBottomBarPath(logo)
   const compactWidth =
     logo.nombreSvg.getBoundingClientRect().width ||
     fullMetrics.nombreWidth * FIRST_LETTER_RATIO
@@ -141,9 +176,11 @@ function animateToFullState(
   if (letters.length < 2) return
 
   gsap.killTweensOf([
+    logo.nombreWrap,
     logo.escudoWrap,
     logo.escudoSvg,
     logo.nombreSvg,
+    escudoBottomBar,
     ...trailingLetters,
     ...escudoPathsToHide
   ])
@@ -173,6 +210,17 @@ function animateToFullState(
     0
   )
 
+  if (escudoBottomBar) {
+    timeline.to(
+      escudoBottomBar,
+      {
+        y: 0,
+        duration: 0.7
+      },
+      0.15
+    )
+  }
+
   if (escudoPathsToHide.length > 0) {
     timeline.set(escudoPathsToHide, { display: 'block' }, 0.15)
     timeline.to(
@@ -195,6 +243,15 @@ function animateToFullState(
     0.05
   )
 
+  timeline.to(
+    logo.nombreWrap,
+    {
+      paddingLeft: fullMetrics.nombreWrapPadding,
+      duration: 0.7
+    },
+    0.05
+  )
+
   timeline.set(trailingLetters, { display: 'block' }, 0.32)
   timeline.to(
     trailingLetters,
@@ -210,11 +267,16 @@ function animateToFullState(
 function applyCompactState(
   logo: LogoElements,
   animate: boolean,
-  fullMetrics: { nombreWidth: number; escudoHeight: number }
+  fullMetrics: {
+    nombreWidth: number
+    escudoHeight: number
+    nombreWrapPadding: number
+  }
 ) {
   const letters = getNombreLetters(logo)
   const trailingLetters = Array.from(letters).slice(1)
   const escudoPathsToHide = getEscudoPathsToHide(logo)
+  const escudoBottomBar = getEscudoBottomBarPath(logo)
   const { compactWidth, escudoInnerViewBox, escudoScale } = getCompactMetrics(
     logo,
     fullMetrics
@@ -228,15 +290,18 @@ function applyCompactState(
   if (letters.length < 2) return
 
   gsap.killTweensOf([
+    logo.nombreWrap,
     logo.escudoWrap,
     logo.escudoSvg,
     logo.nombreSvg,
+    escudoBottomBar,
     ...trailingLetters,
     ...escudoPathsToHide
   ])
 
   if (!animate) {
     gsap.set(trailingLetters, { autoAlpha: 0, display: 'none' })
+    gsap.set(logo.nombreWrap, { paddingLeft: 2 })
     gsap.set(logo.nombreSvg, {
       attr: { viewBox: COMPACT_VIEWBOX },
       width: compactWidth
@@ -247,7 +312,10 @@ function applyCompactState(
       scale: escudoScale,
       transformOrigin: '50% 100%'
     })
-    gsap.set(logo.escudoWrap, { y: ESCUDO_TRANSLATE_Y })
+    if (escudoBottomBar) {
+      gsap.set(escudoBottomBar, { y: -ESCUDO_INNER_GAP_OFFSET })
+    }
+    gsap.set(logo.escudoWrap, { y: getEscudoTranslateY(logo) })
     return
   }
 
@@ -270,6 +338,15 @@ function applyCompactState(
     {
       attr: { viewBox: COMPACT_VIEWBOX },
       width: compactWidth,
+      duration: 0.7
+    },
+    0.05
+  )
+
+  timeline.to(
+    logo.nombreWrap,
+    {
+      paddingLeft: 2,
       duration: 0.7
     },
     0.05
@@ -299,10 +376,21 @@ function applyCompactState(
     0.15
   )
 
+  if (escudoBottomBar) {
+    timeline.to(
+      escudoBottomBar,
+      {
+        y: -ESCUDO_INNER_GAP_OFFSET,
+        duration: 0.7
+      },
+      0.15
+    )
+  }
+
   timeline.to(
     logo.escudoWrap,
     {
-      y: ESCUDO_TRANSLATE_Y,
+      y: getEscudoTranslateY(logo),
       duration: 0.7
     },
     0.15
@@ -324,7 +412,9 @@ export function initHeaderLogoAnimation() {
   let isCompact = false
   const fullMetrics = {
     nombreWidth: elements.nombreSvg.getBoundingClientRect().width,
-    escudoHeight: elements.escudoSvg.getBoundingClientRect().height
+    escudoHeight: elements.escudoSvg.getBoundingClientRect().height,
+    nombreWrapPadding:
+      parseFloat(getComputedStyle(elements.nombreWrap).paddingLeft) || 8
   }
 
   function syncLogo(scroll: number) {
