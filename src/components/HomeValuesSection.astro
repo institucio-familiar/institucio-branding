@@ -180,19 +180,38 @@ const symbols = [
     const setupSymbolCycle = () => {
       if (symbolImages.length <= 1) return
 
+      const symbolsContainer = section.querySelector('[data-values-symbols]')
+      if (!symbolsContainer) return
+
       gsap.set(symbolImages, { autoAlpha: 0 })
       gsap.set(symbolImages[0], { autoAlpha: 1 })
 
-      const timeline = gsap.timeline({ repeat: -1 })
+      const CYCLE_COUNT = 2
+      const SYMBOL_DURATION = 0.12
+      const timeline = gsap.timeline({
+        paused: true,
+        scrollTrigger: {
+          trigger: symbolsContainer,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+          once: true
+        }
+      })
 
-      for (let i = 0; i < symbolImages.length; i++) {
-        const current = symbolImages[i]
-        const next = symbolImages[(i + 1) % symbolImages.length]
+      for (let cycle = 0; cycle < CYCLE_COUNT; cycle++) {
+        const isLastCycle = cycle === CYCLE_COUNT - 1
 
-        timeline
-          .set(current, { autoAlpha: 0 })
-          .set(next, { autoAlpha: 1 }, '<')
-          .to({}, { duration: 0.65 })
+        for (let i = 0; i < symbolImages.length; i++) {
+          if (isLastCycle && i === symbolImages.length - 1) break
+
+          const current = symbolImages[i]
+          const next = symbolImages[(i + 1) % symbolImages.length]
+
+          timeline
+            .set(current, { autoAlpha: 0 })
+            .set(next, { autoAlpha: 1 }, '<')
+            .to({}, { duration: SYMBOL_DURATION })
+        }
       }
 
       tweens.push(timeline)

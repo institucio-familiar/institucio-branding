@@ -20,29 +20,29 @@ const hasContent = Boolean(text)
         data-mission-sticky
         class="relative flex h-dvh w-full items-center justify-center"
       >
-        <div class="relative flex aspect-square w-full items-center justify-center gap-4 px-indent-2 py-indent">
+        <div class="relative flex aspect-square w-full h-full max-w-[90vw] max-h-[90svh] items-center justify-center gap-4 px-indent-2 py-indent">
           <div
             data-mission-frame="outer"
             class="absolute top-0 left-0 flex h-full w-full items-center justify-center"
           >
-            <BracketFrame class="w-full scale-[0.57]" />
+            <BracketFrame class="w-full scale-[0.89]" />
           </div>
           <div
             data-mission-frame="middle"
             class="absolute top-0 right-0 flex h-full w-full items-center justify-center"
           >
-            <BracketFrame class="w-full scale-[0.45]" />
+            <BracketFrame class="w-full scale-[0.7]" />
           </div>
           <div
             data-mission-frame="inner"
             class="absolute top-0 right-0 flex h-full w-full items-center justify-center"
           >
-            <BracketFrame class="w-full scale-[0.35]" />
+            <BracketFrame class="w-full scale-[0.55]" />
           </div>
 
           <p
             data-mission-text
-            class="text-navy relative z-1 text-center font-serif text-[4vw] font-semibold uppercase"
+            class="text-navy relative z-1 text-center font-serif text-[clamp(24px,4vw,48px)] font-semibold uppercase"
           >
             {text}
           </p>

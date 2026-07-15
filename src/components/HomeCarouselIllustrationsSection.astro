@@ -100,7 +100,7 @@ const { line1, line2, line3 } = textLines
 
 <style>
   [data-home-carousel-illustrations] {
-    height: 500svh;
+    height: 650svh;
   }
 
   .carousel-track {
@@ -207,8 +207,12 @@ const { line1, line2, line3 } = textLines
         const videoScale = videoItem
           ? (gsap.getProperty(videoItem, 'scale') as number)
           : 1
-        const { viewportCenter, maxYOffset, arcSpread, items: arcItems } =
-          arcCache
+        const {
+          viewportCenter,
+          maxYOffset,
+          arcSpread,
+          items: arcItems
+        } = arcCache
 
         for (const { centerInTrack, setY, isVideo } of arcItems) {
           if (isVideo && videoScale > 1.01) {
@@ -323,6 +327,20 @@ const { line1, line2, line3 } = textLines
         )
       }
 
+      if (textLines.length > 0) {
+        textLines.forEach((line) => {
+          timeline.to(
+            line,
+            {
+              x: 0,
+              ease: 'power4.out',
+              duration: 0.15
+            },
+            '>'
+          )
+        })
+      }
+
       if (videoItem) {
         timeline.to(
           videoItem,
@@ -333,20 +351,6 @@ const { line1, line2, line3 } = textLines
           },
           '>'
         )
-      }
-
-      if (textLines.length > 0) {
-        textLines.forEach((line, index) => {
-          timeline.to(
-            line,
-            {
-              x: 0,
-              ease: 'power2.inOut',
-              duration: 0.067
-            },
-            index === 0 ? '>' : '>'
-          )
-        })
       }
 
       timeline.eventCallback('onUpdate', updateArc)

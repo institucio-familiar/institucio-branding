@@ -1,5 +1,6 @@
 ---
 import Download from '@/components/ui/icon-glyphs/Download.astro'
+import { cn } from '@/scripts/utils/cn'
 
 type Variant =
   | 'primary-dark'
@@ -50,9 +51,7 @@ const variants: Record<Variant, string> = {
     'border-blue bg-transparent text-blue hover:border-blue hover:bg-blue hover:text-frost active:border-sky active:bg-sky active:text-frost'
 }
 
-const classes = [base, padding, variants[variant], className]
-  .filter(Boolean)
-  .join(' ')
+const classes = cn(base, padding, variants[variant], className)
 ---
 
 {

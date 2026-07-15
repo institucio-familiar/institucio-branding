@@ -22,7 +22,7 @@ const alternateLocaleUrl = alternateLocale
 
 <nav
   aria-label={t('lang.switch')}
-  class="flex items-center text-body"
+  class="flex items-center"
   data-language-switcher
 >
   {
@@ -32,7 +32,7 @@ const alternateLocaleUrl = alternateLocale
         hreflang={alternateLocaleUrl.locale}
         lang={alternateLocaleUrl.locale}
         data-no-swup
-        class="px-1 text-frost font-serif font-semibold text-lead transition-colors duration-200 hover:text-blue translate-text"
+        class="px-1 text-frost font-serif font-semibold text-[28px] transition-colors duration-200 hover:text-blue translate-text"
       >
         {alternateLocaleUrl.label}
       </a>

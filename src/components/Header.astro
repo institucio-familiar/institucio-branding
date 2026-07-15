@@ -32,12 +32,12 @@ const t = useTranslations(locale)
   </header>
 
   <div
-    class="absolute top-4 right-indent flex items-center gap-4 md:top-8"
+    class="absolute top-[26px] md:top-[34px] right-indent flex items-center gap-4"
     data-header-actions
   >
     <Button
       variant="secondary-white"
-      class="header-help"
+      class="header-help hidden md:block"
       href={`mailto:${HELP_EMAIL}`}
     >
       {t('header.needHelp')}

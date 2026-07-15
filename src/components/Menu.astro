@@ -60,7 +60,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   </div>
   <div
     id="menu-content"
-    class="absolute top-0 left-0 h-dvh w-screen pt-[160px] md:pt-0 -z-1 flex md:items-center justify-between opacity-0"
+    class="absolute top-0 left-0 h-dvh w-screen pt-[120px] md:pt-0 -z-1 flex md:items-center justify-between opacity-0"
   >
     <div id="menu-items" class="p-indent">
       <ul class="flex flex-col gap-4">
@@ -83,7 +83,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
                       type="button"
                       data-menu-submenu-trigger
                       aria-expanded="false"
-                      class="block cursor-pointer border-0 bg-transparent p-0"
+                      class="block cursor-pointer border-0 bg-transparent p-0 text-left"
                     >
                       <span class="text-white text-headline-menu uppercase hover:text-blue transition-colors duration-200">
                         {t(item.key)}
@@ -93,7 +93,10 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
                       id="mobile-submenu-wrapper"
                       class="overflow-hidden h-0"
                     >
-                      <ul id="mobile-submenu" class="flex flex-col gap-4 pt-4">
+                      <ul
+                        id="mobile-submenu"
+                        class="grid grid-cols-2 gap-4 pt-4"
+                      >
                         {SUBMENU_ITEMS.map((subItem) => (
                           <li>
                             <a
