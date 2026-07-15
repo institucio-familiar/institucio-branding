@@ -68,12 +68,12 @@ const hasContent = images.length > 0
 
 <style>
   [data-home-slides-stack] {
-    height: calc(max(var(--slides-count), 2) * 100svh);
+    height: calc(max(var(--slides-count), 2) * 400svh);
   }
 
   .slides-card {
     will-change: transform;
-    transform-origin: center bottom;
+    transform-origin: top center;
   }
 </style>
 
@@ -92,8 +92,8 @@ const hasContent = images.length > 0
     const cards = [...section.querySelectorAll('[data-slides-card]')]
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
 
-    const STACK_OFFSET = 14
-    const SCALE_STEP = 0.035
+    const SCALE_STEP = 0.1
+    const STACK_SCALE = 1 - SCALE_STEP
     const CARD_DURATION = 1
     const COLUMN_GAP = 16
 
@@ -103,16 +103,6 @@ const hasContent = images.length > 0
     }
 
     const getColumnY = (index: number) => index * getColumnSpacing()
-
-    const getStackY = (cardIndex: number, topCardIndex: number) => {
-      if (cardIndex > topCardIndex) return getColumnY(cardIndex)
-      return (cardIndex - topCardIndex) * STACK_OFFSET
-    }
-
-    const getStackScale = (cardIndex: number, topCardIndex: number) => {
-      if (cardIndex > topCardIndex) return 1
-      return 1 - (topCardIndex - cardIndex) * SCALE_STEP
-    }
 
     if (sticky && cards.length > 0) {
       cards.forEach((card, index) => {
@@ -134,30 +124,38 @@ const hasContent = images.length > 0
       })
 
       for (let index = 1; index < cards.length; index++) {
-        const card = cards[index]
-
         timeline.to(
-          card,
+          cards[index],
           {
-            y: () => getStackY(index, index),
-            scale: () => getStackScale(index, index),
-            ease: 'power2.out',
+            y: 32,
+            scale: 1,
+            ease: 'none',
             duration: CARD_DURATION
           },
           index === 1 ? 0 : '>'
         )
 
-        for (let previousIndex = 0; previousIndex < index; previousIndex++) {
-          const previousCard = cards[previousIndex]
+        timeline.to(
+          cards[index - 1],
+          {
+            y: 0,
+            scale: STACK_SCALE,
+            ease: 'none',
+            duration: CARD_DURATION
+          },
+          '<'
+        )
+
+        if (index === cards.length - 1) {
           timeline.to(
-            previousCard,
+            cards[index],
             {
-              y: () => getStackY(previousIndex, index),
-              scale: () => getStackScale(previousIndex, index),
-              ease: 'power2.out',
+              y: 0,
+              scale: STACK_SCALE,
+              ease: 'none',
               duration: CARD_DURATION
             },
-            '<'
+            '>'
           )
         }
       }
