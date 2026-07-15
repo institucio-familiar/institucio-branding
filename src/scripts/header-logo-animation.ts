@@ -3,7 +3,6 @@ import { $scroll } from '@/scripts/stores/scroll'
 
 const FIRST_LETTER_VIEWBOX_WIDTH = 248
 const FULL_VIEWBOX = '0 0 1173 436'
-const COMPACT_VIEWBOX = `0 0 ${FIRST_LETTER_VIEWBOX_WIDTH} 436`
 const FIRST_LETTER_RATIO = FIRST_LETTER_VIEWBOX_WIDTH / 1173
 const ESCUDO_FULL_VIEWBOX = '0 0 23 35'
 const ESCUDO_VIEWBOX_PADDING = 0.75
@@ -135,9 +134,8 @@ function setFullState(logo: LogoElements) {
   })
   gsap.set(trailingLetters, {
     autoAlpha: 1,
-    clearProps: 'opacity,visibility,display'
+    clearProps: 'opacity,visibility'
   })
-  trailingLetters.forEach((letter) => letter.removeAttribute('display'))
 
   gsap.set(logo.escudoSvg, {
     attr: { viewBox: ESCUDO_FULL_VIEWBOX },
@@ -145,15 +143,14 @@ function setFullState(logo: LogoElements) {
     transformOrigin: '50% 100%'
   })
   gsap.set(logo.escudoWrap, { y: 0, clearProps: 'transform' })
-  gsap.set(logo.nombreWrap, { clearProps: 'paddingLeft' })
+  gsap.set(logo.nombreWrap, { width: 'auto', clearProps: 'width,paddingLeft' })
   if (escudoBottomBar) {
     gsap.set(escudoBottomBar, { y: 0, clearProps: 'transform' })
   }
   gsap.set(escudoPathsToHide, {
     autoAlpha: 1,
-    clearProps: 'opacity,visibility,display'
+    clearProps: 'opacity,visibility'
   })
-  escudoPathsToHide.forEach((path) => path.removeAttribute('display'))
 }
 
 function animateToFullState(
@@ -222,7 +219,6 @@ function animateToFullState(
   }
 
   if (escudoPathsToHide.length > 0) {
-    timeline.set(escudoPathsToHide, { display: 'block' }, 0.15)
     timeline.to(
       escudoPathsToHide,
       {
@@ -234,25 +230,15 @@ function animateToFullState(
   }
 
   timeline.to(
-    logo.nombreSvg,
-    {
-      attr: { viewBox: FULL_VIEWBOX },
-      width: fullWidth,
-      duration: 0.7
-    },
-    0.05
-  )
-
-  timeline.to(
     logo.nombreWrap,
     {
+      width: fullWidth,
       paddingLeft: fullMetrics.nombreWrapPadding,
       duration: 0.7
     },
     0.05
   )
 
-  timeline.set(trailingLetters, { display: 'block' }, 0.32)
   timeline.to(
     trailingLetters,
     {
@@ -300,13 +286,13 @@ function applyCompactState(
   ])
 
   if (!animate) {
-    gsap.set(trailingLetters, { autoAlpha: 0, display: 'none' })
-    gsap.set(logo.nombreWrap, { paddingLeft: 2 })
-    gsap.set(logo.nombreSvg, {
-      attr: { viewBox: COMPACT_VIEWBOX },
-      width: compactWidth
+    gsap.set(trailingLetters, { autoAlpha: 0 })
+    gsap.set(logo.nombreWrap, {
+      width: compactWidth,
+      paddingLeft: 2
     })
-    gsap.set(escudoPathsToHide, { autoAlpha: 0, display: 'none' })
+    gsap.set(logo.nombreSvg, { attr: { viewBox: FULL_VIEWBOX } })
+    gsap.set(escudoPathsToHide, { autoAlpha: 0 })
     gsap.set(logo.escudoSvg, {
       attr: { viewBox: escudoInnerViewBox },
       scale: escudoScale,
@@ -331,21 +317,10 @@ function applyCompactState(
     0
   )
 
-  timeline.set(trailingLetters, { display: 'none' }, 0.38)
-
-  timeline.to(
-    logo.nombreSvg,
-    {
-      attr: { viewBox: COMPACT_VIEWBOX },
-      width: compactWidth,
-      duration: 0.7
-    },
-    0.05
-  )
-
   timeline.to(
     logo.nombreWrap,
     {
+      width: compactWidth,
       paddingLeft: 2,
       duration: 0.7
     },
@@ -361,8 +336,6 @@ function applyCompactState(
       },
       0
     )
-
-    timeline.set(escudoPathsToHide, { display: 'none' }, 0.5)
   }
 
   timeline.to(
