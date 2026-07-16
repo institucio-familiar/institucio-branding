@@ -1,0 +1,52 @@
+---
+import type { SanityImageSource } from '@sanity/image-url'
+import { urlForImage } from '@/sanity/lib/image'
+
+interface Props {
+  images: SanityImageSource[]
+  text?: string
+}
+
+const { images, text } = Astro.props
+const hasContent = images.length > 0
+---
+
+{
+  hasContent && (
+    <section class="relative w-full bg-frost" data-home-slides-stack-sticky>
+      <div class="flex w-full flex-col items-center px-indent">
+        {images.map((image, index) => {
+          const isLast = index === images.length - 1
+
+          return (
+            <div
+              class="sticky top-0 flex h-svh w-full items-center justify-center"
+              style={`z-index: ${index + 1}`}
+            >
+              <div class="relative aspect-square w-[clamp(200px,50vw,700px)] overflow-hidden rounded-sm">
+                <img
+                  src={urlForImage(image).width(900).url()}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover"
+                />
+                {isLast && text && (
+                  <>
+                    <div
+                      class="pointer-events-none absolute inset-0 z-1 bg-black/40"
+                      aria-hidden="true"
+                    />
+                    <p class="text-white leading-[1.2] pointer-events-none absolute inset-0 z-2 flex items-center justify-center px-6 text-center font-serif text-[clamp(2rem,6vw,3.5rem)] font-semibold uppercase">
+                      {text}
+                    </p>
+                  </>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}

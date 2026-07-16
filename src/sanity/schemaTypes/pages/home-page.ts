@@ -116,12 +116,6 @@ export const homePage = defineType({
           validation: (rule) => rule.required().min(8).max(8)
         }),
         defineField({
-          name: 'video',
-          title: 'Video Rosa',
-          type: 'file',
-          validation: (rule) => rule.required()
-        }),
-        defineField({
           name: 'text_lines',
           title: 'Líneas de texto',
           type: 'object',

@@ -16,7 +16,7 @@ import HomeValuesSection from '@/components/HomeValuesSection.astro'
 import HomeAnimatedGrid from '@/components/HomeAnimatedGrid.astro'
 import HomeMissionSection from '@/components/HomeMissionSection.astro'
 import HomeTextFillSection from '@/components/HomeTextFillSection.astro'
-import HomeSlidesStackSection from '@/components/HomeSlidesStackSection.astro'
+import HomeSlidesStackStickySection from '@/components/HomeSlidesStackStickySection.astro'
 import HomeFinalMessageSection from '@/components/HomeFinalMessageSection.astro'
 
 const { locale: localeParam } = Astro.params
@@ -45,7 +45,6 @@ async function getPageData() {
     },
     carouselIllustrations: {
       images: sanityPageData?.carouselIllustrations?.images ?? [],
-      videoUrl: sanityPageData?.carouselIllustrations?.video?.asset?.url ?? '',
       textLines: {
         line1: toLocaleString(
           sanityPageData?.carouselIllustrations?.text_lines?.line1,
@@ -166,7 +165,6 @@ const pageData = await getPageData()
 
   <HomeCarouselIllustrationsSection
     images={pageData.carouselIllustrations.images}
-    videoUrl={pageData.carouselIllustrations.videoUrl}
     textLines={pageData.carouselIllustrations.textLines}
   />
 
@@ -187,7 +185,7 @@ const pageData = await getPageData()
 
   <HomeTextFillSection />
 
-  <HomeSlidesStackSection
+  <HomeSlidesStackStickySection
     images={pageData.slidesSection.images}
     text={pageData.slidesSection.text}
   />
@@ -215,7 +213,7 @@ const pageData = await getPageData()
         { x: '100%' },
         {
           x: '0%',
-          ease: 'power2.inOut',
+          ease: 'none',
           scrollTrigger: {
             trigger: sectionsBlock,
             start: 'top top',

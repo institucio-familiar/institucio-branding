@@ -18,10 +18,7 @@ const hasContent = images.length > 0
       data-home-slides-stack
       style={`--slides-count: ${images.length}`}
     >
-      <div
-        data-slides-sticky
-        class="relative flex h-dvh w-full items-center justify-center overflow-hidden px-indent"
-      >
+      <div class="sticky top-0 flex h-svh w-full items-center justify-center overflow-hidden px-indent">
         <div
           data-slides-stack
           class="slides-stack relative aspect-square w-[clamp(200px,50vw,700px)]"
@@ -88,14 +85,13 @@ const hasContent = images.length > 0
   if (section && !section.hasAttribute('data-slides-stack-init')) {
     section.setAttribute('data-slides-stack-init', '')
 
-    const sticky = section.querySelector('[data-slides-sticky]')
     const cards = [...section.querySelectorAll('[data-slides-card]')]
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
 
     const SCALE_STEP = 0.1
     const STACK_SCALE = 1 - SCALE_STEP
     const CARD_DURATION = 1
-    const COLUMN_GAP = 16
+    const COLUMN_GAP = 32
 
     const getColumnSpacing = () => {
       const cardHeight = cards[0]?.getBoundingClientRect().height ?? 300
@@ -104,21 +100,21 @@ const hasContent = images.length > 0
 
     const getColumnY = (index: number) => index * getColumnSpacing()
 
-    if (sticky && cards.length > 0) {
+    if (cards.length > 0) {
       cards.forEach((card, index) => {
         gsap.set(card, {
           y: getColumnY(index),
           scale: 1
         })
       })
+
+      // Native sticky (no GSAP pin) — avoids the fixed/pin-spacer jump with Lenis.
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
           end: 'bottom bottom',
           scrub: true,
-          pin: sticky,
-          anticipatePin: 1,
           invalidateOnRefresh: true
         }
       })

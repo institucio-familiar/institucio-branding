@@ -143,6 +143,10 @@ const hasContent = images.every(Boolean)
 
   gsap.registerPlugin(ScrollTrigger)
 
+  const NAVY = '#0b2449'
+  const FROST = '#eef3fd'
+  const BLUE = '#1469ff'
+
   const section = document.querySelector('[data-home-animated-grid]')
 
   if (section && !section.hasAttribute('data-animated-grid-init')) {
@@ -158,6 +162,36 @@ const hasContent = images.every(Boolean)
     const centerSlot = section.querySelector('[data-grid-center-slot]')
     const slotOrder = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+    const colorTriggers: ScrollTrigger[] = []
+
+    gsap.set(section, { backgroundColor: NAVY })
+
+    const animateBackground = (color: string) => {
+      gsap.to(section, {
+        backgroundColor: color,
+        duration: 0.6,
+        ease: 'power2.inOut',
+        overwrite: 'auto'
+      })
+    }
+
+    colorTriggers.push(
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 50%',
+        onEnter: () => animateBackground(FROST),
+        onLeaveBack: () => animateBackground(NAVY)
+      })
+    )
+
+    colorTriggers.push(
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'bottom 50%',
+        onEnter: () => animateBackground(BLUE),
+        onLeaveBack: () => animateBackground(FROST)
+      })
+    )
 
     const CLIP_ROUND = 5
     const CLIP_START = 16
@@ -284,6 +318,8 @@ const hasContent = images.every(Boolean)
     document.addEventListener(
       'swup:visit:start',
       () => {
+        colorTriggers.forEach((trigger) => trigger.kill())
+        gsap.killTweensOf(section)
         tweens.forEach((tween) => {
           tween.scrollTrigger?.kill()
           tween.kill()

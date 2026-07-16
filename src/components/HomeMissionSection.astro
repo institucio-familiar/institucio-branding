@@ -13,7 +13,7 @@ const hasContent = Boolean(text)
 {
   hasContent && (
     <section
-      class="relative w-full bg-blue px-indent"
+      class="relative w-full bg-frost px-indent"
       data-home-mission-section
     >
       <div
@@ -50,7 +50,7 @@ const hasContent = Boolean(text)
       </div>
 
       <Puncha
-        color="blue"
+        color="frost"
         class="absolute bottom-[0.5px] left-1/2 z-1 -translate-x-1/2 translate-y-full rotate-180"
       />
     </section>
@@ -76,6 +76,9 @@ const hasContent = Boolean(text)
 
   gsap.registerPlugin(ScrollTrigger)
 
+  const FROST = '#eef3fd'
+  const BLUE = '#1469ff'
+
   const section = document.querySelector('[data-home-mission-section]')
 
   if (section && !section.hasAttribute('data-mission-init')) {
@@ -84,7 +87,45 @@ const hasContent = Boolean(text)
     const sticky = section.querySelector('[data-mission-sticky]')
     const frameOrder = ['outer', 'middle', 'inner']
     const text = section.querySelector('[data-mission-text]')
+    const punchaPath = section.querySelector('svg path')
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
+
+    gsap.set(section, { backgroundColor: FROST })
+    if (punchaPath) {
+      gsap.set(punchaPath, { fill: FROST })
+    }
+
+    const colorTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 50%',
+        toggleActions: 'play none none reverse'
+      }
+    })
+
+    colorTimeline.to(
+      section,
+      {
+        backgroundColor: BLUE,
+        duration: 0.6,
+        ease: 'power2.inOut'
+      },
+      0
+    )
+
+    if (punchaPath) {
+      colorTimeline.to(
+        punchaPath,
+        {
+          fill: BLUE,
+          duration: 0.6,
+          ease: 'power2.inOut'
+        },
+        0
+      )
+    }
+
+    tweens.push(colorTimeline)
 
     if (sticky) {
       const frames = frameOrder
