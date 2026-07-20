@@ -6,15 +6,20 @@ interface Props {
   'aria-current'?: 'location' | undefined
 }
 
-const { targetId, href, class: className, 'aria-current': ariaCurrent } =
-  Astro.props
+const {
+  targetId,
+  href,
+  class: className,
+  'aria-current': ariaCurrent
+} = Astro.props
 ---
 
 <a
+  data-no-swup
+  data-scroll-to-button
   href={href}
   class={className}
   aria-current={ariaCurrent}
-  data-scroll-to-button
   data-target-id={targetId}
 >
   <slot />
@@ -23,6 +28,32 @@ const { targetId, href, class: className, 'aria-current': ariaCurrent } =
 <script>
   import { Scroll } from '@/scripts/classes/Scroll'
   import { getNavHeight } from '@/scripts/utils/nav-height'
+
+  function scrollToTarget(targetId: string) {
+    Scroll.scrollTo(`#${targetId}`, { offset: -getNavHeight() })
+  }
+
+  let historyScrollScheduled = false
+
+  function scrollFromLocationHash() {
+    if (historyScrollScheduled) return
+    historyScrollScheduled = true
+
+    // Double rAF: let Lenis settle after history navigation before scrolling.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        historyScrollScheduled = false
+
+        const hash = location.hash.slice(1)
+        if (!hash) {
+          Scroll.scrollTo(0)
+          return
+        }
+
+        Scroll.scrollToHash()
+      })
+    })
+  }
 
   document
     .querySelectorAll<HTMLAnchorElement>('[data-scroll-to-button]')
@@ -38,9 +69,10 @@ const { targetId, href, class: className, 'aria-current': ariaCurrent } =
           history.pushState(null, '', href)
         }
 
-        const navHeight = getNavHeight()
-
-        Scroll.scrollTo(`#${targetId}`, { offset: -navHeight })
+        scrollToTarget(targetId)
       })
     })
+
+  window.addEventListener('popstate', scrollFromLocationHash)
+  window.addEventListener('hashchange', scrollFromLocationHash)
 </script>

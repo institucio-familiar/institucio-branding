@@ -1,4 +1,4 @@
-// import { Transitions } from '@/scripts/classes/Transitions'
+import { Transitions } from '@/scripts/classes/Transitions'
 import { Scroll } from '@/scripts/classes/Scroll'
 import { setupRevealInView } from '@/scripts/reveal-in-view'
 
