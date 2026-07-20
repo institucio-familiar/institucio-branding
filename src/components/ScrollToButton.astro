@@ -55,24 +55,31 @@ const {
     })
   }
 
-  document
-    .querySelectorAll<HTMLAnchorElement>('[data-scroll-to-button]')
-    .forEach((button) => {
-      button.addEventListener('click', (event) => {
-        event.preventDefault()
+  function onScrollToButtonClick(event: MouseEvent) {
+    const target = event.target
+    if (!(target instanceof Element)) return
 
-        const targetId = button.dataset.targetId
-        if (!targetId) return
+    const button = target.closest<HTMLAnchorElement>('[data-scroll-to-button]')
+    if (!button) return
 
-        const href = button.getAttribute('href')
-        if (href) {
-          history.pushState(null, '', href)
-        }
+    event.preventDefault()
 
-        scrollToTarget(targetId)
-      })
-    })
+    const targetId = button.dataset.targetId
+    if (!targetId) return
 
-  window.addEventListener('popstate', scrollFromLocationHash)
-  window.addEventListener('hashchange', scrollFromLocationHash)
+    // Keep the current path (trailing-slash style included) so pushState never
+    // triggers a real navigation when menu links use `/page/` and anchors differ.
+    history.pushState(null, '', `${location.pathname}${location.search}#${targetId}`)
+    scrollToTarget(targetId)
+  }
+
+  // Document delegation survives Swup content replaces; Astro module scripts
+  // do not re-run for the same URL after the first evaluation.
+  const root = window as Window & { __scrollToButtonBound?: boolean }
+  if (!root.__scrollToButtonBound) {
+    root.__scrollToButtonBound = true
+    document.addEventListener('click', onScrollToButtonClick)
+    window.addEventListener('popstate', scrollFromLocationHash)
+    window.addEventListener('hashchange', scrollFromLocationHash)
+  }
 </script>

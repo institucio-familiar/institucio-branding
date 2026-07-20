@@ -3,8 +3,8 @@ import { Scroll } from '@/scripts/classes/Scroll'
 import { setupRevealInView } from '@/scripts/reveal-in-view'
 
 // Initialize the Transitions class
-// const transitions = new Transitions()
-// transitions.init()
+const transitions = new Transitions()
+transitions.init()
 
 // Initialize the Scroll class
 Scroll.init()

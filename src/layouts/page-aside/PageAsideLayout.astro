@@ -19,6 +19,7 @@ interface Props {
 const { sections, basePath } = Astro.props
 const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const sectionIds = sections.map((section) => section.id)
+const pageHref = getRelativeLocaleUrl(locale, basePath)
 ---
 
 <div class="relative bg-white">
@@ -49,7 +50,7 @@ const sectionIds = sections.map((section) => section.id)
             sections.map((section, index) => (
               <ScrollToButton
                 targetId={section.id}
-                href={getRelativeLocaleUrl(locale, `${basePath}#${section.id}`)}
+                href={`${pageHref}#${section.id}`}
                 class:list={[
                   'text-navy hover:text-body-bold',
                   index === 0 ? 'text-body-bold' : 'text-body'
@@ -74,7 +75,7 @@ const sectionIds = sections.map((section) => section.id)
 
   function initAsideNav(nav: HTMLElement) {
     const sectionIds = JSON.parse(nav.dataset.sectionIds ?? '[]') as string[]
-    if (sectionIds.length === 0) return
+    if (sectionIds.length === 0) return () => {}
 
     const arrow = nav.querySelector<HTMLElement>('[data-aside-arrow]')
     const links = nav.querySelectorAll<HTMLAnchorElement>(
@@ -184,34 +185,54 @@ const sectionIds = sections.map((section) => section.id)
       if (element) observer.observe(element)
     })
 
-    const hash = location.hash.slice(1)
-    if (hash && sectionIds.includes(hash)) {
-      setActive(hash, true)
+    const rawHash = location.hash.slice(1).replace(/\/+$/, '')
+    if (rawHash && sectionIds.includes(rawHash)) {
+      setActive(rawHash, true)
     } else {
       setActive(getActiveFromScroll(), true)
     }
 
+    function onLinkClick(event: Event) {
+      const link = event.currentTarget as HTMLAnchorElement
+      const id = link.dataset.targetId
+      if (id) setActive(id)
+    }
+
     links.forEach((link) => {
-      link.addEventListener('click', () => {
-        const id = link.dataset.targetId
-        if (id) setActive(id)
-      })
+      link.addEventListener('click', onLinkClick)
     })
 
     const resizeObserver = new ResizeObserver(() => moveArrow())
     resizeObserver.observe(nav)
 
-    window.addEventListener('resize', () => moveArrow())
+    const onResize = () => moveArrow()
+    window.addEventListener('resize', onResize)
     document.fonts?.ready.then(() => moveArrow())
 
-    $scroll.subscribe(({ scroll, limit }) => {
+    const unsubscribeScroll = $scroll.subscribe(({ scroll, limit }) => {
       if (limit > 0 && scroll >= limit - 2) {
         setActive(sectionIds[sectionIds.length - 1])
       }
     })
+
+    return () => {
+      observer.disconnect()
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', onResize)
+      links.forEach((link) => link.removeEventListener('click', onLinkClick))
+      unsubscribeScroll()
+    }
   }
 
-  document
-    .querySelectorAll<HTMLElement>('[data-aside-nav]')
-    .forEach(initAsideNav)
+  let cleanups: Array<() => void> = []
+
+  function mountAsideNavs() {
+    cleanups.forEach((cleanup) => cleanup())
+    cleanups = [
+      ...document.querySelectorAll<HTMLElement>('[data-aside-nav]')
+    ].map((nav) => initAsideNav(nav))
+  }
+
+  mountAsideNavs()
+  document.addEventListener('swup:content:replace', mountAsideNavs)
 </script>
