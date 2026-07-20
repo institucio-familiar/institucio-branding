@@ -34,7 +34,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   <div class="flex">
     <div
       id="menu-overlay"
-      class="bg-navy -z-1 absolute inset-0 h-dvh w-screen"
+      class="bg-navy -z-1 fixed inset-0"
       style="transform: translateY(-100%)"
     >
     </div>
@@ -60,7 +60,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   </div>
   <div
     id="menu-content"
-    class="absolute top-0 left-0 h-dvh w-screen pt-[120px] md:pt-0 -z-1 flex md:items-center justify-between opacity-0"
+    class="fixed inset-0 -z-1 flex justify-between pt-[120px] opacity-0 md:items-center md:pt-0"
   >
     <div id="menu-items" class="p-indent">
       <ul class="flex flex-col gap-4">
@@ -255,7 +255,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
 
     if (!value) {
       closeMobileSubmenu(false)
-      Scroll.start()
+      Scroll.unlock()
       animate(
         '#menu-overlay',
         // { opacity: 0, width: '10px' },
@@ -275,7 +275,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
       )
       animate('#submenu-items li', { opacity: 0 })
     } else {
-      Scroll.stop()
+      Scroll.lock()
       animate(
         '#menu-overlay',
         // { opacity: 1, width: '400vh' },

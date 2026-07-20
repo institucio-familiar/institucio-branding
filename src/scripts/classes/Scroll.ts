@@ -11,6 +11,32 @@ import LocomotiveScroll, {
 export class Scroll {
   static locomotiveScroll: LocomotiveScroll
 
+  private static inputLocked = false
+  private static previousVirtualScroll:
+    | ((data: {
+        deltaX: number
+        deltaY: number
+        event: WheelEvent | TouchEvent
+      }) => boolean)
+    | undefined
+
+  private static readonly scrollKeyBlocklist = new Set([
+    'ArrowUp',
+    'ArrowDown',
+    'PageUp',
+    'PageDown',
+    'Home',
+    'End',
+    ' ',
+    'Spacebar'
+  ])
+
+  private static onLockedKeydown = (event: KeyboardEvent) => {
+    if (this.scrollKeyBlocklist.has(event.key)) {
+      event.preventDefault()
+    }
+  }
+
   // =============================================================================
   // Lifecycle
   // =============================================================================
@@ -64,6 +90,48 @@ export class Scroll {
 
   static stop() {
     this.locomotiveScroll?.stop()
+  }
+
+  /**
+   * Block user scrolling without Lenis/Locomotive `stop()`.
+   *
+   * Lenis `stop()` adds `.lenis-stopped` → `overflow: clip` on <html>, which
+   * breaks CSS `position: sticky` (and mid-scrub ScrollTriggers on sticky
+   * sections). Locomotive `stop()` also tears down the GSAP custom ticker.
+   *
+   * Instead, reject virtual-scroll input and ignore scroll keys.
+   */
+  static lock() {
+    const lenis = this.locomotiveScroll?.lenisInstance
+    if (!lenis || this.inputLocked) return
+
+    this.inputLocked = true
+    this.previousVirtualScroll = lenis.options.virtualScroll
+
+    // Settle any in-flight smooth scroll at the current animated position
+    // without syncing to native scroll (that jump is what breaks scrub).
+    lenis.targetScroll = lenis.animatedScroll
+    ;(lenis as unknown as { animate: { stop: () => void } }).animate.stop()
+
+    lenis.options.virtualScroll = (data) => {
+      if (this.previousVirtualScroll?.(data) === false) return false
+      if (data.event.cancelable) data.event.preventDefault()
+      return false
+    }
+
+    window.addEventListener('keydown', this.onLockedKeydown, {
+      passive: false
+    })
+  }
+
+  static unlock() {
+    const lenis = this.locomotiveScroll?.lenisInstance
+    if (!lenis || !this.inputLocked) return
+
+    this.inputLocked = false
+    lenis.options.virtualScroll = this.previousVirtualScroll
+    this.previousVirtualScroll = undefined
+    window.removeEventListener('keydown', this.onLockedKeydown)
   }
 
   static addScrollElements(container: HTMLElement) {
