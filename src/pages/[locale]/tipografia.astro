@@ -12,6 +12,7 @@ import {
   toBadUses,
   toSectionWithAtom2Blocks
 } from '@/sanity/lib/page-parsers'
+import { slugify } from '@/src/lib/utils'
 import { Block9, Block5, Block8 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
@@ -94,12 +95,12 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'title', label: pageData.pageTitle },
-  { id: 'section2', label: t('tipografia.aside.section2') },
-  { id: 'section3', label: t('tipografia.aside.section3') },
-  { id: 'section4', label: t('tipografia.aside.section4') },
-  { id: 'section5', label: pageData.section5.title }
-]
+  pageData.pageTitle,
+  t('tipografia.aside.section2'),
+  t('tipografia.aside.section3'),
+  t('tipografia.aside.section4'),
+  pageData.section5.title
+].map((label) => ({ id: slugify(label), label }))
 ---
 
 <MainLayout>
@@ -110,7 +111,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 id="title" class="text-page-title">
+    <h1 id={asideSections[0].id} class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -156,7 +157,7 @@ const asideSections = [
         }
       </div>
     </Section>
-    <Section id="section2">
+    <Section id={asideSections[1].id}>
       <h2 class="text-headline-2 uppercase leading-[1.2]">
         {pageData.section2.title}
       </h2>
@@ -211,7 +212,7 @@ const asideSections = [
         )
       }
     </Section>
-    <Section id="section3" class="pb-16 md:pb-28">
+    <Section id={asideSections[2].id} class="pb-16 md:pb-28">
       <h2 class="text-headline-2 uppercase">
         {pageData.section3.title}
       </h2>
@@ -232,7 +233,7 @@ const asideSections = [
         }
       </div>
     </Section>
-    <Section id="section4" class="pb-16 md:pb-28">
+    <Section id={asideSections[3].id} class="pb-16 md:pb-28">
       <h2 class="text-headline-2 uppercase">
         {pageData.section4.title}
       </h2>
@@ -252,7 +253,7 @@ const asideSections = [
         }
       </div>
     </Section>
-    <Section id="section5" class="pb-12 md:pb-20">
+    <Section id={asideSections[4].id} class="pb-12 md:pb-20">
       <Block9
         title={pageData.section5.title}
         description={pageData.section5.description}

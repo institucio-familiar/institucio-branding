@@ -11,6 +11,7 @@ import {
   toMedias,
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
+import { slugify } from '@/src/lib/utils'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import Carousel from '@/components/Carousel.astro'
@@ -46,17 +47,17 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'title', label: pageData.pageTitle },
-  { id: 'section1', label: t('asi-hablamos.aside.section1') },
-  { id: 'section2', label: t('asi-hablamos.aside.section2') },
-  { id: 'section3', label: t('asi-hablamos.aside.section3') }
-]
+  pageData.pageTitle,
+  t('asi-hablamos.aside.section1'),
+  t('asi-hablamos.aside.section2'),
+  t('asi-hablamos.aside.section3')
+].map((label) => ({ id: slugify(label), label }))
 ---
 
 <MainLayout>
   <Hero media={pageData.heroMedia} title={pageData.pageTitle} />
 
-  <section id="title" class="relative bg-white px-indent">
+  <section id={asideSections[0].id} class="relative bg-white px-indent">
     <Puncha
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
@@ -77,7 +78,7 @@ const asideSections = [
     </Section>
     {
       pageData.section1 && (
-        <Section id="section1" class="py-4 pt-8 md:py-8 md:pt-16">
+        <Section id={asideSections[1].id} class="py-4 pt-8 md:py-8 md:pt-16">
           <h2 class="text-navy text-headline-2 uppercase">
             {pageData.section1.title}
           </h2>
@@ -101,7 +102,7 @@ const asideSections = [
     }
     {
       pageData.section2 && (
-        <Section id="section2" class="py-12 md:py-16">
+        <Section id={asideSections[2].id} class="py-12 md:py-16">
           <h2 class="text-navy text-headline-4 pb-8">
             {t('asi-hablamos.section2.title')}
           </h2>
@@ -125,7 +126,11 @@ const asideSections = [
     }
     {
       pageData.section3 && (
-        <Section id="section3" backgroundColor="bg-mist" class="py-12 md:py-20">
+        <Section
+          id={asideSections[3].id}
+          backgroundColor="bg-mist"
+          class="py-12 md:py-20"
+        >
           <h3 class="text-blue text-headline-4 md:text-headline-3 pb-10">
             {t('asi-hablamos.section3.title')}
           </h3>

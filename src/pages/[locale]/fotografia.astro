@@ -6,6 +6,7 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { FOTOGRAFIA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import { slugify } from '@/src/lib/utils'
 import {
   parsePageHeader,
   toAtom1Array,
@@ -32,9 +33,9 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'title', label: pageData.pageTitle },
-  { id: 'section2', label: 'Malos usos' }
-]
+  pageData.pageTitle,
+  pageData.section2.title
+].map((label) => ({ id: slugify(label), label }))
 ---
 
 <MainLayout>
@@ -45,7 +46,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 id="title" class="text-page-title">
+    <h1 id={asideSections[0].id} class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -81,7 +82,7 @@ const asideSections = [
         </Section>
       )
     }
-    <Section id="section2" class="pb-12 md:pb-20">
+    <Section id={asideSections[1].id} class="pb-12 md:pb-20">
       <Block9
         title={pageData.section2.title}
         description={pageData.section2.description}

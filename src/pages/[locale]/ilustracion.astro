@@ -16,6 +16,7 @@ import { Block1, Block4, Block7, Block9 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { toLocaleString } from '@/sanity/lib/page-parsers'
+import { slugify } from '@/src/lib/utils'
 import PromptInstructions from '@/components/PromptInstructions.astro'
 import { useTranslations } from '@/i18n/ui'
 
@@ -133,16 +134,16 @@ const colorRows = colorRowSizes.map((size) => {
 
 // TESTINGAL > Menu
 const asideSections = [
-  { id: 'title', label: pageData.pageTitle },
-  { id: 'section1', label: pageData.section1.title },
-  { id: 'section2', label: pageData.section2?.title || '' }, // TESTINGAL > Avoid this from being null
-  { id: 'section3', label: pageData.section3?.title || '' }, // TESTINGAL > Avoid this from being null
-  { id: 'section4', label: pageData.section4?.title || '' }, // TESTINGAL > Avoid this from being null
-  { id: 'section5', label: pageData.section5.title },
-  { id: 'section6', label: pageData.section6?.title || '' }, // TESTINGAL > Avoid this from being null
-  { id: 'section7', label: pageData.section7.title },
-  { id: 'section8', label: pageData.section8.title }
-]
+  pageData.pageTitle,
+  pageData.section1.title,
+  pageData.section2?.title || '', // TESTINGAL > Avoid this from being null
+  pageData.section3?.title || '', // TESTINGAL > Avoid this from being null
+  pageData.section4?.title || '', // TESTINGAL > Avoid this from being null
+  pageData.section5.title,
+  pageData.section6?.title || '', // TESTINGAL > Avoid this from being null
+  pageData.section7.title,
+  pageData.section8.title
+].map((label) => ({ id: slugify(label), label }))
 ---
 
 <MainLayout>
@@ -153,7 +154,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 id="title" class="text-page-title">
+    <h1 id={asideSections[0].id} class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -171,7 +172,7 @@ const asideSections = [
         </Section>
       )
     }
-    <Section id="section1" class="pb-16 md:pb-28">
+    <Section id={asideSections[1].id} class="pb-16 md:pb-28">
       <h3 class="text-headline-2 uppercase">{pageData.section1.title}</h3>
       <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
         {pageData.section1.description}
@@ -201,7 +202,7 @@ const asideSections = [
 
     {
       pageData.section2 && pageData.section2.media && (
-        <Section id="section2" class="pb-10 md:pb-20">
+        <Section id={asideSections[2].id} class="pb-10 md:pb-20">
           <Block7
             title={pageData.section2.title}
             description={pageData.section2.description}
@@ -212,7 +213,7 @@ const asideSections = [
     }
     {
       pageData.section3 && pageData.section3.media && (
-        <Section id="section3" class="pb-10 md:pb-20">
+        <Section id={asideSections[3].id} class="pb-10 md:pb-20">
           <Block7
             title={pageData.section3.title}
             description={pageData.section3.description}
@@ -223,7 +224,7 @@ const asideSections = [
     }
     {
       pageData.section4 && pageData.section4.media && (
-        <Section id="section4" class="pb-10 md:pb-20">
+        <Section id={asideSections[4].id} class="pb-10 md:pb-20">
           <Block7
             title={pageData.section4.title}
             description={pageData.section4.description}
@@ -235,7 +236,7 @@ const asideSections = [
 
     {
       pageData.section5 && (
-        <Section id="section5" class="pb-16 md:pb-28">
+        <Section id={asideSections[5].id} class="pb-16 md:pb-28">
           <h3 class="text-headline-2 uppercase">{pageData.section5.title}</h3>
           <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
             {pageData.section5.description}
@@ -252,7 +253,7 @@ const asideSections = [
 
     {
       pageData.section6 && pageData.section6.media && (
-        <Section id="section6" class="pb-16 md:pb-28">
+        <Section id={asideSections[6].id} class="pb-16 md:pb-28">
           <Block7
             title={pageData.section6.title}
             description={pageData.section6.description}
@@ -262,7 +263,7 @@ const asideSections = [
       )
     }
 
-    <Section id="section7" class="pb-16 md:pb-28">
+    <Section id={asideSections[7].id} class="pb-16 md:pb-28">
       <h3 class="text-headline-2 uppercase">{pageData.section7.title}</h3>
       <p class="text-body pt-2 pb-8 md:pt-4 md:pb-16 max-w-4xl">
         {pageData.section7.description}
@@ -280,7 +281,7 @@ const asideSections = [
       }
     </Section>
 
-    <Section id="section8" class="pb-12 md:pb-20">
+    <Section id={asideSections[8].id} class="pb-12 md:pb-20">
       <Block9
         title={pageData.section8.title}
         description={pageData.section8.description}

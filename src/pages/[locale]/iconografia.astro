@@ -6,6 +6,7 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { ICONOGRAFIA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import { slugify } from '@/src/lib/utils'
 import {
   parsePageHeader,
   toAtom1,
@@ -29,7 +30,11 @@ async function getPageData() {
   return {
     ...parsePageHeader(sanityPageData, locale),
     introMedia: toMedia(sanityPageData?.intro?.media),
-    section1: toAtom1(sanityPageData?.section1, locale),
+    section1: toAtom1(sanityPageData?.section1, locale) || {
+      title: '',
+      description: '',
+      media: null
+    },
     section2: toSectionWithAtom1Blocks(sanityPageData?.section2, locale),
     section3: toBadUses(sanityPageData?.section3, locale)
   }
@@ -38,11 +43,11 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'title', label: pageData.pageTitle },
-  { id: 'section1', label: pageData.section1?.title || '' }, // TESTINGAL > Typescript > Avoid this from being null
-  { id: 'section2', label: pageData.section2.title },
-  { id: 'section3', label: pageData.section3.title }
-]
+  pageData.pageTitle,
+  pageData.section1.title,
+  pageData.section2.title,
+  pageData.section3.title
+].map((label) => ({ id: slugify(label), label }))
 ---
 
 <MainLayout>
@@ -53,7 +58,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 id="title" class="text-page-title">
+    <h1 id={asideSections[0].id} class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -115,7 +120,7 @@ const asideSections = [
     </Section>
     {
       pageData.section1 && pageData.section1.media && (
-        <Section id="section1" class="pb-12 md:pb-20">
+        <Section id={asideSections[1].id} class="pb-12 md:pb-20">
           <Block7
             title={pageData.section1.title}
             description={pageData.section1.description}
@@ -126,7 +131,7 @@ const asideSections = [
     }
     {
       pageData.section2 && (
-        <Section id="section2" class="pb-16 md:pb-28">
+        <Section id={asideSections[2].id} class="pb-16 md:pb-28">
           <h3 class="text-headline-2 uppercase">{pageData.section2.title}</h3>
           <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
             {pageData.section2.description}
@@ -147,7 +152,7 @@ const asideSections = [
         </Section>
       )
     }
-    <Section id="section3" class="pb-12 md:pb-20">
+    <Section id={asideSections[3].id} class="pb-12 md:pb-20">
       <Block9
         title={pageData.section3.title}
         description={pageData.section3.description}

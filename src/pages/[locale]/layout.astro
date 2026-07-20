@@ -6,6 +6,7 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { LAYOUT_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
+import { slugify } from '@/src/lib/utils'
 import {
   parsePageHeader,
   toAtom1,
@@ -76,12 +77,12 @@ async function getPageData() {
 const pageData = await getPageData()
 
 const asideSections = [
-  { id: 'title', label: pageData.pageTitle },
-  { id: 'section1', label: pageData.section1.title },
-  { id: 'section2', label: pageData.section2.title },
-  { id: 'section3', label: pageData.section3?.title || '' }, // TESTINGAL > Avoid this from being null
-  { id: 'section4', label: pageData.section4.title }
-]
+  pageData.pageTitle,
+  pageData.section1.title,
+  pageData.section2.title,
+  pageData.section3.title,
+  pageData.section4.title
+].map((label) => ({ id: slugify(label), label }))
 ---
 
 <MainLayout>
@@ -92,7 +93,7 @@ const asideSections = [
       color="white"
       class="absolute top-[0.5px] left-1/2 -translate-x-1/2 -translate-y-full"
     />
-    <h1 id="title" class="text-page-title">
+    <h1 id={asideSections[0].id} class="text-page-title">
       {pageData.pageTitle}
     </h1>
   </section>
@@ -116,7 +117,7 @@ const asideSections = [
     }
     {
       pageData.section1 && (
-        <Section id="section1" class="pb-16 md:pb-28">
+        <Section id={asideSections[1].id} class="pb-16 md:pb-28">
           <h3 class="text-headline-2 uppercase">{pageData.section1.title}</h3>
           <p class="text-body pt-2 pb-6 md:pt-4 md:pb-8 max-w-4xl">
             {pageData.section1.description}
@@ -131,7 +132,7 @@ const asideSections = [
     }
     {
       pageData.section2 && pageData.section2.mediaAsset && (
-        <Section id="section2" class="pb-16 md:pb-28">
+        <Section id={asideSections[2].id} class="pb-16 md:pb-28">
           <Block7
             title={pageData.section2.title}
             description={pageData.section2.description}
@@ -157,7 +158,7 @@ const asideSections = [
 
     {
       pageData.section3 && pageData.section3.media && (
-        <Section id="section3" class="pb-16 md:pb-28">
+        <Section id={asideSections[3].id} class="pb-16 md:pb-28">
           <Block7
             title={pageData.section3.title}
             description={pageData.section3.description}
@@ -166,7 +167,7 @@ const asideSections = [
         </Section>
       )
     }
-    <Section id="section4" class="pb-12 md:pb-20">
+    <Section id={asideSections[4].id} class="pb-12 md:pb-20">
       <Block9
         title={pageData.section4.title}
         description={pageData.section4.description}

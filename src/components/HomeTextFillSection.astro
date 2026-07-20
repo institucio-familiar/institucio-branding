@@ -132,9 +132,10 @@ import Mask from '@/components/ui/Mask.astro'
       const videoClipTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: videoClip,
-          start: 'top 72%',
-          end: 'center 45%',
+          start: 'top 82%',
+          end: 'center 55%',
           scrub: true
+          // markers: true
         }
       })
 
@@ -162,7 +163,7 @@ import Mask from '@/components/ui/Mask.astro'
             ease: 'none',
             scrollTrigger: {
               trigger: imageZoom,
-              start: 'top 85%',
+              start: 'top 72%',
               end: 'center 45%',
               scrub: true
             }
@@ -220,9 +221,10 @@ import Mask from '@/components/ui/Mask.astro'
         scrollTrigger: {
           trigger: section,
           start: 'top 28%',
-          end: 'bottom 68%',
+          end: 'bottom 85%',
           scrub: true,
           invalidateOnRefresh: true
+          // markers: true
         }
       })
 
