@@ -15,11 +15,11 @@ const { image1, image2, text1, text2 } = Astro.props
 ---
 
 <section class="relative bg-white" data-home-tile-grid>
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-1 md:grid-cols-2">
     {
       image1 && (
-        <div data-tile-grid-mask data-origin="top-left" class="w-full">
-          <Mask type="tibo" class="w-full mb-[-3.6vw]">
+        <div data-tile-grid-mask data-origin="top-left" class="order-1 w-full">
+          <Mask type="tibo" class="w-full md:mb-[-3.6vw]">
             <MediaAsset media={image1} />
           </Mask>
         </div>
@@ -27,19 +27,23 @@ const { image1, image2, text1, text2 } = Astro.props
     }
     <p
       data-tile-grid-text
-      class="text-navy text-headline-2 flex items-center justify-center text-center uppercase"
+      class="order-2 aspect-[273.27/345] text-navy text-headline-2 flex items-center justify-center text-center uppercase"
     >
       {text1}
     </p>
     <p
       data-tile-grid-text
-      class="text-navy text-headline-2 flex items-center justify-center text-center uppercase"
+      class="order-4 md:order-3 aspect-[273.27/345] text-navy text-headline-2 flex items-center justify-center text-center uppercase"
     >
       {text2}
     </p>
     {
       image2 && (
-        <div data-tile-grid-mask data-origin="top-right" class="w-full">
+        <div
+          data-tile-grid-mask
+          data-origin="top-right"
+          class="order-3 md:order-4 w-full"
+        >
           <Mask type="tibo" class="w-full">
             <MediaAsset media={image2} />
           </Mask>

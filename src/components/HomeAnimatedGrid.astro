@@ -14,6 +14,14 @@ const { image1, image2, image3, image4, image5 } = Astro.props
 
 const images = [image1, image2, image3, image4, image5]
 const hasContent = images.every(Boolean)
+
+const mobileAspects = [
+  'aspect-video',
+  'aspect-4/3',
+  'aspect-video',
+  'aspect-4/3',
+  'aspect-video'
+] as const
 ---
 
 {
@@ -23,7 +31,22 @@ const hasContent = images.every(Boolean)
       data-home-animated-grid
       data-header-theme="light"
     >
-      <div data-animated-grid-sticky class="relative min-h-svh w-full">
+      {/* Mobile: static 1-column grid */}
+      <div class="grid grid-cols-1 gap-2 p-2 md:hidden">
+        {images.map((image, index) => (
+          <div
+            class:list={[
+              'w-full overflow-hidden rounded-sm',
+              mobileAspects[index]
+            ]}
+          >
+            <MediaAsset media={image!} />
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: animated sticky grid */}
+      <div data-animated-grid-sticky class="relative hidden min-h-svh w-full md:block">
         <div
           data-grid-center-media
           class="pointer-events-none absolute inset-0 z-0"
@@ -35,7 +58,7 @@ const hasContent = images.every(Boolean)
         </div>
 
         <div class="relative z-10 flex min-h-svh w-full items-center px-[9vw] py-2">
-          <div class="animated-grid grid w-full aspect-1190/765 max-w-7xl grid-cols-1 gap-2 md:grid-cols-3 p-2">
+          <div class="animated-grid grid w-full aspect-1190/765 max-w-7xl grid-cols-3 gap-2 p-2">
             <div class="animated-grid-column flex flex-col items-end gap-2">
               <div
                 data-grid-item
@@ -99,8 +122,10 @@ const hasContent = images.every(Boolean)
 }
 
 <style>
-  [data-home-animated-grid] {
-    height: 400svh;
+  @media (min-width: 768px) {
+    [data-home-animated-grid] {
+      height: 400svh;
+    }
   }
 
   [data-grid-center-media] {
@@ -146,6 +171,7 @@ const hasContent = images.every(Boolean)
   const NAVY = '#0b2449'
   const FROST = '#eef3fd'
   const BLUE = '#1469ff'
+  const MD_QUERY = '(min-width: 768px)'
 
   const section = document.querySelector('[data-home-animated-grid]')
 
@@ -193,66 +219,70 @@ const hasContent = images.every(Boolean)
       })
     )
 
-    const CLIP_ROUND = 5
-    const CLIP_START = 16
+    if (window.matchMedia(MD_QUERY).matches && sticky) {
+      const CLIP_ROUND = 5
+      const CLIP_START = 16
 
-    type ClipInsets = {
-      top: number
-      right: number
-      bottom: number
-      left: number
-      round: number
-    }
-
-    let targetClip: ClipInsets = {
-      top: CLIP_START,
-      right: CLIP_START,
-      bottom: CLIP_START,
-      left: CLIP_START,
-      round: CLIP_ROUND
-    }
-
-    function measureTargetClip(): ClipInsets {
-      if (!centerMedia || !centerSlot) {
-        return targetClip
+      type ClipInsets = {
+        top: number
+        right: number
+        bottom: number
+        left: number
+        round: number
       }
 
-      const mediaRect = centerMedia.getBoundingClientRect()
-      const slotRect = centerSlot.getBoundingClientRect()
-
-      return {
-        top: Math.max(0, slotRect.top - mediaRect.top),
-        right: Math.max(0, mediaRect.right - slotRect.right),
-        bottom: Math.max(0, mediaRect.bottom - slotRect.bottom),
-        left: Math.max(0, slotRect.left - mediaRect.left),
+      let targetClip: ClipInsets = {
+        top: CLIP_START,
+        right: CLIP_START,
+        bottom: CLIP_START,
+        left: CLIP_START,
         round: CLIP_ROUND
       }
-    }
 
-    function applyCenterClip(progress: number) {
-      if (!centerMedia) return
+      function measureTargetClip(): ClipInsets {
+        if (!centerMedia || !centerSlot) {
+          return targetClip
+        }
 
-      const top = gsap.utils.interpolate(CLIP_START, targetClip.top, progress)
-      const right = gsap.utils.interpolate(
-        CLIP_START,
-        targetClip.right,
-        progress
-      )
-      const bottom = gsap.utils.interpolate(
-        CLIP_START,
-        targetClip.bottom,
-        progress
-      )
-      const left = gsap.utils.interpolate(CLIP_START, targetClip.left, progress)
+        const mediaRect = centerMedia.getBoundingClientRect()
+        const slotRect = centerSlot.getBoundingClientRect()
 
-      centerMedia.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round ${CLIP_ROUND}px)`
-    }
+        return {
+          top: Math.max(0, slotRect.top - mediaRect.top),
+          right: Math.max(0, mediaRect.right - slotRect.right),
+          bottom: Math.max(0, mediaRect.bottom - slotRect.bottom),
+          left: Math.max(0, slotRect.left - mediaRect.left),
+          round: CLIP_ROUND
+        }
+      }
 
-    function refreshClipTarget() {
-      targetClip = measureTargetClip()
-    }
+      function applyCenterClip(progress: number) {
+        if (!centerMedia) return
 
-    if (sticky) {
+        const top = gsap.utils.interpolate(CLIP_START, targetClip.top, progress)
+        const right = gsap.utils.interpolate(
+          CLIP_START,
+          targetClip.right,
+          progress
+        )
+        const bottom = gsap.utils.interpolate(
+          CLIP_START,
+          targetClip.bottom,
+          progress
+        )
+        const left = gsap.utils.interpolate(
+          CLIP_START,
+          targetClip.left,
+          progress
+        )
+
+        centerMedia.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round ${CLIP_ROUND}px)`
+      }
+
+      function refreshClipTarget() {
+        targetClip = measureTargetClip()
+      }
+
       refreshClipTarget()
 
       const clipProgress = { value: 0 }

@@ -126,9 +126,15 @@ const hasFirstMessage = Boolean(firstMessage?.text)
 
 <style>
   .final-message-icon {
-    width: 160vw;
+    width: 240vw;
     aspect-ratio: 2161 / 445;
     will-change: transform;
+  }
+
+  @media (min-width: 768px) {
+    .final-message-icon {
+      width: 160vw;
+    }
   }
 
   [data-final-message-first-text],

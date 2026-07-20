@@ -14,7 +14,7 @@
 
 /* 128px */
 @utility text-headline-1 {
-  font-size: clamp(64px, 10vw, var(--text-title));
+  font-size: clamp(50px, 10vw, var(--text-title));
   font-family: var(--font-serif);
   font-weight: 600;
   font-style: normal;
