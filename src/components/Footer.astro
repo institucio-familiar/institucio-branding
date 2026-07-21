@@ -1,5 +1,6 @@
 ---
 import ColegioNombre from '@/components/icons/ColegioNombre.astro'
+import Puncha from '@/components/icons/Puncha.astro'
 import Icon from '@/components/ui/Icon.astro'
 import { useTranslations } from '@/i18n/ui'
 import { getPageLocale } from '@/i18n/utils'
@@ -9,9 +10,13 @@ const t = useTranslations(locale)
 ---
 
 <footer
-  class="bg-blue p-indent pt-indent-2 md:pt-indent"
+  class="relative bg-blue p-indent pt-indent-2 md:pt-indent"
   data-header-theme="light"
 >
+  <Puncha
+    color="white"
+    class="absolute top-[-0.5px] left-1/2 -translate-x-1/2 rotate-180"
+  />
   <div class="flex flex-col items-center gap-18 md:gap-8">
     <div class="flex items-center self-end gap-2">
       <button

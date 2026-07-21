@@ -3,8 +3,6 @@ import iconSection from '@/assets/svgs/icon_section.svg'
 import MediaAsset from '@/components/MediaAsset.astro'
 import Mask from '@/components/ui/Mask.astro'
 import type { Media } from '@/components/ui/blocks/block-types'
-import Puncha from '@/components/icons/Puncha.astro'
-
 interface Props {
   firstMessage: {
     text: string
@@ -114,10 +112,6 @@ const hasFirstMessage = Boolean(firstMessage?.text)
           loading="lazy"
         />
       </div>
-      <Puncha
-        color="white"
-        class="absolute bottom-[0.5px] left-1/2 -translate-x-1/2 translate-y-full rotate-180"
-      />
     </section>
   )
 }
