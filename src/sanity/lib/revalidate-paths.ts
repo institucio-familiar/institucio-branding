@@ -20,7 +20,7 @@ const sanityTypeToPathSegment: Record<string, string | null> = {
   'test-1': 'library'
 }
 
-export function getPathsForSanityType(documentType: string): string[] {
+export function getPathsForSanityType(documentType: string) {
   const segment = sanityTypeToPathSegment[documentType]
   if (segment === undefined) return []
 

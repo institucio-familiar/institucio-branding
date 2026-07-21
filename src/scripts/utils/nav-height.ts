@@ -6,11 +6,11 @@ export const NAV_HEIGHT = {
 
 const MD_QUERY = '(min-width: 768px)'
 
-export function getNavHeight(): number {
+export function getNavHeight() {
   if (typeof window === 'undefined') return NAV_HEIGHT.md
   return window.matchMedia(MD_QUERY).matches ? NAV_HEIGHT.md : NAV_HEIGHT.sm
 }
 
-export function getNavProbeLine(): number {
+export function getNavProbeLine() {
   return getNavHeight() + 1
 }

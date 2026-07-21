@@ -56,36 +56,3 @@ const mediaTitle = title ?? heading
 
 <section class="relative min-h-lvh" data-hero-section data-header-theme="light">
 </section>
-
-<script>
-  import { gsap } from 'gsap'
-
-  const heroSection = document.querySelector('[data-hero-section]')
-  const heroMedia = document.querySelector('[data-hero-media]')
-
-  if (heroSection && heroMedia) {
-    const tween = gsap.fromTo(
-      heroMedia,
-      { scale: 1.2 },
-      {
-        scale: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: heroSection,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        }
-      }
-    )
-
-    document.addEventListener(
-      'swup:visit:start',
-      () => {
-        tween.scrollTrigger?.kill()
-        tween.kill()
-      },
-      { once: true }
-    )
-  }
-</script>

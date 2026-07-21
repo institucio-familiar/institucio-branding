@@ -26,7 +26,7 @@ export const ui = buildUi(...allTranslations) satisfies Record<
 export type UiKey = keyof (typeof ui)[typeof defaultLocale]
 
 export function useTranslations(locale: Locale) {
-  return function t(key: UiKey): string {
+  return function t(key: UiKey) {
     return ui[locale][key] ?? ui[defaultLocale][key]
   }
 }

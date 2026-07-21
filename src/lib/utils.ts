@@ -1,6 +1,6 @@
 const SLUG_MAX_LENGTH = 96
 
-export function slugify(input: string): string {
+export function slugify(input: string) {
   return input
     .toLowerCase()
     .normalize('NFD')

@@ -6,7 +6,7 @@ export type HeaderTheme = 'light' | 'dark'
 
 const LIGHT_SECTION_SELECTOR = '[data-header-theme="light"]'
 
-function getThemeFromScroll(sections: HTMLElement[]): HeaderTheme {
+function getThemeFromScroll(sections: HTMLElement[]) {
   const line = getNavProbeLine()
 
   for (const section of sections) {

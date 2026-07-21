@@ -74,10 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 }
 
-async function revalidatePath(
-  url: string,
-  bypassToken: string
-): Promise<RevalidateResult> {
+async function revalidatePath(url: string, bypassToken: string) {
   const response = await fetch(url, {
     method: 'GET',
     redirect: 'manual',

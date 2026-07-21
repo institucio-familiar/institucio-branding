@@ -18,7 +18,7 @@ type LogoElements = {
   escudoSvg: SVGSVGElement
 }
 
-function queryLogoElements(root: ParentNode): LogoElements | null {
+function queryLogoElements(root: ParentNode) {
   const nombreWrap = root.querySelector<HTMLElement>(
     '[data-header-logo-nombre-wrap]'
   )

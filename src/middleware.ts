@@ -3,11 +3,11 @@ import { defaultLocale, locales, type Locale } from '@/i18n/config'
 
 const skippedPrefixes = ['/api/', '/_astro/', '/studio']
 
-function shouldSkip(pathname: string): boolean {
+function shouldSkip(pathname: string) {
   return skippedPrefixes.some((prefix) => pathname.startsWith(prefix))
 }
 
-function hasLocalePrefix(pathname: string): boolean {
+function hasLocalePrefix(pathname: string) {
   const segment = pathname.split('/').filter(Boolean)[0]
   return Boolean(segment && locales.includes(segment as Locale))
 }

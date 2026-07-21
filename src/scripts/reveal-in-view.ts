@@ -9,16 +9,13 @@ const REVEAL_TO = {
 
 let activeCleanup: (() => void) | null = null
 
-function getDirectChildren(container: Element): HTMLElement[] {
+function getDirectChildren(container: Element) {
   return [...container.children].filter(
     (child): child is HTMLElement => child instanceof HTMLElement
   )
 }
 
-function createRevealTween(
-  elements: HTMLElement[],
-  trigger: HTMLElement
-): gsap.core.Tween {
+function createRevealTween(elements: HTMLElement[], trigger: HTMLElement) {
   return gsap.from(elements, {
     ...REVEAL_FROM,
     ...REVEAL_TO,
@@ -30,7 +27,7 @@ function createRevealTween(
   })
 }
 
-export function initRevealInView(): () => void {
+export function initRevealInView() {
   const tweens: gsap.core.Tween[] = []
 
   const prefersReducedMotion = window.matchMedia(

@@ -2,9 +2,7 @@ import { locales, type Locale } from './config'
 
 export type BilingualTranslations = Record<Locale, Record<string, string>>
 
-export function buildUi(
-  ...sources: BilingualTranslations[]
-): Record<Locale, Record<string, string>> {
+export function buildUi(...sources: BilingualTranslations[]) {
   const result = Object.fromEntries(
     locales.map((locale) => [locale, {}])
   ) as Record<Locale, Record<string, string>>
