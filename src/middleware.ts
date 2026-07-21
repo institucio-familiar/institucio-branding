@@ -13,11 +13,16 @@ function hasLocalePrefix(pathname: string) {
 }
 
 export const onRequest = defineMiddleware((context, next) => {
-  const { pathname, search } = context.url
+  const { pathname } = context.url
 
   if (shouldSkip(pathname) || hasLocalePrefix(pathname)) {
     return next()
   }
+
+  // Strip ISR/adapter-internal param so it doesn't leak into public redirects
+  const url = new URL(context.url)
+  url.searchParams.delete('x_astro_path')
+  const search = url.search
 
   const localizedPath =
     pathname === '/' ? `/${defaultLocale}/` : `/${defaultLocale}${pathname}`
