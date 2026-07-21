@@ -71,11 +71,11 @@ export class Transitions {
 
     this.swup.hooks.on('fetch:error', (e) => {
       console.log('fetch:error:', e)
-      debugger
+      // debugger
     })
     this.swup.hooks.on('fetch:timeout', (e) => {
       console.log('fetch:timeout:', e)
-      debugger
+      // debugger
     })
   }
 
