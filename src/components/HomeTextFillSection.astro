@@ -5,7 +5,7 @@ import Mask from '@/components/ui/Mask.astro'
 
 <section
   data-home-text-fill
-  class="relative min-h-[180svh] overflow-hidden bg-frost pt-nav-height flex items-center"
+  class="relative min-h-[60lvh] md:min-h-[180lvh] overflow-hidden bg-frost pt-nav-height flex items-center"
 >
   <div
     data-text-fill-parallax
@@ -93,6 +93,7 @@ import Mask from '@/components/ui/Mask.astro'
   const BLUE = '#1469ff'
   const NAVY = '#0b2449'
 
+  const MD_QUERY = '(min-width: 768px)'
   const section = document.querySelector('[data-home-text-fill]')
 
   if (section && !section.hasAttribute('data-text-fill-init')) {
@@ -107,14 +108,14 @@ import Mask from '@/components/ui/Mask.astro'
     const tweens: (gsap.core.Tween | gsap.core.Timeline)[] = []
 
     // Counteract scroll so content rises slower than the page (no pin).
-    // Higher travel = slower pass-by. ~0.35vh per side is a gentle lag.
-    if (parallax) {
+    // Higher travel = slower pass-by. Desktop only — too heavy on touch.
+    if (parallax && window.matchMedia(MD_QUERY).matches) {
       tweens.push(
         gsap.fromTo(
           parallax,
-          { y: () => -window.innerHeight * 0.6 },
+          { y: () => -document.documentElement.clientHeight * 0.6 },
           {
-            y: () => window.innerHeight * 0.6,
+            y: () => document.documentElement.clientHeight * 0.6,
             ease: 'none',
             scrollTrigger: {
               trigger: section,
@@ -135,7 +136,6 @@ import Mask from '@/components/ui/Mask.astro'
           start: 'top 82%',
           end: 'center 55%',
           scrub: true
-          // markers: true
         }
       })
 
@@ -217,14 +217,16 @@ import Mask from '@/components/ui/Mask.astro'
       gsap.set(letters, { color: BLUE })
 
       const letterDuration = 1 / letters.length
+      const isDesktop = window.matchMedia(MD_QUERY).matches
+      // Mobile section is ~60vh — widen the scrub window so the fill
+      // doesn't collapse into a near-instant color change.
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: 'top 28%',
-          end: 'bottom 85%',
+          start: isDesktop ? 'top 28%' : 'top 50%',
+          end: isDesktop ? 'bottom 85%' : 'bottom 50%',
           scrub: true,
           invalidateOnRefresh: true
-          // markers: true
         }
       })
 

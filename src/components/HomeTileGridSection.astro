@@ -27,13 +27,13 @@ const { image1, image2, text1, text2 } = Astro.props
     }
     <p
       data-tile-grid-text
-      class="order-2 aspect-[273.27/345] text-navy text-headline-2 flex items-center justify-center text-center uppercase"
+      class="order-2 aspect-[273.27/345] text-navy text-headline-1 md:text-headline-2 flex items-center justify-center text-center uppercase"
     >
       {text1}
     </p>
     <p
       data-tile-grid-text
-      class="order-4 md:order-3 aspect-[273.27/345] text-navy text-headline-2 flex items-center justify-center text-center uppercase"
+      class="order-4 md:order-3 aspect-[273.27/345] text-navy text-headline-1 md:text-headline-2 flex items-center justify-center text-center uppercase"
     >
       {text2}
     </p>
@@ -56,35 +56,38 @@ const { image1, image2, text1, text2 } = Astro.props
 <script>
   import { gsap } from 'gsap'
 
+  const MD_QUERY = '(min-width: 768px)'
   const section = document.querySelector('[data-home-tile-grid]')
 
   if (section) {
     const tweens: gsap.core.Tween[] = []
 
-    section.querySelectorAll('[data-tile-grid-mask]').forEach((mask) => {
-      const transformOrigin =
-        mask.getAttribute('data-origin') === 'top-right'
-          ? 'top right'
-          : 'top left'
+    if (window.matchMedia(MD_QUERY).matches) {
+      section.querySelectorAll('[data-tile-grid-mask]').forEach((mask) => {
+        const transformOrigin =
+          mask.getAttribute('data-origin') === 'top-right'
+            ? 'top right'
+            : 'top left'
 
-      tweens.push(
-        gsap.fromTo(
-          mask,
-          { scale: 0.3, transformOrigin },
-          {
-            scale: 1,
-            transformOrigin,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: mask,
-              start: 'top bottom',
-              end: 'center center',
-              scrub: true
+        tweens.push(
+          gsap.fromTo(
+            mask,
+            { scale: 0.3, transformOrigin },
+            {
+              scale: 1,
+              transformOrigin,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: mask,
+                start: 'top bottom',
+                end: 'center center',
+                scrub: true
+              }
             }
-          }
+          )
         )
-      )
-    })
+      })
+    }
 
     section.querySelectorAll('[data-tile-grid-text]').forEach((text) => {
       tweens.push(

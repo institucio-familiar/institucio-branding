@@ -41,14 +41,14 @@ const symbols = [
     <div class="relative w-full bg-white" data-home-values-scroll>
       <div
         data-home-values-sticky
-        class="relative min-h-dvh w-full overflow-hidden"
+        class="relative min-h-lvh w-full overflow-hidden"
       >
         <section
           class="values-section relative w-full"
           data-home-values-section
           data-header-theme="light"
         >
-          <div class="absolute inset-0 flex items-center justify-center h-screen">
+          <div class="absolute inset-0 flex items-center justify-center h-lvh">
             <div
               data-home-values-bg
               class="values-bg relative pointer-events-none bg-navy w-full"
@@ -114,13 +114,13 @@ const symbols = [
 
 <style>
   [data-home-values-scroll] {
-    height: 400svh;
-    min-height: 100svh;
+    height: 400lvh;
+    min-height: 100lvh;
   }
 
   .values-inner {
     --values-symbol-size: clamp(6rem, 15vw, 10rem);
-    padding-top: calc(50vh - calc(var(--values-symbol-size) / 2));
+    padding-top: calc(50lvh - calc(var(--values-symbol-size) / 2));
     will-change: transform;
   }
 
@@ -147,6 +147,7 @@ const symbols = [
 
   const NAVY = '#0b2449'
   const FROST = '#eef3fd'
+  const MD_QUERY = '(min-width: 768px)'
 
   const scrollContainer = document.querySelector('[data-home-values-scroll]')
   const section = scrollContainer?.querySelector('[data-home-values-section]')
@@ -169,7 +170,10 @@ const symbols = [
     const getInnerScrollDistance = () => {
       if (!(inner instanceof HTMLElement)) return 0
 
-      return Math.max(0, inner.scrollHeight - window.innerHeight)
+      return Math.max(
+        0,
+        inner.scrollHeight - document.documentElement.clientHeight
+      )
     }
 
     const SCROLL_RUNWAY_VH = 400
@@ -231,14 +235,15 @@ const symbols = [
       }
 
       const maskZoom = section.querySelector('#mask-zoom')
+      const isDesktop = window.matchMedia(MD_QUERY).matches
 
       gsap.set(background, {
-        height: '50vh'
+        height: '50lvh'
       })
       gsap.set(inner, { y: 0 })
       gsap.set(reveal, { autoAlpha: 0 })
 
-      if (maskZoom) {
+      if (maskZoom && isDesktop) {
         gsap.set(maskZoom, { scale: 0.65 })
       }
 
@@ -256,7 +261,7 @@ const symbols = [
 
       timeline
         .to(background, {
-          height: '100vh',
+          height: '100lvh',
           ease: 'none',
           duration: EXPAND_TO_100VH_DURATION
         })
@@ -276,7 +281,7 @@ const symbols = [
           '>'
         )
 
-      if (maskZoom) {
+      if (maskZoom && isDesktop) {
         timeline.to(
           maskZoom,
           {

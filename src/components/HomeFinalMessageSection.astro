@@ -20,13 +20,12 @@ const hasFirstMessage = Boolean(firstMessage?.text)
 
 {
   hasFirstMessage && (
-    <section class="relative w-full h-screen" data-home-final-message-first>
+    <section class="relative w-full h-lvh" data-home-final-message-first>
       <div class="absolute inset-0 flex flex-col" aria-hidden="true">
         <div class="h-1/2 bg-frost" />
         <div class="h-1/2 bg-white" />
       </div>
       {firstMessage.image && (
-        // <Mask type="tobi_horizontal" class="h-full w-full overflow-hidden">
         <div class="h-full w-full overflow-hidden relative">
           <MediaAsset media={firstMessage.image} imageSize={2000} />
           <div
@@ -41,7 +40,6 @@ const hasFirstMessage = Boolean(firstMessage?.text)
             </p>
           </div>
         </div>
-        // </Mask>
       )}
     </section>
   )
@@ -53,8 +51,8 @@ const hasFirstMessage = Boolean(firstMessage?.text)
       class="relative flex flex-col w-full items-center justify-center bg-white px-indent"
       data-home-final-message-second
     >
-      <div class="h-[150svh]" data-final-message-second-container>
-        <div class="h-[40vw] sticky top-[calc(50svh-20vw)] flex items-center justify-center">
+      <div class="h-[150lvh]" data-final-message-second-container>
+        <div class="h-[40vw] sticky top-[calc(50lvh-20vw)] flex items-center justify-center">
           <div class="overflow-hidden">
             <p
               class="text-[13vw] font-serif font-semibold text-navy text-center uppercase"
@@ -74,7 +72,7 @@ const hasFirstMessage = Boolean(firstMessage?.text)
   data-home-final-message-icon-section
 >
   <div
-    class="flex min-h-dvh w-full flex-col items-center justify-center gap-8 py-indent"
+    class="flex min-h-lvh w-full flex-col items-center justify-center gap-8 py-indent"
   >
     <div data-final-message-icon-track class="relative w-full overflow-hidden">
       <img
@@ -94,8 +92,8 @@ const hasFirstMessage = Boolean(firstMessage?.text)
       class="relative flex flex-col w-full items-center justify-center bg-white px-indent"
       data-home-final-message-third
     >
-      <div class="h-[150svh]" data-final-message-third-container>
-        <div class="h-[40vw] sticky top-[calc(50svh-20vw)] flex items-center justify-center">
+      <div class="h-[150lvh]" data-final-message-third-container>
+        <div class="h-[40vw] sticky top-[calc(50lvh-20vw)] flex items-center justify-center">
           <div class="overflow-hidden">
             <p
               class="text-[13vw] font-serif font-semibold text-navy text-center uppercase"
@@ -106,7 +104,7 @@ const hasFirstMessage = Boolean(firstMessage?.text)
           </div>
         </div>
       </div>
-      <div class="h-[50svh] translate-y-[-10vw] mb-[-4vw]">
+      <div class="h-[50lvh] translate-y-[-10vw] mb-[-4vw]">
         <img
           data-final-message-third-image
           src="https://cdn.sanity.io/images/ryub47of/production/bd1225fc754aae5d9278ff44668adf3ec4e6afb1-2048x2080.png?w=400"
@@ -178,15 +176,17 @@ const hasFirstMessage = Boolean(firstMessage?.text)
   const thirdInited = markInited(thirdSection, initAttrs.third)
 
   if (firstInited || iconInited || secondInited || thirdInited) {
+    const MD_QUERY = '(min-width: 768px)'
+
     const setupFirstMessageParallax = (section: Element) => {
       const text = section.querySelector('[data-final-message-first-text]')
       if (!text) return
 
       gsap.fromTo(
         text,
-        { y: '-100vh' },
+        { y: '-100lvh' },
         {
-          y: '100vh',
+          y: '100lvh',
           ease: 'none',
           scrollTrigger: {
             trigger: section,
@@ -253,7 +253,7 @@ const hasFirstMessage = Boolean(firstMessage?.text)
       })
     }
 
-    if (firstInited && firstSection) {
+    if (firstInited && firstSection && window.matchMedia(MD_QUERY).matches) {
       schedule(() => setupFirstMessageParallax(firstSection))
     }
 

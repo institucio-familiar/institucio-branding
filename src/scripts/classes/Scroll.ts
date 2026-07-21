@@ -43,11 +43,20 @@ export class Scroll {
   static init() {
     gsap.registerPlugin(ScrollTrigger)
 
+    // Avoid ScrollTrigger refresh loops when mobile browser chrome
+    // shows/hides (which also changes dvh / innerHeight).
+    ScrollTrigger.config({ ignoreMobileResize: true })
+
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
 
     this.locomotiveScroll = new LocomotiveScroll({
+      // Keep wheel smooth; let touch use native scrolling so scrubbed
+      // pins don't fight Lenis interpolation on mobile.
+      lenisOptions: {
+        syncTouch: false
+      },
       initCustomTicker: (render) => {
         gsap.ticker.add(render)
       },

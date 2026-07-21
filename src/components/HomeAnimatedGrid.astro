@@ -46,7 +46,10 @@ const mobileAspects = [
       </div>
 
       {/* Desktop: animated sticky grid */}
-      <div data-animated-grid-sticky class="relative hidden min-h-svh w-full md:block">
+      <div
+        data-animated-grid-sticky
+        class="relative hidden min-h-lvh w-full md:block"
+      >
         <div
           data-grid-center-media
           class="pointer-events-none absolute inset-0 z-0"
@@ -57,7 +60,7 @@ const mobileAspects = [
           </div>
         </div>
 
-        <div class="relative z-10 flex min-h-svh w-full items-center px-[9vw] py-2">
+        <div class="relative z-10 flex min-h-lvh w-full items-center px-[9vw] py-2">
           <div class="animated-grid grid w-full aspect-1190/765 max-w-7xl grid-cols-3 gap-2 p-2">
             <div class="animated-grid-column flex flex-col items-end gap-2">
               <div
@@ -86,7 +89,7 @@ const mobileAspects = [
             <div class="flex items-center justify-center">
               <div
                 data-grid-center-slot
-                class="grid-media-center pointer-events-none invisible w-full h-[65svh] max-h-[45vw]"
+                class="grid-media-center pointer-events-none invisible w-full h-[65lvh] max-h-[45vw]"
                 aria-hidden="true"
               />
             </div>
@@ -124,7 +127,7 @@ const mobileAspects = [
 <style>
   @media (min-width: 768px) {
     [data-home-animated-grid] {
-      height: 400svh;
+      height: 400lvh;
     }
   }
 

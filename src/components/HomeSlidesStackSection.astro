@@ -18,7 +18,7 @@ const hasContent = images.length > 0
       data-home-slides-stack
       style={`--slides-count: ${images.length}`}
     >
-      <div class="sticky top-0 flex h-svh w-full items-center justify-center overflow-hidden px-indent">
+      <div class="sticky top-0 flex h-lvh w-full items-center justify-center overflow-hidden px-indent">
         <div
           data-slides-stack
           class="slides-stack relative aspect-square w-[clamp(200px,50vw,700px)]"
@@ -65,7 +65,7 @@ const hasContent = images.length > 0
 
 <style>
   [data-home-slides-stack] {
-    height: calc(max(var(--slides-count), 2) * 400svh);
+    height: calc(max(var(--slides-count), 2) * 400lvh);
   }
 
   .slides-card {
