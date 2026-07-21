@@ -124,7 +124,17 @@ export class Scroll {
 
     lenis.options.virtualScroll = (data) => {
       if (this.previousVirtualScroll?.(data) === false) return false
-      if (data.event.cancelable) data.event.preventDefault()
+
+      // Never preventDefault on touchstart/touchend — that cancels click
+      // synthesis on mobile/touch. Only block actual scroll gestures.
+      const type = data.event.type
+      if (
+        data.event.cancelable &&
+        type !== 'touchstart' &&
+        type !== 'touchend'
+      ) {
+        data.event.preventDefault()
+      }
       return false
     }
 

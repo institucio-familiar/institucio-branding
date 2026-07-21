@@ -34,14 +34,14 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   <div class="flex">
     <div
       id="menu-overlay"
-      class="bg-navy -z-1 fixed inset-0"
+      class="bg-navy pointer-events-none fixed inset-0 z-1"
       style="transform: translateY(-100%)"
     >
     </div>
     <button
       id="menu-button"
       type="button"
-      class="relative inline-flex items-center justify-center rounded-sm border size-7 cursor-pointer border-transparent bg-blue text-frost transition-colors duration-200 hover:border-white hover:bg-white hover:text-blue active:border-transparent active:bg-sky active:text-frost"
+      class="relative z-10 inline-flex items-center justify-center rounded-sm border size-7 cursor-pointer border-transparent bg-blue text-frost transition-colors duration-200 hover:border-white hover:bg-white hover:text-blue active:border-transparent active:bg-sky active:text-frost"
       aria-label="Menu"
     >
       <span
@@ -60,7 +60,7 @@ const SUBMENU_ITEMS: { key: UiKey; href: string }[] = [
   </div>
   <div
     id="menu-content"
-    class="fixed inset-0 -z-1 flex justify-between pt-[120px] opacity-0 md:items-center md:pt-0"
+    class="pointer-events-none fixed inset-0 z-1 flex justify-between pt-[120px] opacity-0 md:items-center md:pt-0"
   >
     <div id="menu-items" class="p-indent">
       <ul class="flex flex-col gap-4">

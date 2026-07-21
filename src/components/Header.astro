@@ -16,7 +16,10 @@ const t = useTranslations(locale)
 <div data-header data-theme="light" class="fixed inset-x-0 top-0 z-50">
   <header class="absolute left-0 z-10">
     <div class="flex items-end gap-2 px-indent py-3 md:py-7">
-      <a href={getRelativeLocaleUrl(locale)} class="flex items-end">
+      <a
+        href={getRelativeLocaleUrl(locale)}
+        class="relative z-10 flex items-end"
+      >
         <div data-header-logo-escudo-wrap class="flex h-[42px] items-end">
           <ColegioEscudo class="header-logo h-[42px] w-auto" />
         </div>
@@ -32,7 +35,7 @@ const t = useTranslations(locale)
   </header>
 
   <div
-    class="absolute top-[26px] md:top-[34px] right-indent flex items-center gap-4"
+    class="absolute top-[26px] z-10 md:top-[34px] right-indent flex items-center gap-4"
     data-header-actions
   >
     <Button

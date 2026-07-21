@@ -9,6 +9,8 @@ import sanity from '@sanity/astro'
 import react from '@astrojs/react'
 import vercel from '@astrojs/vercel'
 
+const NGROK_HOST = 'https://guided-bobcat-charmed.ngrok-free.app'
+
 const {
   PUBLIC_SANITY_PROJECT_ID,
   PUBLIC_SANITY_DATASET,
