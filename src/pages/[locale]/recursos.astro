@@ -9,17 +9,8 @@ import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { RECURSOS_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
-import { parsePageHeader } from '@/sanity/lib/page-parsers'
-import { toMedia } from '@/sanity/lib/utils'
+import { parsePageHeader, toLinkedMediaCards } from '@/sanity/lib/page-parsers'
 import { slugify } from '@/src/lib/utils'
-import type { Media } from '@/components/ui/blocks/block-types'
-
-type RecursosCard = {
-  title: string
-  description: string
-  buttonUrl: string
-  media: Media
-}
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -30,21 +21,7 @@ async function getPageData() {
 
   return {
     ...parsePageHeader(sanityPageData, locale),
-    section1: (sanityPageData?.section1 ?? [])
-      .map((item) => {
-        const media = toMedia(item.media)
-        const title = item.title?.[locale]
-        const description = item.description?.[locale]
-        if (!media || !item.url || !title || !description) return null
-
-        return {
-          title,
-          description,
-          buttonUrl: item.url,
-          media
-        }
-      })
-      .filter((item): item is RecursosCard => item !== null)
+    section1: toLinkedMediaCards(sanityPageData?.section1, locale)
   }
 }
 
@@ -85,7 +62,7 @@ const asideSections = ['Recursos'].map((label) => ({
             class="grid grid-cols-1 gap-indent pb-8 md:grid-cols-2"
             data-reveal-in-view
           >
-            {pageData.section1.map((item: RecursosCard) => (
+            {pageData.section1.map((item) => (
               <Card
                 title={item.title}
                 media={item.media}

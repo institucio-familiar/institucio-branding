@@ -11,12 +11,13 @@ import {
   parsePageHeader,
   toAtom1,
   toAtom2,
-  toBadUses
+  toBadUses,
+  toLayoutFormats,
+  toLocaleString
 } from '@/sanity/lib/page-parsers'
 import { Block1, Block5, Block7, Block9, Block10 } from '@/components/ui/blocks'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
-import { toLocaleString } from '@/sanity/lib/page-parsers'
 
 const { locale: localeParam } = Astro.params
 const locale = getPageLocale(Astro.currentLocale, localeParam)
@@ -43,21 +44,7 @@ async function getPageData() {
           title: toLocaleString(sanityPageData.section2.title, locale),
           description: sanityPageData.section2.description?.[locale] || '',
           mediaAsset: toMedia(sanityPageData.section2.mediaAsset),
-          formats: (sanityPageData.section2.formats ?? [])
-            .map((format) => {
-              const image1 = toMedia(format.image1)
-              const image2 = toMedia(format.image2)
-              if (!image1 || !image2) return null
-
-              return {
-                title: toLocaleString(format.title, locale),
-                description: format.description?.[locale] || '',
-                image1,
-                image2
-              }
-            })
-            .filter(Boolean)
-            .filter((format) => format !== null)
+          formats: toLayoutFormats(sanityPageData.section2.formats, locale)
         }
       : {
           title: '',

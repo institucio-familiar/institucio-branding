@@ -332,3 +332,106 @@ export function parsePageHeader(
     pageDescription: toLocaleString(data?.intro?.description, locale)
   }
 }
+
+export function toCorrectIncorrectPairs(
+  items:
+    | Array<{ correct?: I18nString; incorrect?: I18nString }>
+    | null
+    | undefined,
+  locale: Locale
+) {
+  return (items ?? []).map((item) => ({
+    correct: item.correct?.[locale],
+    incorrect: item.incorrect?.[locale]
+  }))
+}
+
+export type SanityLayoutFormat = {
+  title?: I18nString
+  description?: I18nText
+  image1?: SanityMediaAsset
+  image2?: SanityMediaAsset
+}
+
+export function toLayoutFormats(
+  formats: SanityLayoutFormat[] | null | undefined,
+  locale: Locale
+) {
+  return (formats ?? []).flatMap((format) => {
+    const image1 = toMedia(format.image1)
+    const image2 = toMedia(format.image2)
+    if (!image1 || !image2) return []
+
+    return [
+      {
+        title: toLocaleString(format.title, locale),
+        description: format.description?.[locale] || '',
+        image1,
+        image2
+      }
+    ]
+  })
+}
+
+export type SanityQaItem = {
+  question?: I18nString
+  answer?: I18nText
+}
+
+export function toQaItems(
+  items: SanityQaItem[] | null | undefined,
+  locale: Locale
+) {
+  return (items ?? []).flatMap((item) => {
+    const question = item.question?.[locale]
+    const answer = item.answer?.[locale]
+    if (!question || !answer) return []
+
+    return [{ question, answer }]
+  })
+}
+
+export type SanityMediaCard = {
+  title?: I18nString
+  description?: I18nText
+  media?: SanityMediaAsset
+}
+
+export function toMediaCards(
+  items: SanityMediaCard[] | null | undefined,
+  locale: Locale
+) {
+  return (items ?? []).flatMap((item) => {
+    const media = toMedia(item.media)
+    const title = item.title?.[locale]
+    const description = item.description?.[locale]
+    if (!media || !title || !description) return []
+
+    return [{ title, description, media }]
+  })
+}
+
+export type SanityLinkedMediaCard = SanityMediaCard & {
+  url?: string | null
+}
+
+export function toLinkedMediaCards(
+  items: SanityLinkedMediaCard[] | null | undefined,
+  locale: Locale
+) {
+  return (items ?? []).flatMap((item) => {
+    const media = toMedia(item.media)
+    const title = item.title?.[locale]
+    const description = item.description?.[locale]
+    if (!media || !item.url || !title || !description) return []
+
+    return [
+      {
+        title,
+        description,
+        buttonUrl: item.url,
+        media
+      }
+    ]
+  })
+}

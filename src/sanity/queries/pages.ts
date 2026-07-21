@@ -1,23 +1,19 @@
 import { defineQuery } from 'groq'
 
-const mediaAssetProjection = /* groq */ `{
-  mediaType,
-  image,
-  video {
-    asset->{
-      playbackId
-    }
-  }
-}`
-
-const heroProjection = /* groq */ `{
-  media ${mediaAssetProjection}
-}`
-
 const muxVideoProjection = /* groq */ `{
   asset->{
     playbackId
   }
+}`
+
+const mediaAssetProjection = /* groq */ `{
+  mediaType,
+  image,
+  video ${muxVideoProjection}
+}`
+
+const heroProjection = /* groq */ `{
+  media ${mediaAssetProjection}
 }`
 
 const atom1Projection = /* groq */ `{

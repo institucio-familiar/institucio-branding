@@ -7,7 +7,7 @@ import Puncha from '@/components/icons/Puncha.astro'
 import { NUESTRA_MARCA_PAGE_QUERY } from '@/sanity/queries/pages'
 import { sanityClient } from 'sanity:client'
 import { toMedia } from '@/sanity/lib/utils'
-import { parsePageHeader, toAtom1 } from '@/sanity/lib/page-parsers'
+import { parsePageHeader, toAtom1, toMediaCards, toQaItems } from '@/sanity/lib/page-parsers'
 import PageAsideLayout from '@/layouts/page-aside/PageAsideLayout.astro'
 import Section from '@/layouts/page-aside/PageAsideSection.astro'
 import { Block1, Block7 } from '@/components/ui/blocks'
@@ -39,25 +39,10 @@ async function getPageData() {
     section1: sanityPageData?.section1
       ? {
           title: sanityPageData.section1.title?.[locale],
-          questions: (sanityPageData.section1.questions ?? []).flatMap(
-            (question) => {
-              const questionText = question.question?.[locale]
-              const answerText = question.answer?.[locale]
-              if (!questionText || !answerText) return []
-
-              return [{ question: questionText, answer: answerText }]
-            }
-          )
+          questions: toQaItems(sanityPageData.section1.questions, locale)
         }
       : null,
-    section2: (sanityPageData?.section2 ?? []).flatMap((item) => {
-      const media = toMedia(item.media)
-      const title = item.title?.[locale]
-      const description = item.description?.[locale]
-      if (!media || !title || !description) return []
-
-      return [{ title, description, media }]
-    }),
+    section2: toMediaCards(sanityPageData?.section2, locale),
     section3: (
       Object.keys(
         PRINCIPIOS_CREATIVOS_PATHS

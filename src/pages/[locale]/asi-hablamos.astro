@@ -8,6 +8,7 @@ import { sanityClient } from 'sanity:client'
 import {
   parsePageHeader,
   toAtom1Array,
+  toCorrectIncorrectPairs,
   toMedias,
   toSectionWithAtom1Blocks
 } from '@/sanity/lib/page-parsers'
@@ -33,14 +34,8 @@ async function getPageData() {
     section2: {
       blocks: toAtom1Array(sanityPageData?.section2?.blocks, locale)
     },
-    section3: (sanityPageData?.section3 ?? []).map((item) => ({
-      correct: item.correct?.[locale],
-      incorrect: item.incorrect?.[locale]
-    })),
-    section4: (sanityPageData?.section4 ?? []).map((item) => ({
-      correct: item.correct?.[locale],
-      incorrect: item.incorrect?.[locale]
-    }))
+    section3: toCorrectIncorrectPairs(sanityPageData?.section3, locale),
+    section4: toCorrectIncorrectPairs(sanityPageData?.section4, locale)
   }
 }
 

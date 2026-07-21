@@ -40,11 +40,11 @@ const cardSections = ['section2', 'section3', 'section4', 'section5'] as const
 
 const asideSections = [
   pageData.pageTitle,
-  pageData.section1.title,
-  pageData.section2.title,
-  pageData.section3.title,
-  pageData.section4.title,
-  pageData.section5.title,
+  pageData.section1?.title ?? '',
+  pageData.section2?.title ?? '',
+  pageData.section3?.title ?? '',
+  pageData.section4?.title ?? '',
+  pageData.section5?.title ?? '',
   pageData.section6.title
 ].map((label) => ({ id: slugify(label), label }))
 ---
