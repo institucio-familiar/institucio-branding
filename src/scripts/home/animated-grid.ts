@@ -53,18 +53,17 @@ export function initAnimatedGrid() {
 
       const CLIP_ROUND = 5
       const CLIP_START = 16
-
-      let targetClip = {
-        top: CLIP_START,
-        right: CLIP_START,
-        bottom: CLIP_START,
-        left: CLIP_START,
-        round: CLIP_ROUND
-      }
+      const clipProgress = { value: 0 }
+      let clipRaf = 0
 
       function measureTargetClip() {
         if (!centerMedia || !centerSlot) {
-          return targetClip
+          return {
+            top: CLIP_START,
+            right: CLIP_START,
+            bottom: CLIP_START,
+            left: CLIP_START
+          }
         }
 
         const mediaRect = centerMedia.getBoundingClientRect()
@@ -74,14 +73,15 @@ export function initAnimatedGrid() {
           top: Math.max(0, slotRect.top - mediaRect.top),
           right: Math.max(0, mediaRect.right - slotRect.right),
           bottom: Math.max(0, mediaRect.bottom - slotRect.bottom),
-          left: Math.max(0, slotRect.left - mediaRect.left),
-          round: CLIP_ROUND
+          left: Math.max(0, slotRect.left - mediaRect.left)
         }
       }
 
+      // Remeasure on every apply so clip insets track layout after resize.
       function applyCenterClip(progress: number) {
         if (!centerMedia) return
 
+        const targetClip = measureTargetClip()
         const top = gsap.utils.interpolate(CLIP_START, targetClip.top, progress)
         const right = gsap.utils.interpolate(
           CLIP_START,
@@ -102,13 +102,14 @@ export function initAnimatedGrid() {
         centerMedia.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round ${CLIP_ROUND}px)`
       }
 
-      function refreshClipTarget() {
-        targetClip = measureTargetClip()
+      function scheduleCenterClipRefresh() {
+        cancelAnimationFrame(clipRaf)
+        clipRaf = requestAnimationFrame(() => {
+          applyCenterClip(clipProgress.value)
+        })
       }
 
-      refreshClipTarget()
-
-      const clipProgress = { value: 0 }
+      applyCenterClip(0)
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -119,7 +120,7 @@ export function initAnimatedGrid() {
           pin: sticky,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          onRefreshInit: refreshClipTarget,
+          // Measure after pin/layout settles, not in onRefreshInit.
           onRefresh: () => applyCenterClip(clipProgress.value)
         }
       })
@@ -164,6 +165,18 @@ export function initAnimatedGrid() {
           index * 0.25
         )
       })
+
+      // Slot/grid size can change on resize without a full ScrollTrigger
+      // refresh cycle catching the clipped media — keep it in sync.
+      const resizeObserver = new ResizeObserver(scheduleCenterClipRefresh)
+      if (centerSlot instanceof HTMLElement) resizeObserver.observe(centerSlot)
+      resizeObserver.observe(sticky)
+
+      return () => {
+        cancelAnimationFrame(clipRaf)
+        resizeObserver.disconnect()
+        if (centerMedia) centerMedia.style.clipPath = ''
+      }
     })
   }, section)
 

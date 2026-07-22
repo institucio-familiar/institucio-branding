@@ -60,7 +60,7 @@ const mobileAspects = [
           </div>
         </div>
 
-        <div class="relative z-10 flex min-h-lvh w-full items-center px-[9vw] py-2">
+        <div class="relative z-10 flex min-h-lvh w-full items-center justify-center px-[9vw] py-2">
           <div class="animated-grid grid w-full aspect-1190/765 max-w-7xl grid-cols-3 gap-2 p-2">
             <div class="animated-grid-column flex flex-col items-end gap-2">
               <div
@@ -150,9 +150,14 @@ const mobileAspects = [
     object-position: center;
   }
 
+  [data-grid-item] {
+    max-width: 24rem;
+  }
+
   .grid-media {
     isolation: isolate;
-    height: 15vw;
+    /* Cap with the item max-width so sizes freeze once the grid stops growing */
+    height: min(15vw, 13.5rem);
   }
 
   .grid-media :global(img),
