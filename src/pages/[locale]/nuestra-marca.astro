@@ -77,7 +77,11 @@ const asideSections = [
 ---
 
 <MainLayout>
-  <Hero media={pageData.heroMedia} title={pageData.pageTitle} />
+  <Hero
+    media={pageData.heroMedia}
+    mediaMobile={pageData.heroMediaMobile}
+    title={pageData.pageTitle}
+  />
 
   <section class="relative bg-white px-indent" data-header-theme="dark">
     <Puncha

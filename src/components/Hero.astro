@@ -7,6 +7,7 @@ import type { Media } from '@/components/ui/blocks/block-types'
 
 type Props = {
   media: Media | null
+  mediaMobile?: Media | null
   title?: string
   heading?: string
   imageSize?: number
@@ -15,7 +16,7 @@ type Props = {
 const locale = getPageLocale(Astro.currentLocale, Astro.params.locale)
 const t = useTranslations(locale)
 
-const { media, title, heading, imageSize = 3000 } = Astro.props
+const { media, mediaMobile, title, heading, imageSize = 3000 } = Astro.props
 const mediaTitle = title ?? heading
 ---
 
@@ -26,10 +27,18 @@ const mediaTitle = title ?? heading
       class="pointer-events-none fixed inset-0 -z-1 h-lvh w-full origin-center"
       style="transform: scale(1.2)"
     >
+      {mediaMobile && (
+        <MediaAsset
+          media={mediaMobile}
+          title={mediaTitle}
+          class="absolute inset-0 md:hidden"
+          imageSize={imageSize}
+        />
+      )}
       <MediaAsset
         media={media}
         title={mediaTitle}
-        class="absolute inset-0"
+        class:list={['absolute inset-0', mediaMobile && 'max-md:hidden']}
         imageSize={imageSize}
       />
     </div>

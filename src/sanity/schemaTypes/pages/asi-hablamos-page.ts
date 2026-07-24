@@ -25,6 +25,11 @@ export const asiHablamosPage = defineType({
           name: 'media',
           title: 'Media',
           type: 'mediaAsset'
+        }),
+        defineField({
+          name: 'mediaMobile',
+          title: 'Media Mobile',
+          type: 'mediaAsset'
         })
       ]
     }),

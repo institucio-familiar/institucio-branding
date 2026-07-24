@@ -13,7 +13,8 @@ const mediaAssetProjection = /* groq */ `{
 }`
 
 const heroProjection = /* groq */ `{
-  media ${mediaAssetProjection}
+  media ${mediaAssetProjection},
+  mediaMobile ${mediaAssetProjection}
 }`
 
 const atom1Projection = /* groq */ `{

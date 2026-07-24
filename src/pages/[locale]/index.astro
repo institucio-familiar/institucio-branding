@@ -29,6 +29,7 @@ async function getPageData() {
   // Parse data
   return {
     heroMedia: toMedia(sanityPageData?.hero?.media),
+    heroMediaMobile: toMedia(sanityPageData?.hero?.mediaMobile),
     textSlides: {
       textSlide1: toLocaleString(
         sanityPageData?.textSlides?.textSlide1,
@@ -108,7 +109,11 @@ const pageData = await getPageData()
 ---
 
 <MainLayout>
-  <Hero media={pageData.heroMedia} heading={t('home.hero')} />
+  <Hero
+    media={pageData.heroMedia}
+    mediaMobile={pageData.heroMediaMobile}
+    heading={t('home.hero')}
+  />
 
   <div class="relative h-[400lvh] w-full" data-home-sections>
     <div class="sticky top-0 h-lvh w-full">

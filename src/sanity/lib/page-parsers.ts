@@ -319,7 +319,10 @@ export function toMotionSection(
 export function parsePageHeader(
   data:
     | {
-        hero?: { media?: SanityMediaAsset } | null
+        hero?: {
+          media?: SanityMediaAsset
+          mediaMobile?: SanityMediaAsset
+        } | null
         intro?: { title?: I18nString; description?: I18nText } | null
       }
     | null
@@ -328,6 +331,7 @@ export function parsePageHeader(
 ) {
   return {
     heroMedia: toMedia(data?.hero?.media),
+    heroMediaMobile: toMedia(data?.hero?.mediaMobile),
     pageTitle: toLocaleString(data?.intro?.title, locale),
     pageDescription: toLocaleString(data?.intro?.description, locale)
   }

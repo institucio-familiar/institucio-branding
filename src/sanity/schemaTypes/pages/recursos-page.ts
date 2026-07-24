@@ -26,6 +26,11 @@ export const recursosPage = defineType({
           title: 'Media',
           type: 'mediaAsset',
           validation: (rule) => rule.required()
+        }),
+        defineField({
+          name: 'mediaMobile',
+          title: 'Media Mobile',
+          type: 'mediaAsset'
         })
       ]
     }),
