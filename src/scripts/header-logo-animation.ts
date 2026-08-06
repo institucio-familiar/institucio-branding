@@ -390,29 +390,56 @@ export function initHeaderLogoAnimation() {
       parseFloat(getComputedStyle(elements.nombreWrap).paddingLeft) || 8
   }
 
-  function syncLogo(scroll: number) {
-    const shouldBeCompact = scroll > SCROLL_THRESHOLD
+  function expandLogo() {
+    if (!isCompact) return
+    isCompact = false
 
-    if (shouldBeCompact && !isCompact) {
-      isCompact = true
-      applyCompactState(elements, !prefersReducedMotion, fullMetrics)
+    if (prefersReducedMotion) {
+      setFullState(elements)
       return
     }
 
-    if (!shouldBeCompact && isCompact) {
-      isCompact = false
+    animateToFullState(elements, fullMetrics)
+  }
 
-      if (prefersReducedMotion) {
-        setFullState(elements)
-        return
-      }
+  function compactLogo() {
+    if (isCompact) return
+    isCompact = true
+    applyCompactState(elements, !prefersReducedMotion, fullMetrics)
+  }
 
-      animateToFullState(elements, fullMetrics)
+  function syncLogo({
+    scroll,
+    direction
+  }: {
+    scroll: number
+    direction: number
+  }) {
+    // Near the top, always show the full logo.
+    if (scroll <= SCROLL_THRESHOLD) {
+      expandLogo()
+      return
+    }
+
+    // Past the threshold, follow scroll direction:
+    // down → compact (A → B), up → full (B → A).
+    if (direction === 1) {
+      compactLogo()
+    } else if (direction === -1) {
+      expandLogo()
     }
   }
 
-  const unsubscribe = $scroll.subscribe(({ scroll }) => syncLogo(scroll))
-  syncLogo($scroll.get().scroll)
+  const unsubscribe = $scroll.subscribe(({ scroll, direction }) =>
+    syncLogo({ scroll, direction })
+  )
+
+  // On init, set state from position only (direction may be 0).
+  const { scroll: initialScroll } = $scroll.get()
+  if (initialScroll > SCROLL_THRESHOLD) {
+    isCompact = true
+    applyCompactState(elements, false, fullMetrics)
+  }
 
   return () => {
     unsubscribe()
